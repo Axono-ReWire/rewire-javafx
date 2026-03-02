@@ -1,0 +1,12 @@
+{
+    "recommendations": [
+        "vscjava.vscode-java-pack",
+        "shengchen.vscode-checkstyle",
+        "github.vscode-pull-request-github",
+        "sonarsource.sonarlint-vscode",
+        "esbenp.prettier-vscode",
+        "vscjava.vscode-lombok",
+        "github.vscode-github-actions",
+        "dotjoshjohnson.xml"
+    ]
+}

@@ -1,0 +1,22 @@
+{
+  "java.format.settings.url": ".vscode/java-formatter.xml",
+  "java.format.settings.profile": "EclipseStyle",
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "redhat.java",
+  "git.autofetch": true,
+  "checkstyle.modules": [
+    {
+        "name": "Team Style",
+        "path": "checkstyle.xml",
+        "active": true
+    }
+],
+<<<<<<< Updated upstream
+"java.configuration.updateBuildConfiguration": "interactive",
+"java.project.SourcePaths": [
+    "src/main/java/com/axono"
+],
+=======
+"java.configuration.updateBuildConfiguration": "interactive"
+>>>>>>> Stashed changes
+}
