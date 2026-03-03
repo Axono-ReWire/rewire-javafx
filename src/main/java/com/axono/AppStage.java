@@ -11,10 +11,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import com.axono.ui.UITheme;
 
 public class AppStage {
 
-    private static final String NAV_BG = "#1A6A82";
+    private static final String NAV_BG = "#FFFFFF";
 
     private final Stage mainStage;
     private UserProfile profile;
@@ -51,9 +52,9 @@ public class AppStage {
 
     // ── Nav Bar ───────────────────────────────────────────────────────────────
     private HBox buildNavBar() {
-        Label logo = new Label("⚡  Axono ReWire");
+        Label logo = new Label("Axono ReWire");
         logo.setStyle(
-                "-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;");
+                "-fx-text-fill: " + UITheme.PRIMARY + "; -fx-font-size: 18px; -fx-font-weight: bold;");
         HBox.setHgrow(logo, Priority.ALWAYS);
 
         homeBtn = navButton("Home");
@@ -91,21 +92,24 @@ public class AppStage {
     }
 
     private String inactiveStyle() {
-        return "-fx-background-color: transparent; -fx-text-fill: white;" +
+        return "-fx-background-color: transparent; -fx-text-fill: " + UITheme.TEXT_MUTED + ";" +
                 "-fx-font-size: 14px; -fx-font-weight: bold;" +
-                "-fx-padding: 6px 16px; -fx-background-radius: 4px; -fx-cursor: hand;";
+                "-fx-padding: 6px 16px; -fx-background-radius: 4px; -fx-cursor: hand;" +
+                "-fx-border-color: " + UITheme.BORDER + "; -fx-border-width: 2px; -fx-border-radius: 4px;";
     }
 
     private String hoverStyle() {
-        return "-fx-background-color: rgba(255,255,255,0.15); -fx-text-fill: white;" +
+        return "-fx-background-color: rgba(255,255,255,0.15); -fx-text-fill: " + UITheme.TEXT_DARK + ";" +
                 "-fx-font-size: 14px; -fx-font-weight: bold;" +
-                "-fx-padding: 6px 16px; -fx-background-radius: 4px; -fx-cursor: hand;";
+                "-fx-padding: 6px 16px; -fx-background-radius: 4px; -fx-cursor: hand;" +
+                "-fx-border-color: " + UITheme.BORDER + "; -fx-border-width: 2px; -fx-border-radius: 4px;";
     }
 
     private String activeStyle() {
-        return "-fx-background-color: rgba(255,255,255,0.28); -fx-text-fill: white;" +
+        return "-fx-background-color: rgba(255,255,255,0.28); -fx-text-fill: " + UITheme.TEXT_DARK + ";" +
                 "-fx-font-size: 14px; -fx-font-weight: bold;" +
-                "-fx-padding: 6px 16px; -fx-background-radius: 4px; -fx-cursor: hand;";
+                "-fx-padding: 6px 16px; -fx-background-radius: 4px; -fx-cursor: hand;" +
+                "-fx-border-color: " + UITheme.BORDER + "; -fx-border-width: 2px; -fx-border-radius: 4px;";
     }
 
     // ── View Switching ────────────────────────────────────────────────────────

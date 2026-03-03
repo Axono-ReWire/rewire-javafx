@@ -70,7 +70,7 @@ public class SubjectView extends StackPane {
                 "-fx-border-radius: 4px; -fx-background-radius: 4px;" +
                 "-fx-padding: 8px 10px;";
         String selectedStyle = "-fx-background-color: #E8F7FB;" +
-                "-fx-border-color: " + UITheme.ACCENT + "; -fx-border-width: 2px;" +
+                "-fx-border-color: " + UITheme.SECONDARY + "; -fx-border-width: 2px;" +
                 "-fx-border-radius: 4px; -fx-background-radius: 4px;" +
                 "-fx-padding: 8px 10px;";
 
