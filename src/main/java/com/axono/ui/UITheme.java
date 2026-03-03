@@ -4,9 +4,8 @@ public final class UITheme {
     private UITheme() {
     }
 
-    public static final String PRIMARY = "#1E3A5F";
-    public static final String ACCENT = "#00A8CC";
-    public static final String SUCCESS = "#28A745";
+    public static final String PRIMARY = "#59BE8B";
+    public static final String SECONDARY = "#1A6A82";
     public static final String BG = "#F4F6F9";
     public static final String WHITE = "#FFFFFF";
     public static final String TEXT_DARK = "#212529";

@@ -30,7 +30,7 @@ public class SummaryView extends StackPane {
         icon.setStyle("-fx-font-size: 40px;");
 
         Label heading = new Label("You're all set!");
-        heading.setStyle(TEXT_FILL_STYLE + UITheme.SUCCESS + ";" +
+        heading.setStyle(TEXT_FILL_STYLE + UITheme.PRIMARY + ";" +
                 "-fx-font-size: 20px; -fx-font-weight: bold;");
 
         Separator sep = new Separator();

@@ -5,15 +5,10 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import com.axono.ui.UITheme;
 
 public class DashboardView extends ScrollPane {
 
-    private static final String PRIMARY = "#59BE8B";
-    private static final String SECONDARY = "#1A6A82";
-    private static final String BG = "#FCFBFB";
-    private static final String CARD = "#FFFFFF";
-    private static final String TEXT = "#111827";
-    private static final String BORDER = "#DCDCDC";
     private static final String BG_COLOR_STYLE = "-fx-background-color: ";
 
     private final UserProfile profile;
@@ -28,7 +23,7 @@ public class DashboardView extends ScrollPane {
         content.setAlignment(Pos.TOP_CENTER);
         content.setPadding(new Insets(60, 20, 60, 20));
         content.setMaxWidth(800);
-        content.setStyle(BG_COLOR_STYLE + BG + ";");
+        content.setStyle(BG_COLOR_STYLE + UITheme.BG + ";");
         content.getChildren().addAll(
                 buildBanner(),
                 buildProgressSection(),
@@ -36,19 +31,19 @@ public class DashboardView extends ScrollPane {
 
         HBox wrapper = new HBox(content);
         wrapper.setAlignment(Pos.TOP_CENTER);
-        wrapper.setStyle(BG_COLOR_STYLE + BG + ";");
+        wrapper.setStyle(BG_COLOR_STYLE + UITheme.BG + ";");
         HBox.setHgrow(content, Priority.ALWAYS);
 
         setContent(wrapper);
         setFitToWidth(true);
         setBorder(Border.EMPTY);
-        setStyle(BG_COLOR_STYLE + BG + ";");
+        setStyle(BG_COLOR_STYLE + UITheme.BG + ";");
     }
 
     private VBox buildBanner() {
         Label welcome = new Label("Welcome, " + profile.getName() + "!");
         welcome.setStyle(
-                "-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: " + TEXT + ";");
+                "-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: " + UITheme.TEXT_DARK + ";");
 
         HBox buttons = new HBox(10, outlineButton("Profile"), outlineButton("Logout"));
         buttons.setAlignment(Pos.CENTER);
@@ -75,7 +70,7 @@ public class DashboardView extends ScrollPane {
                 StackPane bar = progressBar(0);
 
                 Label pct = new Label("0% Complete");
-                pct.setStyle("-fx-text-fill: " + SECONDARY + "; -fx-font-size: 13px;");
+                pct.setStyle("-fx-text-fill: " + UITheme.SECONDARY + "; -fx-font-size: 13px;");
 
                 HBox row = new HBox(12, name, bar, pct);
                 row.setAlignment(Pos.CENTER_LEFT);
@@ -96,7 +91,7 @@ public class DashboardView extends ScrollPane {
         icon.setStyle("-fx-font-size: 26px;");
         Label topic = new Label("Electronics");
         topic.setStyle(
-                "-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: " + SECONDARY + ";");
+                "-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: " + UITheme.SECONDARY + ";");
 
         HBox header = new HBox(8, icon, topic);
         header.setAlignment(Pos.CENTER_LEFT);
@@ -114,7 +109,7 @@ public class DashboardView extends ScrollPane {
     private VBox buildModuleCard(String title, String btnText) {
         Label label = bodyLabel(title);
         label.setStyle(
-                "-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: " + TEXT + ";");
+                "-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: " + UITheme.TEXT_DARK + ";");
         return cardWrap(new VBox(10, label, outlineButton(btnText)));
     }
 
@@ -122,8 +117,8 @@ public class DashboardView extends ScrollPane {
         content.setPadding(new Insets(20));
         content.setMaxWidth(700);
         content.setStyle(
-                BG_COLOR_STYLE + CARD + ";" +
-                        "-fx-border-color: " + BORDER + ";" +
+                BG_COLOR_STYLE + UITheme.WHITE + ";" +
+                        "-fx-border-color: " + UITheme.BORDER + ";" +
                         "-fx-border-radius: 6px; -fx-background-radius: 6px;");
         return content;
     }
@@ -136,7 +131,7 @@ public class DashboardView extends ScrollPane {
         double w = Math.max(4, 160 * percent / 100.0);
         StackPane fill = new StackPane();
         fill.setPrefSize(w, 8);
-        fill.setStyle(BG_COLOR_STYLE + PRIMARY + "; -fx-background-radius: 4px;");
+        fill.setStyle(BG_COLOR_STYLE + UITheme.PRIMARY + "; -fx-background-radius: 4px;");
         fill.setTranslateX(-(160 - w) / 2);
 
         track.getChildren().add(fill);
@@ -146,24 +141,24 @@ public class DashboardView extends ScrollPane {
     private Label sectionLabel(String text, int size) {
         Label l = new Label(text);
         l.setStyle(String.format(
-                "-fx-font-size: %dpx; -fx-font-weight: bold; -fx-text-fill: %s;", size, TEXT));
+                "-fx-font-size: %dpx; -fx-font-weight: bold; -fx-text-fill: %s;", size, UITheme.TEXT_DARK));
         return l;
     }
 
     private Label bodyLabel(String text) {
         Label l = new Label(text);
-        l.setStyle("-fx-font-size: 14px; -fx-text-fill: " + TEXT + ";");
+        l.setStyle("-fx-font-size: 14px; -fx-text-fill: " + UITheme.TEXT_DARK + ";");
         return l;
     }
 
     private Button outlineButton(String text) {
         String base = "-fx-background-color: transparent;" +
-                "-fx-border-color: " + PRIMARY + "; -fx-border-width: 2px;" +
+                "-fx-border-color: " + UITheme.PRIMARY + "; -fx-border-width: 2px;" +
                 "-fx-border-radius: 4px; -fx-background-radius: 4px;" +
-                "-fx-text-fill: " + PRIMARY + ";" +
+                "-fx-text-fill: " + UITheme.PRIMARY + ";" +
                 "-fx-font-weight: bold; -fx-font-size: 14px; -fx-cursor: hand;";
-        String hover = BG_COLOR_STYLE + PRIMARY + ";" +
-                "-fx-border-color: " + PRIMARY + "; -fx-border-width: 2px;" +
+        String hover = BG_COLOR_STYLE + UITheme.PRIMARY + ";" +
+                "-fx-border-color: " + UITheme.PRIMARY + "; -fx-border-width: 2px;" +
                 "-fx-border-radius: 4px; -fx-background-radius: 4px;" +
                 "-fx-text-fill: white;" +
                 "-fx-font-weight: bold; -fx-font-size: 14px; -fx-cursor: hand;";

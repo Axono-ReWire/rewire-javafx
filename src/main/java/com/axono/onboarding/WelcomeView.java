@@ -31,7 +31,7 @@ public class WelcomeView extends StackPane {
         body.setWrapText(true);
 
         Label hint = new Label("Click Next to set up your profile →");
-        hint.setStyle(TEXT_FILL_STYLE + UITheme.ACCENT + "; -fx-font-size: 12px;");
+        hint.setStyle(TEXT_FILL_STYLE + UITheme.SECONDARY + "; -fx-font-size: 12px;");
 
         VBox card = new VBox(14, icon, title, body, hint);
         card.setAlignment(Pos.CENTER);

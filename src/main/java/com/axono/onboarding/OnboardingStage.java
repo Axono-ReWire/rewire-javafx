@@ -68,7 +68,7 @@ public class OnboardingStage {
         HBox dotsRow = new HBox(8);
         dotsRow.setAlignment(Pos.CENTER_RIGHT);
         for (int i = 0; i < steps.length; i++) {
-            Circle dot = new Circle(6, Color.web(UITheme.ACCENT));
+            Circle dot = new Circle(6, Color.web(UITheme.SECONDARY));
             dots.add(dot);
             dotsRow.getChildren().add(dot);
         }
@@ -87,7 +87,7 @@ public class OnboardingStage {
         HBox.setHgrow(stepLabel, Priority.ALWAYS);
 
         backBtn = navButton("← Back", UITheme.BG, UITheme.TEXT_DARK);
-        nextBtn = navButton("Next →", UITheme.ACCENT, UITheme.WHITE);
+        nextBtn = navButton("Next →", UITheme.SECONDARY, UITheme.WHITE);
         backBtn.setOnAction(e -> goBack());
         nextBtn.setOnAction(e -> goNext());
 
@@ -148,13 +148,13 @@ public class OnboardingStage {
 
     private void syncState() {
         for (int i = 0; i < dots.size(); i++)
-            dots.get(i).setFill(Color.web(i <= currentStep ? UITheme.ACCENT : "#4A6FA5"));
+            dots.get(i).setFill(Color.web(i <= currentStep ? UITheme.SECONDARY : "#4A6FA5"));
 
         stepLabel.setText("Step " + (currentStep + 1) + " of " + steps.length);
         backBtn.setVisible(currentStep > 0);
 
         boolean isLast = (currentStep == steps.length - 1);
-        String color = isLast ? UITheme.SUCCESS : UITheme.ACCENT;
+        String color = isLast ? UITheme.PRIMARY : UITheme.SECONDARY;
         nextBtn.setText(isLast ? "Launch App ✓" : "Next →");
         nextBtn.setStyle(String.format(
                 "-fx-background-color: %s; -fx-text-fill: white;" +
