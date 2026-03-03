@@ -79,9 +79,9 @@ public class HomepageView extends ScrollPane {
                         "-fx-border-radius: 6px; -fx-background-radius: 6px;");
 
         for (String topic : TOPICS) {
-            Label lbl = new Label("• " + topic);
-            lbl.setStyle("-fx-font-size: 16px; -fx-text-fill: " + TEXT + ";");
-            list.getChildren().add(lbl);
+            VBox topicButton = new VBox(5, outlineButton(topic));
+            topicButton.setStyle("-fx-font-size: 16px; -fx-text-fill: " + TEXT + ";");
+            list.getChildren().add(topicButton);
         }
 
         VBox section = new VBox(16, moduleName, list);
