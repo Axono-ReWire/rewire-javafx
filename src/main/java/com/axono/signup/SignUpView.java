@@ -1,31 +1,25 @@
 package com.axono.signup;
 
-//import java.beans.EventHandler;
-
 import com.axono.model.UserProfile;
 import com.axono.ui.UITheme;
 
-import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 import javafx.event.*;
 import java.time.*;
-import java.time.chrono.*;
 
 public class SignUpView extends ScrollPane {
     private static final String BG_COLOR_STYLE = "-fx-background-color: ";
 
     private final UserProfile profile;
-    private TextField FirstnameIn;
-    private TextField LastnameIn;
-    private TextField UserIn;
-    private ComboBox<String> YearIn;
-    private PasswordField PassIn = new PasswordField();
-    private DatePicker DobIn = new DatePicker();
+    private TextField firstName;
+    private TextField lastName;
+    private TextField username;
+    private ComboBox<String> yearOfStudy;
+    private PasswordField password = new PasswordField();
+    private DatePicker dateOfBirth = new DatePicker();
 
     public SignUpView(UserProfile profile) {
         this.profile = profile;
@@ -34,12 +28,12 @@ public class SignUpView extends ScrollPane {
 
     private void buildUI() {
         VBox content = new VBox(40);
-        FirstnameIn = styledField("First name");
-        LastnameIn = styledField("Last name");
-        UserIn = styledField("Username");
-        YearIn = new ComboBox<>();
-        YearIn.getItems().addAll("Select", "Foundation", "Year 1", "Year 2", "Year 3", "Year 4", "Post Graduate");
-        YearIn.getSelectionModel().selectFirst();
+        firstName = styledField("First name");
+        lastName = styledField("Last name");
+        username = styledField("Username");
+        yearOfStudy = new ComboBox<>();
+        yearOfStudy.getItems().addAll("Select", "Foundation", "Year 1", "Year 2", "Year 3", "Year 4", "Post Graduate");
+        yearOfStudy.getSelectionModel().selectFirst();
         content.setAlignment(Pos.TOP_CENTER);
         content.setPadding(new Insets(60, 20, 60, 20));
         content.setMaxWidth(800);
@@ -70,31 +64,31 @@ public class SignUpView extends ScrollPane {
 
     public VBox signupinput() {
 
-        Label DobLab = new Label("dd/mm/yyyy");
+        Label dateOfBirthLabel = new Label("dd/mm/yyyy");
         VBox sd = new VBox(6,
-                InLabel("First Name"), FirstnameIn, gap(8),
-                InLabel("Last Name"), LastnameIn, gap(8),
-                InLabel("Date of Birth (dd/mm/yyyy"), DobIn,
-                InLabel("Username"), UserIn, gap(8),
-                InLabel("Year of Study"), YearIn,
-                InLabel("Password"), PassIn);
+                createLabel("First Name"), firstName, gap(8),
+                createLabel("Last Name"), lastName, gap(8),
+                createLabel("Date of Birth (dd/mm/yyyy"), dateOfBirth,
+                createLabel("Username"), username, gap(8),
+                createLabel("Year of Study"), yearOfStudy,
+                createLabel("Password"), password);
         sd.setMaxWidth(500);
         sd.setStyle(UITheme.CARD_STYLE);
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent e) {
-                LocalDate i = DobIn.getValue();
-                DobLab.setText("" + i);
+                LocalDate i = dateOfBirth.getValue();
+                dateOfBirthLabel.setText("" + i);
             }
 
         };
-        DobIn.setShowWeekNumbers(true);
-        DobIn.setOnAction(event);
+        dateOfBirth.setShowWeekNumbers(true);
+        dateOfBirth.setOnAction(event);
 
         return sd;
 
     }
 
-    private Label InLabel(String text) {
+    private Label createLabel(String text) {
         Label l = new Label(text);
         l.setStyle("-fx-text-fill: " + UITheme.TEXT_DARK + "; -fx-font-size: 14px;");
         VBox.setMargin(l, new Insets(4, 0, 2, 0));
@@ -118,32 +112,32 @@ public class SignUpView extends ScrollPane {
     }
 
     public boolean validateInput() {
-        if (FirstnameIn.getText().trim().isEmpty()) {
+        if (firstName.getText().trim().isEmpty()) {
             warn("Please enter First name");
-            FirstnameIn.requestFocus();
+            firstName.requestFocus();
             return false;
         }
-        if (LastnameIn.getText().trim().isEmpty()) {
+        if (lastName.getText().trim().isEmpty()) {
             warn("Please enter Last name");
-            LastnameIn.requestFocus();
+            lastName.requestFocus();
             return false;
         }
-        if (UserIn.getText().trim().isEmpty()) {
+        if (username.getText().trim().isEmpty()) {
             warn("Please enter Username");
-            UserIn.requestFocus();
+            username.requestFocus();
             return false;
         }
-        if (YearIn.getSelectionModel().getSelectedIndex() == 0) {
+        if (yearOfStudy.getSelectionModel().getSelectedIndex() == 0) {
             warn("Please select Year of Study");
             return false;
         }
 
-        if (DobIn.getValue() == null) {
+        if (dateOfBirth.getValue() == null) {
             warn("Please select Date of Birth");
             return false;
         }
 
-        if (PassIn.getText().isEmpty()) {
+        if (password.getText().isEmpty()) {
             warn("Please enter Password");
             return false;
         }
@@ -152,9 +146,9 @@ public class SignUpView extends ScrollPane {
     }
 
     public void saveData() {
-        profile.setName(FirstnameIn.getText().trim());
-        profile.setYearOfStudy(YearIn.getValue());
-        profile.setInstitution(LastnameIn.getText().trim());
+        profile.setName(firstName.getText().trim());
+        profile.setYearOfStudy(yearOfStudy.getValue());
+        profile.setInstitution(lastName.getText().trim());
     }
 
     private void warn(String msg) {
@@ -162,14 +156,4 @@ public class SignUpView extends ScrollPane {
         req.setHeaderText(("Required Field"));
         req.showAndWait();
     }
-    /*
-     * Label sectionLabel(String text, int size) {
-     * Label l = new Label(text);
-     * l.setStyle(String.format(
-     * "-fx-font-size: %dpx; -fx-font-weight: bold; -fx-text-fill: %s;", size,
-     * UITheme.TEXT_DARK));
-     * return l;
-     * }
-     */
-
 }
