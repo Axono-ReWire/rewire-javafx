@@ -1,6 +1,7 @@
 package com.axono.onboarding;
 
 import com.axono.model.UserProfile;
+import com.axono.signup.SignUpView;
 import com.axono.ui.UITheme;
 import javafx.stage.Stage;
 import java.util.function.Consumer;
@@ -23,7 +24,7 @@ public class OnboardingStage {
     private final UserProfile profile = new UserProfile();
     private int currentStep = 0;
 
-    private final ProfileView profileView;
+    private final SignUpView signupView;
     private final SubjectView subjectView;
     private final SummaryView summaryView;
     private final Node[] steps;
@@ -37,10 +38,10 @@ public class OnboardingStage {
     public OnboardingStage(Stage stage, Consumer<UserProfile> onComplete) {
         this.stage = stage;
         this.onComplete = onComplete;
-        profileView = new ProfileView(profile);
+        signupView = new SignUpView(profile);
         subjectView = new SubjectView(profile);
         summaryView = new SummaryView(profile);
-        steps = new Node[] { new WelcomeView(), profileView, subjectView, summaryView };
+        steps = new Node[] { new WelcomeView(), signupView, subjectView, summaryView };
         buildUI();
     }
 
@@ -117,12 +118,12 @@ public class OnboardingStage {
 
     // ── Navigation ────────────────────────────────────────────────────────────
     private void goNext() {
-        if (currentStep == 1 && !profileView.validateInput())
+        if (currentStep == 1 && !signupView.validateInput())
             return;
         if (currentStep == 2 && !subjectView.validateInput())
             return;
         if (currentStep == 1)
-            profileView.saveData();
+            signupView.saveData();
         if (currentStep == 2)
             subjectView.saveData();
 
