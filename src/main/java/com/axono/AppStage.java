@@ -4,6 +4,7 @@ import com.axono.dashboard.DashboardView;
 import com.axono.home.HomepageView;
 import com.axono.model.UserProfile;
 import com.axono.onboarding.OnboardingStage;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -122,4 +123,5 @@ public class AppStage {
         root.setCenter(new DashboardView(profile));
         setActive(dashBtn);
     }
+
 }
