@@ -30,8 +30,8 @@ public class OnboardingStage {
     private final Node[] steps;
 
     private BorderPane root;
-    private Button backBtn;
-    private Button nextBtn;
+    private Button backButton;
+    private Button nextButton;
     private Label stepLabel;
     private List<Circle> dots;
 
@@ -52,48 +52,55 @@ public class OnboardingStage {
         root.setCenter(steps[0]);
         root.setBottom(buildFooter());
 
-        stage.setScene(new Scene(root, 660, 540));
-        stage.setTitle("EngineerStudy — Setup");
-        stage.setResizable(false);
+        stage.setScene(new Scene(root, 960, 720));
+        stage.setTitle("ReWire — Setup");
         stage.show();
-        syncState();
+        updateStep();
     }
 
-    // ── Header ────────────────────────────────────────────────────────────────
     private HBox buildHeader() {
-        Label logo = new Label("⚙  EngineerStudy");
+        Label logo = new Label("Axono - ReWire");
         logo.setStyle("-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;");
         HBox.setHgrow(logo, Priority.ALWAYS);
+
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
 
         dots = new ArrayList<>();
         HBox dotsRow = new HBox(8);
         dotsRow.setAlignment(Pos.CENTER_RIGHT);
+        HBox.setHgrow(dotsRow, Priority.NEVER);
         for (int i = 0; i < steps.length; i++) {
-            Circle dot = new Circle(6, Color.web(UITheme.SECONDARY));
+            Circle dot = new Circle(6, Color.web(UITheme.TERTIARY));
             dots.add(dot);
             dotsRow.getChildren().add(dot);
         }
 
-        HBox header = new HBox(logo, dotsRow);
+        HBox header = new HBox(logo, spacer, dotsRow);
         header.setAlignment(Pos.CENTER_LEFT);
         header.setStyle("-fx-background-color: " + UITheme.PRIMARY + ";");
         header.setPadding(new Insets(14, 24, 14, 24));
         return header;
     }
 
-    // ── Footer ────────────────────────────────────────────────────────────────
-    private HBox buildFooter() {
+    private StackPane buildFooter() {
         stepLabel = new Label();
         stepLabel.setStyle("-fx-text-fill: " + UITheme.TEXT_MUTED + "; -fx-font-size: 12px;");
-        HBox.setHgrow(stepLabel, Priority.ALWAYS);
 
-        backBtn = navButton("← Back", UITheme.BG, UITheme.TEXT_DARK);
-        nextBtn = navButton("Next →", UITheme.SECONDARY, UITheme.WHITE);
-        backBtn.setOnAction(e -> goBack());
-        nextBtn.setOnAction(e -> goNext());
+        backButton = navButton("← Back", UITheme.SECONDARY_OPTION, UITheme.TEXT_DARK);
+        nextButton = navButton("Next →", UITheme.SECONDARY, UITheme.WHITE);
+        backButton.setOnAction(e -> goBack());
+        nextButton.setOnAction(e -> goNext());
 
-        HBox footer = new HBox(10, stepLabel, backBtn, nextBtn);
-        footer.setAlignment(Pos.CENTER_LEFT);
+        HBox centerButtons = new HBox(10, backButton, nextButton);
+        centerButtons.setAlignment(Pos.CENTER);
+
+        centerButtons.setMaxWidth(Region.USE_PREF_SIZE);
+
+        StackPane footer = new StackPane(stepLabel, centerButtons);
+
+        StackPane.setAlignment(stepLabel, Pos.CENTER_LEFT);
+
         footer.setPadding(new Insets(12, 24, 12, 24));
         footer.setStyle(
                 "-fx-background-color: white;" +
@@ -116,7 +123,6 @@ public class OnboardingStage {
         return b;
     }
 
-    // ── Navigation ────────────────────────────────────────────────────────────
     private void goNext() {
         if (currentStep == 1 && !signupView.validateInput())
             return;
@@ -136,28 +142,28 @@ public class OnboardingStage {
         if (currentStep == steps.length - 1)
             summaryView.refresh();
         root.setCenter(steps[currentStep]);
-        syncState();
+        updateStep();
     }
 
     private void goBack() {
         if (currentStep > 0) {
             currentStep--;
             root.setCenter(steps[currentStep]);
-            syncState();
+            updateStep();
         }
     }
 
-    private void syncState() {
+    private void updateStep() {
         for (int i = 0; i < dots.size(); i++)
-            dots.get(i).setFill(Color.web(i <= currentStep ? UITheme.SECONDARY : "#4A6FA5"));
+            dots.get(i).setFill(Color.web(i <= currentStep ? UITheme.TERTIARY : UITheme.BORDER));
 
         stepLabel.setText("Step " + (currentStep + 1) + " of " + steps.length);
-        backBtn.setVisible(currentStep > 0);
+        backButton.setVisible(currentStep > 0);
 
-        boolean isLast = (currentStep == steps.length - 1);
-        String color = isLast ? UITheme.PRIMARY : UITheme.SECONDARY;
-        nextBtn.setText(isLast ? "Launch App ✓" : "Next →");
-        nextBtn.setStyle(String.format(
+        boolean lastStep = (currentStep == steps.length - 1);
+        String color = lastStep ? UITheme.PRIMARY : UITheme.TERTIARY;
+        nextButton.setText(lastStep ? "Launch App" : "Next");
+        nextButton.setStyle(String.format(
                 "-fx-background-color: %s; -fx-text-fill: white;" +
                         "-fx-font-weight: bold; -fx-font-size: 13px;" +
                         "-fx-background-radius: 6px; -fx-cursor: hand;",
@@ -168,5 +174,4 @@ public class OnboardingStage {
         stage.close();
         onComplete.accept(profile);
     }
-
 }

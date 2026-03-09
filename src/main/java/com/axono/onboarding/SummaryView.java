@@ -12,20 +12,19 @@ public class SummaryView extends StackPane {
 
     private static final String TEXT_FILL_STYLE = "-fx-text-fill: ";
     private final UserProfile profile;
-    private Label nameVal;
-    private Label yearVal;
-    private Label instVal;
-    private Label subjectsVal;
+    private Label name;
+    private Label yearOfStudy;
+    private Label institution;
+    private Label modules;
 
     public SummaryView(UserProfile profile) {
         this.profile = profile;
+        setStyle("-fx-background-color: " + UITheme.BG + ";");
+        setPadding(new Insets(30));
         buildUI();
     }
 
     private void buildUI() {
-        setStyle("-fx-background-color: " + UITheme.BG + ";");
-        setPadding(new Insets(30));
-
         Label icon = new Label("✅");
         icon.setStyle("-fx-font-size: 40px;");
 
@@ -36,18 +35,18 @@ public class SummaryView extends StackPane {
         Separator sep = new Separator();
         VBox.setMargin(sep, new Insets(12, 0, 12, 0));
 
-        nameVal = valueLabel();
-        yearVal = valueLabel();
-        instVal = valueLabel();
-        subjectsVal = valueLabel();
-        subjectsVal.setWrapText(true);
+        name = valueLabel();
+        yearOfStudy = valueLabel();
+        institution = valueLabel();
+        modules = valueLabel();
+        modules.setWrapText(true);
 
         VBox card = new VBox(0,
                 icon, heading, sep,
-                row("Name", nameVal),
-                row("Year of Study", yearVal),
-                row("Institution", instVal),
-                row("Modules", subjectsVal));
+                row("Name", name),
+                row("Year of Study", yearOfStudy),
+                row("Institution", institution),
+                row("Modules", modules));
         card.setAlignment(Pos.TOP_CENTER);
         card.setMaxWidth(520);
         card.setStyle(UITheme.CARD_STYLE + "-fx-padding: 30px 44px;");
@@ -75,10 +74,10 @@ public class SummaryView extends StackPane {
     }
 
     public void refresh() {
-        nameVal.setText(profile.getName().isEmpty() ? "—" : profile.getName());
-        yearVal.setText(profile.getYearOfStudy());
-        instVal.setText(profile.getInstitution().isEmpty() ? "Not specified" : profile.getInstitution());
-        var subs = profile.getSubjects();
-        subjectsVal.setText(subs.isEmpty() ? "—" : String.join(", ", subs));
+        name.setText(profile.getName().isEmpty() ? "—" : profile.getName());
+        yearOfStudy.setText(profile.getYearOfStudy());
+        institution.setText(profile.getInstitution().isEmpty() ? "Not specified" : profile.getInstitution());
+        var subjects = profile.getSubjects();
+        modules.setText(subjects.isEmpty() ? "—" : String.join(", ", subjects));
     }
 }
