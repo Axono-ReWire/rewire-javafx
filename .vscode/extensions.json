@@ -5,8 +5,8 @@
         "github.vscode-pull-request-github",
         "sonarsource.sonarlint-vscode",
         "esbenp.prettier-vscode",
-        "vscjava.vscode-lombok",
         "github.vscode-github-actions",
-        "dotjoshjohnson.xml"
+        "dotjoshjohnson.xml",
+        "keyshout.sqlite-db-viewer"
     ]
 }
