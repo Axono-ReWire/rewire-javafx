@@ -4,6 +4,8 @@ import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
 
+// hello world
+
 public class DatabaseHelper {
 
     private static final String DB_URL = "jdbc:sqlite:database/rewire.db";
