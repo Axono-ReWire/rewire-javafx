@@ -21,6 +21,8 @@ public class SignUpView extends ScrollPane {
     private PasswordField password = new PasswordField();
     private PasswordField passcheck = new PasswordField();
     private DatePicker dateOfBirth = new DatePicker();
+    private LocalDate today = LocalDate.now();
+    private LocalDate dobcheck;
     private String passwordstr;
     private String passcheckstr;
 
@@ -30,7 +32,7 @@ public class SignUpView extends ScrollPane {
     }
 
     private void buildUI() {
-        VBox content = new VBox(40);
+        VBox content = new VBox(40); // creates box for user inputs
         firstName = styledField("First name");
         lastName = styledField("Last name");
         username = styledField("Username");
@@ -71,7 +73,7 @@ public class SignUpView extends ScrollPane {
         VBox sd = new VBox(7,
                 createLabel("First Name"), firstName, gap(8),
                 createLabel("Last Name"), lastName, gap(8),
-                createLabel("Date of Birth (dd/mm/yyyy"), dateOfBirth,
+                createLabel("Date of Birth (dd/mm/yyyy)"), dateOfBirth,
                 createLabel("Username"), username, gap(8),
                 createLabel("Year of Study"), yearOfStudy,
                 createLabel("Password"), password,
@@ -118,6 +120,8 @@ public class SignUpView extends ScrollPane {
     public boolean validateInput() {
         passwordstr = password.getText();
         passcheckstr = passcheck.getText();
+        dobcheck = today.minusYears(13);// breaks code?
+        LocalDate dobirthLD = dateOfBirth.getValue();
         if (firstName.getText().trim().isEmpty()) {
             warn("Please enter First name");
             firstName.requestFocus();
@@ -140,6 +144,11 @@ public class SignUpView extends ScrollPane {
 
         if (dateOfBirth.getValue() == null) {
             warn("Please select Date of Birth");
+            return false;
+        }
+
+        if (dobcheck.isBefore(dobirthLD)) {
+            warn("You must be over the age of 13");
             return false;
         }
 
