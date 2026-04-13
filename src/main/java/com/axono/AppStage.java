@@ -4,6 +4,7 @@ import com.axono.dashboard.DashboardView;
 import com.axono.home.HomepageView;
 import com.axono.model.UserProfile;
 import com.axono.onboarding.OnboardingStage;
+import com.axono.results.ResultsPage;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -24,6 +25,7 @@ public class AppStage {
     private Button activeNavBtn;
     private Button homeBtn;
     private Button dashBtn;
+    private Button resultsBtn;
 
     public AppStage(Stage mainStage) {
         this.mainStage = mainStage;
@@ -59,12 +61,15 @@ public class AppStage {
         HBox.setHgrow(logo, Priority.ALWAYS);
 
         homeBtn = navButton("Home");
+
         dashBtn = navButton("Dashboard");
+        resultsBtn = navButton("Results (temp)");
 
         homeBtn.setOnAction(e -> showHome());
         dashBtn.setOnAction(e -> showDashboard());
+        resultsBtn.setOnAction(e -> showResults());
 
-        HBox nav = new HBox(8, logo, homeBtn, dashBtn);
+        HBox nav = new HBox(8, logo, homeBtn, dashBtn, resultsBtn);
         nav.setAlignment(Pos.CENTER_LEFT);
         nav.setPadding(new Insets(12, 24, 12, 24));
         nav.setStyle("-fx-background-color: " + NAV_BG + ";");
@@ -122,6 +127,11 @@ public class AppStage {
     private void showDashboard() {
         root.setCenter(new DashboardView(profile));
         setActive(dashBtn);
+    }
+
+    private void showResults() {
+        root.setCenter(new ResultsPage());
+        setActive(resultsBtn);
     }
 
 }
