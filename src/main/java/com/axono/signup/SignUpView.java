@@ -19,7 +19,10 @@ public class SignUpView extends ScrollPane {
     private TextField username;
     private ComboBox<String> yearOfStudy;
     private PasswordField password = new PasswordField();
+    private PasswordField passcheck = new PasswordField();
     private DatePicker dateOfBirth = new DatePicker();
+    private String passwordstr;
+    private String passcheckstr;
 
     public SignUpView(UserProfile profile) {
         this.profile = profile;
@@ -65,13 +68,14 @@ public class SignUpView extends ScrollPane {
     public VBox signupinput() {
 
         Label dateOfBirthLabel = new Label("dd/mm/yyyy");
-        VBox sd = new VBox(6,
+        VBox sd = new VBox(7,
                 createLabel("First Name"), firstName, gap(8),
                 createLabel("Last Name"), lastName, gap(8),
                 createLabel("Date of Birth (dd/mm/yyyy"), dateOfBirth,
                 createLabel("Username"), username, gap(8),
                 createLabel("Year of Study"), yearOfStudy,
-                createLabel("Password"), password);
+                createLabel("Password"), password,
+                createLabel("Confirm Password"), passcheck);
         sd.setMaxWidth(500);
         sd.setStyle(UITheme.CARD_STYLE);
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
@@ -112,6 +116,8 @@ public class SignUpView extends ScrollPane {
     }
 
     public boolean validateInput() {
+        passwordstr = password.getText();
+        passcheckstr = passcheck.getText();
         if (firstName.getText().trim().isEmpty()) {
             warn("Please enter First name");
             firstName.requestFocus();
@@ -139,6 +145,10 @@ public class SignUpView extends ScrollPane {
 
         if (password.getText().isEmpty()) {
             warn("Please enter Password");
+            return false;
+        }
+        if (!passwordstr.equals(passcheckstr)) {
+            warn("Passwords do not match");
             return false;
         }
 
