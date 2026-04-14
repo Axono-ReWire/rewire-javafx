@@ -12,7 +12,7 @@ public final class UITheme {
     public static final String WHITE = "#FFFFFF";
     public static final String TEXT_DARK = "#212529";
     public static final String TEXT_MUTED = "#6C757D";
-    public static final String BORDER = "#DEE2E6";
+    public static final String BORDER = "#dee5e6";
 
     public static final String CARD_STYLE = "-fx-background-color: white;" +
             "-fx-border-color: #DEE2E6;" +
