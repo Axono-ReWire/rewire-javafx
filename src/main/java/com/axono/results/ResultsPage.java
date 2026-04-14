@@ -18,6 +18,7 @@ import javafx.geometry.Insets;
  */
 public final class ResultsPage extends ScrollPane {
 
+    /** Reusable JavaFX CSS prefix for setting background colour. */
     private static final String BG_COLOUR = " -fx-background-color: ";
 
     /**

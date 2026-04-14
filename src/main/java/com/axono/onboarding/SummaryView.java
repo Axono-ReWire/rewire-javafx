@@ -16,11 +16,22 @@ import javafx.scene.layout.VBox;
  */
 public final class SummaryView extends StackPane {
 
+    /** Reusable JavaFX CSS prefix for setting text colour. */
     private static final String TEXT_FILL_STYLE = "-fx-text-fill: ";
+
+    /** The user profile whose data is displayed in the summary. */
     private final UserProfile profile;
+
+    /** Label displaying the user's name. */
     private Label name;
+
+    /** Label displaying the user's selected year of study. */
     private Label yearOfStudy;
+
+    /** Label displaying the user's institution. */
     private Label institution;
+
+    /** Label displaying the user's selected modules as a comma-separated list. */
     private Label modules;
 
     /**
@@ -28,7 +39,7 @@ public final class SummaryView extends StackPane {
      *
      * @param profile the {@link UserProfile} whose data will be summarised.
      */
-    public SummaryView(UserProfile profile) {
+    public SummaryView(final UserProfile profile) {
         this.profile = profile;
         setStyle("-fx-background-color: " + UITheme.BG + ";");
         setPadding(new Insets(30));
@@ -77,7 +88,7 @@ public final class SummaryView extends StackPane {
      * @param val the {@link Label} containing the field value on the right.
      * @return an {@link HBox} row containing the key and value labels.
      */
-    private HBox row(String key, Label val) {
+    private HBox row(final String key, final Label val) {
         Label k = new Label(key + ":");
         k.setStyle(TEXT_FILL_STYLE + UITheme.TEXT_MUTED + ";" +
                 "-fx-font-size: 13px; -fx-font-weight: bold;");

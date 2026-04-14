@@ -18,7 +18,7 @@ public final class UserService {
      *
      * @param db the database helper instance to use for queries.
      */
-    public UserService(DatabaseHelper db) {
+    public UserService(final DatabaseHelper db) {
         this.db = db;
     }
 
@@ -31,7 +31,7 @@ public final class UserService {
      *         if no user with the given ID exists.
      * @throws SQLException if the database query fails.
      */
-    public String getUserFullName(int userId) throws SQLException {
+    public String getUserFullName(final int userId) throws SQLException {
         Map<String, Object> user = db.getById("user", userId);
 
         if (user == null) {
@@ -52,7 +52,8 @@ public final class UserService {
      *         or {@code null} if the user or their university cannot be found.
      * @throws SQLException if the database query fails.
      */
-    public Map<String, Object> getUserUniversity(int userId) throws SQLException {
+    public Map<String, Object> getUserUniversity(
+            final int userId) throws SQLException {
         Map<String, Object> user = db.getById("user", userId);
 
         if (user == null) {

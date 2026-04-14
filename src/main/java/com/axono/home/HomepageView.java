@@ -2,10 +2,12 @@ package com.axono.home;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Border;
 
 /**
@@ -15,11 +17,22 @@ import javafx.scene.layout.Border;
  */
 public final class HomepageView extends ScrollPane {
 
+    /** Primary brand colour hex string (local copy for this view). */
     private static final String PRIMARY = "#59BE8B";
+
+    /** Page background colour hex string. */
     private static final String BG = "#FCFBFB";
+
+    /** Card background colour hex string. */
     private static final String CARD = "#FFFFFF";
+
+    /** Body text colour hex string. */
     private static final String TEXT = "#111827";
+
+    /** Border colour hex string. */
     private static final String BORDER = "#DCDCDC";
+
+    /** Reusable JavaFX CSS prefix for setting background colour. */
     private static final String BG_COLOR = "-fx-background-color: ";
 
     /** Array of topic names displayed as navigable buttons on the home page. */
@@ -126,7 +139,7 @@ public final class HomepageView extends ScrollPane {
      * @param text the button label.
      * @return a configured {@link Button}.
      */
-    private Button outlineButton(String text) {
+    private Button outlineButton(final String text) {
         String base = "-fx-background-color: transparent;" +
                 "-fx-border-color: " + PRIMARY + "; -fx-border-width: 2px;" +
                 "-fx-border-radius: 4px; -fx-background-radius: 4px;" +

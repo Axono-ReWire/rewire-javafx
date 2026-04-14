@@ -29,17 +29,29 @@ import java.util.List;
  */
 public final class SubjectView extends StackPane {
 
+        /** The user profile to populate when {@link #saveData()} is called. */
         private final UserProfile profile;
+
+        /**
+         * Flat list of all {@link CheckBox} controls rendered in the curriculum grid.
+         */
         private final List<CheckBox> checkboxes = new ArrayList<>();
 
+        /** Constant label string used for core module section headers. */
         private static final String CORE_MODULES = "Core Modules";
+
+        /** Reusable JavaFX CSS prefix for setting text colour. */
         private static final String FX_TEXT_FILL = "-fx-text-fill: ";
 
         /**
          * Immutable static data model representing a single teachable module.
          */
         private static class Module {
+
+                /** The display name of the module. */
                 final String name;
+
+                /** A short description of the module's content. */
                 final String desc;
 
                 /**
@@ -48,7 +60,7 @@ public final class SubjectView extends StackPane {
                  * @param name the module display name.
                  * @param desc the short module description.
                  */
-                Module(String name, String desc) {
+                Module(final String name, final String desc) {
                         this.name = name;
                         this.desc = desc;
                 }
@@ -67,7 +79,7 @@ public final class SubjectView extends StackPane {
                  * @param title   the section heading, or {@code null} for untitled sections.
                  * @param modules the modules in this section.
                  */
-                Section(String title, Module... modules) {
+                Section(final String title, final Module... modules) {
                         this.title = title;
                         this.modules = modules;
                 }
@@ -77,7 +89,10 @@ public final class SubjectView extends StackPane {
          * Academic year group containing one or more {@link Section}s.
          */
         private static class YearGroup {
+                // ** The year label (e.g. "Year 1", "Foundation Year"). */
                 final String label;
+
+                /** The sections belonging to this year group. */
                 final Section[] sections;
 
                 /**
@@ -86,12 +101,15 @@ public final class SubjectView extends StackPane {
                  * @param label    the year group label.
                  * @param sections the sections within this year group.
                  */
-                YearGroup(String label, Section... sections) {
+                YearGroup(final String label, final Section... sections) {
                         this.label = label;
                         this.sections = sections;
                 }
         }
 
+        /**
+         * The full curriculum data structure used to render the module selection UI.
+         */
         private static final YearGroup[] CURRICULUM = buildCurriculum();
 
         /**
@@ -331,7 +349,7 @@ public final class SubjectView extends StackPane {
          * @param year the {@link YearGroup} to render.
          * @return a {@link VBox} containing the year's UI elements.
          */
-        private VBox buildYearBlock(YearGroup year) {
+        private VBox buildYearBlock(final YearGroup year) {
                 Label yearLabel = new Label(year.label);
                 yearLabel.setStyle(FX_TEXT_FILL + UITheme.PRIMARY +
                                 "; -fx-font-size: 15px; -fx-font-weight: bold;");
@@ -362,7 +380,7 @@ public final class SubjectView extends StackPane {
          * @param modules the array of {@link Module} objects to render.
          * @return a {@link GridPane} containing one cell per module.
          */
-        private GridPane buildGrid(Module[] modules) {
+        private GridPane buildGrid(final Module[] modules) {
                 String normalStyle = "-fx-background-color: " + UITheme.BG + ";" +
                                 "-fx-border-color: " + UITheme.BORDER + ";" +
                                 "-fx-border-radius: 4px; -fx-background-radius: 4px;" +

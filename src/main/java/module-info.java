@@ -2,6 +2,7 @@ module com.axono {
     requires transitive javafx.graphics;
     requires javafx.controls;
     requires java.sql;
+    requires javafx.base;
 
     exports com.axono;
     exports com.axono.home;

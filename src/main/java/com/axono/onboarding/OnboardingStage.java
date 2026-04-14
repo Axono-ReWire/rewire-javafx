@@ -29,20 +29,46 @@ import java.util.List;
  */
 public final class OnboardingStage {
 
+    /** The JavaFX {@link Stage} that hosts the onboarding wizard. */
     private final Stage stage;
+
+    /**
+     * Callback invoked with the completed {@link UserProfile} when
+     * the user finishes onboarding.
+     */
     private final Consumer<UserProfile> onComplete;
+
+    /** The user profile being built across all onboarding steps. */
     private final UserProfile profile = new UserProfile();
+
+    /** Zero-based index of the currently displayed onboarding step. */
     private int currentStep = 0;
 
+    /** The sign-up form view (step 1). */
     private final SignUpView signupView;
+
+    /** The module selection view (step 2). */
     private final SubjectView subjectView;
+
+    /** The profile summary view (step 3). */
     private final SummaryView summaryView;
+
+    /** Array of all onboarding step nodes in display order. */
     private final Node[] steps;
 
+    /** Root layout of the onboarding window. */
     private BorderPane root;
+
+    /** Button that navigates to the previous step. */
     private Button backButton;
+
+    /** Button that navigates to the next step or launches the app. */
     private Button nextButton;
+
+    /** Label showing the current step number (e.g. "Step 2 of 4"). */
     private Label stepLabel;
+
+    /** Progress indicator dots displayed in the header, one per step. */
     private List<Circle> dots;
 
     /**
@@ -53,7 +79,9 @@ public final class OnboardingStage {
      * @param onComplete callback to invoke with the completed profile
      *                   when onboarding finishes.
      */
-    public OnboardingStage(Stage stage, Consumer<UserProfile> onComplete) {
+    public OnboardingStage(
+            final Stage stage,
+            final Consumer<UserProfile> onComplete) {
         this.stage = stage;
         this.onComplete = onComplete;
         signupView = new SignUpView(profile);
@@ -152,7 +180,10 @@ public final class OnboardingStage {
      * @param fg   the hex text colour string.
      * @return a configured navigation {@link Button}.
      */
-    private Button navButton(String text, String bg, String fg) {
+    private Button navButton(
+            final String text,
+            final String bg,
+            final String fg) {
         Button b = new Button(text);
         b.setPrefSize(130, 38);
         String base = String.format(

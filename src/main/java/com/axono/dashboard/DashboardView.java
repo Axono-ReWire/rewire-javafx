@@ -21,8 +21,10 @@ import com.axono.ui.UITheme;
  */
 public final class DashboardView extends ScrollPane {
 
+    /** Reusable JavaFX CSS prefix for setting background colour. */
     private static final String BG_COLOR_STYLE = "-fx-background-color: ";
 
+    /** The user profile used to personalise the dashboard content. */
     private final UserProfile profile;
 
     /**
@@ -31,7 +33,7 @@ public final class DashboardView extends ScrollPane {
      * @param profile the {@link UserProfile} containing the user's name and
      *                subjects.
      */
-    public DashboardView(UserProfile profile) {
+    public DashboardView(final UserProfile profile) {
         this.profile = profile;
         buildUI();
     }
@@ -153,7 +155,7 @@ public final class DashboardView extends ScrollPane {
      * @param btnText the label for the card's action button.
      * @return a {@link VBox} card containing the title and button.
      */
-    private VBox buildModuleCard(String title, String btnText) {
+    private VBox buildModuleCard(final String title, final String btnText) {
         Label label = bodyLabel(title);
         label.setStyle(
                 "-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: " + UITheme.TEXT_DARK + ";");
@@ -167,7 +169,7 @@ public final class DashboardView extends ScrollPane {
      * @param content the {@link VBox} to style as a card.
      * @return the same {@link VBox} with card styling applied.
      */
-    private VBox cardWrap(VBox content) {
+    private VBox cardWrap(final VBox content) {
         content.setPadding(new Insets(20));
         content.setMaxWidth(700);
         content.setStyle(
@@ -184,7 +186,7 @@ public final class DashboardView extends ScrollPane {
      * @param percent the completion percentage (0–100).
      * @return a {@link StackPane} rendering the progress bar track and fill.
      */
-    private StackPane progressBar(double percent) {
+    private StackPane progressBar(final double percent) {
         StackPane track = new StackPane();
         track.setPrefSize(160, 8);
         track.setStyle(BG_COLOR_STYLE + "#E5E7EB; -fx-background-radius: 4px;");
@@ -206,7 +208,7 @@ public final class DashboardView extends ScrollPane {
      * @param size the font size in pixels.
      * @return a styled section heading {@link Label}.
      */
-    private Label sectionLabel(String text, int size) {
+    private Label sectionLabel(final String text, final int size) {
         Label l = new Label(text);
         l.setStyle(String.format(
                 "-fx-font-size: %dpx; -fx-font-weight: bold; -fx-text-fill: %s;", size, UITheme.TEXT_DARK));
@@ -219,7 +221,7 @@ public final class DashboardView extends ScrollPane {
      * @param text the label text.
      * @return a styled body {@link Label}.
      */
-    private Label bodyLabel(String text) {
+    private Label bodyLabel(final String text) {
         Label l = new Label(text);
         l.setStyle("-fx-font-size: 14px; -fx-text-fill: " + UITheme.TEXT_DARK + ";");
         return l;
@@ -231,7 +233,7 @@ public final class DashboardView extends ScrollPane {
      * @param text the button label.
      * @return a configured outline {@link Button}.
      */
-    private Button outlineButton(String text) {
+    private Button outlineButton(final String text) {
         String base = "-fx-background-color: transparent;" +
                 "-fx-border-color: " + UITheme.PRIMARY + "; -fx-border-width: 2px;" +
                 "-fx-border-radius: 4px; -fx-background-radius: 4px;" +

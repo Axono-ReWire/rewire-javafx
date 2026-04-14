@@ -37,7 +37,7 @@ public final class UserProfile {
      *
      * @param v the new name value.
      */
-    public void setName(String v) {
+    public void setName(final String v) {
         name = v;
     }
 
@@ -55,7 +55,7 @@ public final class UserProfile {
      *
      * @param v the new year-of-study value.
      */
-    public void setYearOfStudy(String v) {
+    public void setYearOfStudy(final String v) {
         yearOfStudy = v;
     }
 
@@ -73,7 +73,7 @@ public final class UserProfile {
      *
      * @param v the new institution value.
      */
-    public void setInstitution(String v) {
+    public void setInstitution(final String v) {
         institution = v;
     }
 
@@ -91,7 +91,7 @@ public final class UserProfile {
      *
      * @param v the new list of subjects.
      */
-    public void setSubjects(List<String> v) {
+    public void setSubjects(final List<String> v) {
         subjects = v;
     }
 }
