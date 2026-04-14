@@ -3,7 +3,10 @@ package com.axono.home;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.layout.*;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Border;
 
 /**
  * The application home page view, displayed after onboarding is complete.

@@ -37,7 +37,8 @@ public final class DatabaseHelper {
      *
      * @param tableName the name of the table to query.
      * @param recordId  the integer primary key of the record to retrieve.
-     * @return a {@link Map} of column names to values, or {@code null} if not found.
+     * @return a {@link Map} of column names to values, or {@code null} if not
+     *         found.
      * @throws SQLException if the query fails.
      */
     public Map<String, Object> getById(String tableName, int recordId) throws SQLException {
@@ -49,7 +50,7 @@ public final class DatabaseHelper {
         ResultSet rs = stmt.executeQuery();
 
         if (!rs.next()) {
-            return null;
+            return new HashMap<>();
         }
 
         ResultSetMetaData metaData = rs.getMetaData();

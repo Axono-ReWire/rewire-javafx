@@ -11,7 +11,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 import com.axono.ui.UITheme;
 
@@ -23,7 +25,8 @@ import com.axono.ui.UITheme;
 public final class AppStage {
 
     private static final String NAV_BG = "#FFFFFF"; // Background colour hex code for the navigation bar.
-    private static final String NAV_BTN_BORDER = "; -fx-border-color: " + UITheme.BORDER + "; -fx-border-width: 2px; -fx-border-radius: 4px;";
+    private static final String NAV_BTN_BORDER = "; -fx-border-color: " + UITheme.BORDER
+            + "; -fx-border-width: 2px; -fx-border-radius: 4px;";
 
     /** The primary JavaFX {@link Stage} owned by this class. */
     private final Stage mainStage;
