@@ -11,10 +11,11 @@ import java.util.Map;
 public final class UserService {
 
     /** The underlying database helper used for raw record retrieval. */
-    private DatabaseHelper db; // The database helper used for raw record retrieval.
+    private DatabaseHelper db;
 
     /**
-     * Constructs a {@code UserService} backed by the given {@link DatabaseHelper}.
+     * Constructs a {@code UserService} backed by
+     * the given {@link DatabaseHelper}.
      *
      * @param db the database helper instance to use for queries.
      */

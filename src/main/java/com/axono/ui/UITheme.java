@@ -40,9 +40,9 @@ public final class UITheme {
      * Reusable inline CSS style for card containers.
      * Applies a white background, rounded border, and standard padding.
      */
-    public static final String CARD_STYLE = "-fx-background-color: white;" +
-            "-fx-border-color: #DEE2E6;" +
-            "-fx-border-radius: 6px;" +
-            "-fx-background-radius: 6px;" +
-            "-fx-padding: 28px 40px;";
+    public static final String CARD_STYLE = "-fx-background-color: white;"
+            + "-fx-border-color: #DEE2E6;"
+            + "-fx-border-radius: 6px;"
+            + "-fx-background-radius: 6px;"
+            + "-fx-padding: 28px 40px;";
 }

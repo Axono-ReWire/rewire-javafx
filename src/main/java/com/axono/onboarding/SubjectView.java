@@ -70,7 +70,13 @@ public final class SubjectView extends StackPane {
          * A named group of {@link Module} objects within a year (e.g. "Core Modules").
          */
         private static class Section {
+                /**
+                 * The section heading
+                 * (e.g. "Core Modules", "Option Modules"), or {@code null}.
+                 */
                 final String title;
+
+                /** The modules belonging to this section. */
                 final Module[] modules;
 
                 /**
@@ -89,7 +95,7 @@ public final class SubjectView extends StackPane {
          * Academic year group containing one or more {@link Section}s.
          */
         private static class YearGroup {
-                // ** The year label (e.g. "Year 1", "Foundation Year"). */
+                /** The year label (e.g. "Year 1", "Foundation Year"). */
                 final String label;
 
                 /** The sections belonging to this year group. */
@@ -292,7 +298,7 @@ public final class SubjectView extends StackPane {
          *
          * @param profile the {@link UserProfile} to populate on save.
          */
-        public SubjectView(UserProfile profile) {
+        public SubjectView(final UserProfile profile) {
                 this.profile = profile;
                 buildUI();
         }
