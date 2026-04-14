@@ -118,6 +118,8 @@ public class SignUpView extends ScrollPane {
     public boolean validateInput() {
         passwordstr = password.getText();
         passcheckstr = passcheck.getText();
+        LocalDate dobirthLD = dateOfBirth.getValue();
+        LocalDate dobcheck = LocalDate.now().minusYears(13);
         if (firstName.getText().trim().isEmpty()) {
             warn("Please enter First name");
             firstName.requestFocus();
