@@ -21,8 +21,6 @@ public class SignUpView extends ScrollPane {
     private PasswordField password = new PasswordField();
     private PasswordField passcheck = new PasswordField();
     private DatePicker dateOfBirth = new DatePicker();
-    private LocalDate today = LocalDate.now();
-    private LocalDate dobcheck;
     private String passwordstr;
     private String passcheckstr;
 
@@ -120,8 +118,6 @@ public class SignUpView extends ScrollPane {
     public boolean validateInput() {
         passwordstr = password.getText();
         passcheckstr = passcheck.getText();
-        dobcheck = today.minusYears(13);// breaks code?
-        LocalDate dobirthLD = dateOfBirth.getValue();
         if (firstName.getText().trim().isEmpty()) {
             warn("Please enter First name");
             firstName.requestFocus();
