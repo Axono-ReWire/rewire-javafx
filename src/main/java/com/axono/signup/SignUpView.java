@@ -20,15 +20,32 @@ import java.time.*;
  * before allowing the user to proceed and saves data to a {@link UserProfile}.
  */
 public final class SignUpView extends ScrollPane {
+
+    /** Reusable JavaFX CSS prefix for setting background colour. */
     private static final String BG_COLOR_STYLE = "-fx-background-color: ";
 
+    /** The user profile to populate when {@link #saveData()} is called. */
     private final UserProfile profile;
+
+    /** Input field for the user's first name. */
     private TextField firstName;
+
+    /** Input field for the user's last name. */
     private TextField lastName;
+
+    /** Input field for the user's chosen username. */
     private TextField username;
+
+    /** Dropdown for the user's year of study selection. */
     private ComboBox<String> yearOfStudy;
+
+    /** Masked input field for the user's password. */
     private PasswordField password = new PasswordField();
+
+    /** Masked input field for confirming the user's password. */
     private PasswordField passcheck = new PasswordField();
+
+    /** Date picker for the user's date of birth. */
     private DatePicker dateOfBirth = new DatePicker();
 
     /**
@@ -36,7 +53,7 @@ public final class SignUpView extends ScrollPane {
      *
      * @param profile the {@link UserProfile} to populate on save.
      */
-    public SignUpView(UserProfile profile) {
+    public SignUpView(final UserProfile profile) {
         this.profile = profile;
         buildUI();
     }
@@ -125,7 +142,7 @@ public final class SignUpView extends ScrollPane {
      * @param text the label text to display.
      * @return a configured {@link Label}.
      */
-    private Label createLabel(String text) {
+    private Label createLabel(final String text) {
         Label l = new Label(text);
         l.setStyle("-fx-text-fill: " + UITheme.TEXT_DARK + "; -fx-font-size: 14px;");
         VBox.setMargin(l, new Insets(4, 0, 2, 0));
@@ -138,7 +155,7 @@ public final class SignUpView extends ScrollPane {
      * @param prompt the placeholder text shown when the field is empty.
      * @return a configured {@link TextField}.
      */
-    private TextField styledField(String prompt) {
+    private TextField styledField(final String prompt) {
         TextField f = new TextField();
         f.setPromptText(prompt);
         f.setPrefSize(400, 36);
@@ -154,7 +171,7 @@ public final class SignUpView extends ScrollPane {
      * @param h the preferred height in pixels.
      * @return a {@link Region} acting as a vertical spacer.
      */
-    private Region gap(double h) {
+    private Region gap(final double h) {
         Region r = new Region();
         r.setPrefHeight(h);
         return r;
@@ -229,7 +246,7 @@ public final class SignUpView extends ScrollPane {
      *
      * @param msg the warning message to display to the user.
      */
-    private void warn(String msg) {
+    private void warn(final String msg) {
         Alert req = new Alert(Alert.AlertType.WARNING, msg, ButtonType.OK);
         req.setHeaderText(("Required Field"));
         req.showAndWait();

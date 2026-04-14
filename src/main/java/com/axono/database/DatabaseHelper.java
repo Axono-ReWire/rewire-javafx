@@ -41,30 +41,33 @@ public final class DatabaseHelper {
      *         found.
      * @throws SQLException if the query fails.
      */
-    public Map<String, Object> getById(String tableName, int recordId) throws SQLException {
+    public Map<String, Object> getById(
+            final String tableName, final int recordId)
+            throws SQLException {
         String query = "SELECT * FROM " + tableName + " WHERE id = ?";
 
-        PreparedStatement stmt = connection.prepareStatement(query);
-        stmt.setInt(1, recordId);
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, recordId);
 
-        ResultSet rs = stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery();
 
-        if (!rs.next()) {
-            return new HashMap<>();
+            if (!rs.next()) {
+                return new HashMap<>();
+            }
+
+            ResultSetMetaData metaData = rs.getMetaData();
+            int columnCount = metaData.getColumnCount();
+
+            Map<String, Object> row = new HashMap<>();
+
+            for (int i = 1; i <= columnCount; i++) {
+                String columnName = metaData.getColumnName(i);
+                Object value = rs.getObject(i);
+                row.put(columnName, value);
+            }
+
+            return row;
         }
-
-        ResultSetMetaData metaData = rs.getMetaData();
-        int columnCount = metaData.getColumnCount();
-
-        Map<String, Object> row = new HashMap<>();
-
-        for (int i = 1; i <= columnCount; i++) {
-            String columnName = metaData.getColumnName(i);
-            Object value = rs.getObject(i);
-            row.put(columnName, value);
-        }
-
-        return row;
     }
 
     /**
@@ -72,7 +75,6 @@ public final class DatabaseHelper {
      *
      * @throws SQLException if closing the connection fails.
      */
-
     public void close() throws SQLException {
         if (connection != null) {
             connection.close();

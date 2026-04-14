@@ -24,18 +24,32 @@ import com.axono.ui.UITheme;
  */
 public final class AppStage {
 
-    private static final String NAV_BG = "#FFFFFF"; // Background colour hex code for the navigation bar.
+    /** Inline CSS for the default (inactive) state of nav buttons. */
     private static final String NAV_BTN_BORDER = "; -fx-border-color: " + UITheme.BORDER
             + "; -fx-border-width: 2px; -fx-border-radius: 4px;";
+
+    /** Background colour hex code for the navigation bar. */
+    private static final String NAV_BG = "#FFFFFF";
 
     /** The primary JavaFX {@link Stage} owned by this class. */
     private final Stage mainStage;
 
-    private UserProfile profile; // User profile populated during onboarding.
+    /** The user profile populated during onboarding. */
+    private UserProfile profile;
+
+    /** Root layout node that hosts the nav bar and the current view. */
     private BorderPane root;
+
+    /** The navigation button that is currently marked as active. */
     private Button activeNavBtn;
+
+    /** Navigation button that navigates to the home view. */
     private Button homeBtn;
+
+    /** Navigation button that navigates to the dashboard view. */
     private Button dashBtn;
+
+    /** Navigation button that navigates to the results view. */
     private Button resultsBtn;
 
     /**
@@ -44,7 +58,7 @@ public final class AppStage {
      *
      * @param mainStage the primary JavaFX stage to attach the main UI to.
      */
-    public AppStage(Stage mainStage) {
+    public AppStage(final Stage mainStage) {
         this.mainStage = mainStage;
         openOnboarding();
     }
@@ -64,7 +78,7 @@ public final class AppStage {
      *
      * @param profile the {@link UserProfile} collected during onboarding.
      */
-    private void onOnboardingComplete(UserProfile profile) {
+    private void onOnboardingComplete(final UserProfile profile) {
         this.profile = profile;
         buildUI();
         mainStage.show();
@@ -119,7 +133,7 @@ public final class AppStage {
      * @param text the label text for the button.
      * @return the configured navigation {@link Button}.
      */
-    private Button navButton(String text) {
+    private Button navButton(final String text) {
         Button b = new Button(text);
         b.setStyle(inactiveStyle());
         b.setOnMouseEntered(e -> {
@@ -140,7 +154,7 @@ public final class AppStage {
      * @param btn the {@link Button} to mark as active.
      */
 
-    private void setActive(Button btn) {
+    private void setActive(final Button btn) {
         if (activeNavBtn != null)
             activeNavBtn.setStyle(inactiveStyle());
         activeNavBtn = btn;

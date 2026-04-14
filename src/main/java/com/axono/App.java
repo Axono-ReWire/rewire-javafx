@@ -24,7 +24,7 @@ public class App extends Application {
      *
      * @param args command-line arguments (unused).
      */
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         launch();
     }
 

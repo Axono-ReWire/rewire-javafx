@@ -4,16 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Data model representing a user's profile within the Axono ReWire application.
+ * Data model representing a user's profile within the app.
  * Stores personal details and selected study modules collected during
  * onboarding.
  */
 public final class UserProfile {
-    private String name = ""; // The user's display name (first name collected during sign-up).
-    private String yearOfStudy = ""; // The user's current year of study (e.g., "1st Year", "2nd Year", etc.).
-    private String institution = ""; // The user's educational institution (e.g., "University of Example").
-    private List<String> subjects = new ArrayList<>(); // List of subjects/modules the user has selected as part of
-                                                       // their profile.
+
+    /** The user's display name (first name collected during sign-up). */
+    private String name = "";
+
+    /** The user's current year of study (e.g. "Year 1", "Year 2"). */
+    private String yearOfStudy = "";
+
+    /** The user's institution or last name as stored during sign-up. */
+    private String institution = "";
+
+    /** The list of module names the user selected during onboarding. */
+
+    private List<String> subjects = new ArrayList<>();
 
     /**
      * Returns the user's name.

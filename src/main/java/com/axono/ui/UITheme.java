@@ -17,15 +17,24 @@ public final class UITheme {
     private UITheme() {
     }
 
-    public static final String PRIMARY = "#59BE8B"; // Primary brand colour hex code for Axono ReWire.
-    public static final String SECONDARY = "#207282"; // Secondary brand colour hex code for Axono ReWire.
-    public static final String TERTIARY = "#399386"; // Tertiary brand colour hex code for Axono ReWire.
-    public static final String SECONDARY_OPTION = "#cccccc"; // Alternative colour for secondary elements.
-    public static final String BG = "#F4F6F9"; // Background colour hex code for the application.
-    public static final String WHITE = "#FFFFFF"; // White colour hex code.
-    public static final String TEXT_DARK = "#212529"; // Dark text colour hex code.
-    public static final String TEXT_MUTED = "#6C757D"; // Muted text colour hex code.
-    public static final String BORDER = "#DEE2E6"; // Border colour hex code.
+    /** Primary brand colour (green). */
+    public static final String PRIMARY = "#59BE8B";
+    /** Secondary brand colour (teal). */
+    public static final String SECONDARY = "#207282";
+    /** Tertiary brand colour (blue-green). */
+    public static final String TERTIARY = "#399386";
+    /** Alternative colour for secondary elements. */
+    public static final String SECONDARY_OPTION = "#cccccc";
+    /** Background colour for the application. */
+    public static final String BG = "#F4F6F9";
+    /** White colour constant. */
+    public static final String WHITE = "#FFFFFF";
+    /** Dark text colour for primary content. */
+    public static final String TEXT_DARK = "#212529";
+    /** Muted text colour for secondary / hint content. */
+    public static final String TEXT_MUTED = "#6C757D";
+    /** Border colour used for cards and input fields. */
+    public static final String BORDER = "#DEE2E6";
 
     /**
      * Reusable inline CSS style for card containers.
