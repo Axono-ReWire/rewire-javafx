@@ -8,4 +8,7 @@ module com.axono {
     exports com.axono.onboarding;
     exports com.axono.model;
     exports com.axono.ui;
+    exports com.axono.signup;
+    exports com.axono.results;
+    exports com.axono.database;
 }

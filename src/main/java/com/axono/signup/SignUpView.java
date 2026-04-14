@@ -10,7 +10,12 @@ import javafx.scene.control.*;
 import javafx.event.*;
 import java.time.*;
 
-public class SignUpView extends ScrollPane {
+/**
+ * Onboarding step that collects user registration details including name,
+ * date of birth, username, year of study, and password. Validates all fields
+ * before allowing the user to proceed and saves data to a {@link UserProfile}.
+ */
+public final class SignUpView extends ScrollPane {
     private static final String BG_COLOR_STYLE = "-fx-background-color: ";
 
     private final UserProfile profile;
@@ -21,14 +26,21 @@ public class SignUpView extends ScrollPane {
     private PasswordField password = new PasswordField();
     private PasswordField passcheck = new PasswordField();
     private DatePicker dateOfBirth = new DatePicker();
-    private String passwordstr;
-    private String passcheckstr;
 
+    /**
+     * Constructs the {@code SignUpView} for the given user profile.
+     *
+     * @param profile the {@link UserProfile} to populate on save.
+     */
     public SignUpView(UserProfile profile) {
         this.profile = profile;
         buildUI();
     }
 
+    /**
+     * Builds the full scrollable sign-up layout including the header
+     * banner and the input form.
+     */
     private void buildUI() {
         VBox content = new VBox(40); // creates box for user inputs
         firstName = styledField("First name");
@@ -56,6 +68,11 @@ public class SignUpView extends ScrollPane {
         setStyle(BG_COLOR_STYLE + UITheme.BG + ";");
     }
 
+    /**
+     * Builds and returns the sign-up heading banner.
+     *
+     * @return a {@link VBox} containing the "Sign up" title label.
+     */
     private VBox signupcon() {
         Label thisLabel = new Label("Sign up");
         thisLabel.setStyle("-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: " + UITheme.TEXT_DARK + ";");
@@ -65,6 +82,12 @@ public class SignUpView extends ScrollPane {
         return banner;
     }
 
+    /**
+     * Builds and returns the input form card containing all registration fields
+     * and the date-of-birth picker action handler.
+     *
+     * @return a {@link VBox} card containing all input controls.
+     */
     public VBox signupinput() {
 
         Label dateOfBirthLabel = new Label("dd/mm/yyyy");
@@ -92,6 +115,12 @@ public class SignUpView extends ScrollPane {
 
     }
 
+    /**
+     * Creates a styled form label with the given text.
+     *
+     * @param text the label text to display.
+     * @return a configured {@link Label}.
+     */
     private Label createLabel(String text) {
         Label l = new Label(text);
         l.setStyle("-fx-text-fill: " + UITheme.TEXT_DARK + "; -fx-font-size: 14px;");
@@ -99,6 +128,12 @@ public class SignUpView extends ScrollPane {
         return l;
     }
 
+    /**
+     * Creates a styled {@link TextField} with the given prompt text.
+     *
+     * @param prompt the placeholder text shown when the field is empty.
+     * @return a configured {@link TextField}.
+     */
     private TextField styledField(String prompt) {
         TextField f = new TextField();
         f.setPromptText(prompt);
@@ -109,15 +144,28 @@ public class SignUpView extends ScrollPane {
         return f;
     }
 
+    /**
+     * Creates an invisible spacer {@link Region} of the specified height.
+     *
+     * @param h the preferred height in pixels.
+     * @return a {@link Region} acting as a vertical spacer.
+     */
     private Region gap(double h) {
         Region r = new Region();
         r.setPrefHeight(h);
         return r;
     }
 
+    /**
+     * Validates all sign-up form fields.
+     * Displays a warning alert for the first invalid field found and returns
+     * {@code false} without saving any data.
+     *
+     * @return {@code true} if all fields are valid; {@code false} otherwise.
+     */
     public boolean validateInput() {
-        passwordstr = password.getText();
-        passcheckstr = passcheck.getText();
+        String passwordstr = password.getText();
+        String passcheckstr = passcheck.getText();
         LocalDate dobirthLD = dateOfBirth.getValue();
         LocalDate dobcheck = LocalDate.now().minusYears(13);
         if (firstName.getText().trim().isEmpty()) {
@@ -162,12 +210,21 @@ public class SignUpView extends ScrollPane {
         return true;
     }
 
+    /**
+     * Saves the validated form data into the associated {@link UserProfile}.
+     * Must only be called after {@link #validateInput()} returns {@code true}.
+     */
     public void saveData() {
         profile.setName(firstName.getText().trim());
         profile.setYearOfStudy(yearOfStudy.getValue());
         profile.setInstitution(lastName.getText().trim());
     }
 
+    /**
+     * Displays a warning {@link Alert} dialog with the given message.
+     *
+     * @param msg the warning message to display to the user.
+     */
     private void warn(String msg) {
         Alert req = new Alert(Alert.AlertType.WARNING, msg, ButtonType.OK);
         req.setHeaderText(("Required Field"));

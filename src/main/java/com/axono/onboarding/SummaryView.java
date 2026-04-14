@@ -8,7 +8,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.*;
 
-public class SummaryView extends StackPane {
+/**
+ * Final step of the onboarding wizard, displaying a summary card of the
+ * user's entered profile details before they launch the application.
+ */
+public final class SummaryView extends StackPane {
 
     private static final String TEXT_FILL_STYLE = "-fx-text-fill: ";
     private final UserProfile profile;
@@ -17,6 +21,11 @@ public class SummaryView extends StackPane {
     private Label institution;
     private Label modules;
 
+    /**
+     * Constructs the {@code SummaryView} for the given profile and builds the UI.
+     *
+     * @param profile the {@link UserProfile} whose data will be summarised.
+     */
     public SummaryView(UserProfile profile) {
         this.profile = profile;
         setStyle("-fx-background-color: " + UITheme.BG + ";");
@@ -24,6 +33,10 @@ public class SummaryView extends StackPane {
         buildUI();
     }
 
+    /**
+     * Builds the summary card layout, initialising all value labels
+     * with placeholder dashes.
+     */
     private void buildUI() {
         Label icon = new Label("✅");
         icon.setStyle("-fx-font-size: 40px;");
@@ -55,6 +68,13 @@ public class SummaryView extends StackPane {
         getChildren().add(card);
     }
 
+    /**
+     * Builds a labelled key-value row for the summary card.
+     *
+     * @param key the field name to display on the left.
+     * @param val the {@link Label} containing the field value on the right.
+     * @return an {@link HBox} row containing the key and value labels.
+     */
     private HBox row(String key, Label val) {
         Label k = new Label(key + ":");
         k.setStyle(TEXT_FILL_STYLE + UITheme.TEXT_MUTED + ";" +
@@ -67,12 +87,21 @@ public class SummaryView extends StackPane {
         return row;
     }
 
+    /**
+     * Creates a placeholder value {@link Label} initialised with an em dash.
+     *
+     * @return a styled {@link Label} used as a summary value field.
+     */
     private Label valueLabel() {
         Label l = new Label("—");
         l.setStyle(TEXT_FILL_STYLE + UITheme.TEXT_DARK + "; -fx-font-size: 14px;");
         return l;
     }
 
+    /**
+     * Refreshes all summary labels from the current state of the user profile.
+     * Should be called immediately before the summary step is displayed.
+     */
     public void refresh() {
         name.setText(profile.getName().isEmpty() ? "—" : profile.getName());
         yearOfStudy.setText(profile.getYearOfStudy());

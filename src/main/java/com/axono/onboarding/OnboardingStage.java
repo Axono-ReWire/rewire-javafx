@@ -17,7 +17,13 @@ import javafx.scene.shape.Circle;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OnboardingStage {
+/**
+ * Multi-step onboarding wizard that guides a new user through profile setup.
+ * Manages a sequence of four steps: Welcome, Sign Up, Subject Selection,
+ * and Summary. Fires a completion callback with the populated
+ * {@link UserProfile} when the user clicks "Launch App".
+ */
+public final class OnboardingStage {
 
     private final Stage stage;
     private final Consumer<UserProfile> onComplete;
@@ -35,6 +41,14 @@ public class OnboardingStage {
     private Label stepLabel;
     private List<Circle> dots;
 
+    /**
+     * Constructs the onboarding wizard, initialises all step views,
+     * builds the UI, and shows the stage.
+     *
+     * @param stage      the {@link Stage} to use for the onboarding window.
+     * @param onComplete callback to invoke with the completed profile
+     *                   when onboarding finishes.
+     */
     public OnboardingStage(Stage stage, Consumer<UserProfile> onComplete) {
         this.stage = stage;
         this.onComplete = onComplete;
@@ -45,6 +59,10 @@ public class OnboardingStage {
         buildUI();
     }
 
+    /**
+     * Assembles the root {@link BorderPane} with a header, footer, and
+     * the first step as the centre, then shows the stage.
+     */
     private void buildUI() {
         root = new BorderPane();
         root.setStyle("-fx-background-color: " + UITheme.BG + ";");
@@ -58,6 +76,12 @@ public class OnboardingStage {
         updateStep();
     }
 
+    /**
+     * Builds and returns the onboarding window header containing the app
+     * logo and step progress indicator dots.
+     *
+     * @return a styled {@link HBox} to be placed at the top of the window.
+     */
     private HBox buildHeader() {
         Label logo = new Label("Axono - ReWire");
         logo.setStyle("-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;");
@@ -83,6 +107,12 @@ public class OnboardingStage {
         return header;
     }
 
+    /**
+     * Builds and returns the onboarding window footer containing the Back
+     * and Next navigation buttons and the step counter label.
+     *
+     * @return a styled {@link StackPane} to be placed at the bottom of the window.
+     */
     private StackPane buildFooter() {
         stepLabel = new Label();
         stepLabel.setStyle("-fx-text-fill: " + UITheme.TEXT_MUTED + "; -fx-font-size: 12px;");
@@ -109,6 +139,15 @@ public class OnboardingStage {
         return footer;
     }
 
+    /**
+     * Creates a styled navigation {@link Button} with the given label,
+     * background colour, and foreground (text) colour.
+     *
+     * @param text the button label.
+     * @param bg   the hex background colour string.
+     * @param fg   the hex text colour string.
+     * @return a configured navigation {@link Button}.
+     */
     private Button navButton(String text, String bg, String fg) {
         Button b = new Button(text);
         b.setPrefSize(130, 38);
@@ -123,6 +162,11 @@ public class OnboardingStage {
         return b;
     }
 
+    /**
+     * Handles the Next button action. Validates the current step if required,
+     * saves its data, then advances to the next step or launches the app
+     * if on the final step.
+     */
     private void goNext() {
         if (currentStep == 1 && !signupView.validateInput())
             return;
@@ -145,6 +189,10 @@ public class OnboardingStage {
         updateStep();
     }
 
+    /**
+     * Handles the Back button action. Decrements the current step index
+     * and updates the displayed view.
+     */
     private void goBack() {
         if (currentStep > 0) {
             currentStep--;
@@ -153,6 +201,11 @@ public class OnboardingStage {
         }
     }
 
+    /**
+     * Updates all step-dependent UI elements: progress dot colours,
+     * the step counter label, Back button visibility, and the Next
+     * button label and colour.
+     */
     private void updateStep() {
         for (int i = 0; i < dots.size(); i++)
             dots.get(i).setFill(Color.web(i <= currentStep ? UITheme.TERTIARY : UITheme.BORDER));
@@ -170,6 +223,10 @@ public class OnboardingStage {
                 color));
     }
 
+    /**
+     * Closes the onboarding stage and fires the {@link #onComplete}
+     * callback with the collected {@link UserProfile}.
+     */
     private void launchApp() {
         stage.close();
         onComplete.accept(profile);

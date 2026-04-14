@@ -8,10 +8,19 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
-public class WelcomeView extends StackPane {
+/**
+ * First step of the onboarding wizard, displays a branded welcome card
+ * that introduces Axono ReWire to the user.
+ */
+public final class WelcomeView extends StackPane {
 
+    /** Reusable JavaFX CSS prefix for setting text colour. */
     private static final String TEXT_FILL_STYLE = "-fx-text-fill: ";
 
+    /**
+     * Constructs the {@code WelcomeView}, building and displaying
+     * the welcome card layout.
+     */
     public WelcomeView() {
         setStyle("-fx-background-color: " + UITheme.BG + ";");
         setPadding(new Insets(30));

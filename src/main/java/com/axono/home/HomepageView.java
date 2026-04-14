@@ -5,7 +5,12 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
-public class HomepageView extends ScrollPane {
+/**
+ * The application home page view, displayed after onboarding is complete.
+ * Shows a welcome banner and a scrollable list of module topic buttons
+ * for the Analogue Electronics module.
+ */
+public final class HomepageView extends ScrollPane {
 
     private static final String PRIMARY = "#59BE8B";
     private static final String BG = "#FCFBFB";
@@ -14,6 +19,7 @@ public class HomepageView extends ScrollPane {
     private static final String BORDER = "#DCDCDC";
     private static final String BG_COLOR = "-fx-background-color: ";
 
+    /** Array of topic names displayed as navigable buttons on the home page. */
     private static final String[] TOPICS = {
             "Layouts", "Decibels", "Op-Amps", "Electromagnetism", "Phasors",
             "Complex Impedances", "Kirchhoff's Laws", "Passive Networks", "Dividers",
@@ -21,10 +27,18 @@ public class HomepageView extends ScrollPane {
             "Poles and Zeros", "Frequency Response", "Step Response"
     };
 
+    /**
+     * Constructs the {@code HomepageView} and builds the scrollable layout.
+     */
     public HomepageView() {
         buildUI();
     }
 
+    /**
+     * Builds the full page layout including the welcome banner and module topic
+     * list,
+     * wrapping everything in a centred scrollable container.
+     */
     private void buildUI() {
         VBox content = new VBox(40);
         content.setAlignment(Pos.TOP_CENTER);
@@ -44,6 +58,12 @@ public class HomepageView extends ScrollPane {
         setStyle(BG_COLOR + BG + ";");
     }
 
+    /**
+     * Builds and returns the welcome banner containing the title, subtitle,
+     * role selection buttons, and a login prompt.
+     *
+     * @return a {@link VBox} containing the banner elements.
+     */
     private VBox buildBanner() {
         Label welcome = new Label("Welcome to Axono ReWire!");
         welcome.setStyle(
@@ -65,6 +85,13 @@ public class HomepageView extends ScrollPane {
         return banner;
     }
 
+    /**
+     * Builds and returns a scrollable list of topic buttons for the
+     * Analogue Electronics module.
+     *
+     * @return a {@link VBox} containing the module name label and the topic list
+     *         card.
+     */
     private VBox buildModuleTopicList() {
         Label moduleName = new Label("Analogue Electronics");
         moduleName.setStyle(
@@ -90,6 +117,12 @@ public class HomepageView extends ScrollPane {
         return section;
     }
 
+    /**
+     * Creates a styled outline {@link Button} with hover fill effects.
+     *
+     * @param text the button label.
+     * @return a configured {@link Button}.
+     */
     private Button outlineButton(String text) {
         String base = "-fx-background-color: transparent;" +
                 "-fx-border-color: " + PRIMARY + "; -fx-border-width: 2px;" +

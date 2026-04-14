@@ -7,17 +7,32 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import com.axono.ui.UITheme;
 
-public class DashboardView extends ScrollPane {
+/**
+ * The main dashboard view displayed after onboarding is complete. Shows a
+ * welcome banner with the user's name, a progress overview of their selected
+ * subjects, and recommended next topics to explore.
+ */
+public final class DashboardView extends ScrollPane {
 
     private static final String BG_COLOR_STYLE = "-fx-background-color: ";
 
     private final UserProfile profile;
 
+    /**
+     * Constructs the {@code DashboardView} for the given user profile.
+     *
+     * @param profile the {@link UserProfile} containing the user's name and
+     *                subjects.
+     */
     public DashboardView(UserProfile profile) {
         this.profile = profile;
         buildUI();
     }
 
+    /**
+     * Builds the full scrollable dashboard layout, assembling the banner,
+     * progress section, and recommended topics section.
+     */
     private void buildUI() {
         VBox content = new VBox(40);
         content.setAlignment(Pos.TOP_CENTER);
@@ -40,6 +55,12 @@ public class DashboardView extends ScrollPane {
         setStyle(BG_COLOR_STYLE + UITheme.BG + ";");
     }
 
+    /**
+     * Builds and returns the top welcome banner with the user's name
+     * and Profile / Logout action buttons.
+     *
+     * @return a {@link VBox} containing the welcome label and action buttons.
+     */
     private VBox buildBanner() {
         Label welcome = new Label("Welcome, " + profile.getName() + "!");
         welcome.setStyle(
@@ -53,6 +74,12 @@ public class DashboardView extends ScrollPane {
         return banner;
     }
 
+    /**
+     * Builds and returns the progress section, rendering a progress bar row
+     * for each module in the user's selected subjects list.
+     *
+     * @return a {@link VBox} containing the section heading and progress rows.
+     */
     private VBox buildProgressSection() {
         Label pageTitle = sectionLabel("Your Learning Dashboard", 28);
         Label subTitle = sectionLabel("Your Progress", 22);
@@ -84,6 +111,12 @@ public class DashboardView extends ScrollPane {
         return section;
     }
 
+    /**
+     * Builds and returns the recommended topics section containing a placeholder
+     * topic card for Analogue Electronics.
+     *
+     * @return a {@link VBox} containing the recommended topics heading and card.
+     */
     private VBox buildRecommendedTopics() {
         Label title = sectionLabel("Recommended Topics", 22);
 
@@ -106,6 +139,13 @@ public class DashboardView extends ScrollPane {
         return section;
     }
 
+    /**
+     * Builds a module action card with a title label and an action button.
+     *
+     * @param title   the card's title text.
+     * @param btnText the label for the card's action button.
+     * @return a {@link VBox} card containing the title and button.
+     */
     private VBox buildModuleCard(String title, String btnText) {
         Label label = bodyLabel(title);
         label.setStyle(
@@ -113,6 +153,13 @@ public class DashboardView extends ScrollPane {
         return cardWrap(new VBox(10, label, outlineButton(btnText)));
     }
 
+    /**
+     * Wraps the given {@link VBox} in a styled card with a white background,
+     * border, and rounded corners.
+     *
+     * @param content the {@link VBox} to style as a card.
+     * @return the same {@link VBox} with card styling applied.
+     */
     private VBox cardWrap(VBox content) {
         content.setPadding(new Insets(20));
         content.setMaxWidth(700);
@@ -123,6 +170,13 @@ public class DashboardView extends ScrollPane {
         return content;
     }
 
+    /**
+     * Creates a horizontal progress bar {@link StackPane} filled to the given
+     * percentage.
+     *
+     * @param percent the completion percentage (0–100).
+     * @return a {@link StackPane} rendering the progress bar track and fill.
+     */
     private StackPane progressBar(double percent) {
         StackPane track = new StackPane();
         track.setPrefSize(160, 8);
@@ -138,6 +192,13 @@ public class DashboardView extends ScrollPane {
         return track;
     }
 
+    /**
+     * Creates a section heading {@link Label} with the given text and font size.
+     *
+     * @param text the heading text.
+     * @param size the font size in pixels.
+     * @return a styled section heading {@link Label}.
+     */
     private Label sectionLabel(String text, int size) {
         Label l = new Label(text);
         l.setStyle(String.format(
@@ -145,12 +206,24 @@ public class DashboardView extends ScrollPane {
         return l;
     }
 
+    /**
+     * Creates a standard body text {@link Label} with the given text.
+     *
+     * @param text the label text.
+     * @return a styled body {@link Label}.
+     */
     private Label bodyLabel(String text) {
         Label l = new Label(text);
         l.setStyle("-fx-font-size: 14px; -fx-text-fill: " + UITheme.TEXT_DARK + ";");
         return l;
     }
 
+    /**
+     * Creates a styled outline {@link Button} with hover fill effects.
+     *
+     * @param text the button label.
+     * @return a configured outline {@link Button}.
+     */
     private Button outlineButton(String text) {
         String base = "-fx-background-color: transparent;" +
                 "-fx-border-color: " + UITheme.PRIMARY + "; -fx-border-width: 2px;" +
