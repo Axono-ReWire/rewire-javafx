@@ -31,11 +31,14 @@ public final class SummaryView extends StackPane {
     /** Label displaying the user's institution. */
     private Label institution;
 
-    /** Label displaying the user's selected modules as a comma-separated list. */
+    /**
+     * Label displaying the user's selected modules as a comma-separated list.
+     */
     private Label modules;
 
     /**
-     * Constructs the {@code SummaryView} for the given profile and builds the UI.
+     * Constructs the {@code SummaryView} for
+     * the given profile and builds the UI.
      *
      * @param profile the {@link UserProfile} whose data will be summarised.
      */
@@ -55,8 +58,8 @@ public final class SummaryView extends StackPane {
         icon.setStyle("-fx-font-size: 40px;");
 
         Label heading = new Label("You're all set!");
-        heading.setStyle(TEXT_FILL_STYLE + UITheme.PRIMARY + ";" +
-                "-fx-font-size: 20px; -fx-font-weight: bold;");
+        heading.setStyle(TEXT_FILL_STYLE + UITheme.PRIMARY + ";"
+                + "-fx-font-size: 20px; -fx-font-weight: bold;");
 
         Separator sep = new Separator();
         VBox.setMargin(sep, new Insets(12, 0, 12, 0));
@@ -90,8 +93,8 @@ public final class SummaryView extends StackPane {
      */
     private HBox row(final String key, final Label val) {
         Label k = new Label(key + ":");
-        k.setStyle(TEXT_FILL_STYLE + UITheme.TEXT_MUTED + ";" +
-                "-fx-font-size: 13px; -fx-font-weight: bold;");
+        k.setStyle(TEXT_FILL_STYLE + UITheme.TEXT_MUTED + ";"
+                + "-fx-font-size: 13px; -fx-font-weight: bold;");
         k.setMinWidth(130);
 
         HBox row = new HBox(16, k, val);
@@ -107,7 +110,8 @@ public final class SummaryView extends StackPane {
      */
     private Label valueLabel() {
         Label l = new Label("—");
-        l.setStyle(TEXT_FILL_STYLE + UITheme.TEXT_DARK + "; -fx-font-size: 14px;");
+        l.setStyle(TEXT_FILL_STYLE + UITheme.TEXT_DARK
+                + "; -fx-font-size: 14px;");
         return l;
     }
 
@@ -118,7 +122,8 @@ public final class SummaryView extends StackPane {
     public void refresh() {
         name.setText(profile.getName().isEmpty() ? "—" : profile.getName());
         yearOfStudy.setText(profile.getYearOfStudy());
-        institution.setText(profile.getInstitution().isEmpty() ? "Not specified" : profile.getInstitution());
+        institution.setText(
+                profile.getInstitution().isEmpty() ? "Not specified" : profile.getInstitution());
         var subjects = profile.getSubjects();
         modules.setText(subjects.isEmpty() ? "—" : String.join(", ", subjects));
     }

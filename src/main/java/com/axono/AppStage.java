@@ -25,7 +25,8 @@ import com.axono.ui.UITheme;
 public final class AppStage {
 
     /** Inline CSS for the default (inactive) state of nav buttons. */
-    private static final String NAV_BTN_BORDER = "; -fx-border-color: " + UITheme.BORDER
+    private static final String NAV_BTN_BORDER = "; -fx-border-color: "
+            + UITheme.BORDER
             + "; -fx-border-width: 2px; -fx-border-radius: 4px;";
 
     /** Background colour hex code for the navigation bar. */
@@ -106,8 +107,9 @@ public final class AppStage {
      */
     private HBox buildNavBar() {
         Label logo = new Label("Axono ReWire");
-        logo.setStyle(
-                "-fx-text-fill: " + UITheme.PRIMARY + "; -fx-font-size: 18px; -fx-font-weight: bold;");
+        logo.setStyle("-fx-text-fill: "
+                + UITheme.PRIMARY
+                + "; -fx-font-size: 18px; -fx-font-weight: bold;");
         HBox.setHgrow(logo, Priority.ALWAYS);
 
         homeBtn = navButton("Home");
@@ -128,7 +130,8 @@ public final class AppStage {
 
     /**
      * Creates a styled navigation {@link Button} with hover effects.
-     * The button does not show an active style until {@link #setActive} is called.
+     * The button does not show an active style until
+     * {@link #setActive} is called.
      *
      * @param text the label text for the button.
      * @return the configured navigation {@link Button}.
@@ -137,12 +140,14 @@ public final class AppStage {
         Button b = new Button(text);
         b.setStyle(inactiveStyle());
         b.setOnMouseEntered(e -> {
-            if (b != activeNavBtn)
+            if (b != activeNavBtn) {
                 b.setStyle(hoverStyle());
+            }
         });
         b.setOnMouseExited(e -> {
-            if (b != activeNavBtn)
+            if (b != activeNavBtn) {
                 b.setStyle(inactiveStyle());
+            }
         });
         return b;
     }
@@ -155,8 +160,9 @@ public final class AppStage {
      */
 
     private void setActive(final Button btn) {
-        if (activeNavBtn != null)
+        if (activeNavBtn != null) {
             activeNavBtn.setStyle(inactiveStyle());
+        }
         activeNavBtn = btn;
         btn.setStyle(activeStyle());
     }
@@ -168,10 +174,11 @@ public final class AppStage {
      * @return CSS style string.
      */
     private String inactiveStyle() {
-        return "-fx-background-color: transparent; -fx-text-fill: " + UITheme.TEXT_MUTED + ";" +
-                "-fx-font-size: 14px; -fx-font-weight: bold;" +
-                "-fx-padding: 6px 16px; -fx-background-radius: 4px; -fx-cursor: hand;" +
-                NAV_BTN_BORDER;
+        return "-fx-background-color: transparent; -fx-text-fill: "
+                + UITheme.TEXT_MUTED + ";"
+                + "-fx-font-size: 14px; -fx-font-weight: bold;"
+                + "-fx-padding: 6px 16px; -fx-background-radius: 4px;"
+                + "-fx-cursor: hand;" + NAV_BTN_BORDER;
     }
 
     /**
@@ -181,10 +188,11 @@ public final class AppStage {
      * @return CSS style string.
      */
     private String hoverStyle() {
-        return "-fx-background-color: rgba(255,255,255,0.15); -fx-text-fill: " + UITheme.TEXT_DARK + ";" +
-                "-fx-font-size: 14px; -fx-font-weight: bold;" +
-                "-fx-padding: 6px 16px; -fx-background-radius: 4px; -fx-cursor: hand;" +
-                NAV_BTN_BORDER;
+        return "-fx-background-color: rgba(255,255,255,0.15); -fx-text-fill: "
+                + UITheme.TEXT_DARK + ";"
+                + "-fx-font-size: 14px; -fx-font-weight: bold;"
+                + "-fx-padding: 6px 16px; -fx-background-radius: 4px;"
+                + "-fx-cursor: hand;" + NAV_BTN_BORDER;
     }
 
     /**
@@ -194,10 +202,11 @@ public final class AppStage {
      * @return CSS style string.
      */
     private String activeStyle() {
-        return "-fx-background-color: rgba(255,255,255,0.28); -fx-text-fill: " + UITheme.TEXT_DARK + ";" +
-                "-fx-font-size: 14px; -fx-font-weight: bold;" +
-                "-fx-padding: 6px 16px; -fx-background-radius: 4px; -fx-cursor: hand;" +
-                NAV_BTN_BORDER;
+        return "-fx-background-color: rgba(255,255,255,0.28); -fx-text-fill: "
+                + UITheme.TEXT_DARK + ";"
+                + "-fx-font-size: 14px; -fx-font-weight: bold;"
+                + "-fx-padding: 6px 16px; -fx-background-radius: 4px;"
+                + "-fx-cursor: hand;" + NAV_BTN_BORDER;
     }
 
     /**

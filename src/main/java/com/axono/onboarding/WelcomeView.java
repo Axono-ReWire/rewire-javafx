@@ -29,17 +29,21 @@ public final class WelcomeView extends StackPane {
         icon.setStyle("-fx-font-size: 52px;");
 
         Label title = new Label("Welcome to ReWire!");
-        title.setStyle(TEXT_FILL_STYLE + UITheme.PRIMARY + ";" +
-                "-fx-font-size: 20px; -fx-font-weight: bold;");
+        title.setStyle(TEXT_FILL_STYLE + UITheme.PRIMARY + ";"
+                + "-fx-font-size: 20px; -fx-font-weight: bold;");
 
-        Label body = new Label(
-                "The all-in-one platform for mastering all things Engineering.");
-        body.setStyle(TEXT_FILL_STYLE + UITheme.TEXT_MUTED + "; -fx-font-size: 14px;");
+        Label body = new Label("The all-in-one platform"
+                + " for mastering all things Engineering.");
+        body.setStyle(TEXT_FILL_STYLE + UITheme.TEXT_MUTED
+                + "; -fx-font-size: 14px;");
         body.setTextAlignment(TextAlignment.CENTER);
         body.setWrapText(true);
 
-        Label hint = new Label("Click Next to set up your profile and get started.");
-        hint.setStyle(TEXT_FILL_STYLE + UITheme.SECONDARY + "; -fx-font-size: 12px;");
+        Label hint = new Label(
+                "Click Next to set up your profile and get started.");
+        hint.setStyle(TEXT_FILL_STYLE
+                + UITheme.SECONDARY
+                + "; -fx-font-size: 12px;");
 
         VBox card = new VBox(14, icon, title, body, hint);
         card.setAlignment(Pos.CENTER);
