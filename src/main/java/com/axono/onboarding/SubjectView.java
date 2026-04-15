@@ -33,7 +33,8 @@ public final class SubjectView extends StackPane {
         private final UserProfile profile;
 
         /**
-         * Flat list of all {@link CheckBox} controls rendered in the curriculum grid.
+         * Flat list of all {@link CheckBox} controls
+         * rendered in the curriculum grid.
          */
         private final List<CheckBox> checkboxes = new ArrayList<>();
 
@@ -44,7 +45,8 @@ public final class SubjectView extends StackPane {
         private static final String FX_TEXT_FILL = "-fx-text-fill: ";
 
         /**
-         * Immutable static data model representing a single teachable module.
+         * Immutable static data model representing
+         * a single teachable module.
          */
         private static class Module {
 
@@ -67,7 +69,8 @@ public final class SubjectView extends StackPane {
         }
 
         /**
-         * A named group of {@link Module} objects within a year (e.g. "Core Modules").
+         * A named group of {@link Module} objects
+         * within a year (e.g. "Core Modules").
          */
         private static class Section {
                 /**
@@ -80,9 +83,11 @@ public final class SubjectView extends StackPane {
                 final Module[] modules;
 
                 /**
-                 * Constructs a {@code Section} with the given title and modules.
+                 * Constructs a {@code Section} with
+                 * the given title and modules.
                  *
-                 * @param title   the section heading, or {@code null} for untitled sections.
+                 * @param title   the section heading,
+                 *                or {@code null} for untitled sections.
                  * @param modules the modules in this section.
                  */
                 Section(final String title, final Module... modules) {
@@ -102,7 +107,8 @@ public final class SubjectView extends StackPane {
                 final Section[] sections;
 
                 /**
-                 * Constructs a {@code YearGroup} with the given label and sections.
+                 * Constructs a {@code YearGroup} with
+                 * the given label and sections.
                  *
                  * @param label    the year group label.
                  * @param sections the sections within this year group.
@@ -114,7 +120,8 @@ public final class SubjectView extends StackPane {
         }
 
         /**
-         * The full curriculum data structure used to render the module selection UI.
+         * The full curriculum data structure used
+         * to render the module selection UI.
          */
         private static final YearGroup[] CURRICULUM = buildCurriculum();
 
@@ -122,7 +129,8 @@ public final class SubjectView extends StackPane {
          * Builds and returns the complete static curriculum data structure
          * covering Foundation Year through Year 4.
          *
-         * @return an array of {@link YearGroup} objects representing the curriculum.
+         * @return an array of {@link YearGroup}
+         *         objects representing the curriculum.
          */
         private static YearGroup[] buildCurriculum() {
                 return new YearGroup[] {
@@ -319,7 +327,8 @@ public final class SubjectView extends StackPane {
                 Button selectAll = new Button("Select All");
                 selectAll.setStyle("-fx-font-size: 12px; -fx-cursor: hand;");
                 selectAll.setOnAction(e -> {
-                        boolean anyUnchecked = checkboxes.stream().anyMatch(c -> !c.isSelected());
+                        boolean anyUnchecked = checkboxes.stream().anyMatch(
+                                        c -> !c.isSelected());
                         checkboxes.forEach(c -> c.setSelected(anyUnchecked));
                 });
 
@@ -327,7 +336,8 @@ public final class SubjectView extends StackPane {
                 topRow.setAlignment(Pos.CENTER_LEFT);
 
                 Label sub = new Label("Choose the modules you're studying:");
-                sub.setStyle(FX_TEXT_FILL + UITheme.TEXT_MUTED + "; -fx-font-size: 14px;");
+                sub.setStyle(FX_TEXT_FILL
+                                + UITheme.TEXT_MUTED + "; -fx-font-size: 14px;");
 
                 VBox content = new VBox(20);
                 for (YearGroup year : CURRICULUM) {
@@ -336,7 +346,8 @@ public final class SubjectView extends StackPane {
 
                 ScrollPane scroll = new ScrollPane(content);
                 scroll.setFitToWidth(true);
-                scroll.setStyle("-fx-background: transparent; -fx-background-color: transparent;");
+                scroll.setStyle("-fx-background: transparent; "
+                                + "-fx-background-color: transparent;");
                 scroll.setBorder(Border.EMPTY);
                 VBox.setVgrow(scroll, Priority.ALWAYS);
 
@@ -357,8 +368,9 @@ public final class SubjectView extends StackPane {
          */
         private VBox buildYearBlock(final YearGroup year) {
                 Label yearLabel = new Label(year.label);
-                yearLabel.setStyle(FX_TEXT_FILL + UITheme.PRIMARY +
-                                "; -fx-font-size: 15px; -fx-font-weight: bold;");
+                yearLabel.setStyle(FX_TEXT_FILL + UITheme.PRIMARY
+                                + "; -fx-font-size: 15px;"
+                                + "-fx-font-weight: bold;");
 
                 Separator sep = new Separator();
                 VBox.setMargin(sep, new Insets(2, 0, 6, 0));
@@ -367,10 +379,14 @@ public final class SubjectView extends StackPane {
 
                 for (Section section : year.sections) {
                         if (section.title != null) {
-                                Label sectionLabel = new Label(section.title.toUpperCase());
-                                sectionLabel.setStyle(FX_TEXT_FILL + UITheme.TEXT_MUTED +
-                                                "; -fx-font-size: 10px; -fx-font-weight: bold;");
-                                VBox.setMargin(sectionLabel, new Insets(6, 0, 2, 0));
+                                Label sectionLabel = new Label(
+                                                section.title.toUpperCase());
+                                sectionLabel.setStyle(FX_TEXT_FILL
+                                                + UITheme.TEXT_MUTED
+                                                + "; -fx-font-size: 10px;"
+                                                + "-fx-font-weight: bold;");
+                                VBox.setMargin(sectionLabel, new Insets(
+                                                6, 0, 2, 0));
                                 block.getChildren().add(sectionLabel);
                         }
                         block.getChildren().add(buildGrid(section.modules));
@@ -379,22 +395,27 @@ public final class SubjectView extends StackPane {
         }
 
         /**
-         * Builds a two-column {@link GridPane} of checkbox cells for the given modules.
-         * Each cell contains a {@link CheckBox} and a description label, and highlights
+         * Builds a two-column {@link GridPane}
+         * of checkbox cells for the given modules.
+         * Each cell contains a {@link CheckBox}
+         * and a description label, and highlights
          * when selected.
          *
          * @param modules the array of {@link Module} objects to render.
          * @return a {@link GridPane} containing one cell per module.
          */
         private GridPane buildGrid(final Module[] modules) {
-                String normalStyle = "-fx-background-color: " + UITheme.BG + ";" +
-                                "-fx-border-color: " + UITheme.BORDER + ";" +
-                                "-fx-border-radius: 4px; -fx-background-radius: 4px;" +
-                                "-fx-padding: 8px 10px;";
-                String selectedStyle = "-fx-background-color: #E8F7FB;" +
-                                "-fx-border-color: " + UITheme.SECONDARY + "; -fx-border-width: 2px;" +
-                                "-fx-border-radius: 4px; -fx-background-radius: 4px;" +
-                                "-fx-padding: 8px 10px;";
+                String normalStyle = "-fx-background-color: " + UITheme.BG + ";"
+                                + "-fx-border-color: " + UITheme.BORDER + ";"
+                                + "-fx-border-radius: 4px;"
+                                + "-fx-background-radius: 4px;"
+                                + "-fx-padding: 8px 10px;";
+                String selectedStyle = "-fx-background-color: #E8F7FB;"
+                                + "-fx-border-color: " + UITheme.SECONDARY
+                                + "; -fx-border-width: 2px;"
+                                + "-fx-border-radius: 4px;"
+                                + "-fx-background-radius: 4px;"
+                                + "-fx-padding: 8px 10px;";
 
                 GridPane grid = new GridPane();
                 grid.setHgap(8);
@@ -410,17 +431,21 @@ public final class SubjectView extends StackPane {
                         Module m = modules[i];
 
                         CheckBox cb = new CheckBox(m.name);
-                        cb.setStyle("-fx-font-size: 13px; " + FX_TEXT_FILL + UITheme.TEXT_DARK + ";");
+                        cb.setStyle("-fx-font-size: 13px; "
+                                        + FX_TEXT_FILL
+                                        + UITheme.TEXT_DARK + ";");
                         cb.setWrapText(true);
 
                         Label desc = new Label(m.desc);
-                        desc.setStyle("-fx-font-size: 11px; -fx-text-fill: " + UITheme.TEXT_MUTED + ";");
+                        desc.setStyle("-fx-font-size: 11px; -fx-text-fill: "
+                                        + UITheme.TEXT_MUTED + ";");
                         desc.setWrapText(true);
 
                         VBox cell = new VBox(2, cb, desc);
                         cell.setStyle(normalStyle);
                         cb.selectedProperty().addListener(
-                                        (obs, old, sel) -> cell.setStyle(sel ? selectedStyle : normalStyle));
+                                        (obs, old, sel) -> cell.setStyle(
+                                                        sel ? selectedStyle : normalStyle));
 
                         checkboxes.add(cb);
                         grid.add(cell, i % 2, i / 2);
@@ -432,14 +457,17 @@ public final class SubjectView extends StackPane {
          * Validates that the user has selected at least one module.
          * Displays a warning alert if no modules are selected.
          *
-         * @return {@code true} if at least one checkbox is selected; {@code false}
+         * @return {@code true} if at least
+         *         one checkbox is selected; {@code false}
          *         otherwise.
          */
         public boolean validateInput() {
-                boolean any = checkboxes.stream().anyMatch(CheckBox::isSelected);
+                boolean any = checkboxes.stream().anyMatch(
+                                CheckBox::isSelected);
                 if (!any) {
                         Alert a = new Alert(Alert.AlertType.WARNING,
-                                        "Please select at least one module.", ButtonType.OK);
+                                        "Please select at least one module.",
+                                        ButtonType.OK);
                         a.setHeaderText("Required");
                         a.showAndWait();
                 }
@@ -449,7 +477,8 @@ public final class SubjectView extends StackPane {
         /**
          * Saves the names of all selected modules into the associated
          * {@link UserProfile}.
-         * Must only be called after {@link #validateInput()} returns {@code true}.
+         * Must only be called after
+         * {@link #validateInput()} returns {@code true}.
          */
         public void saveData() {
                 List<String> selected = new ArrayList<>();

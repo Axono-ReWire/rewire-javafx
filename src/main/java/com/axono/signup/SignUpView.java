@@ -26,7 +26,8 @@ import javafx.scene.layout.Region;
 /**
  * Onboarding step that collects user registration details including name,
  * date of birth, username, year of study, and password. Validates all fields
- * before allowing the user to proceed and saves data to a {@link UserProfile}.
+ * before allowing the user to proceed and saves data to a
+ * {@link UserProfile}.
  */
 public final class SignUpView extends ScrollPane {
 
@@ -77,7 +78,9 @@ public final class SignUpView extends ScrollPane {
         lastName = styledField("Last name");
         username = styledField("Username");
         yearOfStudy = new ComboBox<>();
-        yearOfStudy.getItems().addAll("Select", "Foundation", "Year 1", "Year 2", "Year 3", "Year 4", "Post Graduate");
+        yearOfStudy.getItems().addAll(
+                "Select", "Foundation", "Year 1", "Year 2",
+                "Year 3", "Year 4", "Post Graduate");
         yearOfStudy.getSelectionModel().selectFirst();
         content.setAlignment(Pos.TOP_CENTER);
         content.setPadding(new Insets(60, 20, 60, 20));
@@ -105,7 +108,9 @@ public final class SignUpView extends ScrollPane {
      */
     private VBox signupcon() {
         Label thisLabel = new Label("Sign up");
-        thisLabel.setStyle("-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: " + UITheme.TEXT_DARK + ";");
+        thisLabel.setStyle("-fx-font-size: 32px;"
+                + "-fx-font-weight: bold; -fx-text-fill: "
+                + UITheme.TEXT_DARK + ";");
         VBox.setMargin(thisLabel, new Insets(0, 0, 16, 0));
         VBox banner = new VBox(20, thisLabel);
         banner.setAlignment(Pos.CENTER);
@@ -132,7 +137,7 @@ public final class SignUpView extends ScrollPane {
         sd.setMaxWidth(500);
         sd.setStyle(UITheme.CARD_STYLE);
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
+            public void handle(final ActionEvent e) {
                 LocalDate i = dateOfBirth.getValue();
                 dateOfBirthLabel.setText("" + i);
             }
@@ -153,7 +158,8 @@ public final class SignUpView extends ScrollPane {
      */
     private Label createLabel(final String text) {
         Label l = new Label(text);
-        l.setStyle("-fx-text-fill: " + UITheme.TEXT_DARK + "; -fx-font-size: 14px;");
+        l.setStyle("-fx-text-fill: "
+                + UITheme.TEXT_DARK + "; -fx-font-size: 14px;");
         VBox.setMargin(l, new Insets(4, 0, 2, 0));
         return l;
     }
@@ -168,9 +174,9 @@ public final class SignUpView extends ScrollPane {
         TextField f = new TextField();
         f.setPromptText(prompt);
         f.setPrefSize(400, 36);
-        f.setStyle("-fx-font-size: 14px;" +
-                "-fx-border-color: " + UITheme.BORDER + ";" +
-                "-fx-border-radius: 4px; -fx-background-radius: 4px;");
+        f.setStyle("-fx-font-size: 14px;"
+                + "-fx-border-color: " + UITheme.BORDER + ";"
+                + "-fx-border-radius: 4px; -fx-background-radius: 4px;");
         return f;
     }
 
