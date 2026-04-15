@@ -5,6 +5,8 @@ import com.axono.home.HomepageView;
 import com.axono.model.UserProfile;
 import com.axono.onboarding.OnboardingStage;
 import com.axono.results.ResultsPage;
+import com.axono.ui.UITheme;
+import com.axono.ui.UIConstants;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,7 +17,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
-import com.axono.ui.UITheme;
 
 /**
  * Constructs and manages the main application window for Axono ReWire.

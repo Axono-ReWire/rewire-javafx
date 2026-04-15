@@ -1,6 +1,8 @@
 package com.axono.dashboard;
 
 import com.axono.model.UserProfile;
+import com.axono.ui.UITheme;
+import com.axono.ui.UIConstants;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -11,8 +13,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-
-import com.axono.ui.UITheme;
 
 /**
  * The main dashboard view displayed after onboarding is complete. Shows a
@@ -43,10 +43,13 @@ public final class DashboardView extends ScrollPane {
          * progress section, and recommended topics section.
          */
         private void buildUI() {
-                VBox content = new VBox(40);
+                VBox content = new VBox(UIConstants.SPACING_3XL);
                 content.setAlignment(Pos.TOP_CENTER);
-                content.setPadding(new Insets(60, 20, 60, 20));
-                content.setMaxWidth(800);
+                content.setPadding(new Insets(UIConstants.CONTENT_PADDING_V,
+                                UIConstants.PADDING_MD,
+                                UIConstants.CONTENT_PADDING_V,
+                                UIConstants.PADDING_MD));
+                content.setMaxWidth(UIConstants.CONTENT_MAX_WIDTH);
                 content.setStyle(BG_COLOR_STYLE + UITheme.BG + ";");
                 content.getChildren().addAll(
                                 buildBanner(),
@@ -78,11 +81,13 @@ public final class DashboardView extends ScrollPane {
                                 + "-fx-font-weight: bold; -fx-text-fill: "
                                 + UITheme.TEXT_DARK + ";");
 
-                HBox buttons = new HBox(10, outlineButton("Profile"),
+                HBox buttons = new HBox(UIConstants.SPACING_MD,
+                                outlineButton("Profile"),
                                 outlineButton("Logout"));
                 buttons.setAlignment(Pos.CENTER);
 
-                VBox banner = new VBox(20, welcome, buttons);
+                VBox banner = new VBox(UIConstants.PADDING_MD,
+                                welcome, buttons);
                 banner.setAlignment(Pos.CENTER);
                 return banner;
         }
@@ -95,13 +100,16 @@ public final class DashboardView extends ScrollPane {
          *         the section heading and progress rows.
          */
         private VBox buildProgressSection() {
-                Label pageTitle = sectionLabel("Your Learning Dashboard", 28);
-                Label subTitle = sectionLabel("Your Progress", 22);
+                Label pageTitle = sectionLabel("Your Learning Dashboard",
+                                UIConstants.FONT_PAGE_TITLE);
+                Label subTitle = sectionLabel("Your Progress",
+                                UIConstants.FONT_SECTION);
 
-                VBox entries = new VBox(10);
+                VBox entries = new VBox(UIConstants.SPACING_MD);
                 var subjects = profile.getSubjects();
                 if (subjects.isEmpty()) {
-                        entries.getChildren().add(bodyLabel("No modules selected."));
+                        entries.getChildren().add(
+                                        bodyLabel("No modules selected."));
                 } else {
                         for (String subject : subjects) {
                                 Label name = bodyLabel(subject);
@@ -115,16 +123,17 @@ public final class DashboardView extends ScrollPane {
                                                 + UITheme.SECONDARY
                                                 + "; -fx-font-size: 13px;");
 
-                                HBox row = new HBox(12, name, bar, pct);
+                                HBox row = new HBox(UIConstants.SPACING_LG,
+                                                name, bar, pct);
                                 row.setAlignment(Pos.CENTER_LEFT);
                                 entries.getChildren().add(row);
                         }
                 }
 
-                VBox section = new VBox(16,
+                VBox section = new VBox(UIConstants.SPACING_XL,
                                 pageTitle, subTitle, cardWrap(entries));
                 section.setAlignment(Pos.CENTER_LEFT);
-                section.setMaxWidth(700);
+                section.setMaxWidth(UIConstants.SECTION_MAX_WIDTH);
                 return section;
         }
 
@@ -136,7 +145,8 @@ public final class DashboardView extends ScrollPane {
          *         the recommended topics heading and card.
          */
         private VBox buildRecommendedTopics() {
-                Label title = sectionLabel("Recommended Topics", 22);
+                Label title = sectionLabel("Recommended Topics",
+                                UIConstants.FONT_SUBSECTION);
 
                 Label icon = new Label("📘");
                 icon.setStyle("-fx-font-size: 26px;");
@@ -145,10 +155,10 @@ public final class DashboardView extends ScrollPane {
                                 + " -fx-font-weight: bold; -fx-text-fill: "
                                 + UITheme.SECONDARY + ";");
 
-                HBox header = new HBox(8, icon, topic);
+                HBox header = new HBox(UIConstants.SPACING_XS, icon, topic);
                 header.setAlignment(Pos.CENTER_LEFT);
 
-                VBox moduleList = new VBox(12,
+                VBox moduleList = new VBox(UIConstants.SPACING_LG,
                                 buildModuleCard("Continue: Analogue"
                                                 + " Electronics",
                                                 "Resume Lesson"),
@@ -156,10 +166,11 @@ public final class DashboardView extends ScrollPane {
                                                 "Browse All"));
 
                 VBox section = new VBox(
-                                20, title,
-                                cardWrap(new VBox(20, header, moduleList)));
+                                UIConstants.SPACING_2XL, title,
+                                cardWrap(new VBox(UIConstants.SPACING_2XL,
+                                                header, moduleList)));
                 section.setAlignment(Pos.CENTER_LEFT);
-                section.setMaxWidth(700);
+                section.setMaxWidth(UIConstants.SECTION_MAX_WIDTH);
                 return section;
         }
 
@@ -177,7 +188,8 @@ public final class DashboardView extends ScrollPane {
                 label.setStyle("-fx-font-size: 15px;"
                                 + " -fx-font-weight: bold; -fx-text-fill: "
                                 + UITheme.TEXT_DARK + ";");
-                return cardWrap(new VBox(10, label, outlineButton(btnText)));
+                return cardWrap(new VBox(UIConstants.SPACING_MD, label,
+                                outlineButton(btnText)));
         }
 
         /**
@@ -189,8 +201,8 @@ public final class DashboardView extends ScrollPane {
          * @return the same {@link VBox} with card styling applied.
          */
         private VBox cardWrap(final VBox content) {
-                content.setPadding(new Insets(20));
-                content.setMaxWidth(700);
+                content.setPadding(new Insets(UIConstants.PADDING_MD));
+                content.setMaxWidth(UIConstants.CONTENT_MAX_WIDTH);
                 content.setStyle(BG_COLOR_STYLE + UITheme.WHITE + ";"
                                 + "-fx-border-color: " + UITheme.BORDER + ";"
                                 + "-fx-border-radius: 6px;"
@@ -209,17 +221,20 @@ public final class DashboardView extends ScrollPane {
          */
         private StackPane progressBar(final double percent) {
                 StackPane track = new StackPane();
-                track.setPrefSize(160, 8);
+                track.setPrefSize(UIConstants.PROGRESS_BAR_WIDTH,
+                                UIConstants.PROGRESS_BAR_HEIGHT);
                 track.setStyle(BG_COLOR_STYLE
                                 + "#E5E7EB; -fx-background-radius: 4px;");
 
-                double w = Math.max(4, 160 * percent / 100.0);
+                double w = Math.max(UIConstants.PROGRESS_MIN_FILL,
+                                UIConstants.PROGRESS_BAR_WIDTH * percent
+                                                / UIConstants.PERCENT_DIVISOR);
                 StackPane fill = new StackPane();
-                fill.setPrefSize(w, 8);
+                fill.setPrefSize(w, UIConstants.SPACING_SM);
                 fill.setStyle(BG_COLOR_STYLE
                                 + UITheme.PRIMARY
                                 + "; -fx-background-radius: 4px;");
-                fill.setTranslateX(-(160 - w) / 2);
+                fill.setTranslateX(-(UIConstants.PROGRESS_BAR_WIDTH - w) / 2);
 
                 track.getChildren().add(fill);
                 return track;

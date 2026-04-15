@@ -1,6 +1,7 @@
 package com.axono.onboarding;
 
 import com.axono.model.UserProfile;
+import com.axono.ui.UIConstants;
 import com.axono.ui.UITheme;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -364,7 +365,7 @@ public final class SubjectView extends StackPane {
          */
         private void buildUI() {
                 setStyle("-fx-background-color: " + UITheme.BG + ";");
-                setPadding(new Insets(20));
+                setPadding(new Insets(UIConstants.PADDING_MD));
 
                 Label heading = new Label("Select Your Modules");
                 heading.setStyle(FX_TEXT_FILL + UITheme.PRIMARY
@@ -380,7 +381,7 @@ public final class SubjectView extends StackPane {
                         checkboxes.forEach(c -> c.setSelected(anyUnchecked));
                 });
 
-                HBox topRow = new HBox(10, heading, selectAll);
+                HBox topRow = new HBox(UIConstants.SPACING_MD, heading, selectAll);
                 topRow.setAlignment(Pos.CENTER_LEFT);
 
                 Label sub = new Label("Choose the modules you're studying:");
@@ -388,7 +389,7 @@ public final class SubjectView extends StackPane {
                                 + UITheme.TEXT_MUTED
                                 + "; -fx-font-size: 14px;");
 
-                VBox content = new VBox(20);
+                VBox content = new VBox(UIConstants.SPACING_2XL);
                 for (YearGroup year : CURRICULUM) {
                         content.getChildren().add(buildYearBlock(year));
                 }
@@ -400,8 +401,8 @@ public final class SubjectView extends StackPane {
                 scroll.setBorder(Border.EMPTY);
                 VBox.setVgrow(scroll, Priority.ALWAYS);
 
-                VBox card = new VBox(10, topRow, sub, scroll);
-                card.setMaxWidth(620);
+                VBox card = new VBox(UIConstants.SPACING_MD, topRow, sub, scroll);
+                card.setMaxWidth(UIConstants.SUBJECT_MAX_WIDTH);
                 card.setStyle(UITheme.CARD_STYLE + "-fx-padding: 24px 36px;");
 
                 setAlignment(Pos.CENTER);
@@ -422,9 +423,9 @@ public final class SubjectView extends StackPane {
                                 + "-fx-font-weight: bold;");
 
                 Separator sep = new Separator();
-                VBox.setMargin(sep, new Insets(2, 0, 6, 0));
+                VBox.setMargin(sep, new Insets(2, 0, UIConstants.SPACING_XS, 0));
 
-                VBox block = new VBox(8, yearLabel, sep);
+                VBox block = new VBox(UIConstants.SPACING_SM, yearLabel, sep);
 
                 for (Section section : year.getSections()) {
                         if (section.getTitle() != null) {
@@ -436,7 +437,8 @@ public final class SubjectView extends StackPane {
                                                 + "; -fx-font-size: 10px;"
                                                 + "-fx-font-weight: bold;");
                                 VBox.setMargin(sectionLabel, new Insets(
-                                                6, 0, 2, 0));
+                                                UIConstants.SPACING_XS,
+                                                0, 2, 0));
                                 block.getChildren().add(sectionLabel);
                         }
                         block.getChildren().add(buildGrid(section
@@ -469,13 +471,13 @@ public final class SubjectView extends StackPane {
                                 + "-fx-padding: 8px 10px;";
 
                 GridPane grid = new GridPane();
-                grid.setHgap(8);
-                grid.setVgap(6);
+                grid.setHgap(UIConstants.SPACING_SM);
+                grid.setVgap(UIConstants.SPACING_XS);
 
                 ColumnConstraints c1 = new ColumnConstraints();
-                c1.setPercentWidth(50);
+                c1.setPercentWidth(UIConstants.SUBJECT_ICON_SIZE);
                 ColumnConstraints c2 = new ColumnConstraints();
-                c2.setPercentWidth(50);
+                c2.setPercentWidth(UIConstants.SUBJECT_ICON_SIZE);
                 grid.getColumnConstraints().addAll(c1, c2);
 
                 for (int i = 0; i < modules.length; i++) {

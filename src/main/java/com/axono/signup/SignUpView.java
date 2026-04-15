@@ -3,6 +3,7 @@ package com.axono.signup;
 import java.time.LocalDate;
 
 import com.axono.model.UserProfile;
+import com.axono.ui.UIConstants;
 import com.axono.ui.UITheme;
 
 import javafx.event.ActionEvent;
@@ -33,6 +34,9 @@ public final class SignUpView extends ScrollPane {
 
     /** Reusable JavaFX CSS prefix for setting background colour. */
     private static final String BG_COLOR_STYLE = "-fx-background-color: ";
+
+    /** Minimum age requirement for users to sign up. */
+    private static final long MINIMUM_AGE = 13;
 
     /** The user profile to populate when {@link #saveData()} is called. */
     private final UserProfile profile;
@@ -73,7 +77,7 @@ public final class SignUpView extends ScrollPane {
      * banner and the input form.
      */
     private void buildUI() {
-        VBox content = new VBox(40); // creates box for user inputs
+        VBox content = new VBox(UIConstants.SPACING_3XL); // creates box for user inputs
         firstName = styledField("First name");
         lastName = styledField("Last name");
         username = styledField("Username");
@@ -83,8 +87,12 @@ public final class SignUpView extends ScrollPane {
                 "Year 3", "Year 4", "Post Graduate");
         yearOfStudy.getSelectionModel().selectFirst();
         content.setAlignment(Pos.TOP_CENTER);
-        content.setPadding(new Insets(60, 20, 60, 20));
-        content.setMaxWidth(800);
+        content.setPadding(new Insets(
+                UIConstants.CONTENT_PADDING_V,
+                UIConstants.PADDING_MD,
+                UIConstants.CONTENT_PADDING_V,
+                UIConstants.PADDING_MD));
+        content.setMaxWidth(UIConstants.CONTENT_MAX_WIDTH);
         content.setStyle(BG_COLOR_STYLE + UITheme.BG + ";");
         content.getChildren().addAll(
                 signupcon(),
@@ -111,30 +119,34 @@ public final class SignUpView extends ScrollPane {
         thisLabel.setStyle("-fx-font-size: 32px;"
                 + "-fx-font-weight: bold; -fx-text-fill: "
                 + UITheme.TEXT_DARK + ";");
-        VBox.setMargin(thisLabel, new Insets(0, 0, 16, 0));
-        VBox banner = new VBox(20, thisLabel);
+        VBox.setMargin(thisLabel, new Insets(0, 0,
+                UIConstants.SPACING_XL, 0));
+        VBox banner = new VBox(UIConstants.SPACING_2XL, thisLabel);
         banner.setAlignment(Pos.CENTER);
         return banner;
     }
 
     /**
-     * Builds and returns the input form card containing all registration fields
-     * and the date-of-birth picker action handler.
+     * Builds and returns the input form card containing
+     * all registration fields and the date-of-birth picker action handler.
      *
      * @return a {@link VBox} card containing all input controls.
      */
     public VBox signupinput() {
 
         Label dateOfBirthLabel = new Label("dd/mm/yyyy");
-        VBox sd = new VBox(7,
-                createLabel("First Name"), firstName, gap(8),
-                createLabel("Last Name"), lastName, gap(8),
+        VBox sd = new VBox(UIConstants.FORM_ROW_SPACING,
+                createLabel("First Name"), firstName,
+                gap(UIConstants.SPACING_SM),
+                createLabel("Last Name"), lastName,
+                gap(UIConstants.SPACING_SM),
                 createLabel("Date of Birth (dd/mm/yyyy)"), dateOfBirth,
-                createLabel("Username"), username, gap(8),
+                createLabel("Username"), username,
+                gap(UIConstants.SPACING_SM),
                 createLabel("Year of Study"), yearOfStudy,
                 createLabel("Password"), password,
                 createLabel("Confirm Password"), passcheck);
-        sd.setMaxWidth(500);
+        sd.setMaxWidth(UIConstants.FORM_MAX_WIDTH);
         sd.setStyle(UITheme.CARD_STYLE);
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
             public void handle(final ActionEvent e) {
@@ -160,7 +172,8 @@ public final class SignUpView extends ScrollPane {
         Label l = new Label(text);
         l.setStyle("-fx-text-fill: "
                 + UITheme.TEXT_DARK + "; -fx-font-size: 14px;");
-        VBox.setMargin(l, new Insets(4, 0, 2, 0));
+        VBox.setMargin(l, new Insets(
+                UIConstants.LABEL_MARGIN_TOP, 0, 2, 0));
         return l;
     }
 
@@ -173,7 +186,8 @@ public final class SignUpView extends ScrollPane {
     private TextField styledField(final String prompt) {
         TextField f = new TextField();
         f.setPromptText(prompt);
-        f.setPrefSize(400, 36);
+        f.setPrefSize(UIConstants.FIELD_PREF_WIDTH,
+                UIConstants.FIELD_PREF_HEIGHT);
         f.setStyle("-fx-font-size: 14px;"
                 + "-fx-border-color: " + UITheme.BORDER + ";"
                 + "-fx-border-radius: 4px; -fx-background-radius: 4px;");
@@ -203,7 +217,7 @@ public final class SignUpView extends ScrollPane {
         String passwordstr = password.getText();
         String passcheckstr = passcheck.getText();
         LocalDate dobirthLD = dateOfBirth.getValue();
-        LocalDate dobcheck = LocalDate.now().minusYears(13);
+        LocalDate dobcheck = LocalDate.now().minusYears(MINIMUM_AGE);
         if (firstName.getText().trim().isEmpty()) {
             warn("Please enter First name");
             firstName.requestFocus();

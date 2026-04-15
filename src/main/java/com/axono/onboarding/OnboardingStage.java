@@ -3,6 +3,7 @@ package com.axono.onboarding;
 import com.axono.model.UserProfile;
 import com.axono.signup.SignUpView;
 import com.axono.ui.UITheme;
+import com.axono.ui.UIConstants;
 import javafx.stage.Stage;
 import java.util.function.Consumer;
 import javafx.geometry.Insets;
@@ -105,7 +106,8 @@ public final class OnboardingStage {
         root.setCenter(steps[0]);
         root.setBottom(buildFooter());
 
-        stage.setScene(new Scene(root, 960, 720));
+        stage.setScene(new Scene(root,
+                UIConstants.WINDOW_WIDTH, UIConstants.WINDOW_HEIGHT));
         stage.setTitle("ReWire — Setup");
         stage.show();
         updateStep();
@@ -127,11 +129,12 @@ public final class OnboardingStage {
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
         dots = new ArrayList<>();
-        HBox dotsRow = new HBox(8);
+        HBox dotsRow = new HBox(UIConstants.SPACING_SM);
         dotsRow.setAlignment(Pos.CENTER_RIGHT);
         HBox.setHgrow(dotsRow, Priority.NEVER);
         for (int i = 0; i < steps.length; i++) {
-            Circle dot = new Circle(6, Color.web(UITheme.TERTIARY));
+            Circle dot = new Circle(UIConstants.SPACING_XS,
+                    Color.web(UITheme.TERTIARY));
             dots.add(dot);
             dotsRow.getChildren().add(dot);
         }
@@ -139,7 +142,11 @@ public final class OnboardingStage {
         HBox header = new HBox(logo, spacer, dotsRow);
         header.setAlignment(Pos.CENTER_LEFT);
         header.setStyle("-fx-background-color: " + UITheme.PRIMARY + ";");
-        header.setPadding(new Insets(14, 24, 14, 24));
+        header.setPadding(new Insets(
+                UIConstants.PADDING_SM,
+                UIConstants.PADDING_LG,
+                UIConstants.PADDING_SM,
+                UIConstants.PADDING_LG));
         return header;
     }
 
@@ -161,7 +168,7 @@ public final class OnboardingStage {
         backButton.setOnAction(e -> goBack());
         nextButton.setOnAction(e -> goNext());
 
-        HBox centerButtons = new HBox(10, backButton, nextButton);
+        HBox centerButtons = new HBox(UIConstants.SPACING_MD, backButton, nextButton);
         centerButtons.setAlignment(Pos.CENTER);
 
         centerButtons.setMaxWidth(Region.USE_PREF_SIZE);
@@ -170,7 +177,11 @@ public final class OnboardingStage {
 
         StackPane.setAlignment(stepLabel, Pos.CENTER_LEFT);
 
-        footer.setPadding(new Insets(12, 24, 12, 24));
+        footer.setPadding(new Insets(
+                UIConstants.PADDING_SM,
+                UIConstants.PADDING_LG,
+                UIConstants.PADDING_SM,
+                UIConstants.PADDING_LG));
         footer.setStyle(
                 "-fx-background-color: white;"
                         + "-fx-border-color: " + UITheme.BORDER + ";"
@@ -192,7 +203,8 @@ public final class OnboardingStage {
             final String bg,
             final String fg) {
         Button b = new Button(text);
-        b.setPrefSize(130, 38);
+        b.setPrefSize(UIConstants.WIZARD_BTN_WIDTH,
+                UIConstants.WIZARD_BTN_HEIGHT);
         String base = String.format(
                 "-fx-background-color: %s; -fx-text-fill: %s;"
                         + "-fx-font-weight: bold; -fx-font-size: 13px;"
