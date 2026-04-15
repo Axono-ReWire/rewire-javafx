@@ -59,12 +59,12 @@ public final class SubjectView extends StackPane {
                 /**
                  * Constructs a {@code Module} with the given name and description.
                  *
-                 * @param name the module display name.
-                 * @param desc the short module description.
+                 * @param moduleName the module display name.
+                 * @param moduleDesc the short module description.
                  */
-                Module(final String name, final String desc) {
-                        this.name = name;
-                        this.desc = desc;
+                Module(final String moduleName, final String moduleDesc) {
+                        this.name = moduleName;
+                        this.desc = moduleDesc;
                 }
         }
 
@@ -86,13 +86,13 @@ public final class SubjectView extends StackPane {
                  * Constructs a {@code Section} with
                  * the given title and modules.
                  *
-                 * @param title   the section heading,
-                 *                or {@code null} for untitled sections.
-                 * @param modules the modules in this section.
+                 * @param sectionTitle   the section heading,
+                 *                       or {@code null} for untitled sections.
+                 * @param sectionModules the modules in this section.
                  */
-                Section(final String title, final Module... modules) {
-                        this.title = title;
-                        this.modules = modules;
+                Section(final String sectionTitle, final Module... sectionModules) {
+                        this.title = sectionTitle;
+                        this.modules = sectionModules;
                 }
         }
 
@@ -110,12 +110,12 @@ public final class SubjectView extends StackPane {
                  * Constructs a {@code YearGroup} with
                  * the given label and sections.
                  *
-                 * @param label    the year group label.
-                 * @param sections the sections within this year group.
+                 * @param yearLabel    the year group label.
+                 * @param yearSections the sections within this year group.
                  */
-                YearGroup(final String label, final Section... sections) {
-                        this.label = label;
-                        this.sections = sections;
+                YearGroup(final String yearLabel, final Section... yearSections) {
+                        this.label = yearLabel;
+                        this.sections = yearSections;
                 }
         }
 
@@ -304,10 +304,10 @@ public final class SubjectView extends StackPane {
          * Constructs the {@code SubjectView} for the given user profile and
          * renders the module selection UI.
          *
-         * @param profile the {@link UserProfile} to populate on save.
+         * @param userProfile the {@link UserProfile} to populate on save.
          */
-        public SubjectView(final UserProfile profile) {
-                this.profile = profile;
+        public SubjectView(final UserProfile userProfile) {
+                this.profile = userProfile;
                 buildUI();
         }
 
@@ -320,8 +320,9 @@ public final class SubjectView extends StackPane {
                 setPadding(new Insets(20));
 
                 Label heading = new Label("Select Your Modules");
-                heading.setStyle(FX_TEXT_FILL + UITheme.PRIMARY + ";" +
-                                "-fx-font-size: 20px; -fx-font-weight: bold;");
+                heading.setStyle(FX_TEXT_FILL + UITheme.PRIMARY
+                                + ";" + "-fx-font-size: 20px;"
+                                + "-fx-font-weight: bold;");
                 HBox.setHgrow(heading, Priority.ALWAYS);
 
                 Button selectAll = new Button("Select All");
@@ -337,7 +338,8 @@ public final class SubjectView extends StackPane {
 
                 Label sub = new Label("Choose the modules you're studying:");
                 sub.setStyle(FX_TEXT_FILL
-                                + UITheme.TEXT_MUTED + "; -fx-font-size: 14px;");
+                                + UITheme.TEXT_MUTED
+                                + "; -fx-font-size: 14px;");
 
                 VBox content = new VBox(20);
                 for (YearGroup year : CURRICULUM) {
@@ -443,9 +445,11 @@ public final class SubjectView extends StackPane {
 
                         VBox cell = new VBox(2, cb, desc);
                         cell.setStyle(normalStyle);
-                        cb.selectedProperty().addListener(
-                                        (obs, old, sel) -> cell.setStyle(
-                                                        sel ? selectedStyle : normalStyle));
+                        cb.selectedProperty().addListener((obs,
+                                        old,
+                                        sel) -> cell.setStyle(sel
+                                                        ? selectedStyle
+                                                        : normalStyle));
 
                         checkboxes.add(cb);
                         grid.add(cell, i % 2, i / 2);

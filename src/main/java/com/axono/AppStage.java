@@ -57,10 +57,10 @@ public final class AppStage {
      * Creates an {@code AppStage}, opens the onboarding wizard, and
      * shows the main window once onboarding is complete.
      *
-     * @param mainStage the primary JavaFX stage to attach the main UI to.
+     * @param primaryStage the primary JavaFX stage to attach the main UI to.
      */
-    public AppStage(final Stage mainStage) {
-        this.mainStage = mainStage;
+    public AppStage(final Stage primaryStage) {
+        this.mainStage = primaryStage;
         openOnboarding();
     }
 
@@ -77,10 +77,10 @@ public final class AppStage {
      * Called by the onboarding wizard when the user finishes setup.
      * Stores the completed profile, builds the main UI, and shows the window.
      *
-     * @param profile the {@link UserProfile} collected during onboarding.
+     * @param completedProfile the {@link UserProfile} collected during onboarding.
      */
-    private void onOnboardingComplete(final UserProfile profile) {
-        this.profile = profile;
+    private void onOnboardingComplete(final UserProfile completedProfile) {
+        this.profile = completedProfile;
         buildUI();
         mainStage.show();
     }

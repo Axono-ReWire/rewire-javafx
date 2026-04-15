@@ -40,10 +40,10 @@ public final class SummaryView extends StackPane {
      * Constructs the {@code SummaryView} for
      * the given profile and builds the UI.
      *
-     * @param profile the {@link UserProfile} whose data will be summarised.
+     * @param userProfile the {@link UserProfile} whose data will be summarised.
      */
-    public SummaryView(final UserProfile profile) {
-        this.profile = profile;
+    public SummaryView(final UserProfile userProfile) {
+        this.profile = userProfile;
         setStyle("-fx-background-color: " + UITheme.BG + ";");
         setPadding(new Insets(30));
         buildUI();
@@ -123,8 +123,12 @@ public final class SummaryView extends StackPane {
         name.setText(profile.getName().isEmpty() ? "—" : profile.getName());
         yearOfStudy.setText(profile.getYearOfStudy());
         institution.setText(
-                profile.getInstitution().isEmpty() ? "Not specified" : profile.getInstitution());
+                profile.getInstitution()
+                        .isEmpty() ? "Not specified"
+                                : profile
+                                        .getInstitution());
         var subjects = profile.getSubjects();
-        modules.setText(subjects.isEmpty() ? "—" : String.join(", ", subjects));
+        modules.setText(subjects
+                .isEmpty() ? "—" : String.join(", ", subjects));
     }
 }

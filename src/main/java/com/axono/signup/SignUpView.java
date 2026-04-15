@@ -61,10 +61,10 @@ public final class SignUpView extends ScrollPane {
     /**
      * Constructs the {@code SignUpView} for the given user profile.
      *
-     * @param profile the {@link UserProfile} to populate on save.
+     * @param userProfile the {@link UserProfile} to populate on save.
      */
-    public SignUpView(final UserProfile profile) {
-        this.profile = profile;
+    public SignUpView(final UserProfile userProfile) {
+        this.profile = userProfile;
         buildUI();
     }
 

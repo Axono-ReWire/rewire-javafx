@@ -17,10 +17,10 @@ public final class UserService {
      * Constructs a {@code UserService} backed by
      * the given {@link DatabaseHelper}.
      *
-     * @param db the database helper instance to use for queries.
+     * @param dbHelper the database helper instance to use for queries.
      */
-    public UserService(final DatabaseHelper db) {
-        this.db = db;
+    public UserService(final DatabaseHelper dbHelper) {
+        this.db = dbHelper;
     }
 
     /**
@@ -58,11 +58,13 @@ public final class UserService {
         Map<String, Object> user = db.getById("user", userId);
 
         if (user == null) {
-            return null;
+            return Map.of();
         }
 
         int universityId = (int) user.get("university_id");
 
-        return db.getById("university", universityId);
+        Map<String, Object> university = db
+                .getById("university", universityId);
+        return university != null ? university : Map.of();
     }
 }

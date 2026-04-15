@@ -75,15 +75,15 @@ public final class OnboardingStage {
      * Constructs the onboarding wizard, initialises all step views,
      * builds the UI, and shows the stage.
      *
-     * @param stage      the {@link Stage} to use for the onboarding window.
-     * @param onComplete callback to invoke with the completed profile
-     *                   when onboarding finishes.
+     * @param onboardingStage   the {@link Stage} to use for the onboarding window.
+     * @param completionHandler callback to invoke with the completed profile
+     *                          when onboarding finishes.
      */
     public OnboardingStage(
-            final Stage stage,
-            final Consumer<UserProfile> onComplete) {
-        this.stage = stage;
-        this.onComplete = onComplete;
+            final Stage onboardingStage,
+            final Consumer<UserProfile> completionHandler) {
+        this.stage = onboardingStage;
+        this.onComplete = completionHandler;
         signupView = new SignUpView(profile);
         subjectView = new SubjectView(profile);
         summaryView = new SummaryView(profile);
@@ -146,7 +146,8 @@ public final class OnboardingStage {
      * Builds and returns the onboarding window footer containing the Back
      * and Next navigation buttons and the step counter label.
      *
-     * @return a styled {@link StackPane} to be placed at the bottom of the window.
+     * @return a styled {@link StackPane} to be placed
+     *         at the bottom of the window.
      */
     private StackPane buildFooter() {
         stepLabel = new Label();
@@ -248,9 +249,8 @@ public final class OnboardingStage {
      */
     private void updateStep() {
         for (int i = 0; i < dots.size(); i++) {
-            dots.get(i).setFill(
-                    Color.web(
-                            i <= currentStep ? UITheme.TERTIARY : UITheme.BORDER));
+            dots.get(i).setFill(Color.web(
+                    i <= currentStep ? UITheme.TERTIARY : UITheme.BORDER));
         }
         stepLabel.setText("Step " + (currentStep + 1)
                 + " of " + steps.length);

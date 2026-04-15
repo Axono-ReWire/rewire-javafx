@@ -61,10 +61,14 @@ public final class ResultsPage extends ScrollPane {
      */
     private VBox buildBanner() {
 
-        Label bannerHeader = createLabel("Results", 32, true, UITheme.TEXT_DARK);
-        Label bannerLabel1 = createLabel("Congratulations on completing the quiz!", 18, false,
+        Label bannerHeader = createLabel(
+                "Results", 32, true, UITheme.TEXT_DARK);
+        Label bannerLabel1 = createLabel(
+                "Congratulations on completing the quiz!", 18, false,
                 UITheme.TEXT_DARK);
-        Label bannerLabel2 = createLabel("Your results for ..... are shown below:", 14, true, UITheme.TERTIARY);
+        Label bannerLabel2 = createLabel(
+                "Your results for ..... are shown below:",
+                14, true, UITheme.TERTIARY);
 
         HBox buttons = new HBox(12,
                 outlineButton("Save Results"),
@@ -72,7 +76,8 @@ public final class ResultsPage extends ScrollPane {
                 outlineButton("Select another quiz"));
         buttons.setAlignment(Pos.CENTER);
 
-        VBox banner = new VBox(12, bannerHeader, bannerLabel1, buttons, bannerLabel2);
+        VBox banner = new VBox(
+                12, bannerHeader, bannerLabel1, buttons, bannerLabel2);
         banner.setAlignment(Pos.CENTER);
         return banner;
     }
@@ -85,9 +90,12 @@ public final class ResultsPage extends ScrollPane {
      */
     private VBox buildScoreSection() {
 
-        Label bannerHeader = createLabel("Results Breakdown", 28, true, UITheme.TEXT_DARK);
-        Label scoreHeader = createLabel("Score", 24, true, UITheme.TEXT_DARK);
-        Label scoreLabel = createLabel("Your Score", 20, true, UITheme.SECONDARY);
+        Label bannerHeader = createLabel("Results Breakdown",
+                28, true, UITheme.TEXT_DARK);
+        Label scoreHeader = createLabel("Score",
+                24, true, UITheme.TEXT_DARK);
+        Label scoreLabel = createLabel("Your Score",
+                20, true, UITheme.SECONDARY);
 
         Label scoreLogo = createIcon("🏆");
         HBox scoreRow = createLogoRow(scoreLogo, scoreLabel);
@@ -111,8 +119,10 @@ public final class ResultsPage extends ScrollPane {
      */
     private VBox buildSummarySection() {
 
-        Label summaryHeader = createLabel("Summary", 24, true, UITheme.TEXT_DARK);
-        Label summaryLabel = createLabel("Your Summary", 20, true, UITheme.SECONDARY);
+        Label summaryHeader = createLabel("Summary",
+                24, true, UITheme.TEXT_DARK);
+        Label summaryLabel = createLabel("Your Summary",
+                20, true, UITheme.SECONDARY);
 
         Label summaryLogo = createIcon("📈");
         HBox summaryRow = createLogoRow(summaryLogo, summaryLabel);
@@ -136,16 +146,20 @@ public final class ResultsPage extends ScrollPane {
      * @return a configured outline {@link Button}.
      */
     private Button outlineButton(final String text) {
-        String base = "-fx-background-color: transparent;" +
-                "-fx-border-color: " + UITheme.PRIMARY + "; -fx-border-width: 2px;" +
-                "-fx-border-radius: 4px; -fx-background-radius: 4px;" +
-                "-fx-text-fill: " + UITheme.PRIMARY + ";" +
-                "-fx-font-weight: bold; -fx-font-size: 14px; -fx-cursor: hand;";
-        String hover = BG_COLOUR + UITheme.PRIMARY + ";" +
-                "-fx-border-color: " + UITheme.PRIMARY + "; -fx-border-width: 2px;" +
-                "-fx-border-radius: 4px; -fx-background-radius: 4px;" +
-                "-fx-text-fill: white;" +
-                "-fx-font-weight: bold; -fx-font-size: 14px; -fx-cursor: hand;";
+        String base = "-fx-background-color: transparent;"
+                + "-fx-border-color: " + UITheme.PRIMARY
+                + "; -fx-border-width: 2px;"
+                + "-fx-border-radius: 4px; -fx-background-radius: 4px;"
+                + "-fx-text-fill: " + UITheme.PRIMARY + ";"
+                + "-fx-font-weight: bold; -fx-font-size: 14px;"
+                + "-fx-cursor: hand;";
+        String hover = BG_COLOUR + UITheme.PRIMARY + ";"
+                + "-fx-border-color: " + UITheme.PRIMARY
+                + "; -fx-border-width: 2px;"
+                + "-fx-border-radius: 4px; -fx-background-radius: 4px;"
+                + "-fx-text-fill: white;"
+                + "-fx-font-weight: bold; -fx-font-size: 14px;"
+                + "-fx-cursor: hand;";
         Button b = new Button(text);
         b.setStyle(base);
         b.setOnMouseEntered(e -> b.setStyle(hover));
@@ -162,11 +176,17 @@ public final class ResultsPage extends ScrollPane {
      * @param color the hex colour string for the text.
      * @return a configured {@link Label}.
      */
-    private Label createLabel(final String text, final int size, final boolean bold, final String color) {
+    private Label createLabel(
+            final String text,
+            final int size,
+            final boolean bold,
+            final String color) {
         Label header = new Label(text);
         String weight = bold ? "bold" : "normal";
         header.setStyle(
-                String.format("-fx-font-size: %dpx; -fx-font-weight: %s; -fx-text-fill: %s", size, weight, color));
+                String.format("-fx-font-size: %dpx;"
+                        + "-fx-font-weight: %s; -fx-text-fill: %s",
+                        size, weight, color));
         return header;
     }
 
@@ -207,7 +227,8 @@ public final class ResultsPage extends ScrollPane {
     private VBox createSection(final String icon, final String text) {
         Label logo = createIcon(icon);
         Label label = new Label(text);
-        label.setStyle("-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill:" + UITheme.TEXT_DARK + ";");
+        label.setStyle("-fx-font-size: 15px; -fx-font-weight: bold;"
+                + "-fx-text-fill:" + UITheme.TEXT_DARK + ";");
         HBox row = createLogoRow(logo, label);
         return createCard(new VBox(10, row));
     }

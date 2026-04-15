@@ -20,7 +20,6 @@ public final class UserProfile {
     private String institution = "";
 
     /** The list of module names the user selected during onboarding. */
-
     private List<String> subjects = new ArrayList<>();
 
     /**
