@@ -75,7 +75,8 @@ public final class OnboardingStage {
      * Constructs the onboarding wizard, initialises all step views,
      * builds the UI, and shows the stage.
      *
-     * @param onboardingStage   the {@link Stage} to use for the onboarding window.
+     * @param onboardingStage   the {@link Stage}
+     *                          to use for the onboarding window.
      * @param completionHandler callback to invoke with the completed profile
      *                          when onboarding finishes.
      */

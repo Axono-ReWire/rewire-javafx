@@ -77,7 +77,8 @@ public final class AppStage {
      * Called by the onboarding wizard when the user finishes setup.
      * Stores the completed profile, builds the main UI, and shows the window.
      *
-     * @param completedProfile the {@link UserProfile} collected during onboarding.
+     * @param completedProfile the {@link UserProfile}
+     *                         collected during onboarding.
      */
     private void onOnboardingComplete(final UserProfile completedProfile) {
         this.profile = completedProfile;

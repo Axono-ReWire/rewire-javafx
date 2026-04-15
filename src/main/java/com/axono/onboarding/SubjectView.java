@@ -51,10 +51,10 @@ public final class SubjectView extends StackPane {
         private static class Module {
 
                 /** The display name of the module. */
-                final String name;
+                private final String name;
 
                 /** A short description of the module's content. */
-                final String desc;
+                private final String desc;
 
                 /**
                  * Constructs a {@code Module} with the given name and description.
@@ -66,6 +66,16 @@ public final class SubjectView extends StackPane {
                         this.name = moduleName;
                         this.desc = moduleDesc;
                 }
+
+                /** @return the display name of this module. */
+                String getName() {
+                        return name;
+                }
+
+                /** @return the short description of this module. */
+                String getDesc() {
+                        return desc;
+                }
         }
 
         /**
@@ -74,13 +84,13 @@ public final class SubjectView extends StackPane {
          */
         private static class Section {
                 /**
-                 * The section heading
-                 * (e.g. "Core Modules", "Option Modules"), or {@code null}.
+                 * The section heading (e.g. "Core Modules", "Option Modules"),
+                 * or {@code null}.
                  */
-                final String title;
+                private final String title;
 
                 /** The modules belonging to this section. */
-                final Module[] modules;
+                private final Module[] modules;
 
                 /**
                  * Constructs a {@code Section} with
@@ -90,9 +100,20 @@ public final class SubjectView extends StackPane {
                  *                       or {@code null} for untitled sections.
                  * @param sectionModules the modules in this section.
                  */
-                Section(final String sectionTitle, final Module... sectionModules) {
+                Section(final String sectionTitle,
+                                final Module... sectionModules) {
                         this.title = sectionTitle;
                         this.modules = sectionModules;
+                }
+
+                /** @return the section heading, or {@code null}. */
+                String getTitle() {
+                        return title;
+                }
+
+                /** @return the modules in this section. */
+                Module[] getModules() {
+                        return modules.clone();
                 }
         }
 
@@ -101,10 +122,10 @@ public final class SubjectView extends StackPane {
          */
         private static class YearGroup {
                 /** The year label (e.g. "Year 1", "Foundation Year"). */
-                final String label;
+                private final String label;
 
                 /** The sections belonging to this year group. */
-                final Section[] sections;
+                private final Section[] sections;
 
                 /**
                  * Constructs a {@code YearGroup} with
@@ -113,9 +134,20 @@ public final class SubjectView extends StackPane {
                  * @param yearLabel    the year group label.
                  * @param yearSections the sections within this year group.
                  */
-                YearGroup(final String yearLabel, final Section... yearSections) {
+                YearGroup(final String yearLabel,
+                                final Section... yearSections) {
                         this.label = yearLabel;
                         this.sections = yearSections;
+                }
+
+                /** @return the year group label. */
+                String getLabel() {
+                        return label;
+                }
+
+                /** @return the sections in this year group. */
+                Section[] getSections() {
+                        return sections.clone();
                 }
         }
 
@@ -134,170 +166,185 @@ public final class SubjectView extends StackPane {
          */
         private static YearGroup[] buildCurriculum() {
                 return new YearGroup[] {
-
-                                new YearGroup("Foundation Year",
-                                                new Section(CORE_MODULES,
-                                                                new Module("Mathematics 1",
-                                                                                "Algebra, calculus, and mathematical reasoning"),
-                                                                new Module("Physics 1",
-                                                                                "Mechanics, waves, and thermodynamics basics"),
-                                                                new Module("Skills for Engineering and the Physical Sciences 1",
-                                                                                "Lab skills, academic writing, and scientific methods"),
-                                                                new Module("Mathematics 2",
-                                                                                "Trigonometry, vectors, and differential equations"),
-                                                                new Module("Physics 2",
-                                                                                "Electromagnetism, optics, and quantum fundamentals"),
-                                                                new Module("Skills for Engineering and the Physical Sciences 2",
-                                                                                "Advanced lab techniques and data analysis"))),
-
-                                new YearGroup("Year 1",
-                                                new Section(CORE_MODULES,
-                                                                new Module("Introduction to Engineering",
-                                                                                "Engineering principles, design process, and professional practice"),
-                                                                new Module("Mathematics",
-                                                                                "Calculus, linear algebra, and complex numbers"),
-                                                                new Module("Analogue Electronics",
-                                                                                "Op-amps, filters, and circuit analysis")),
-                                                new Section("Option Modules",
-                                                                new Module("Digital Electronics",
-                                                                                "Logic gates, flip-flops, and digital circuit design"),
-                                                                new Module("Materials and Mechanics",
-                                                                                "Stress, strain, and material properties"))),
-
-                                new YearGroup("Year 2",
-                                                new Section(CORE_MODULES,
-                                                                new Module("Mathematics, Signals and Systems",
-                                                                                "Fourier transforms, Laplace, and LTI systems"),
-                                                                new Module("Control, Sensors and Instrumentation",
-                                                                                "PID control, feedback loops, and sensor interfacing")),
-                                                new Section("Option Modules",
-                                                                new Module("Acoustics and Studio Recording",
-                                                                                "Room acoustics, microphones, and recording techniques"),
-                                                                new Module("Audio Technology & Psychoacoustics",
-                                                                                "Hearing perception, audio codecs, and masking"),
-                                                                new Module("Manufacturing and Fabrication",
-                                                                                "CNC, 3D printing, and production processes"),
-                                                                new Module("Circuit Design",
-                                                                                "PCB layout, simulation, and mixed-signal design"),
-                                                                new Module("Electromagnetism",
-                                                                                "Maxwell's equations, wave propagation, and antennas"),
-                                                                new Module("Software Design",
-                                                                                "OOP, design patterns, and software architecture"),
-                                                                new Module("Semiconductor Physics and Devices",
-                                                                                "BJTs, MOSFETs, and semiconductor band theory"),
-                                                                new Module("Electrical Circuits and Systems",
-                                                                                "AC/DC analysis, network theorems, and power"),
-                                                                new Module("Data Analysis and Numerical Methods",
-                                                                                "Regression, interpolation, and numerical integration"),
-                                                                new Module("Thermodynamics and Fluid Dynamics",
-                                                                                "Heat transfer, entropy, and fluid mechanics"))),
-
-                                new YearGroup("Year 3",
-                                                new Section(null,
-                                                                new Module("Audio App Development and Marketing",
-                                                                                "Building and launching audio software products"),
-                                                                new Module("Multimedia Sound Design",
-                                                                                "Synthesis, sound design, and spatial audio"),
-                                                                new Module("Principles of Microengineering",
-                                                                                "MEMS, microfabrication, and miniaturised systems"),
-                                                                new Module("Applications of Electromagnetics",
-                                                                                "Antenna design, RF systems, and EMC"),
-                                                                new Module("Communications Systems and Digital Communications",
-                                                                                "Modulation, channel coding, and link budgets"),
-                                                                new Module("Innovation Management",
-                                                                                "R&D strategy, IP, and technology commercialisation"),
-                                                                new Module("Robotics Design and Construction",
-                                                                                "Actuators, sensors, and robot system integration"),
-                                                                new Module("Biomedical Engineering",
-                                                                                "Biosignals, medical devices, and clinical instrumentation"),
-                                                                new Module("Renewable Power Generation",
-                                                                                "Wind, hydro, and grid integration"),
-                                                                new Module("Digital Signal Processing",
-                                                                                "FIR/IIR filters, FFT, and real-time DSP algorithms"),
-                                                                new Module("Mobile Communications and Internet Protocols",
-                                                                                "4G/5G, TCP/IP stack, and network protocols"),
-                                                                new Module("Photonics and Nanoelectronics",
-                                                                                "Lasers, optical fibres, and nanoscale devices"),
-                                                                new Module("Advanced Sensors and Instrumentation",
-                                                                                "Smart sensors, calibration, and data acquisition"),
-                                                                new Module("Digital Engineering",
-                                                                                "HDL, FPGAs, and digital system design"),
-                                                                new Module("Cloud and Distributed Computing",
-                                                                                "Microservices, containers, and distributed architectures"),
-                                                                new Module("Photovoltaics and Solar Thermal Technology",
-                                                                                "Solar cells, PV systems, and thermal collectors"),
-                                                                new Module("Electric Powertrain Design",
-                                                                                "EV motors, inverters, and drivetrain systems"),
-                                                                new Module("Medical Physics",
-                                                                                "Radiation, imaging physics, and therapeutic applications"),
-                                                                new Module("Product Design, Development and Commercialization",
-                                                                                "User-centred design, prototyping, and go-to-market"),
-                                                                new Module("Introduction to Clinical Engineering and Physiological Systems",
-                                                                                "Clinical devices, body systems, and healthcare technology"),
-                                                                new Module("Micro-mechanical and Microfluidic Devices and Systems",
-                                                                                "Lab-on-chip, microfluidics, and MEMS fabrication"),
-                                                                new Module("Robot Kinematics and Dynamics",
-                                                                                "Forward/inverse kinematics, Jacobians, and motion planning"),
-                                                                new Module("Mechanical Design and Kinematics",
-                                                                                "Mechanism design, gears, and dynamic analysis"),
-                                                                new Module("Astrobiology",
-                                                                                "Origin of life, extremophiles, and planetary habitability"),
-                                                                new Module("Fuel Cell and Battery Technologies",
-                                                                                "Electrochemistry, cell types, and energy storage"),
-                                                                new Module("Critical Evaluation of Renewable Energy Systems",
-                                                                                "Lifecycle analysis, policy, and system comparison"))),
-
-                                new YearGroup("Year 4",
-                                                new Section(null,
-                                                                new Module("Modelling and Analysing Sound and Music Signals",
-                                                                                "Spectral analysis, MIDI, and audio feature extraction"),
-                                                                new Module("Systems Programming for ARM",
-                                                                                "Embedded C, memory-mapped I/O, and RTOS"),
-                                                                new Module("Machine Learning and Computational Intelligence",
-                                                                                "Neural networks, SVMs, and deep learning"),
-                                                                new Module("Power Electronics",
-                                                                                "Converters, inverters, and switching circuits"),
-                                                                new Module("Electric Vehicle Technologies",
-                                                                                "Battery management, charging infrastructure, and EV design"),
-                                                                new Module("Medical Imaging and Physics",
-                                                                                "MRI, CT, ultrasound, and image reconstruction"),
-                                                                new Module("Future Healthcare and Computer Aided Diagnosis",
-                                                                                "AI diagnostics, telemedicine, and health informatics"),
-                                                                new Module("Information Theory, Wireless and Optical Transmission",
-                                                                                "Shannon entropy, channel capacity, and fibre optics"),
-                                                                new Module("Sustainability in Engineering Management",
-                                                                                "ESG, circular economy, and sustainable design"),
-                                                                new Module("Machine Vision and Human Machine Interaction",
-                                                                                "Computer vision, gesture recognition, and HCI"),
-                                                                new Module("Research Topics in Nanotechnology: Advanced Data Storage and Spintronics",
-                                                                                "Spintronic devices, magnetic storage, and nanotechnology"),
-                                                                new Module("Advanced Control",
-                                                                                "State-space, robust, and optimal control systems"),
-                                                                new Module("Smart Grid",
-                                                                                "Grid topology, demand response, and smart metering"),
-                                                                new Module("Scientific Supercomputing",
-                                                                                "HPC clusters, parallel algorithms, and GPU computing"),
-                                                                new Module("Emerging Trends in Microengineering",
-                                                                                "Next-gen MEMS, bioMEMS, and emerging fabrication"),
-                                                                new Module("Practical Skills in Virtual Anatomy and Morphology",
-                                                                                "3D anatomy, virtual dissection, and morphological analysis"),
-                                                                new Module("Advanced Project Management- Agile, Scrum and Six Sigma",
-                                                                                "Agile methodology, sprints, and quality management"),
-                                                                new Module("Sound Interactions in the Metaverse",
-                                                                                "Spatial audio, VR acoustics, and immersive sound"),
-                                                                new Module("Leadership in Engineering Businesses",
-                                                                                "Team leadership, strategy, and engineering management"),
-                                                                new Module("Circular Economy and Sustainability in Engineering Management",
-                                                                                "Waste reduction, resource loops, and sustainable operations"),
-                                                                new Module("Immersive and Interactive Audio",
-                                                                                "Binaural audio, ambisonics, and interactive sound systems"),
-                                                                new Module("Statistical Techniques for Data Analysis and Machine Learning",
-                                                                                "Bayesian inference, hypothesis testing, and ML statistics"),
-                                                                new Module("Critical Evaluation of Intelligent Robots",
-                                                                                "Robot ethics, performance benchmarking, and autonomy"),
-                                                                new Module("Fuel Cell and Battery Technologies",
-                                                                                "Electrochemistry, cell types, and energy storage")))
+                                buildFoundationYear(),
+                                buildYear1(),
+                                buildYear2(),
+                                buildYear3(),
+                                buildYear4()
                 };
+        }
+
+        private static YearGroup buildFoundationYear() {
+                return new YearGroup("Foundation Year",
+                                new Section(CORE_MODULES,
+                                                new Module("Mathematics 1",
+                                                                "Algebra, calculus, and mathematical reasoning"),
+                                                new Module("Physics 1",
+                                                                "Mechanics, waves, and thermodynamics basics"),
+                                                new Module("Skills for Engineering and the Physical Sciences 1",
+                                                                "Lab skills, academic writing, and scientific methods"),
+                                                new Module("Mathematics 2",
+                                                                "Trigonometry, vectors, and differential equations"),
+                                                new Module("Physics 2",
+                                                                "Electromagnetism, optics, and quantum fundamentals"),
+                                                new Module("Skills for Engineering and the Physical Sciences 2",
+                                                                "Advanced lab techniques and data analysis")));
+        }
+
+        private static YearGroup buildYear1() {
+                return new YearGroup("Year 1",
+                                new Section(CORE_MODULES,
+                                                new Module("Introduction to Engineering",
+                                                                "Engineering principles, design process, and professional practice"),
+                                                new Module("Mathematics",
+                                                                "Calculus, linear algebra, and complex numbers"),
+                                                new Module("Analogue Electronics",
+                                                                "Op-amps, filters, and circuit analysis")),
+                                new Section("Option Modules",
+                                                new Module("Digital Electronics",
+                                                                "Logic gates, flip-flops, and digital circuit design"),
+                                                new Module("Materials and Mechanics",
+                                                                "Stress, strain, and material properties")));
+        }
+
+        private static YearGroup buildYear2() {
+                return new YearGroup("Year 2",
+                                new Section(CORE_MODULES,
+                                                new Module("Mathematics, Signals and Systems",
+                                                                "Fourier transforms, Laplace, and LTI systems"),
+                                                new Module("Control, Sensors and Instrumentation",
+                                                                "PID control, feedback loops, and sensor interfacing")),
+                                new Section("Option Modules",
+                                                new Module("Acoustics and Studio Recording",
+                                                                "Room acoustics, microphones, and recording techniques"),
+                                                new Module("Audio Technology & Psychoacoustics",
+                                                                "Hearing perception, audio codecs, and masking"),
+                                                new Module("Manufacturing and Fabrication",
+                                                                "CNC, 3D printing, and production processes"),
+                                                new Module("Circuit Design",
+                                                                "PCB layout, simulation, and mixed-signal design"),
+                                                new Module("Electromagnetism",
+                                                                "Maxwell's equations, wave propagation, and antennas"),
+                                                new Module("Software Design",
+                                                                "OOP, design patterns, and software architecture"),
+                                                new Module("Semiconductor Physics and Devices",
+                                                                "BJTs, MOSFETs, and semiconductor band theory"),
+                                                new Module("Electrical Circuits and Systems",
+                                                                "AC/DC analysis, network theorems, and power"),
+                                                new Module("Data Analysis and Numerical Methods",
+                                                                "Regression, interpolation, and numerical integration"),
+                                                new Module("Thermodynamics and Fluid Dynamics",
+                                                                "Heat transfer, entropy, and fluid mechanics")));
+        }
+
+        private static YearGroup buildYear3() {
+                return new YearGroup("Year 3",
+                                new Section(null,
+                                                new Module("Audio App Development and Marketing",
+                                                                "Building and launching audio software products"),
+                                                new Module("Multimedia Sound Design",
+                                                                "Synthesis, sound design, and spatial audio"),
+                                                new Module("Principles of Microengineering",
+                                                                "MEMS, microfabrication, and miniaturised systems"),
+                                                new Module("Applications of Electromagnetics",
+                                                                "Antenna design, RF systems, and EMC"),
+                                                new Module("Communications Systems and Digital Communications",
+                                                                "Modulation, channel coding, and link budgets"),
+                                                new Module("Innovation Management",
+                                                                "R&D strategy, IP, and technology commercialisation"),
+                                                new Module("Robotics Design and Construction",
+                                                                "Actuators, sensors, and robot system integration"),
+                                                new Module("Biomedical Engineering",
+                                                                "Biosignals, medical devices, and clinical instrumentation"),
+                                                new Module("Renewable Power Generation",
+                                                                "Wind, hydro, and grid integration"),
+                                                new Module("Digital Signal Processing",
+                                                                "FIR/IIR filters, FFT, and real-time DSP algorithms"),
+                                                new Module("Mobile Communications and Internet Protocols",
+                                                                "4G/5G, TCP/IP stack, and network protocols"),
+                                                new Module("Photonics and Nanoelectronics",
+                                                                "Lasers, optical fibres, and nanoscale devices"),
+                                                new Module("Advanced Sensors and Instrumentation",
+                                                                "Smart sensors, calibration, and data acquisition"),
+                                                new Module("Digital Engineering",
+                                                                "HDL, FPGAs, and digital system design"),
+                                                new Module("Cloud and Distributed Computing",
+                                                                "Microservices, containers, and distributed architectures"),
+                                                new Module("Photovoltaics and Solar Thermal Technology",
+                                                                "Solar cells, PV systems, and thermal collectors"),
+                                                new Module("Electric Powertrain Design",
+                                                                "EV motors, inverters, and drivetrain systems"),
+                                                new Module("Medical Physics",
+                                                                "Radiation, imaging physics, and therapeutic applications"),
+                                                new Module("Product Design, Development and Commercialization",
+                                                                "User-centred design, prototyping, and go-to-market"),
+                                                new Module("Introduction to Clinical Engineering and Physiological Systems",
+                                                                "Clinical devices, body systems, and healthcare technology"),
+                                                new Module("Micro-mechanical and Microfluidic Devices and Systems",
+                                                                "Lab-on-chip, microfluidics, and MEMS fabrication"),
+                                                new Module("Robot Kinematics and Dynamics",
+                                                                "Forward/inverse kinematics, Jacobians, and motion planning"),
+                                                new Module("Mechanical Design and Kinematics",
+                                                                "Mechanism design, gears, and dynamic analysis"),
+                                                new Module("Astrobiology",
+                                                                "Origin of life, extremophiles, and planetary habitability"),
+                                                new Module("Fuel Cell and Battery Technologies",
+                                                                "Electrochemistry, cell types, and energy storage"),
+                                                new Module("Critical Evaluation of Renewable Energy Systems",
+                                                                "Lifecycle analysis, policy, and system comparison")));
+        }
+
+        private static YearGroup buildYear4() {
+                return new YearGroup("Year 4",
+                                new Section(null,
+                                                new Module("Modelling and Analysing Sound and Music Signals",
+                                                                "Spectral analysis, MIDI, and audio feature extraction"),
+                                                new Module("Systems Programming for ARM",
+                                                                "Embedded C, memory-mapped I/O, and RTOS"),
+                                                new Module("Machine Learning and Computational Intelligence",
+                                                                "Neural networks, SVMs, and deep learning"),
+                                                new Module("Power Electronics",
+                                                                "Converters, inverters, and switching circuits"),
+                                                new Module("Electric Vehicle Technologies",
+                                                                "Battery management, charging infrastructure, and EV design"),
+                                                new Module("Medical Imaging and Physics",
+                                                                "MRI, CT, ultrasound, and image reconstruction"),
+                                                new Module("Future Healthcare and Computer Aided Diagnosis",
+                                                                "AI diagnostics, telemedicine, and health informatics"),
+                                                new Module("Information Theory, Wireless and Optical Transmission",
+                                                                "Shannon entropy, channel capacity, and fibre optics"),
+                                                new Module("Sustainability in Engineering Management",
+                                                                "ESG, circular economy, and sustainable design"),
+                                                new Module("Machine Vision and Human Machine Interaction",
+                                                                "Computer vision, gesture recognition, and HCI"),
+                                                new Module("Research Topics in Nanotechnology: Advanced Data Storage and Spintronics",
+                                                                "Spintronic devices, magnetic storage, and nanotechnology"),
+                                                new Module("Advanced Control",
+                                                                "State-space, robust, and optimal control systems"),
+                                                new Module("Smart Grid",
+                                                                "Grid topology, demand response, and smart metering"),
+                                                new Module("Scientific Supercomputing",
+                                                                "HPC clusters, parallel algorithms, and GPU computing"),
+                                                new Module("Emerging Trends in Microengineering",
+                                                                "Next-gen MEMS, bioMEMS, and emerging fabrication"),
+                                                new Module("Practical Skills in Virtual Anatomy and Morphology",
+                                                                "3D anatomy, virtual dissection, and morphological analysis"),
+                                                new Module("Advanced Project Management- Agile, Scrum and Six Sigma",
+                                                                "Agile methodology, sprints, and quality management"),
+                                                new Module("Sound Interactions in the Metaverse",
+                                                                "Spatial audio, VR acoustics, and immersive sound"),
+                                                new Module("Leadership in Engineering Businesses",
+                                                                "Team leadership, strategy, and engineering management"),
+                                                new Module("Circular Economy and Sustainability in Engineering Management",
+                                                                "Waste reduction, resource loops, and sustainable operations"),
+                                                new Module("Immersive and Interactive Audio",
+                                                                "Binaural audio, ambisonics, and interactive sound systems"),
+                                                new Module("Statistical Techniques for Data Analysis and Machine Learning",
+                                                                "Bayesian inference, hypothesis testing, and ML statistics"),
+                                                new Module("Critical Evaluation of Intelligent Robots",
+                                                                "Robot ethics, performance benchmarking, and autonomy"),
+                                                new Module("Fuel Cell and Battery Technologies",
+                                                                "Electrochemistry, cell types, and energy storage")));
         }
 
         /**
@@ -369,7 +416,7 @@ public final class SubjectView extends StackPane {
          * @return a {@link VBox} containing the year's UI elements.
          */
         private VBox buildYearBlock(final YearGroup year) {
-                Label yearLabel = new Label(year.label);
+                Label yearLabel = new Label(year.getLabel());
                 yearLabel.setStyle(FX_TEXT_FILL + UITheme.PRIMARY
                                 + "; -fx-font-size: 15px;"
                                 + "-fx-font-weight: bold;");
@@ -379,10 +426,11 @@ public final class SubjectView extends StackPane {
 
                 VBox block = new VBox(8, yearLabel, sep);
 
-                for (Section section : year.sections) {
-                        if (section.title != null) {
-                                Label sectionLabel = new Label(
-                                                section.title.toUpperCase());
+                for (Section section : year.getSections()) {
+                        if (section.getTitle() != null) {
+                                Label sectionLabel = new Label(section
+                                                .getTitle()
+                                                .toUpperCase());
                                 sectionLabel.setStyle(FX_TEXT_FILL
                                                 + UITheme.TEXT_MUTED
                                                 + "; -fx-font-size: 10px;"
@@ -391,7 +439,8 @@ public final class SubjectView extends StackPane {
                                                 6, 0, 2, 0));
                                 block.getChildren().add(sectionLabel);
                         }
-                        block.getChildren().add(buildGrid(section.modules));
+                        block.getChildren().add(buildGrid(section
+                                        .getModules()));
                 }
                 return block;
         }
@@ -407,9 +456,9 @@ public final class SubjectView extends StackPane {
          * @return a {@link GridPane} containing one cell per module.
          */
         private GridPane buildGrid(final Module[] modules) {
-                String normalStyle = "-fx-background-color: " + UITheme.BG + ";"
-                                + "-fx-border-color: " + UITheme.BORDER + ";"
-                                + "-fx-border-radius: 4px;"
+                String normalStyle = "-fx-background-color: " + UITheme.BG
+                                + ";" + "-fx-border-color: " + UITheme.BORDER
+                                + ";" + "-fx-border-radius: 4px;"
                                 + "-fx-background-radius: 4px;"
                                 + "-fx-padding: 8px 10px;";
                 String selectedStyle = "-fx-background-color: #E8F7FB;"
@@ -432,13 +481,13 @@ public final class SubjectView extends StackPane {
                 for (int i = 0; i < modules.length; i++) {
                         Module m = modules[i];
 
-                        CheckBox cb = new CheckBox(m.name);
+                        CheckBox cb = new CheckBox(m.getName());
                         cb.setStyle("-fx-font-size: 13px; "
                                         + FX_TEXT_FILL
                                         + UITheme.TEXT_DARK + ";");
                         cb.setWrapText(true);
 
-                        Label desc = new Label(m.desc);
+                        Label desc = new Label(m.getDesc());
                         desc.setStyle("-fx-font-size: 11px; -fx-text-fill: "
                                         + UITheme.TEXT_MUTED + ";");
                         desc.setWrapText(true);

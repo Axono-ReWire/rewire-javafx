@@ -30,8 +30,8 @@ public final class DashboardView extends ScrollPane {
         /**
          * Constructs the {@code DashboardView} for the given user profile.
          *
-         * @param userProfile the {@link UserProfile} containing the user's name and
-         *                    subjects.
+         * @param userProfile the {@link UserProfile}
+         *                    containing the user's name and subjects.
          */
         public DashboardView(final UserProfile userProfile) {
                 this.profile = userProfile;
@@ -68,13 +68,15 @@ public final class DashboardView extends ScrollPane {
          * Builds and returns the top welcome banner with the user's name
          * and Profile / Logout action buttons.
          *
-         * @return a {@link VBox} containing the welcome label and action buttons.
+         * @return a {@link VBox} containing the welcome label
+         *         and action buttons.
          */
         private VBox buildBanner() {
-                Label welcome = new Label("Welcome, " + profile.getName() + "!");
-                welcome.setStyle(
-                                "-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: "
-                                                + UITheme.TEXT_DARK + ";");
+                Label welcome = new Label("Welcome, "
+                                + profile.getName() + "!");
+                welcome.setStyle("-fx-font-size: 32px;"
+                                + "-fx-font-weight: bold; -fx-text-fill: "
+                                + UITheme.TEXT_DARK + ";");
 
                 HBox buttons = new HBox(10, outlineButton("Profile"),
                                 outlineButton("Logout"));
@@ -86,10 +88,11 @@ public final class DashboardView extends ScrollPane {
         }
 
         /**
-         * Builds and returns the progress section, rendering a progress bar row
-         * for each module in the user's selected subjects list.
+         * Builds and returns the progress section, rendering a progress bar
+         * row for each module in the user's selected subjects list.
          *
-         * @return a {@link VBox} containing the section heading and progress rows.
+         * @return a {@link VBox} containing
+         *         the section heading and progress rows.
          */
         private VBox buildProgressSection() {
                 Label pageTitle = sectionLabel("Your Learning Dashboard", 28);
@@ -109,7 +112,8 @@ public final class DashboardView extends ScrollPane {
 
                                 Label pct = new Label("0% Complete");
                                 pct.setStyle("-fx-text-fill: "
-                                                + UITheme.SECONDARY + "; -fx-font-size: 13px;");
+                                                + UITheme.SECONDARY
+                                                + "; -fx-font-size: 13px;");
 
                                 HBox row = new HBox(12, name, bar, pct);
                                 row.setAlignment(Pos.CENTER_LEFT);
@@ -117,17 +121,19 @@ public final class DashboardView extends ScrollPane {
                         }
                 }
 
-                VBox section = new VBox(16, pageTitle, subTitle, cardWrap(entries));
+                VBox section = new VBox(16,
+                                pageTitle, subTitle, cardWrap(entries));
                 section.setAlignment(Pos.CENTER_LEFT);
                 section.setMaxWidth(700);
                 return section;
         }
 
         /**
-         * Builds and returns the recommended topics section containing a placeholder
-         * topic card for Analogue Electronics.
+         * Builds and returns the recommended topics section
+         * containing a placeholder topic card for Analogue Electronics.
          *
-         * @return a {@link VBox} containing the recommended topics heading and card.
+         * @return a {@link VBox} containing
+         *         the recommended topics heading and card.
          */
         private VBox buildRecommendedTopics() {
                 Label title = sectionLabel("Recommended Topics", 22);
@@ -135,20 +141,23 @@ public final class DashboardView extends ScrollPane {
                 Label icon = new Label("📘");
                 icon.setStyle("-fx-font-size: 26px;");
                 Label topic = new Label("Electronics");
-                topic.setStyle(
-                                "-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: "
-                                                + UITheme.SECONDARY + ";");
+                topic.setStyle("-fx-font-size: 20px;"
+                                + " -fx-font-weight: bold; -fx-text-fill: "
+                                + UITheme.SECONDARY + ";");
 
                 HBox header = new HBox(8, icon, topic);
                 header.setAlignment(Pos.CENTER_LEFT);
 
                 VBox moduleList = new VBox(12,
-                                buildModuleCard(
-                                                "Continue: Analogue Electronics", "Resume Lesson"),
-                                buildModuleCard("Explore Other Topics", "Browse All"));
+                                buildModuleCard("Continue: Analogue"
+                                                + " Electronics",
+                                                "Resume Lesson"),
+                                buildModuleCard("Explore Other Topics",
+                                                "Browse All"));
 
                 VBox section = new VBox(
-                                20, title, cardWrap(new VBox(20, header, moduleList)));
+                                20, title,
+                                cardWrap(new VBox(20, header, moduleList)));
                 section.setAlignment(Pos.CENTER_LEFT);
                 section.setMaxWidth(700);
                 return section;
@@ -161,16 +170,19 @@ public final class DashboardView extends ScrollPane {
          * @param btnText the label for the card's action button.
          * @return a {@link VBox} card containing the title and button.
          */
-        private VBox buildModuleCard(final String title, final String btnText) {
+        private VBox buildModuleCard(
+                        final String title,
+                        final String btnText) {
                 Label label = bodyLabel(title);
-                label.setStyle(
-                                "-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: "
-                                                + UITheme.TEXT_DARK + ";");
+                label.setStyle("-fx-font-size: 15px;"
+                                + " -fx-font-weight: bold; -fx-text-fill: "
+                                + UITheme.TEXT_DARK + ";");
                 return cardWrap(new VBox(10, label, outlineButton(btnText)));
         }
 
         /**
-         * Wraps the given {@link VBox} in a styled card with a white background,
+         * Wraps the given {@link VBox} in a styled card
+         * with a white background,
          * border, and rounded corners.
          *
          * @param content the {@link VBox} to style as a card.
@@ -179,20 +191,21 @@ public final class DashboardView extends ScrollPane {
         private VBox cardWrap(final VBox content) {
                 content.setPadding(new Insets(20));
                 content.setMaxWidth(700);
-                content.setStyle(
-                                BG_COLOR_STYLE + UITheme.WHITE + ";"
-                                                + "-fx-border-color: " + UITheme.BORDER + ";"
-                                                + "-fx-border-radius: 6px;"
-                                                + "-fx-background-radius: 6px;");
+                content.setStyle(BG_COLOR_STYLE + UITheme.WHITE + ";"
+                                + "-fx-border-color: " + UITheme.BORDER + ";"
+                                + "-fx-border-radius: 6px;"
+                                + "-fx-background-radius: 6px;");
                 return content;
         }
 
         /**
-         * Creates a horizontal progress bar {@link StackPane} filled to the given
+         * Creates a horizontal progress bar {@link StackPane}
+         * filled to the given
          * percentage.
          *
          * @param percent the completion percentage (0–100).
-         * @return a {@link StackPane} rendering the progress bar track and fill.
+         * @return a {@link StackPane}
+         *         rendering the progress bar track and fill.
          */
         private StackPane progressBar(final double percent) {
                 StackPane track = new StackPane();
@@ -204,7 +217,8 @@ public final class DashboardView extends ScrollPane {
                 StackPane fill = new StackPane();
                 fill.setPrefSize(w, 8);
                 fill.setStyle(BG_COLOR_STYLE
-                                + UITheme.PRIMARY + "; -fx-background-radius: 4px;");
+                                + UITheme.PRIMARY
+                                + "; -fx-background-radius: 4px;");
                 fill.setTranslateX(-(160 - w) / 2);
 
                 track.getChildren().add(fill);
@@ -223,7 +237,8 @@ public final class DashboardView extends ScrollPane {
                 Label l = new Label(text);
                 l.setStyle(String.format(
                                 "-fx-font-size: %dpx;"
-                                                + "-fx-font-weight: bold; -fx-text-fill: %s;",
+                                                + "-fx-font-weight: bold;"
+                                                + "-fx-text-fill: %s;",
                                 size, UITheme.TEXT_DARK));
                 return l;
         }
@@ -251,14 +266,16 @@ public final class DashboardView extends ScrollPane {
                 String base = "-fx-background-color: transparent;"
                                 + "-fx-border-color: " + UITheme.PRIMARY
                                 + "; -fx-border-width: 2px;"
-                                + "-fx-border-radius: 4px; -fx-background-radius: 4px;"
+                                + "-fx-border-radius: 4px;"
+                                + "-fx-background-radius: 4px;"
                                 + "-fx-text-fill: " + UITheme.PRIMARY + ";"
                                 + "-fx-font-weight: bold;"
                                 + "-fx-font-size: 14px; -fx-cursor: hand;";
                 String hover = BG_COLOR_STYLE + UITheme.PRIMARY + ";"
                                 + "-fx-border-color: " + UITheme.PRIMARY
                                 + "; -fx-border-width: 2px;"
-                                + "-fx-border-radius: 4px; -fx-background-radius: 4px;"
+                                + "-fx-border-radius: 4px;"
+                                + "-fx-background-radius: 4px;"
                                 + "-fx-text-fill: white;"
                                 + "-fx-font-weight: bold;"
                                 + "-fx-font-size: 14px; -fx-cursor: hand;";
