@@ -77,7 +77,7 @@ public final class SignUpView extends ScrollPane {
      * banner and the input form.
      */
     private void buildUI() {
-        VBox content = new VBox(UIConstants.SPACING_3XL); // creates box for user inputs
+        VBox content = new VBox(UIConstants.SPACING_3XL);
         firstName = styledField("First name");
         lastName = styledField("Last name");
         username = styledField("Username");

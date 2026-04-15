@@ -96,7 +96,8 @@ public final class AppStage {
         root.setTop(buildNavBar());
         showHome();
 
-        mainStage.setScene(new Scene(root, 1100, 800));
+        mainStage.setScene(new Scene(root,
+                UIConstants.WINDOW_WIDTH, UIConstants.WINDOW_HEIGHT));
         mainStage.setTitle("Axono ReWire");
         mainStage.setResizable(true);
     }
@@ -123,9 +124,13 @@ public final class AppStage {
         dashBtn.setOnAction(e -> showDashboard());
         resultsBtn.setOnAction(e -> showResults());
 
-        HBox nav = new HBox(8, logo, homeBtn, dashBtn, resultsBtn);
+        HBox nav = new HBox(UIConstants.SPACING_SM,
+                logo, homeBtn, dashBtn, resultsBtn);
         nav.setAlignment(Pos.CENTER_LEFT);
-        nav.setPadding(new Insets(12, 24, 12, 24));
+        nav.setPadding(new Insets(UIConstants.PADDING_SM,
+                UIConstants.PADDING_LG,
+                UIConstants.PADDING_SM,
+                UIConstants.PADDING_LG));
         nav.setStyle("-fx-background-color: " + NAV_BG + ";");
         return nav;
     }

@@ -168,7 +168,8 @@ public final class OnboardingStage {
         backButton.setOnAction(e -> goBack());
         nextButton.setOnAction(e -> goNext());
 
-        HBox centerButtons = new HBox(UIConstants.SPACING_MD, backButton, nextButton);
+        HBox centerButtons = new HBox(UIConstants.SPACING_MD,
+                backButton, nextButton);
         centerButtons.setAlignment(Pos.CENTER);
 
         centerButtons.setMaxWidth(Region.USE_PREF_SIZE);

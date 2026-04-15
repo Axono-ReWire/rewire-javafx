@@ -65,7 +65,7 @@ public final class HomepageView extends ScrollPane {
          * wrapping everything in a centred scrollable container.
          */
         private void buildUI() {
-                VBox content = new VBox(40);
+                VBox content = new VBox(UIConstants.SPACING_3XL);
                 content.setAlignment(Pos.TOP_CENTER);
                 content.setPadding(new Insets(
                                 UIConstants.CONTENT_PADDING_V,

@@ -7,7 +7,7 @@ package com.axono.ui;
  * Centralises every value that would otherwise be a magic number
  * scattered across view classes. Import wherever a layout measurement
  * is needed:
- * 
+ *
  * <pre>
  * import com.axono.ui.UIConstants;
  * </pre>
@@ -120,7 +120,10 @@ public final class UIConstants {
     /** 16 px — section heading↔card gaps and summary key↔value row spacing. */
     public static final int SPACING_XL = 16;
 
-    /** 20 px — banner VBox spacing, large section↔card gaps, subject card lists. */
+    /**
+     * 20 px — banner VBox spacing,
+     * large section↔card gaps, subject card lists.
+     */
     public static final int SPACING_2XL = 20;
 
     /** 40 px — top-level section spacing in scroll-view content VBoxes. */
@@ -128,7 +131,7 @@ public final class UIConstants {
 
     // ── Padding scale ────────────────────────────────────────────────────────
 
-    /** 4 px — top margin applied above each form field label via VBox.setMargin. */
+    /** 4 px — top margin applied above each form field label. */
     public static final int LABEL_MARGIN_TOP = 4;
 
     /** 14 px — top/bottom padding of the onboarding content pane. */
@@ -149,7 +152,7 @@ public final class UIConstants {
      */
     public static final int PADDING_LG = 24;
 
-    /** 30 px — padding around full-screen StackPane views (Welcome, Summary). */
+    /** 30 px — padding around full-screen StackPane views. */
     public static final int VIEW_PADDING = 30;
 
     /** 60 px — top/bottom padding of scrollable content VBoxes. */
