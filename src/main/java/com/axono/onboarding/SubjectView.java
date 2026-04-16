@@ -25,6 +25,7 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -163,58 +164,100 @@ public final class SubjectView extends StackPane {
 
         /**
          * Parses the curriculum data from the external XML file.
-         * 
+         *
          * @return Array of parsed YearGroup objects.
          */
         private static YearGroup[] loadCurriculum() {
-                List<YearGroup> years = new ArrayList<>();
                 try (InputStream is = SubjectView.class
                                 .getResourceAsStream("/curriculum.xml")) {
-
-                        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-                        dbf.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
-                        dbf.setFeature("http://xml.org/sax/features/external-general-entities", false);
-                        dbf.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
-                        dbf.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
-                        dbf.setXIncludeAware(false);
-                        dbf.setExpandEntityReferences(false);
-                        DocumentBuilder db = dbf.newDocumentBuilder();
+                        DocumentBuilder db = createSecureDocumentBuilder();
                         Document doc = db.parse(is);
                         doc.getDocumentElement().normalize();
-
-                        NodeList yearNodes = doc
-                                        .getElementsByTagName("yearGroup");
-                        for (int i = 0; i < yearNodes.getLength(); i++) {
-                                Element yearEl = (Element) yearNodes.item(i);
-                                String yLabel = yearEl.getAttribute("label");
-
-                                List<Section> sections = new ArrayList<>();
-                                NodeList secNodes = yearEl
-                                                .getElementsByTagName(
-                                                                "section");
-                                for (int j = 0; j < secNodes
-                                                .getLength(); j++) {
-                                        Element secEl = (Element) secNodes
-                                                        .item(j);
-                                        String sTitle = secEl.hasAttribute("title") ? secEl.getAttribute("title")
-                                                        : null;
-
-                                        List<Module> modules = new ArrayList<>();
-                                        NodeList modNodes = secEl.getElementsByTagName("module");
-                                        for (int k = 0; k < modNodes.getLength(); k++) {
-                                                Element mEl = (Element) modNodes.item(k);
-                                                modules.add(new Module(mEl.getAttribute("name"),
-                                                                mEl.getAttribute("desc")));
-                                        }
-                                        sections
-                                                        .add(new Section(sTitle, modules.toArray(new Module[0])));
-                                }
-                                years.add(new YearGroup(yLabel, sections.toArray(new Section[0])));
-                        }
+                        return parseYearGroups(doc);
                 } catch (Exception e) {
                         e.printStackTrace();
+                        return new YearGroup[0];
+                }
+        }
+
+        /**
+         * Creates a secure DocumentBuilder with external entities disabled.
+         */
+        private static DocumentBuilder createSecureDocumentBuilder()
+                        throws ParserConfigurationException {
+                DocumentBuilderFactory dbf = DocumentBuilderFactory
+                                .newInstance();
+
+                String featDoctype = "http://apache.org/xml/features/"
+                                + "disallow-doctype-decl";
+                dbf.setFeature(featDoctype, true);
+
+                String featGen = "http://xml.org/sax/features/"
+                                + "external-general-entities";
+                dbf.setFeature(featGen, false);
+
+                String featParam = "http://xml.org/sax/features/"
+                                + "external-parameter-entities";
+                dbf.setFeature(featParam, false);
+
+                String featDtd = "http://apache.org/xml/features/"
+                                + "nonvalidating/load-external-dtd";
+                dbf.setFeature(featDtd, false);
+
+                dbf.setXIncludeAware(false);
+                dbf.setExpandEntityReferences(false);
+
+                return dbf.newDocumentBuilder();
+        }
+
+        /**
+         * Extracts YearGroup objects from the parsed XML document.
+         */
+        private static YearGroup[] parseYearGroups(Document doc) {
+                List<YearGroup> years = new ArrayList<>();
+                NodeList yearNodes = doc.getElementsByTagName("yearGroup");
+
+                for (int i = 0; i < yearNodes.getLength(); i++) {
+                        Element yearEl = (Element) yearNodes.item(i);
+                        String yLabel = yearEl.getAttribute("label");
+                        Section[] sections = parseSections(yearEl);
+                        years.add(new YearGroup(yLabel, sections));
                 }
                 return years.toArray(new YearGroup[0]);
+        }
+
+        /**
+         * Extracts Section objects for a specific YearGroup element.
+         */
+        private static Section[] parseSections(Element yearEl) {
+                List<Section> sections = new ArrayList<>();
+                NodeList secNodes = yearEl.getElementsByTagName("section");
+
+                for (int j = 0; j < secNodes.getLength(); j++) {
+                        Element secEl = (Element) secNodes.item(j);
+                        String title = secEl.hasAttribute("title")
+                                        ? secEl.getAttribute("title")
+                                        : null;
+                        Module[] modules = parseModules(secEl);
+                        sections.add(new Section(title, modules));
+                }
+                return sections.toArray(new Section[0]);
+        }
+
+        /**
+         * Extracts Module objects for a specific Section element.
+         */
+        private static Module[] parseModules(Element secEl) {
+                List<Module> modules = new ArrayList<>();
+                NodeList modNodes = secEl.getElementsByTagName("module");
+
+                for (int k = 0; k < modNodes.getLength(); k++) {
+                        Element mEl = (Element) modNodes.item(k);
+                        String name = mEl.getAttribute("name");
+                        String desc = mEl.getAttribute("desc");
+                        modules.add(new Module(name, desc));
+                }
+                return modules.toArray(new Module[0]);
         }
 
         /**
