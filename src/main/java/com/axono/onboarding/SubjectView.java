@@ -62,7 +62,8 @@ public final class SubjectView extends StackPane {
                 private final String desc;
 
                 /**
-                 * Constructs a {@code Module} with the given name and description.
+                 * Constructs a {@code Module}
+                 * with the given name and description.
                  *
                  * @param moduleName the module display name.
                  * @param moduleDesc the short module description.
@@ -89,7 +90,7 @@ public final class SubjectView extends StackPane {
          */
         private static class Section {
                 /**
-                 * The section heading (e.g. "Core Modules", "Option Modules"),
+                 * The section heading (e.g. "Core Modules", "Option Modules")
                  * or {@code null}.
                  */
                 private final String title;
@@ -165,7 +166,8 @@ public final class SubjectView extends StackPane {
         /**
          * Parses the curriculum data from the external XML file.
          *
-         * @return Array of parsed YearGroup objects.
+         * @return an array of parsed {@link YearGroup} instances
+         *         representing the full curriculum; never {@code null}.
          */
         private static YearGroup[] loadCurriculum() {
                 try (InputStream is = SubjectView.class
@@ -181,7 +183,13 @@ public final class SubjectView extends StackPane {
         }
 
         /**
-         * Creates a secure DocumentBuilder with external entities disabled.
+         * Creates a secure {@link DocumentBuilder}
+         * with external entities disabled.
+         *
+         * @return a new {@link DocumentBuilder}
+         *         configured with secure settings.
+         * @throws ParserConfigurationException if a document builder
+         *                                      cannot be created.
          */
         private static DocumentBuilder createSecureDocumentBuilder()
                         throws ParserConfigurationException {
@@ -211,9 +219,13 @@ public final class SubjectView extends StackPane {
         }
 
         /**
-         * Extracts YearGroup objects from the parsed XML document.
+         * Extracts {@link YearGroup} objects from the parsed XML document.
+         *
+         * @param doc the DOM {@link Document} containing the curriculum XML.
+         * @return an array of {@link YearGroup} instances parsed from the
+         *         {@code yearGroup} elements in the document.
          */
-        private static YearGroup[] parseYearGroups(Document doc) {
+        private static YearGroup[] parseYearGroups(final Document doc) {
                 List<YearGroup> years = new ArrayList<>();
                 NodeList yearNodes = doc.getElementsByTagName("yearGroup");
 
@@ -227,9 +239,14 @@ public final class SubjectView extends StackPane {
         }
 
         /**
-         * Extracts Section objects for a specific YearGroup element.
+         * Extracts {@link Section} objects for a specific year element.
+         *
+         * @param yearEl the {@link Element} representing a single
+         *               {@code yearGroup} in the XML document.
+         * @return an array of {@link Section} instances belonging to
+         *         the specified year element.
          */
-        private static Section[] parseSections(Element yearEl) {
+        private static Section[] parseSections(final Element yearEl) {
                 List<Section> sections = new ArrayList<>();
                 NodeList secNodes = yearEl.getElementsByTagName("section");
 
@@ -245,9 +262,14 @@ public final class SubjectView extends StackPane {
         }
 
         /**
-         * Extracts Module objects for a specific Section element.
+         * Extracts {@link Module} objects for a specific section element.
+         *
+         * @param secEl the {@link Element} representing a single
+         *              {@code section} in the XML document.
+         * @return an array of {@link Module} instances belonging to
+         *         the specified section element.
          */
-        private static Module[] parseModules(Element secEl) {
+        private static Module[] parseModules(final Element secEl) {
                 List<Module> modules = new ArrayList<>();
                 NodeList modNodes = secEl.getElementsByTagName("module");
 
