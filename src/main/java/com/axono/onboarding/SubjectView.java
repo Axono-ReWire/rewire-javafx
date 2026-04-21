@@ -3,6 +3,7 @@ package com.axono.onboarding;
 import com.axono.model.UserProfile;
 import com.axono.ui.UIConstants;
 import com.axono.ui.UITheme;
+import com.axono.database.Database;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
@@ -23,10 +24,14 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
+// import javax.xml.parsers.DocumentBuilder;
+// import javax.xml.parsers.DocumentBuilderFactory;
+// import javax.xml.parsers.ParserConfigurationException;
 import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -157,129 +162,75 @@ public final class SubjectView extends StackPane {
                 }
         }
 
-        /**
-         * The full curriculum data structure used
-         * to render the module selection UI.
-         */
-        private static final YearGroup[] CURRICULUM = loadCurriculum();
-
-        /**
-         * Parses the curriculum data from the external XML file.
-         *
-         * @return an array of parsed {@link YearGroup} instances
-         *         representing the full curriculum; never {@code null}.
-         */
         private static YearGroup[] loadCurriculum() {
-                try (InputStream is = SubjectView.class
-                                .getResourceAsStream("/curriculum.xml")) {
-                        DocumentBuilder db = createSecureDocumentBuilder();
-                        Document doc = db.parse(is);
-                        doc.getDocumentElement().normalize();
-                        return parseYearGroups(doc);
-                } catch (Exception e) {
-                        e.printStackTrace();
-                        return new YearGroup[0];
-                }
-        }
-
-        /**
-         * Creates a secure {@link DocumentBuilder}
-         * with external entities disabled.
-         *
-         * @return a new {@link DocumentBuilder}
-         *         configured with secure settings.
-         * @throws ParserConfigurationException if a document builder
-         *                                      cannot be created.
-         */
-        private static DocumentBuilder createSecureDocumentBuilder()
-                        throws ParserConfigurationException {
-                DocumentBuilderFactory dbf = DocumentBuilderFactory
-                                .newInstance();
-
-                String featDoctype = "http://apache.org/xml/features/"
-                                + "disallow-doctype-decl";
-                dbf.setFeature(featDoctype, true);
-
-                String featGen = "http://xml.org/sax/features/"
-                                + "external-general-entities";
-                dbf.setFeature(featGen, false);
-
-                String featParam = "http://xml.org/sax/features/"
-                                + "external-parameter-entities";
-                dbf.setFeature(featParam, false);
-
-                String featDtd = "http://apache.org/xml/features/"
-                                + "nonvalidating/load-external-dtd";
-                dbf.setFeature(featDtd, false);
-
-                dbf.setXIncludeAware(false);
-                dbf.setExpandEntityReferences(false);
-
-                return dbf.newDocumentBuilder();
-        }
-
-        /**
-         * Extracts {@link YearGroup} objects from the parsed XML document.
-         *
-         * @param doc the DOM {@link Document} containing the curriculum XML.
-         * @return an array of {@link YearGroup} instances parsed from the
-         *         {@code yearGroup} elements in the document.
-         */
-        private static YearGroup[] parseYearGroups(final Document doc) {
                 List<YearGroup> years = new ArrayList<>();
-                NodeList yearNodes = doc.getElementsByTagName("yearGroup");
 
-                for (int i = 0; i < yearNodes.getLength(); i++) {
-                        Element yearEl = (Element) yearNodes.item(i);
-                        String yLabel = yearEl.getAttribute("label");
-                        Section[] sections = parseSections(yearEl);
-                        years.add(new YearGroup(yLabel, sections));
+                String stageQuery = "SELECT id, name FROM stage ORDER BY level";
+
+                try (Connection conn = Database.getConnection();
+                                PreparedStatement stageStmt = conn.prepareStatement(stageQuery);
+                                ResultSet stageRs = stageStmt.executeQuery()) {
+
+                        while (stageRs.next()) {
+                                int stageId = stageRs.getInt("id");
+                                String stageName = stageRs.getString("name");
+
+                                Module[] modules = loadModulesForStage(conn, stageId);
+
+                                // no sections → wrap in single section
+                                Section section = new Section(null, modules);
+
+                                years.add(new YearGroup(stageName, section));
+                        }
+
+                } catch (SQLException e) {
+                        e.printStackTrace();
                 }
+
                 return years.toArray(new YearGroup[0]);
         }
 
-        /**
-         * Extracts {@link Section} objects for a specific year element.
-         *
-         * @param yearEl the {@link Element} representing a single
-         *               {@code yearGroup} in the XML document.
-         * @return an array of {@link Section} instances belonging to
-         *         the specified year element.
-         */
-        private static Section[] parseSections(final Element yearEl) {
-                List<Section> sections = new ArrayList<>();
-                NodeList secNodes = yearEl.getElementsByTagName("section");
+        private static Module[] loadModulesForStage(Connection conn, int stageId)
+                        throws SQLException {
 
-                for (int j = 0; j < secNodes.getLength(); j++) {
-                        Element secEl = (Element) secNodes.item(j);
-                        String title = secEl.hasAttribute("title")
-                                        ? secEl.getAttribute("title")
-                                        : null;
-                        Module[] modules = parseModules(secEl);
-                        sections.add(new Section(title, modules));
+                String moduleQuery = "SELECT id, name FROM module WHERE stage_id = ?";
+                List<Module> modules = new ArrayList<>();
+
+                try (PreparedStatement stmt = conn.prepareStatement(moduleQuery)) {
+                        stmt.setInt(1, stageId);
+
+                        try (ResultSet rs = stmt.executeQuery()) {
+                                while (rs.next()) {
+                                        int moduleId = rs.getInt("id");
+                                        String moduleName = rs.getString("name");
+
+                                        String desc = loadTopicsForModule(conn, moduleId);
+
+                                        modules.add(new Module(moduleName, desc));
+                                }
+                        }
                 }
-                return sections.toArray(new Section[0]);
+
+                return modules.toArray(new Module[0]);
         }
 
-        /**
-         * Extracts {@link Module} objects for a specific section element.
-         *
-         * @param secEl the {@link Element} representing a single
-         *              {@code section} in the XML document.
-         * @return an array of {@link Module} instances belonging to
-         *         the specified section element.
-         */
-        private static Module[] parseModules(final Element secEl) {
-                List<Module> modules = new ArrayList<>();
-                NodeList modNodes = secEl.getElementsByTagName("module");
+        private static String loadTopicsForModule(Connection conn, int moduleId)
+                        throws SQLException {
 
-                for (int k = 0; k < modNodes.getLength(); k++) {
-                        Element mEl = (Element) modNodes.item(k);
-                        String name = mEl.getAttribute("name");
-                        String desc = mEl.getAttribute("desc");
-                        modules.add(new Module(name, desc));
+                String topicQuery = "SELECT name FROM topic WHERE module_id = ?";
+                List<String> topics = new ArrayList<>();
+
+                try (PreparedStatement stmt = conn.prepareStatement(topicQuery)) {
+                        stmt.setInt(1, moduleId);
+
+                        try (ResultSet rs = stmt.executeQuery()) {
+                                while (rs.next()) {
+                                        topics.add(rs.getString("name"));
+                                }
+                        }
                 }
-                return modules.toArray(new Module[0]);
+
+                return String.join(", ", topics);
         }
 
         /**
@@ -325,7 +276,11 @@ public final class SubjectView extends StackPane {
                                 + "; -fx-font-size: 14px;");
 
                 VBox content = new VBox(UIConstants.SPACING_2XL);
-                for (YearGroup year : CURRICULUM) {
+
+                // Load from database at runtime
+                YearGroup[] curriculum = loadCurriculum();
+
+                for (YearGroup year : curriculum) {
                         content.getChildren().add(buildYearBlock(year));
                 }
 
