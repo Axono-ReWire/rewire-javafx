@@ -32,6 +32,7 @@ public final class SignUpView extends ScrollPane {
     private PasswordField password = new PasswordField();
     private PasswordField passcheck = new PasswordField();
     private DatePicker dateOfBirth = new DatePicker();
+    private ComboBox<String> institution;
 
     public SignUpView(final UserProfile userProfile) {
         this.profile = userProfile;
@@ -50,6 +51,11 @@ public final class SignUpView extends ScrollPane {
                 "Select", "Foundation", "Year 1", "Year 2",
                 "Year 3", "Year 4", "Post Graduate");
         yearOfStudy.getSelectionModel().selectFirst();
+
+        institution = new ComboBox<>();
+        institution.getItems().addAll(
+                "Select", "University of York");
+        institution.getSelectionModel().selectFirst();
 
         content.setAlignment(Pos.TOP_CENTER);
         content.setPadding(new Insets(
@@ -93,6 +99,7 @@ public final class SignUpView extends ScrollPane {
                 createLabel("Last Name"), lastName,
                 createLabel("Date of Birth"), dateOfBirth,
                 createLabel("Username"), username,
+                createLabel("Institution"), institution,
                 createLabel("Year of Study"), yearOfStudy,
                 createLabel("Password"), password,
                 createLabel("Confirm Password"), passcheck);
@@ -149,6 +156,11 @@ public final class SignUpView extends ScrollPane {
             return false;
         }
 
+        if (institution.getSelectionModel().getSelectedIndex() == 0) {
+            warn("Please select Institution");
+            return false;
+        }
+
         if (yearOfStudy.getSelectionModel().getSelectedIndex() == 0) {
             warn("Please select Year of Study");
             return false;
@@ -182,10 +194,11 @@ public final class SignUpView extends ScrollPane {
 
         profile.setName(firstName.getText().trim());
         profile.setYearOfStudy(yearOfStudy.getValue());
+        profile.setInstitution(institution.getValue());
 
         String sql = "INSERT INTO user " +
-                "(username, password, firstname, lastname, date_of_birth, stage_id) " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
+                "(username, password, firstname, lastname, date_of_birth, university_id, stage_id) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = Database.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -195,7 +208,8 @@ public final class SignUpView extends ScrollPane {
             stmt.setString(3, firstName.getText().trim());
             stmt.setString(4, lastName.getText().trim());
             stmt.setString(5, dateOfBirth.getValue().toString());
-            stmt.setInt(6, getStageId(yearOfStudy.getValue()));
+            stmt.setInt(6, getUniversityId(institution.getValue()));
+            stmt.setInt(7, getStageId(yearOfStudy.getValue()));
 
             stmt.executeUpdate();
 
@@ -213,6 +227,27 @@ public final class SignUpView extends ScrollPane {
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, stageName);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("id");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
+    private int getUniversityId(String uniName) {
+
+        String sql = "SELECT id FROM university WHERE name = ?";
+
+        try (Connection conn = Database.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, uniName);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
