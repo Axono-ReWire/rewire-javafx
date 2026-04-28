@@ -162,24 +162,34 @@ public final class SubjectView extends StackPane {
                 }
         }
 
+        /**
+         * Loads the curriculum from the database, organizing stages into YearGroups.
+         * Each YearGroup contains a single Section with all modules for that stage.
+         *
+         * @return an array of YearGroup objects representing the curriculum.
+         */
         private static YearGroup[] loadCurriculum() {
                 List<YearGroup> years = new ArrayList<>();
 
+                // Query to retrieve all stages ordered by level
                 String stageQuery = "SELECT id, name FROM stage ORDER BY level";
 
                 try (Connection conn = Database.getConnection();
                                 PreparedStatement stageStmt = conn.prepareStatement(stageQuery);
                                 ResultSet stageRs = stageStmt.executeQuery()) {
 
+                        // Iterate through each stage
                         while (stageRs.next()) {
                                 int stageId = stageRs.getInt("id");
                                 String stageName = stageRs.getString("name");
 
+                                // Load modules for this stage
                                 Module[] modules = loadModulesForStage(conn, stageId);
 
-                                // no sections → wrap in single section
+                                // Wrap modules in a single section (no title)
                                 Section section = new Section(null, modules);
 
+                                // Add to the list of year groups
                                 years.add(new YearGroup(stageName, section));
                         }
 
@@ -187,12 +197,22 @@ public final class SubjectView extends StackPane {
                         e.printStackTrace();
                 }
 
+                // Convert list to array and return
                 return years.toArray(new YearGroup[0]);
         }
 
+        /**
+         * Loads all modules for a given stage from the database.
+         *
+         * @param conn    the database connection.
+         * @param stageId the ID of the stage.
+         * @return an array of Module objects for the stage.
+         * @throws SQLException if a database error occurs.
+         */
         private static Module[] loadModulesForStage(Connection conn, int stageId)
                         throws SQLException {
 
+                // Query to retrieve modules for the given stage
                 String moduleQuery = "SELECT id, name FROM module WHERE stage_id = ?";
                 List<Module> modules = new ArrayList<>();
 
@@ -200,23 +220,36 @@ public final class SubjectView extends StackPane {
                         stmt.setInt(1, stageId);
 
                         try (ResultSet rs = stmt.executeQuery()) {
+                                // Iterate through each module
                                 while (rs.next()) {
                                         int moduleId = rs.getInt("id");
                                         String moduleName = rs.getString("name");
 
+                                        // Load topics as description for this module
                                         String desc = loadTopicsForModule(conn, moduleId);
 
+                                        // Add module to the list
                                         modules.add(new Module(moduleName, desc));
                                 }
                         }
                 }
 
+                // Convert list to array and return
                 return modules.toArray(new Module[0]);
         }
 
+        /**
+         * Loads all topic names for a given module and joins them into a single string.
+         *
+         * @param conn     the database connection.
+         * @param moduleId the ID of the module.
+         * @return a comma-separated string of topic names.
+         * @throws SQLException if a database error occurs.
+         */
         private static String loadTopicsForModule(Connection conn, int moduleId)
                         throws SQLException {
 
+                // Query to retrieve topics for the given module
                 String topicQuery = "SELECT name FROM topic WHERE module_id = ?";
                 List<String> topics = new ArrayList<>();
 
@@ -224,12 +257,14 @@ public final class SubjectView extends StackPane {
                         stmt.setInt(1, moduleId);
 
                         try (ResultSet rs = stmt.executeQuery()) {
+                                // Collect all topic names
                                 while (rs.next()) {
                                         topics.add(rs.getString("name"));
                                 }
                         }
                 }
 
+                // Join topics into a single string and return
                 return String.join(", ", topics);
         }
 
