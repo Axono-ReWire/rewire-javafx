@@ -1,0 +1,69 @@
+
+.root{
+   -fx-font-size: 16px;
+   -fx-font:black;
+}
+
+.label{
+   -fx-font-size: 16px;
+   -fx-text-fill:black;
+
+}
+
+.bold{
+   -fx-font-size: 16px;
+   -fx-text-fill:black;
+   -font-weight:bold;
+}
+
+.header{
+   -fx-font-size: 40px;
+   -fx-font-weight: bold;
+}
+
+.header2{
+   -fx-font-size:32px;
+   -fx-font-weight: bold;
+}
+.subheader{
+   -fx-font-size: 20px;
+   -fx-font-weight:600;
+}
+
+.grad-back{
+   -fx-background-color: linear-gradient(to top left , #399386, #ffffff );
+}
+
+.button-s{
+   -fx-background-color: #399386;
+   -fx-font: 16px;
+   -fx-text-fill: white;
+   -fx-padding: 12px;
+   -fx-border-radius: 16px;
+  -fx-font-weight:bold;
+}
+
+.button-s:hover{
+   -fx-background-color: #399385d0;
+    -fx-cursor:hand;
+}
+
+.button-n{
+   -fx-background-color: white;
+   -fx-font: 16px;
+   -fx-text-fill: black;
+   -fx-padding: 12px;
+   -fx-border-radius: 16px;
+  -fx-font-weight:bold;
+}
+
+.button-n:hover{
+   -fx-background-color: #399386;
+    -fx-cursor:hand;
+    -fx-text-fill:white;
+}
+
+.textbox-s{
+   -fx-font: 16px;
+   -fx-padding:12px;
+}
