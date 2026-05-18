@@ -13,4 +13,7 @@ module com.axono {
     exports com.axono.signup;
     exports com.axono.results;
     exports com.axono.database;
+    exports com.axono.answer;
+    exports com.axono.questionmodel;
+
 }

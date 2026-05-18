@@ -7,7 +7,6 @@ import com.axono.onboarding.OnboardingStage;
 import com.axono.results.ResultsPage;
 import com.axono.ui.UITheme;
 import com.axono.ui.UIConstants;
-import com.axono.answer.AnswerView;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -55,8 +54,6 @@ public final class AppStage {
     /** Navigation button that navigates to the results view. */
     private Button resultsBtn;
 
-    private Button answerBtn;
-
     /**
      * Creates an {@code AppStage}, opens the onboarding wizard, and
      * shows the main window once onboarding is complete.
@@ -65,6 +62,7 @@ public final class AppStage {
      */
     public AppStage(final Stage primaryStage) {
         this.mainStage = primaryStage;
+
         openOnboarding();
     }
 
@@ -122,15 +120,13 @@ public final class AppStage {
 
         dashBtn = navButton("Dashboard");
         resultsBtn = navButton("Results (temp)");
-        answerBtn = navButton("answer");
 
         homeBtn.setOnAction(e -> showHome());
         dashBtn.setOnAction(e -> showDashboard());
         resultsBtn.setOnAction(e -> showResults());
-        answerBtn.setOnAction(e -> showAnswer());
 
         HBox nav = new HBox(UIConstants.SPACING_SM,
-                logo, homeBtn, dashBtn, resultsBtn, answerBtn);
+                logo, homeBtn, dashBtn, resultsBtn);
         nav.setAlignment(Pos.CENTER_LEFT);
         nav.setPadding(new Insets(UIConstants.PADDING_SM,
                 UIConstants.PADDING_LG,
@@ -246,11 +242,6 @@ public final class AppStage {
     private void showResults() {
         root.setCenter(new ResultsPage());
         setActive(resultsBtn);
-    }
-
-    private void showAnswer() {
-        root.setCenter(new AnswerView());
-        setActive(answerBtn);
     }
 
 }
