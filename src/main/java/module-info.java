@@ -1,6 +1,8 @@
 module com.axono {
     requires transitive javafx.graphics;
     requires javafx.controls;
+    requires java.sql;
+    requires javafx.base;
 
     exports com.axono;
     exports com.axono.home;
@@ -8,4 +10,7 @@ module com.axono {
     exports com.axono.onboarding;
     exports com.axono.model;
     exports com.axono.ui;
+    exports com.axono.signup;
+    exports com.axono.results;
+    exports com.axono.database;
 }

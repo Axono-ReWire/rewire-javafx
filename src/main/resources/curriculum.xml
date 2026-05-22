@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<curriculum>
+    <yearGroup label="Foundation Year">
+        <section title="Core Modules">
+            <module name="Mathematics 1" desc="Algebra, calculus, and mathematical reasoning"/>
+            <module name="Physics 1" desc="Mechanics, waves, and thermodynamics basics"/>
+            <module name="Skills for Engineering and the Physical Sciences 1" desc="Lab skills, academic writing, and scientific methods"/>
+            <module name="Mathematics 2" desc="Trigonometry, vectors, and differential equations"/>
+            <module name="Physics 2" desc="Electromagnetism, optics, and quantum fundamentals"/>
+            <module name="Skills for Engineering and the Physical Sciences 2" desc="Advanced lab techniques and data analysis"/>
+        </section>
+    </yearGroup>
+
+    <yearGroup label="Year 1">
+        <section title="Core Modules">
+            <module name="Introduction to Engineering" desc="Engineering principles, design process, and professional practice"/>
+            <module name="Mathematics" desc="Calculus, linear algebra, and complex numbers"/>
+            <module name="Analogue Electronics" desc="Op-amps, filters, and circuit analysis"/>
+        </section>
+        <section title="Option Modules">
+            <module name="Digital Electronics" desc="Logic gates, flip-flops, and digital circuit design"/>
+            <module name="Materials and Mechanics" desc="Stress, strain, and material properties"/>
+        </section>
+    </yearGroup>
+
+    <yearGroup label="Year 2">
+        <section title="Core Modules">
+            <module name="Mathematics, Signals and Systems" desc="Fourier transforms, Laplace, and LTI systems"/>
+            <module name="Control, Sensors and Instrumentation" desc="PID control, feedback loops, and sensor interfacing"/>
+        </section>
+        <section title="Option Modules">
+            <module name="Acoustics and Studio Recording" desc="Room acoustics, microphones, and recording techniques"/>
+            <module name="Audio Technology &amp; Psychoacoustics" desc="Hearing perception, audio codecs, and masking"/>
+            <module name="Manufacturing and Fabrication" desc="CNC, 3D printing, and production processes"/>
+            <module name="Circuit Design" desc="PCB layout, simulation, and mixed-signal design"/>
+            <module name="Electromagnetism" desc="Maxwell's equations, wave propagation, and antennas"/>
+            <module name="Software Design" desc="OOP, design patterns, and software architecture"/>
+            <module name="Semiconductor Physics and Devices" desc="BJTs, MOSFETs, and semiconductor band theory"/>
+            <module name="Electrical Circuits and Systems" desc="AC/DC analysis, network theorems, and power"/>
+            <module name="Data Analysis and Numerical Methods" desc="Regression, interpolation, and numerical integration"/>
+            <module name="Thermodynamics and Fluid Dynamics" desc="Heat transfer, entropy, and fluid mechanics"/>
+        </section>
+    </yearGroup>
+
+    <yearGroup label="Year 3">
+        <section>
+            <module name="Audio App Development and Marketing" desc="Building and launching audio software products"/>
+            <module name="Multimedia Sound Design" desc="Synthesis, sound design, and spatial audio"/>
+            <module name="Principles of Microengineering" desc="MEMS, microfabrication, and miniaturised systems"/>
+            <module name="Applications of Electromagnetics" desc="Antenna design, RF systems, and EMC"/>
+            <module name="Communications Systems and Digital Communications" desc="Modulation, channel coding, and link budgets"/>
+            <module name="Innovation Management" desc="R&amp;D strategy, IP, and technology commercialisation"/>
+            <module name="Robotics Design and Construction" desc="Actuators, sensors, and robot system integration"/>
+            <module name="Biomedical Engineering" desc="Biosignals, medical devices, and clinical instrumentation"/>
+            <module name="Renewable Power Generation" desc="Wind, hydro, and grid integration"/>
+            <module name="Digital Signal Processing" desc="FIR/IIR filters, FFT, and real-time DSP algorithms"/>
+            <module name="Mobile Communications and Internet Protocols" desc="4G/5G, TCP/IP stack, and network protocols"/>
+            <module name="Photonics and Nanoelectronics" desc="Lasers, optical fibres, and nanoscale devices"/>
+            <module name="Advanced Sensors and Instrumentation" desc="Smart sensors, calibration, and data acquisition"/>
+            <module name="Digital Engineering" desc="HDL, FPGAs, and digital system design"/>
+            <module name="Cloud and Distributed Computing" desc="Microservices, containers, and distributed architectures"/>
+            <module name="Photovoltaics and Solar Thermal Technology" desc="Solar cells, PV systems, and thermal collectors"/>
+            <module name="Electric Powertrain Design" desc="EV motors, inverters, and drivetrain systems"/>
+            <module name="Medical Physics" desc="Radiation, imaging physics, and therapeutic applications"/>
+            <module name="Product Design, Development and Commercialization" desc="User-centred design, prototyping, and go-to-market"/>
+            <module name="Introduction to Clinical Engineering and Physiological Systems" desc="Clinical devices, body systems, and healthcare technology"/>
+            <module name="Micro-mechanical and Microfluidic Devices and Systems" desc="Lab-on-chip, microfluidics, and MEMS fabrication"/>
+            <module name="Robot Kinematics and Dynamics" desc="Forward/inverse kinematics, Jacobians, and motion planning"/>
+            <module name="Mechanical Design and Kinematics" desc="Mechanism design, gears, and dynamic analysis"/>
+            <module name="Astrobiology" desc="Origin of life, extremophiles, and planetary habitability"/>
+            <module name="Fuel Cell and Battery Technologies" desc="Electrochemistry, cell types, and energy storage"/>
+            <module name="Critical Evaluation of Renewable Energy Systems" desc="Lifecycle analysis, policy, and system comparison"/>
+        </section>
+    </yearGroup>
+
+    <yearGroup label="Year 4">
+        <section>
+            <module name="Modelling and Analysing Sound and Music Signals" desc="Spectral analysis, MIDI, and audio feature extraction"/>
+            <module name="Systems Programming for ARM" desc="Embedded C, memory-mapped I/O, and RTOS"/>
+            <module name="Machine Learning and Computational Intelligence" desc="Neural networks, SVMs, and deep learning"/>
+            <module name="Power Electronics" desc="Converters, inverters, and switching circuits"/>
+            <module name="Electric Vehicle Technologies" desc="Battery management, charging infrastructure, and EV design"/>
+            <module name="Medical Imaging and Physics" desc="MRI, CT, ultrasound, and image reconstruction"/>
+            <module name="Future Healthcare and Computer Aided Diagnosis" desc="AI diagnostics, telemedicine, and health informatics"/>
+            <module name="Information Theory, Wireless and Optical Transmission" desc="Shannon entropy, channel capacity, and fibre optics"/>
+            <module name="Sustainability in Engineering Management" desc="ESG, circular economy, and sustainable design"/>
+            <module name="Machine Vision and Human Machine Interaction" desc="Computer vision, gesture recognition, and HCI"/>
+            <module name="Research Topics in Nanotechnology: Advanced Data Storage and Spintronics" desc="Spintronic devices, magnetic storage, and nanotechnology"/>
+            <module name="Advanced Control" desc="State-space, robust, and optimal control systems"/>
+            <module name="Smart Grid" desc="Grid topology, demand response, and smart metering"/>
+            <module name="Scientific Supercomputing" desc="HPC clusters, parallel algorithms, and GPU computing"/>
+            <module name="Emerging Trends in Microengineering" desc="Next-gen MEMS, bioMEMS, and emerging fabrication"/>
+            <module name="Practical Skills in Virtual Anatomy and Morphology" desc="3D anatomy, virtual dissection, and morphological analysis"/>
+            <module name="Advanced Project Management- Agile, Scrum and Six Sigma" desc="Agile methodology, sprints, and quality management"/>
+            <module name="Sound Interactions in the Metaverse" desc="Spatial audio, VR acoustics, and immersive sound"/>
+            <module name="Leadership in Engineering Businesses" desc="Team leadership, strategy, and engineering management"/>
+            <module name="Circular Economy and Sustainability in Engineering Management" desc="Waste reduction, resource loops, and sustainable operations"/>
+            <module name="Immersive and Interactive Audio" desc="Binaural audio, ambisonics, and interactive sound systems"/>
+            <module name="Statistical Techniques for Data Analysis and Machine Learning" desc="Bayesian inference, hypothesis testing, and ML statistics"/>
+            <module name="Critical Evaluation of Intelligent Robots" desc="Robot ethics, performance benchmarking, and autonomy"/>
+            <module name="Fuel Cell and Battery Technologies" desc="Electrochemistry, cell types, and energy storage"/>
+        </section>
+    </yearGroup>
+</curriculum>
