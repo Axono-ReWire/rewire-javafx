@@ -86,7 +86,7 @@ public final class AnswerView extends ScrollPane {
          * Parallel list flagging whether each pane represents a correctly
          * answered question; used by the "Expand Incorrect Only" action.
          */
-        private final List<Boolean> panesCorrect = new ArrayList<>();
+        private final List<Boolean> correctPane = new ArrayList<>();
 
         /**
          * Constructs an AnswerView for the given list of questions and
@@ -141,7 +141,8 @@ public final class AnswerView extends ScrollPane {
                                 UITheme.TEXT_DARK);
 
                 Label subHeader = createLabel(
-                                "Review your answers after completion of the quiz",
+                                "Review your answers after"
+                                                + " completion of the quiz",
                                 UIConstants.FONT_NAV,
                                 false,
                                 UITheme.TEXT_DARK);
@@ -159,13 +160,16 @@ public final class AnswerView extends ScrollPane {
                 Button expandAll = createActionButton("Expand All",
                                 () -> panes.forEach(p -> p.setExpanded(true)));
                 Button collapseAll = createActionButton("Collapse All",
-                                () -> panes.forEach(p -> p.setExpanded(false)));
+                                () -> panes.forEach(p -> p
+                                                .setExpanded(false)));
                 Button expandIncorrect = createActionButton(
-                                "Expand Incorrect Only",
-                                () -> {
-                                        for (int i = 0; i < panes.size(); i++) {
-                                                boolean isCorrect = panesCorrect.get(i);
-                                                panes.get(i).setExpanded(!isCorrect);
+                                "Expand Incorrect Only", () -> {
+                                        for (int i = 0; i < panes
+                                                        .size(); i++) {
+                                                boolean isCorrect = correctPane
+                                                                .get(i);
+                                                panes.get(i).setExpanded(
+                                                                !isCorrect);
                                         }
                                 });
 
@@ -194,7 +198,8 @@ public final class AnswerView extends ScrollPane {
                 VBox titlePanes = new VBox(UIConstants.PADDING_SM);
 
                 for (int i = 0; i < questions.size(); i++) {
-                        TitledPane pane = createQuestionPane(questions.get(i), i);
+                        TitledPane pane = createQuestionPane(questions
+                                        .get(i), i);
                         panes.add(pane);
                         titlePanes.getChildren()
                                         .addAll(pane, createSeparator());
@@ -276,7 +281,7 @@ public final class AnswerView extends ScrollPane {
 
                 boolean isCorrect = ques.isCorrect();
 
-                panesCorrect.add(isCorrect);
+                correctPane.add(isCorrect);
 
                 HBox header = buildQuestionHeader(isCorrect,
                                 quesNo,
@@ -330,7 +335,8 @@ public final class AnswerView extends ScrollPane {
                         String answer = answers.get(i);
 
                         // sort this out next
-                        boolean correctAndSelected = ques.choseCorrectAndCorrect(i);
+                        boolean correctAndSelected = ques
+                                        .choseCorrectAndCorrect(i);
                         boolean incorrectSelection = ques.choseIncorrect(i);
                         boolean unchosenCorrect = ques.unchosenCorrect(i);
 
@@ -408,8 +414,10 @@ public final class AnswerView extends ScrollPane {
                 Tooltip tooltip = new Tooltip(text);
                 tooltip.setStyle(String.format(
                                 "-fx-font-size:" + UIConstants.FONT_XS + ";"
-                                                + TEXT_FILL + UITheme.SECONDARY + ";"
-                                                + "-fx-background-color: " + UITheme.WHITE + ";"));
+                                                + TEXT_FILL
+                                                + UITheme.SECONDARY + ";"
+                                                + "-fx-background-color: "
+                                                + UITheme.WHITE + ";"));
                 return tooltip;
         }
 
@@ -421,8 +429,9 @@ public final class AnswerView extends ScrollPane {
                                 + "-fx-background-radius: 4px;"
                                 + "-fx-font-weight: bold; -fx-font-size: 12px;"
                                 + "-fx-cursor: hand;";
-                String base = "-fx-background-color:" + UITheme.WHITE + ";"
-                                + "-fx-text-fill: " + UITheme.PRIMARY + ";" + both;
+                String base = "-fx-background-color:" + UITheme.WHITE
+                                + ";" + "-fx-text-fill: "
+                                + UITheme.PRIMARY + ";" + both;
 
                 String hover = BG_COLOR + UITheme.PRIMARY + ";"
                                 + "-fx-border-color: " + UITheme.TERTIARY + ";"
@@ -439,8 +448,8 @@ public final class AnswerView extends ScrollPane {
         private HBox createCard(final HBox content) {
                 content.setPadding(new Insets(UIConstants.PADDING_SM));
                 content.setMaxWidth(UIConstants.CONTENT_MAX_WIDTH);
-                content.setStyle(
-                                UITheme.CARD_STYLE + "-fx-padding: 10px 10px;");
+                content.setStyle(UITheme.CARD_STYLE
+                                + "-fx-padding: 10px 10px;");
                 return content;
         }
 }

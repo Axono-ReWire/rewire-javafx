@@ -22,7 +22,8 @@ public final class ViewAnswerView extends Application {
         TestAnswerView test = new TestAnswerView();
         AnswerView testAnswerView = new AnswerView(test.getQuestions());
 
-        Scene answerSceneTest = new Scene(testAnswerView, SCENE_WIDTH, SCENE_HEIGHT);
+        Scene answerSceneTest = new Scene(testAnswerView,
+                SCENE_WIDTH, SCENE_HEIGHT);
         ansStage.setScene(answerSceneTest);
         ansStage.setTitle("TEST");
         ansStage.show();

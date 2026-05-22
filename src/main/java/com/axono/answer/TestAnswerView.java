@@ -28,8 +28,8 @@ public final class TestAnswerView {
         private final List<Question> questions = List.of(
 
                         // Different answer counts, varied outcomes.
-                        // Q-prefix and correct/incorrect rendering in UI verified
-                        // against this fixture.
+                        // Q-prefix and correct/incorrect
+                        // rendering in UI verified against this fixture.
 
                         new Question(
                                         "What is the answer to this question?",
@@ -44,7 +44,7 @@ public final class TestAnswerView {
                         new Question(
                                         "What about this one?",
                                         List.of("ffhjdafk", "fgdhfgh",
-                                                        "fhjfakbakvb", "ahvbhjb"),
+                                                        "fhjfakvb", "ahvbhjb"),
                                         IDX_3, 2),
 
                         new Question(
@@ -54,13 +54,15 @@ public final class TestAnswerView {
 
                         new Question(
                                         "What is???",
-                                        List.of("ffff", "wwwwwwwwwwwwwwwwww", "dddddd",
-                                                        "qqqqq", "errdereses", "eee"),
+                                        List.of("ffff", "wwwwwwwwwwwwwwwwww",
+                                                        "dddddd", "qqqqq",
+                                                        "errdereses", "eee"),
                                         IDX_4, IDX_5),
 
                         new Question(
                                         "What is thgfis?",
-                                        List.of("dhdfjhffdgfj", "hdgrfghuighdui",
+                                        List.of("dhdfjhffdgfj",
+                                                        "hdgrfghuighdui",
                                                         "hfdfgffh", "dghggjd"),
                                         2, 2),
 

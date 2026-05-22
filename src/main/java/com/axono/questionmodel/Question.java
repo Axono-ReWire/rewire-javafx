@@ -10,12 +10,13 @@ import java.util.List;
 public final class Question {
 
     /** Fallback prompt shown when the supplied question text is blank. */
-    private static final String BLANK_QUESTION_FALLBACK = "**Error* in displaying question."
-            + "Your results below are still valid:*";
+    private static final String BLANK_QUESTION_FALLBACK = "**Error* "
+            + "in displaying question. Your results below are still valid:*";
 
     /** Fallback row shown when no answer options were supplied. */
-    private static final String EMPTY_ANSWERS_FALLBACK = "*Unable to display selected/correct answers. "
-            + "Your overall result is indicated on the header* ";
+    private static final String EMPTY_ANSWERS_FALLBACK = "*Unable to display "
+            + "selected/correct answers. Your overall result "
+            + "is indicated on the header* ";
 
     /** Zero-based index of the correct answer in the answer list. */
     private final int correctAns;
