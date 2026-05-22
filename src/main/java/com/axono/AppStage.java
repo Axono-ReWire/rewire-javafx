@@ -62,6 +62,7 @@ public final class AppStage {
      */
     public AppStage(final Stage primaryStage) {
         this.mainStage = primaryStage;
+
         openOnboarding();
     }
 
