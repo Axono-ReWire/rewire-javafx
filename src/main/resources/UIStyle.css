@@ -49,21 +49,90 @@
 }
 
 .button-n{
-   -fx-background-color: white;
+   -fx-background-color: #399386;
    -fx-font: 16px;
    -fx-text-fill: black;
-   -fx-padding: 12px;
+   -fx-padding: 12 24 12 24;
    -fx-border-radius: 16px;
   -fx-font-weight:bold;
+  -fx-pref-height: 38px;
+  -fx-pref-width: 120px
 }
 
 .button-n:hover{
-   -fx-background-color: #399386;
+   -fx-background-color: white;
     -fx-cursor:hand;
-    -fx-text-fill:white;
+    -fx-text-fill:black;
 }
 
 .textbox-s{
    -fx-font: 16px;
    -fx-padding:12px;
 }
+
+.navbar{
+   -fx-padding: 12 20 12 20;
+   -fx-alignment: center-left;
+}
+
+.footer{
+   -fx-padding: 24 24 24 24;
+   -fx-border-width: 1 0 0 0;
+   -fx-background-color: white;
+}
+
+.card{
+   -fx-alignment:center;
+   -fx-padding: 28 28 28 28;
+   -fx-spacing: 32;
+}
+.card2{
+   -fx-alignment:center;
+   -fx-padding: 28 120 28 120;
+   -fx-spacing: 32;
+}
+.card3{
+   -fx-alignment:center;
+   -fx-padding: 28 120 28 120;
+   -fx-spacing: 32;
+   -fx-background-color: white;
+   -fx-max-width:520;
+   -fx-max-height:600;
+   -fx-background-radius:12;
+}
+
+.signupcon{
+   -fx-padding: 60 24 60 24;
+   -fx-spacing: 60;
+   -fx-alignment:top-center;
+   -fx-max-width: 800;
+}
+
+.sd{
+   -fx-spacing:8;
+   -fx-max-width:500;
+}
+
+.toprow{
+   -fx-alighnment: center-left;
+   -fx-spacing: 12;
+}
+
+.yearbox{
+
+   -fx-padding: 120 120 120 120;
+}
+
+/*.normalstyle{
+
+-fx-border-radius: 4px;
+  -fx-background-radius: 4px;
+  -fx-padding: 8px 10px;;
+}
+
+.normalstyle::checkmark{
+
+-fx-border-radius: 4px;
+  -fx-background-radius: 4px;
+  -fx-padding: 8px 10px;;
+}*/

@@ -2,9 +2,7 @@ package com.axono.onboarding;
 
 import com.axono.model.UserProfile;
 import com.axono.signup.SignUpView;
-//import com.axono.ui.UITheme;
 import com.axono.ui.UIConstants;
-//import com.axono.ui.UITheme;
 
 import javafx.stage.Stage;
 import java.util.function.Consumer;
@@ -31,8 +29,7 @@ import java.util.List;
  * {@link UserProfile} when the user clicks "Launch App".
  */
 public final class OnboardingStage {
-    // public String css =
-    // scene.getStylesheets().add(getClass().getResource("UIStyle.css").toExternalForm());
+
     /** The JavaFX {@link Stage} that hosts the onboarding wizard. */
     private final Stage stage;
 
@@ -104,9 +101,7 @@ public final class OnboardingStage {
      */
     private void buildUI() {
         root = new BorderPane();
-        // root.setStyle("-fx-background-color: " + UITheme.BGColor + ";");
-        // root.setBackground(UITheme.);
-        // root.getStylesheets().add(css);
+
         root.setTop(buildHeader());
         root.setCenter(steps[0]);
         root.setBottom(buildFooter());
@@ -114,9 +109,7 @@ public final class OnboardingStage {
         root.getStylesheets().add(getClass().getResource("/UIStyle.css").toExternalForm());
         stage.setMaximized(true);
         root.getStyleClass().add("grad-back");
-        // stage.isFullScreen();
-        // stage.setScene(new Scene(root,
-        // UIConstants.WINDOW_WIDTH, UIConstants.WINDOW_HEIGHT));
+
         stage.setTitle("ReWire — Setup");
         stage.show();
         updateStep();
@@ -130,8 +123,7 @@ public final class OnboardingStage {
      */
     private HBox buildHeader() {
         Label logo = new Label("Axono - ReWire");
-        // logo.setStyle("-fx-text-fill: white;"
-        // + "-fx-font-weight: bold;");
+
         HBox.setHgrow(logo, Priority.ALWAYS);
 
         Region spacer = new Region();
@@ -149,15 +141,8 @@ public final class OnboardingStage {
         }
 
         HBox header = new HBox(logo, spacer, dotsRow);
-        header.setAlignment(Pos.CENTER_LEFT);
-        header.setStyle("-fx-background-color: "
-                // + UITheme.PRIMARY
-                + ";");
-        header.setPadding(new Insets(
-                UIConstants.PADDING_SM,
-                UIConstants.PADDING_LG,
-                UIConstants.PADDING_SM,
-                UIConstants.PADDING_LG));
+
+        header.getStyleClass().add("navbar");
         return header;
     }
 
@@ -170,16 +155,13 @@ public final class OnboardingStage {
      */
     private StackPane buildFooter() {
         stepLabel = new Label();
-        // stepLabel.setStyle("-fx-text-fill: "
-        // + UITheme.TEXT_MUTED
-        // + "; -fx-font-size: 12px;");
 
         backButton = navButton(
                 "Back"
-        // , UITheme.SECONDARY_OPTION, UITheme.TEXT_DARK←
+
         );
         nextButton = navButton("Next →"
-        // , UITheme.SECONDARY, UITheme.WHITE
+
         );
         backButton.setOnAction(e -> goBack());
         nextButton.setOnAction(e -> goNext());
@@ -193,18 +175,7 @@ public final class OnboardingStage {
         StackPane footer = new StackPane(stepLabel, centerButtons);
 
         StackPane.setAlignment(stepLabel, Pos.CENTER_LEFT);
-
-        footer.setPadding(new Insets(
-                UIConstants.PADDING_SM,
-                UIConstants.PADDING_LG,
-                UIConstants.PADDING_SM,
-                UIConstants.PADDING_LG));
-        footer.setStyle(
-                "-fx-background-color: white;"
-                        + "-fx-border-color: "
-                        // + UITheme.BORDER
-                        + ";"
-                        + "-fx-border-width: 1 0 0 0;");
+        footer.getStyleClass().add("footer");
         return footer;
     }
 
@@ -220,11 +191,7 @@ public final class OnboardingStage {
     private Button navButton(
             final String text) {
         Button b = new Button(text);
-        b.setPrefSize(UIConstants.WIZARD_BTN_WIDTH,
-                UIConstants.WIZARD_BTN_HEIGHT);
-        b.getStyleClass().add("button-s");
-        // b.setOnMouseEntered(e -> b.setStyle(base + "-fx-opacity: 0.88;"));
-        // b.setOnMouseExited(e -> b.setStyle(base));
+        b.getStyleClass().add("button-n");
         return b;
     }
 
@@ -286,7 +253,6 @@ public final class OnboardingStage {
         String color = lastStep ? "#59BE8B" : "#399386";
         nextButton.setText(lastStep ? "Launch App" : "Next");
         nextButton.getStyleClass().add("button-s");
-        // nextButton.setStyle(color);
     }
 
     /**
