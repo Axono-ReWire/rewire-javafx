@@ -13,17 +13,34 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Unit tests for the {@link UserService} class.
+ * Validates database query operations, user profile data extraction,
+ * and relational lookup logic using an isolated in-memory database instance.
+ */
 class UserServiceTest {
 
+    /** The database abstraction layer used to run queries. */
     private DatabaseHelper databaseHelper;
+
+    /** The target service instance under test. */
     private UserService userService;
+
+    /** The underlying SQL connection managing the in-memory testing context. */
     private Connection testConnection;
 
+    /**
+     * Sets up an in-memory SQLite environment, provisions mock tables,
+     * injects seed data, and reflects the connection into the service architecture
+     * before each test execution to isolate operations.
+     */
     @BeforeEach
     void setup() throws Exception {
+        // Establish an isolated SQLite in-memory instance
         String testDbUrl = "jdbc:sqlite::memory:";
         testConnection = DriverManager.getConnection(testDbUrl);
 
+        // Generate schemas and seed required test profiles
         try (Statement statement = testConnection.createStatement()) {
             statement.execute(
                     "CREATE TABLE user (id INTERGER PRIMARY KEY, first_name TEXT, last_name TEXT, university_id INTEGER)");
@@ -36,19 +53,27 @@ class UserServiceTest {
 
         databaseHelper = new DatabaseHelper();
 
+        // Force entry via Reflection to bypass encapsulation and override the instance
+        // connection
         Field connectionField = DatabaseHelper.class.getDeclaredField("connection");
         connectionField.setAccessible(true);
 
+        // Safely clean up any default connection pool setups
         Connection autoConnection = (Connection) connectionField.get(databaseHelper);
         if (autoConnection != null) {
             autoConnection.close();
         }
 
+        // Swap production connection pointers with our in-memory testing driver stub
         connectionField.set(databaseHelper, testConnection);
 
         userService = new UserService(databaseHelper);
     }
 
+    /**
+     * Ensures proper teardown of system contexts, freeing up file descriptors
+     * and closing active relational connections immediately following execution.
+     */
     @AfterEach
     void tearDown() throws Exception {
         if (databaseHelper != null) {
@@ -59,23 +84,39 @@ class UserServiceTest {
         }
     }
 
+    /**
+     * A basic sanity check to ensure the JUnit 5 test runner
+     * is configured and executing properly.
+     */
     @Test
     void sampleTest() {
         assertEquals(4, 2 + 2);
     }
 
+    /**
+     * Verifies that the service retrieves and joins string parts accurately
+     * into a single formatted value when looking up an existing record ID.
+     */
     @Test
     void testGetUserFullNameFound() throws Exception {
         String fullName = userService.getUserFullName(1);
         assertEquals("Joe Bloggs", fullName);
     }
 
+    /**
+     * Verifies string generation behaviors when looking up an unmapped
+     * or non-existent primary key id value.
+     */
     @Test
     void testGetUserFullNameNotFound() throws Exception {
         String fullName = userService.getUserFullName(10);
         assertEquals("null null", fullName);
     }
 
+    /**
+     * Verifies relational data map extractions function correctly,
+     * confirming mapped values contain accurate relational property links.
+     */
     @Test
     void testGetUserUniversitySuccess() throws Exception {
         Map<String, Object> university = userService.getUserUniversity(1);
