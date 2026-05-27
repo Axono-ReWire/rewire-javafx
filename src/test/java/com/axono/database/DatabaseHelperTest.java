@@ -30,7 +30,7 @@ class DatabaseHelperTest {
     private Connection testConnection;
 
     /**
-     * Sets up a pristine in-memory SQLite environment, provisions mock schemas,
+     * Sets up an in-memory SQLite environment, provisions mock schemas,
      * injects a seed record, and reflects the test connection into the helper
      * utility
      * before each test execution to isolate state changes.
@@ -97,7 +97,7 @@ class DatabaseHelperTest {
     void testGetByIdSuccess() throws Exception {
         Map<String, Object> result = databaseHelper.getById("user", 1);
 
-        // Validate that fields map seamlessly to their structural column schemas
+        // Validate that fields map to their structural column schemas
         assertNotNull(result);
         assertEquals("Joe", result.get("first_name"));
         assertEquals("Bloggs", result.get("last_name"));

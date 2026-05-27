@@ -21,7 +21,7 @@ class UserProfileTest {
     private UserProfile userProfile;
 
     /**
-     * Sets up a fresh, unpopulated {@link UserProfile} instance
+     * Sets up an unpopulated {@link UserProfile} instance
      * before each test execution to ensure test isolation.
      */
     @BeforeEach
