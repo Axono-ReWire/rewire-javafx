@@ -27,9 +27,20 @@ import javafx.stage.Stage;
 @ExtendWith(ApplicationExtension.class)
 class AppStageTest {
 
+    /** The primary application stage under test. */
     private Stage mainStage;
+
+    /** The AppStage component being tested. */
     private AppStage appStage;
+
+    /** Mock user profile for testing onboarding completion. */
     private UserProfile mockProfile;
+
+    /** Expected result for basic arithmetic verification. */
+    private static final int ARITHMETIC_RESULT = 4;
+
+    /** Timeout in seconds for async window rendering. */
+    private static final int WINDOW_RENDER_TIMEOUT_SECONDS = 5;
 
     /**
      * Prepares the main stage container. The Onboarding window will open
@@ -58,7 +69,7 @@ class AppStageTest {
      */
     @Test
     void sampleTest() {
-        assertEquals(4, 2 + 2);
+        assertEquals(ARITHMETIC_RESULT, 2 + 2);
     }
 
     /**
@@ -87,7 +98,8 @@ class AppStageTest {
         });
 
         // Block until the primary window renders
-        WaitForAsyncUtils.waitFor(5, TimeUnit.SECONDS,
+        WaitForAsyncUtils.waitFor(WINDOW_RENDER_TIMEOUT_SECONDS,
+                TimeUnit.SECONDS,
                 () -> "Axono ReWire".equals(mainStage.getTitle()));
     }
 

@@ -29,22 +29,29 @@ import javafx.stage.Window;
 @ExtendWith(ApplicationExtension.class)
 class AppTest {
 
+        /** Expected result for basic arithmetic verification. */
+        private static final int ARITHMETIC_RESULT = 4;
+
+        /** Timeout in seconds for async window rendering. */
+        private static final int WINDOW_RENDER_TIMEOUT_SECONDS = 5;
+
         /**
-         * The initial root window stage reference managed by the TestFX framework
-         * environment shell.
+         * The initial root window stage reference managed by the TestFX
+         * framework environment shell.
          */
         private Stage primaryWindowStage;
 
         /**
-         * Bootstraps the application runtime environment prior to running each test
-         * case.
-         * This mimics the real JavaFX Application launcher workflow by passing a live
-         * workspace stage directly into the target application instance wrapper.
+         * Bootstraps the application runtime environment prior to running
+         * each test case.
+         * This mimics the real JavaFX Application launcher workflow by
+         * passing a live workspace stage directly into the target application
+         * instance wrapper.
          *
-         * @param stage the primary window shell context provided automatically by
-         *              TestFX.
-         * @throws Exception if target initialization boundaries or internal layout
-         *                   dependencies throw errors.
+         * @param stage the primary window shell context provided
+         *        automatically by TestFX.
+         * @throws Exception if target initialization boundaries or internal
+         *         layout dependencies throw errors.
          */
         @Start
         void start(final Stage stage) throws Exception {
@@ -53,8 +60,8 @@ class AppTest {
                 // Instantiate the main application executable entry point
                 App applicationInstance = new App();
 
-                // Explicitly invoke the application start lifecycle hook on the FX toolkit
-                // thread
+                // Explicitly invoke the application start lifecycle hook on
+                // the FX toolkit thread
                 applicationInstance.start(primaryWindowStage);
         }
 
@@ -64,25 +71,9 @@ class AppTest {
          */
         @Test
         void sampleTest() {
-                assertEquals(4, 2 + 2);
+                assertEquals(ARITHMETIC_RESULT, 2 + 2);
         }
 
-        /**
-         * Verifies that executing the main application launch routine surfaces a user
-         * interface
-         * window frame to the user cleanly.
-         * Due to the application's layout architecture, the primary stage remains
-         * hidden in the
-         * background while a secondary onboarding stage takes foreground focus.
-         * Therefore, this test
-         * ensures that at least one active, visible window successfully mounts onto the
-         * screen graph.
-         *
-         * @param robot the TestFX automation driver used to inspect active window
-         *              configurations.
-         * @throws Exception if the dynamic polling loop encounters an intermittent
-         *                   execution timeout.
-         */
         /**
          * Verifies that the application launches a visible window.
          *
@@ -97,7 +88,8 @@ class AppTest {
                                 + "left completely uninitialized.");
 
                 // Dynamic Wait: Wait until at least one window is visible
-                WaitForAsyncUtils.waitFor(5, TimeUnit.SECONDS, () -> {
+                WaitForAsyncUtils.waitFor(WINDOW_RENDER_TIMEOUT_SECONDS,
+                        TimeUnit.SECONDS, () -> {
                         List<Window> openWindows = robot.robotContext()
                                 .getWindowFinder().listWindows();
                         return !openWindows.isEmpty()
