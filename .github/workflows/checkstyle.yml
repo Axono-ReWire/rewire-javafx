@@ -21,8 +21,11 @@ jobs:
       - name: Run Quality Checks (Checkstyle)
         run: mvn checkstyle:check
       
+      - name: Install Xvfb
+        run: sudo apt-get install -y xvfb
+
       - name: Run Unit Tests (JUnit)
-        run: mvn test
+        run: xvfb-run --auto-servernum mvn test
 
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v4
