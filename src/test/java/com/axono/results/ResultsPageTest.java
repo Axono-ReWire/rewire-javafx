@@ -37,10 +37,13 @@ class ResultsPageTest {
      * @param stage the automated Stage provided by TestFX.
      */
     @Start
-    void start(Stage stage) {
+    void start(final Stage stage) {
         this.resultsPage = new ResultsPage();
 
-        Scene scene = new Scene(new StackPane(resultsPage), UIConstants.WINDOW_WIDTH, UIConstants.WINDOW_HEIGHT);
+        Scene scene = new Scene(
+                new StackPane(resultsPage),
+                UIConstants.WINDOW_WIDTH,
+                UIConstants.WINDOW_HEIGHT);
         stage.setScene(scene);
         stage.show();
     }
@@ -55,96 +58,128 @@ class ResultsPageTest {
     }
 
     /**
-     * Verifies that the ResultsPage view instance successfully builds
-     * and is initialized without evaluating to null.
+     * Verifies that the ResultsPage view instance successfully builds and is
+     * initialized without evaluating to null.
      */
     @Test
     void testInitialisation() {
-        assertNotNull(resultsPage, "ResultsPage view instance should be fully initialized.");
+        assertNotNull(resultsPage,
+                "ResultsPage view instance should be fully initialized.");
     }
 
     /**
      * Asserts that critical structural labels and headings inside the banner
      * render natively with their expected text content using clean text lookups.
+     *
+     * @param robot the TestFX robot for interaction.
      */
     @Test
-    void testCoreLabelsRender(FxRobot robot) {
+    void testCoreLabelsRender(final FxRobot robot) {
         assertNotNull(resultsPage, "ResultsPage instance was null.");
 
-        // Query labeled string elements directly from the live visible Scene graph
+        // Query labeled string elements directly from the live visible Scene
+        // graph
         Label mainHeader = robot.lookup("Results").queryAs(Label.class);
-        Label congratsMsg = robot.lookup("Congratulations on completing the quiz!").queryAs(Label.class);
-        Label breakdownHeader = robot.lookup("Results Breakdown").queryAs(Label.class);
+        Label congratsMsg = robot.lookup("Congratulations on completing the "
+                + "quiz!").queryAs(Label.class);
+        Label breakdownHeader = robot.lookup("Results Breakdown")
+                .queryAs(Label.class);
         Label summaryHeader = robot.lookup("Summary").queryAs(Label.class);
 
-        assertNotNull(mainHeader, "Missing the main 'Results' banner page title.");
-        assertNotNull(congratsMsg, "Missing the celebratory user sub-header text.");
-        assertNotNull(breakdownHeader, "Missing the 'Results Breakdown' section title header.");
-        assertNotNull(summaryHeader, "Missing the 'Summary' section title header.");
+        assertNotNull(mainHeader,
+                "Missing the main 'Results' banner page title.");
+        assertNotNull(congratsMsg,
+                "Missing the celebratory user sub-header text.");
+        assertNotNull(breakdownHeader,
+                "Missing the 'Results Breakdown' section title header.");
+        assertNotNull(summaryHeader,
+                "Missing the 'Summary' section title header.");
     }
 
     /**
-     * Verifies that the specific score parameters accompanied by their respective
-     * icon identifiers populate properly inside the score card block.
+     * Verifies that the specific score parameters accompanied by their
+     * respective icon identifiers populate properly inside the score card block.
+     *
+     * @param robot the TestFX robot for interaction.
      */
     @Test
-    void testScoreSectionCategories(FxRobot robot) {
+    void testScoreSectionCategories(final FxRobot robot) {
         assertNotNull(resultsPage, "ResultsPage instance was null.");
 
-        Label percentageRow = robot.lookup("Percentage:").queryAs(Label.class);
+        Label percentageRow = robot.lookup("Percentage:")
+                .queryAs(Label.class);
         Label resultsRow = robot.lookup("Results:").queryAs(Label.class);
 
-        assertNotNull(percentageRow, "The score card is missing the 'Percentage:' row indicator.");
-        assertNotNull(resultsRow, "The score card is missing the 'Results:' row indicator.");
+        assertNotNull(percentageRow,
+                "The score card is missing the 'Percentage:' row indicator.");
+        assertNotNull(resultsRow,
+                "The score card is missing the 'Results:' row indicator.");
     }
 
     /**
-     * Verifies that the metric category labels populate safely within
-     * the lower summary overview layout block.
+     * Verifies that the metric category labels populate safely within the
+     * lower summary overview layout block.
+     *
+     * @param robot the TestFX robot for interaction.
      */
     @Test
-    void testSummarySectionCategories(FxRobot robot) {
+    void testSummarySectionCategories(final FxRobot robot) {
         assertNotNull(resultsPage, "ResultsPage instance was null.");
 
         Label timeRow = robot.lookup("Time taken:").queryAs(Label.class);
         Label feedbackRow = robot.lookup("Feedback:").queryAs(Label.class);
-        Label questionReviewRow = robot.lookup("Question review:").queryAs(Label.class);
+        Label questionReviewRow = robot.lookup("Question review:")
+                .queryAs(Label.class);
 
-        assertNotNull(timeRow, "The summary block is missing the 'Time taken:' row category.");
-        assertNotNull(feedbackRow, "The summary block is missing the 'Feedback:' row category.");
-        assertNotNull(questionReviewRow, "The summary block is missing the 'Question review:' row category.");
+        assertNotNull(timeRow,
+                "The summary block is missing the 'Time taken:' row category.");
+        assertNotNull(feedbackRow,
+                "The summary block is missing the 'Feedback:' row category.");
+        assertNotNull(questionReviewRow,
+                "The summary block is missing the 'Question review:' row "
+                + "category.");
     }
 
     /**
      * Asserts that all navigation action controls instantiated in the container
      * are loaded and discoverable on the live layout canvas.
+     *
+     * @param robot the TestFX robot for interaction.
      */
     @Test
-    void testActionButtonsExist(FxRobot robot) {
+    void testActionButtonsExist(final FxRobot robot) {
         assertNotNull(resultsPage, "ResultsPage instance was null.");
 
         Button saveBtn = robot.lookup("Save Results").queryAs(Button.class);
         Button retakeBtn = robot.lookup("Retake quiz").queryAs(Button.class);
-        Button selectAnotherBtn = robot.lookup("Select another quiz").queryAs(Button.class);
+        Button selectAnotherBtn = robot.lookup("Select another quiz")
+                .queryAs(Button.class);
 
-        assertNotNull(saveBtn, "Missing 'Save Results' operational button component.");
-        assertNotNull(retakeBtn, "Missing 'Retake quiz' operational button component.");
-        assertNotNull(selectAnotherBtn, "Missing 'Select another quiz' operational button component.");
+        assertNotNull(saveBtn,
+                "Missing 'Save Results' operational button component.");
+        assertNotNull(retakeBtn,
+                "Missing 'Retake quiz' operational button component.");
+        assertNotNull(selectAnotherBtn,
+                "Missing 'Select another quiz' operational button component.");
     }
 
     /**
      * Simulates mouse pointer actions using an automated FxRobot to hover over
-     * layout action buttons,
-     * validating that the button dynamically mutates its styles properly during
-     * hover events.
+     * layout action buttons, validating that the button dynamically mutates its
+     * styles properly during hover events.
+     *
+     * @param robot the TestFX robot for interaction.
      */
     @Test
-    void testButtonHoverStyleStateChanges(FxRobot robot) {
+    void testButtonHoverStyleStateChanges(final FxRobot robot) {
         assertNotNull(resultsPage, "ResultsPage instance was null.");
 
-        // Locate the operational button container strictly out of the live stage tree
-        Button actionButton = robot.lookup("Save Results").queryAs(Button.class);
-        assertNotNull(actionButton, "Target action button must exist to verify hover styles.");
+        // Locate the operational button container strictly out of the live stage
+        // tree
+        Button actionButton = robot.lookup("Save Results")
+                .queryAs(Button.class);
+        assertNotNull(actionButton,
+                "Target action button must exist to verify hover styles.");
 
         // Capture baseline styles
         String initialStyle = actionButton.getStyle();
@@ -158,9 +193,12 @@ class ResultsPageTest {
         String restoredStyle = actionButton.getStyle();
 
         // Assert style properties transformed and reverted accurately
-        assertTrue(hoverStyle.contains("white") || !hoverStyle.equals(initialStyle),
-                "Button inline styles failed to transition when mouse entered its layout bounds.");
+        assertTrue(hoverStyle.contains("white")
+                || !hoverStyle.equals(initialStyle),
+                "Button inline styles failed to transition when mouse entered "
+                + "its layout bounds.");
         assertEquals(initialStyle, restoredStyle,
-                "Button inline styles failed to reset back to original parameters upon mouse exit.");
+                "Button inline styles failed to reset back to original "
+                + "parameters upon mouse exit.");
     }
-}
+

@@ -47,7 +47,7 @@ class AppTest {
          *                   dependencies throw errors.
          */
         @Start
-        void start(Stage stage) throws Exception {
+        void start(final Stage stage) throws Exception {
                 this.primaryWindowStage = stage;
 
                 // Instantiate the main application executable entry point
@@ -83,46 +83,59 @@ class AppTest {
          * @throws Exception if the dynamic polling loop encounters an intermittent
          *                   execution timeout.
          */
+        /**
+         * Verifies that the application launches a visible window.
+         *
+         * @param robot the TestFX automation driver.
+         * @throws Exception if polling timeout occurs.
+         */
         @Test
-        void testApplicationWindowLaunchesCleanly(FxRobot robot) throws Exception {
+        void testApplicationWindowLaunchesCleanly(final FxRobot robot)
+                throws Exception {
                 assertNotNull(primaryWindowStage,
-                                "The application primary launch stage was left completely uninitialized.");
+                                "The application primary launch stage was "
+                                + "left completely uninitialized.");
 
-                // Dynamic Wait: Wait until at least one window becomes visible on the desktop
-                // context
+                // Dynamic Wait: Wait until at least one window is visible
                 WaitForAsyncUtils.waitFor(5, TimeUnit.SECONDS, () -> {
-                        List<Window> openWindows = robot.robotContext().getWindowFinder().listWindows();
-                        return !openWindows.isEmpty() && openWindows.stream().anyMatch(Window::isShowing);
+                        List<Window> openWindows = robot.robotContext()
+                                .getWindowFinder().listWindows();
+                        return !openWindows.isEmpty()
+                                && openWindows.stream()
+                                .anyMatch(Window::isShowing);
                 });
 
                 // Verify that an active window is showing on screen
-                List<Window> windows = robot.robotContext().getWindowFinder().listWindows();
-                boolean anyWindowShowing = windows.stream().anyMatch(Window::isShowing);
+                List<Window> windows = robot.robotContext()
+                        .getWindowFinder().listWindows();
+                boolean anyWindowShowing = windows.stream()
+                        .anyMatch(Window::isShowing);
 
                 assertTrue(anyWindowShowing,
-                                "No user interface windows were presented to the screen graph upon app boot.");
+                                "No user interface windows were presented "
+                                + "to the screen graph upon app boot.");
 
-                // Safe Assertion: Verify that the visible window is either the primary stage or
-                // the onboarding popup stage
-                Window visibleWindow = windows.stream().filter(Window::isShowing).findFirst().orElse(null);
-                assertNotNull(visibleWindow, "Failed to capture the active visible onboarding window context frame.");
+                // Verify visible window is the primary or onboarding stage
+                Window visibleWindow = windows.stream()
+                        .filter(Window::isShowing).findFirst()
+                        .orElse(null);
+                assertNotNull(visibleWindow,
+                                "Failed to capture the active visible "
+                                + "onboarding window context frame.");
         }
 
         /**
-         * Verifies that the internal runtime state properties of the primary stage
-         * remain intact.
-         * Since the primary stage is passed downstream to wait for onboarding
-         * completion callbacks,
-         * this unit verification ensures its property map is allocated cleanly and
-         * hasn't encountered
-         * memory or structural corruption.
+         * Verifies that the primary stage properties remain intact.
+         * The primary stage is passed downstream to wait for onboarding
+         * completion callbacks.
          */
         @Test
         void testAppStageConfigurationIsApplied() {
                 assertNotNull(primaryWindowStage);
-                // The primary stage is safely preserved as a backend reference waiting for
-                // onboarding callbacks
+                // The primary stage is safely preserved as a backend
+                // reference waiting for onboarding callbacks
                 assertNotNull(primaryWindowStage.getProperties(),
-                                "The primary window stage context reference was completely corrupted during boot.");
+                                "The primary window stage context reference "
+                                + "was completely corrupted during boot.");
         }
 }

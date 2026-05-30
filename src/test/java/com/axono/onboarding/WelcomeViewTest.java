@@ -30,16 +30,19 @@ class WelcomeViewTest {
 
     /**
      * Initializes the JavaFX Stage window context and mounts the
-     * {@link WelcomeView} layout inside a testing scene wrapper before executing
-     * tests.
+     * {@link WelcomeView} layout inside a testing scene wrapper before
+     * executing tests.
      *
      * @param stage the automated Stage provided by TestFX.
      */
     @Start
-    void start(Stage stage) {
+    void start(final Stage stage) {
         this.welcomeView = new WelcomeView();
 
-        Scene scene = new Scene(new StackPane(welcomeView), UIConstants.WINDOW_WIDTH, UIConstants.WINDOW_HEIGHT);
+        Scene scene = new Scene(
+                new StackPane(welcomeView),
+                UIConstants.WINDOW_WIDTH,
+                UIConstants.WINDOW_HEIGHT);
         stage.setScene(scene);
         stage.show();
     }
@@ -59,30 +62,45 @@ class WelcomeViewTest {
      */
     @Test
     void testInitialization() {
-        assertNotNull(welcomeView, "WelcomeView structural instance should be fully initialized.");
+        assertNotNull(welcomeView,
+                "WelcomeView structural instance should be fully initialized.");
     }
 
     /**
-     * Asserts that all core introductory titles, logos, and instructional labels
-     * render natively with their exact text contents using clean, thread-safe text
-     * lookups.
+     * Asserts that all core introductory titles, logos, and instructional
+     * labels render natively with their exact text contents using clean,
+     * thread-safe text lookups.
+     *
+     * @param robot the TestFX robot for interaction.
      */
     @Test
-    void testWelcomeCardElementsRender(FxRobot robot) {
+    void testWelcomeCardElementsRender(final FxRobot robot) {
         assertNotNull(welcomeView);
 
-        // Directly query string instances right off the active window scene graph
-        Label logoPlaceholder = robot.lookup("Axono Logo Placeholder").queryAs(Label.class);
-        Label mainTitle = robot.lookup("Welcome to ReWire!").queryAs(Label.class);
-        Label bodyMessage = robot.lookup("The all-in-one platform for mastering all things Engineering.")
+        // Directly query string instances right off the active window scene
+        // graph
+        Label logoPlaceholder = robot.lookup("Axono Logo Placeholder")
                 .queryAs(Label.class);
-        Label instructionHint = robot.lookup("Click Next to set up your profile and get started.").queryAs(Label.class);
+        Label mainTitle = robot.lookup("Welcome to ReWire!")
+                .queryAs(Label.class);
+        Label bodyMessage = robot.lookup(
+                "The all-in-one platform for mastering all things Engineering.")
+                .queryAs(Label.class);
+        Label instructionHint = robot.lookup(
+                "Click Next to set up your profile and get started.")
+                .queryAs(Label.class);
 
-        // Assert that TestFX successfully captured every single child control element
-        // node
-        assertNotNull(logoPlaceholder, "Missing the 'Axono Logo Placeholder' graphical text label layout component.");
-        assertNotNull(mainTitle, "Missing the primary 'Welcome to ReWire!' header title label.");
-        assertNotNull(bodyMessage, "Missing the central onboarding platform descriptive body message text.");
-        assertNotNull(instructionHint, "Missing the structural layout workflow guidance hint text label.");
+        // Assert that TestFX successfully captured every single child control
+        // element node
+        assertNotNull(logoPlaceholder,
+                "Missing the 'Axono Logo Placeholder' graphical text label "
+                + "layout component.");
+        assertNotNull(mainTitle,
+                "Missing the primary 'Welcome to ReWire!' header title label.");
+        assertNotNull(bodyMessage,
+                "Missing the central onboarding platform descriptive body "
+                + "message text.");
+        assertNotNull(instructionHint,
+                "Missing the structural layout workflow guidance hint text "
+                + "label.");
     }
-}

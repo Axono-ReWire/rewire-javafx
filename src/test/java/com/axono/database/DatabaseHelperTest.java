@@ -32,8 +32,7 @@ class DatabaseHelperTest {
     /**
      * Sets up an in-memory SQLite environment, provisions mock schemas,
      * injects a seed record, and reflects the test connection into the helper
-     * utility
-     * before each test execution to isolate state changes.
+     * utility before each test execution to isolate state changes.
      */
     @BeforeEach
     void setup() throws Exception {
@@ -44,20 +43,24 @@ class DatabaseHelperTest {
         // Generate schemas and seed required test profiles
         try (Statement statement = testConnection.createStatement()) {
             statement.execute(
-                    "CREATE TABLE user (id INTERGER PRIMARY KEY, first_name TEXT, last_name TEXT, university_id INTEGER)");
+                    "CREATE TABLE user (id INTERGER PRIMARY KEY, first_name "
+                    + "TEXT, last_name TEXT, university_id INTEGER)");
             statement.execute(
-                    "INSERT INTO user (id, first_name, last_name, university_id) VALUES (1, 'Joe', 'Bloggs', 1)");
+                    "INSERT INTO user (id, first_name, last_name, university_id) "
+                    + "VALUES (1, 'Joe', 'Bloggs', 1)");
         }
 
         databaseHelper = new DatabaseHelper();
 
-        // Force entry via Reflection to bypass encapsulation and override the instance
-        // connection
-        Field connectionField = DatabaseHelper.class.getDeclaredField("connection");
+        // Force entry via Reflection to bypass encapsulation and override the
+        // instance connection
+        Field connectionField = DatabaseHelper.class
+                .getDeclaredField("connection");
         connectionField.setAccessible(true);
 
         // Safely clean up any default connection pool setups
-        Connection autoConnection = (Connection) connectionField.get(databaseHelper);
+        Connection autoConnection = (Connection) connectionField
+                .get(databaseHelper);
         if (autoConnection != null) {
             autoConnection.close();
         }
@@ -90,8 +93,8 @@ class DatabaseHelperTest {
     }
 
     /**
-     * Verifies that looking up an existing record ID dynamically extracts the table
-     * row fields and populates them correctly within a key-value data map.
+     * Verifies that looking up an existing record ID dynamically extracts the
+     * table row fields and populates them correctly within a key-value data map.
      */
     @Test
     void testGetByIdSuccess() throws Exception {
@@ -105,9 +108,9 @@ class DatabaseHelperTest {
     }
 
     /**
-     * Verifies that looking up a non-existent primary key id value safely returns
-     * an initialized but completely empty map representation instead of returning
-     * null.
+     * Verifies that looking up a non-existent primary key id value safely
+     * returns an initialized but completely empty map representation instead of
+     * returning null.
      */
     @Test
     void testGetByIdNotFound() throws Exception {
@@ -116,4 +119,4 @@ class DatabaseHelperTest {
         assertNotNull(result);
         assertTrue(result.isEmpty());
     }
-}
+

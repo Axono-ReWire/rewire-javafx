@@ -31,8 +31,8 @@ class UserServiceTest {
 
     /**
      * Sets up an in-memory SQLite environment, provisions mock tables,
-     * injects seed data, and reflects the connection into the service architecture
-     * before each test execution to isolate operations.
+     * injects seed data, and reflects the connection into the service
+     * architecture before each test execution to isolate operations.
      */
     @BeforeEach
     void setup() throws Exception {
@@ -43,28 +43,37 @@ class UserServiceTest {
         // Generate schemas and seed required test profiles
         try (Statement statement = testConnection.createStatement()) {
             statement.execute(
-                    "CREATE TABLE user (id INTERGER PRIMARY KEY, first_name TEXT, last_name TEXT, university_id INTEGER)");
-            statement.execute("CREATE TABLE university (id INTERGER PRIMARY KEY, name TEXT)");
+                    "CREATE TABLE user (id INTERGER PRIMARY KEY, first_name "
+                    + "TEXT, last_name TEXT, university_id INTEGER)");
+            statement.execute(
+                    "CREATE TABLE university (id INTERGER PRIMARY KEY, name "
+                    + "TEXT)");
 
             statement.execute(
-                    "INSERT INTO user (id, first_name, last_name, university_id) VALUES (1, 'Joe', 'Bloggs', 1)");
-            statement.execute("INSERT INTO university (id, name) VALUES (1, 'University of York')");
+                    "INSERT INTO user (id, first_name, last_name, university_id) "
+                    + "VALUES (1, 'Joe', 'Bloggs', 1)");
+            statement.execute(
+                    "INSERT INTO university (id, name) VALUES (1, 'University of "
+                    + "York')");
         }
 
         databaseHelper = new DatabaseHelper();
 
-        // Force entry via Reflection to bypass encapsulation and override the instance
-        // connection
-        Field connectionField = DatabaseHelper.class.getDeclaredField("connection");
+        // Force entry via Reflection to bypass encapsulation and override the
+        // instance connection
+        Field connectionField = DatabaseHelper.class
+                .getDeclaredField("connection");
         connectionField.setAccessible(true);
 
         // Safely clean up any default connection pool setups
-        Connection autoConnection = (Connection) connectionField.get(databaseHelper);
+        Connection autoConnection = (Connection) connectionField
+                .get(databaseHelper);
         if (autoConnection != null) {
             autoConnection.close();
         }
 
-        // Swap production connection pointers with our in-memory testing driver stub
+        // Swap production connection pointers with our in-memory testing driver
+        // stub
         connectionField.set(databaseHelper, testConnection);
 
         userService = new UserService(databaseHelper);
@@ -114,8 +123,8 @@ class UserServiceTest {
     }
 
     /**
-     * Verifies relational data map extractions function correctly,
-     * confirming mapped values contain accurate relational property links.
+     * Verifies relational data map extractions function correctly, confirming
+     * mapped values contain accurate relational property links.
      */
     @Test
     void testGetUserUniversitySuccess() throws Exception {
@@ -125,4 +134,3 @@ class UserServiceTest {
         assertEquals("University of York", university.get("name"));
     }
 
-}

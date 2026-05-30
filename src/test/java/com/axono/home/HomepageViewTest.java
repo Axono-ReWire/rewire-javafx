@@ -36,10 +36,13 @@ class HomepageViewTest {
      * @param stage the automated Stage provided by TestFX.
      */
     @Start
-    void start(Stage stage) {
+    void start(final Stage stage) {
         this.homepageView = new HomepageView();
 
-        Scene scene = new Scene(new StackPane(homepageView), UIConstants.WINDOW_WIDTH, UIConstants.WINDOW_HEIGHT);
+        Scene scene = new Scene(
+                new StackPane(homepageView),
+                UIConstants.WINDOW_WIDTH,
+                UIConstants.WINDOW_HEIGHT);
         stage.setScene(scene);
         stage.show();
     }
@@ -58,66 +61,88 @@ class HomepageViewTest {
      */
     @Test
     void testInitialization() {
-        assertNotNull(homepageView, "HomepageView structural instance should be fully initialized.");
+        assertNotNull(homepageView,
+                "HomepageView structural instance should be fully initialized.");
     }
 
     /**
-     * Asserts that foundational structural text headings and description strings
-     * are loaded and discoverable on the live window canvas.
+     * Asserts that foundational structural text headings and description
+     * strings are loaded and discoverable on the live window canvas.
+     *
+     * @param robot the TestFX robot for interaction.
      */
     @Test
-    void testBannerLabelsRender(FxRobot robot) {
+    void testBannerLabelsRender(final FxRobot robot) {
         assertNotNull(homepageView);
 
         // Query labeled string elements right off the visible scene graph
-        Label mainHeader = robot.lookup("Welcome to Axono ReWire!").queryAs(Label.class);
-        Label subHeader = robot.lookup("Start your engineering journey today!").queryAs(Label.class);
-        Label loginText = robot.lookup("Already have an account? Log in").queryAs(Label.class);
+        Label mainHeader = robot.lookup("Welcome to Axono ReWire!")
+                .queryAs(Label.class);
+        Label subHeader = robot.lookup("Start your engineering journey today!")
+                .queryAs(Label.class);
+        Label loginText = robot.lookup("Already have an account? Log in")
+                .queryAs(Label.class);
 
-        assertNotNull(mainHeader, "Missing the main banner 'Welcome to Axono ReWire!' header title.");
-        assertNotNull(subHeader, "Missing the introductory sub-heading description message.");
-        assertNotNull(loginText, "Missing the account fallback login navigation prompt string.");
+        assertNotNull(mainHeader,
+                "Missing the main banner 'Welcome to Axono ReWire!' header "
+                + "title.");
+        assertNotNull(subHeader,
+                "Missing the introductory sub-heading description message.");
+        assertNotNull(loginText,
+                "Missing the account fallback login navigation prompt string.");
     }
 
     /**
-     * Verifies that the primary onboarding role selection buttons are initialized
-     * and visible inside the header layout area.
+     * Verifies that the primary onboarding role selection buttons are
+     * initialized and visible inside the header layout area.
+     *
+     * @param robot the TestFX robot for interaction.
      */
     @Test
-    void testRoleSelectionButtonsExist(FxRobot robot) {
+    void testRoleSelectionButtonsExist(final FxRobot robot) {
         assertNotNull(homepageView);
 
-        Button studentBtn = robot.lookup("I'm a Student").queryAs(Button.class);
-        Button educatorBtn = robot.lookup("I'm an Educator").queryAs(Button.class);
+        Button studentBtn = robot.lookup("I'm a Student")
+                .queryAs(Button.class);
+        Button educatorBtn = robot.lookup("I'm an Educator")
+                .queryAs(Button.class);
 
-        assertNotNull(studentBtn, "Missing the 'I'm a Student' action navigation item button.");
-        assertNotNull(educatorBtn, "Missing the 'I'm an Educator' action navigation item button.");
+        assertNotNull(studentBtn,
+                "Missing the 'I'm a Student' action navigation item button.");
+        assertNotNull(educatorBtn,
+                "Missing the 'I'm an Educator' action navigation item button.");
     }
 
     /**
      * Verifies that the target subject module name heading displays prominently
      * above the scrollable interactive options area.
+     *
+     * @param robot the TestFX robot for interaction.
      */
     @Test
-    void testModuleHeaderLabel(FxRobot robot) {
+    void testModuleHeaderLabel(final FxRobot robot) {
         assertNotNull(homepageView);
 
-        Label moduleHeader = robot.lookup("Analogue Electronics").queryAs(Label.class);
-        assertNotNull(moduleHeader, "Missing the 'Analogue Electronics' main list section category label.");
+        Label moduleHeader = robot.lookup("Analogue Electronics")
+                .queryAs(Label.class);
+        assertNotNull(moduleHeader,
+                "Missing the 'Analogue Electronics' main list section category "
+                + "label.");
     }
 
     /**
      * Iterates over every individual topic option inside the internal layout
-     * definitions array
-     * to ensure the application dynamically constructs interactive controls for
-     * every string entry.
+     * definitions array to ensure the application dynamically constructs
+     * interactive controls for every string entry.
+     *
+     * @param robot the TestFX robot for interaction.
      */
     @Test
-    void testDynamicTopicButtonsPopulate(FxRobot robot) {
+    void testDynamicTopicButtonsPopulate(final FxRobot robot) {
         assertNotNull(homepageView);
 
-        // Explicit list of all required topics defined inside the application view
-        // logic component context
+        // Explicit list of all required topics defined inside the application
+        // view logic component context
         String[] expectedTopics = {
                 "Layouts", "Decibels", "Op-Amps", "Electromagnetism",
                 "Phasors", "Complex Impedances", "Kirchhoff's Laws",
@@ -130,41 +155,49 @@ class HomepageViewTest {
         // selectable on the active tree
         for (String topicText : expectedTopics) {
             Button topicButton = robot.lookup(topicText).queryAs(Button.class);
-            assertNotNull(topicButton, "Dynamic button went missing for expected topic entry: " + topicText);
+            assertNotNull(topicButton,
+                    "Dynamic button went missing for expected topic entry: "
+                    + topicText);
         }
     }
 
     /**
-     * Captures and evaluates inline style string metrics to verify that mouse hover
-     * events dynamically transition component design characteristics on entering
-     * layout coordinates.
+     * Captures and evaluates inline style string metrics to verify that mouse
+     * hover events dynamically transition component design characteristics on
+     * entering layout coordinates.
+     *
+     * @param robot the TestFX robot for interaction.
      */
     @Test
-    void testButtonHoverStyleTransitions(FxRobot robot) {
+    void testButtonHoverStyleTransitions(final FxRobot robot) {
         assertNotNull(homepageView);
 
         // Fetch a control handle directly off the active canvas node tree
-        Button actionButton = robot.lookup("I'm a Student").queryAs(Button.class);
-        assertNotNull(actionButton, "Target button must exist to verify interactive cursor styling.");
+        Button actionButton = robot.lookup("I'm a Student")
+                .queryAs(Button.class);
+        assertNotNull(actionButton,
+                "Target button must exist to verify interactive cursor styling.");
 
         // Capture initial baseline design rules tracking characteristics
         String baselineStyle = actionButton.getStyle();
 
-        // Simulate a physical user dragging the pointer onto the target footprint area
-        // coordinates
+        // Simulate a physical user dragging the pointer onto the target footprint
+        // area coordinates
         robot.moveTo(actionButton);
         String activeHoverStyle = actionButton.getStyle();
 
-        // Pull the cursor clear of the element dimensions completely to fire standard
-        // exit hooks
+        // Pull the cursor clear of the element dimensions completely to fire
+        // standard exit hooks
         robot.moveBy(200, 200);
         String restoredStyle = actionButton.getStyle();
 
-        // Assert inline styles adjusted into functional highlight states and dropped
-        // cleanly on exit
-        assertTrue(activeHoverStyle.contains("white") || !activeHoverStyle.equals(baselineStyle),
-                "Inline styles failed to activate background modifications when cursor entered button bounds.");
+        // Assert inline styles adjusted into functional highlight states and
+        // dropped cleanly on exit
+        assertTrue(activeHoverStyle.contains("white")
+                || !activeHoverStyle.equals(baselineStyle),
+                "Inline styles failed to activate background modifications when "
+                + "cursor entered button bounds.");
         assertEquals(baselineStyle, restoredStyle,
-                "Button inline styles failed to restore baseline aesthetics on cursor exit.");
+                "Button inline styles failed to restore baseline aesthetics on "
+                + "cursor exit.");
     }
-}

@@ -39,13 +39,15 @@ class UserProfileTest {
     }
 
     /**
-     * Verifies that a newly instantiated {@link UserProfile} correctly implements
-     * its default states as specified by the onboarding fields: empty strings
-     * for text attributes and an initialized, empty list for subjects.
+     * Verifies that a newly instantiated {@link UserProfile} correctly
+     * implements its default states as specified by the onboarding fields:
+     * empty strings for text attributes and an initialized, empty list for
+     * subjects.
      */
     @Test
     void testDefaultValues() {
-        // Assert that text fields default to empty strings ("") and are never null
+        // Assert that text fields default to empty strings ("") and are never
+        // null
         assertEquals("", userProfile.getName());
         assertEquals("", userProfile.getYearOfStudy());
         assertEquals("", userProfile.getInstitution());
@@ -68,7 +70,8 @@ class UserProfileTest {
         userProfile.setInstitution("University of York");
 
         // Inject a mocked list of chosen module names
-        List<String> modules = List.of("Analogue Electronics", "Engineering Mathematics");
+        List<String> modules = List.of("Analogue Electronics",
+                "Engineering Mathematics");
         userProfile.setSubjects(modules);
 
         // Assert that getter outputs perfectly match the values configured above
@@ -79,8 +82,7 @@ class UserProfileTest {
         // Validate collection sizing and structural presence of specific elements
         assertEquals(2, userProfile.getSubjects().size());
         assertTrue(userProfile.getSubjects().contains("Analogue Electronics"));
-        assertTrue(userProfile.getSubjects().contains("Engineering Mathematics"));
-
+        assertTrue(userProfile.getSubjects()
+                .contains("Engineering Mathematics"));
     }
 
-}

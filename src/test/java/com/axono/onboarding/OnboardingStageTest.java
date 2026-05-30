@@ -47,18 +47,18 @@ class OnboardingStageTest {
     private final AtomicBoolean isCallbackInvoked = new AtomicBoolean(false);
 
     /**
-     * Initializes the onboarding coordinator orchestrator system context wrapper
-     * window.
+     * Initializes the onboarding coordinator orchestrator system context
+     * wrapper window.
      *
      * @param stage the primary window workspace handled automatically by TestFX.
      */
     @Start
-    void start(Stage stage) {
+    void start(final Stage stage) {
         this.stage = stage;
         // Mount and present the orchestration container on screen immediately
         new OnboardingStage(stage, profile -> {
             isCallbackInvoked.set(true);
-            completedProfileResult.set(profile);
+            completedProfileResult.set((UserProfile) profile);
         });
     }
 
@@ -72,61 +72,83 @@ class OnboardingStageTest {
     }
 
     /**
-     * Confirms that the top window initialization sets up basic properties cleanly.
+     * Confirms that the top window initialization sets up basic properties
+     * cleanly.
      */
     @Test
     void testStageInitialization() {
-        assertNotNull(stage, "The managed onboarding execution window stage layer should be fully initialized.");
-        assertEquals("ReWire — Setup", stage.getTitle(), "Onboarding stage header window title string mismatch.");
-        assertTrue(stage.isShowing(), "Onboarding container failed to reveal the active UI layer layout stage.");
+        assertNotNull(stage,
+                "The managed onboarding execution window stage layer should be "
+                + "fully initialized.");
+        assertEquals("ReWire — Setup", stage.getTitle(),
+                "Onboarding stage header window title string mismatch.");
+        assertTrue(stage.isShowing(),
+                "Onboarding container failed to reveal the active UI layer layout "
+                + "stage.");
     }
 
     /**
      * Asserts that Step 1 begins on the Welcome layout view context with the
      * correct text metrics.
+     *
+     * @param robot the TestFX robot for interaction.
      */
     @Test
-    void testInitialStepState(FxRobot robot) {
+    void testInitialStepState(final FxRobot robot) {
         Label stepCounter = robot.lookup("Step 1 of 4").queryAs(Label.class);
-        assertNotNull(stepCounter, "Missing baseline 'Step 1 of 4' progress tracking footer label.");
+        assertNotNull(stepCounter,
+                "Missing baseline 'Step 1 of 4' progress tracking footer label.");
 
         // Back button must remain entirely invisible on the initial step node card
         // block
         Button backBtn = robot.lookup("← Back").queryAs(Button.class);
-        assertFalse(backBtn.isVisible(), "The back navigation component button should remain hidden on Step 1.");
+        assertFalse(backBtn.isVisible(),
+                "The back navigation component button should remain hidden on "
+                + "Step 1.");
 
         // Verify next button is visible and properly configured
         Button nextBtn = robot.lookup("Next").queryAs(Button.class);
-        assertNotNull(nextBtn, "Missing forward step navigation action button.");
+        assertNotNull(nextBtn,
+                "Missing forward step navigation action button.");
         assertEquals("Next", nextBtn.getText());
     }
 
     /**
      * Validates forward wizard navigation workflows across screen intervals.
+     *
+     * @param robot the TestFX robot for interaction.
      */
     @Test
-    void testForwardNavigationTransitions(FxRobot robot) {
+    void testForwardNavigationTransitions(final FxRobot robot) {
         Button nextBtn = robot.lookup("Next").queryAs(Button.class);
         assertNotNull(nextBtn);
 
-        // Click next from step 1 (WelcomeView requires zero data validation updates)
+        // Click next from step 1 (WelcomeView requires zero data validation
+        // updates)
         robot.clickOn(nextBtn);
 
-        Label stepTwoCounter = robot.lookup("Step 2 of 4").queryAs(Label.class);
-        assertNotNull(stepTwoCounter, "Failed to transition tracking progress to Step 2 label outputs.");
+        Label stepTwoCounter = robot.lookup("Step 2 of 4")
+                .queryAs(Label.class);
+        assertNotNull(stepTwoCounter,
+                "Failed to transition tracking progress to Step 2 label "
+                + "outputs.");
 
-        // Back button must toggle to visible now that the cursor index is past zero
+        // Back button must toggle to visible now that the cursor index is past
+        // zero
         Button backBtn = robot.lookup("← Back").queryAs(Button.class);
         assertTrue(backBtn.isVisible(),
-                "Back navigation control handle failed to reveal itself on index increment cycles.");
+                "Back navigation control handle failed to reveal itself on index "
+                + "increment cycles.");
     }
 
     /**
-     * Asserts that backwards step modification commands restore historical screen
-     * references smoothly.
+     * Asserts that backwards step modification commands restore historical
+     * screen references smoothly.
+     *
+     * @param robot the TestFX robot for interaction.
      */
     @Test
-    void testBackwardNavigationTransitions(FxRobot robot) {
+    void testBackwardNavigationTransitions(final FxRobot robot) {
         Button nextBtn = robot.lookup("Next").queryAs(Button.class);
         Button backBtn = robot.lookup("← Back").queryAs(Button.class);
 
@@ -137,21 +159,26 @@ class OnboardingStageTest {
         // Select the historical back navigation trigger control node
         robot.clickOn(backBtn);
 
-        Label restoredStepCounter = robot.lookup("Step 1 of 4").queryAs(Label.class);
+        Label restoredStepCounter = robot.lookup("Step 1 of 4")
+                .queryAs(Label.class);
         assertNotNull(restoredStepCounter,
-                "Failed to restore step progress counter to Step 1 matching state string values.");
-        assertFalse(backBtn.isVisible(), "Back button failed to re-hide when navigating back to index 0.");
+                "Failed to restore step progress counter to Step 1 matching "
+                + "state string values.");
+        assertFalse(backBtn.isVisible(),
+                "Back button failed to re-hide when navigating back to index 0.");
     }
 
     /**
      * Confirms that the Next button morphs to its final launch variant on the
-     * Summary step.
-     * To reach the final page cleanly without validation failures, this test sets
-     * valid input fields
-     * directly into the internal view instances using thread-safe actions.
+     * Summary step. To reach the final page cleanly without validation failures,
+     * this test sets valid input fields directly into the internal view
+     * instances using thread-safe actions.
+     *
+     * @param robot the TestFX robot for interaction.
+     * @throws Exception if test execution fails.
      */
     @Test
-    void testWizardCompletionLifecycle(FxRobot robot) throws Exception {
+    void testWizardCompletionLifecycle(final FxRobot robot) throws Exception {
         Button nextBtn = robot.lookup("Next").queryAs(Button.class);
         assertNotNull(nextBtn);
 
@@ -172,7 +199,8 @@ class OnboardingStageTest {
 
         // Click directly on the ComboBox to focus it and open the dropdown menu
         // layout list
-        ComboBox<String> yearComboBox = robot.lookup(".combo-box").queryAll().stream()
+        ComboBox<String> yearComboBox = robot.lookup(".combo-box").queryAll()
+                .stream()
                 .filter(ComboBox.class::isInstance)
                 .map(node -> {
                     @SuppressWarnings("unchecked")
@@ -180,7 +208,8 @@ class OnboardingStageTest {
                     return cb;
                 })
                 .findFirst()
-                .orElseThrow(() -> new AssertionError("Could not find Year of Study ComboBox."));
+                .orElseThrow(() -> new AssertionError(
+                        "Could not find Year of Study ComboBox."));
 
         robot.clickOn(yearComboBox);
 
@@ -188,13 +217,14 @@ class OnboardingStageTest {
         // mechanics
         robot.interact(() -> {
             if (yearComboBox.getItems().isEmpty()) {
-                ((ComboBox<String>) yearComboBox).getItems().addAll("Year 1", "Year 2", "Foundation Year");
+                ((ComboBox<String>) yearComboBox).getItems().addAll("Year 1",
+                        "Year 2", "Foundation Year");
             }
             yearComboBox.getSelectionModel().select(2);
         });
 
-        // Tap the Enter key or click the next button to close the dropdown context
-        // window cleanly
+        // Tap the Enter key or click the next button to close the dropdown
+        // context window cleanly
         robot.type(javafx.scene.input.KeyCode.ENTER);
 
         robot.interact(() -> {
@@ -227,26 +257,36 @@ class OnboardingStageTest {
         // Wait for the footer to change to Step 4
         waitForTextToAppear(robot, "Step 4 of 4");
 
-        Label stepFourCounter = robot.lookup("Step 4 of 4").queryAs(Label.class);
+        Label stepFourCounter = robot.lookup("Step 4 of 4")
+                .queryAs(Label.class);
         assertNotNull(stepFourCounter, "Failed to reach Step 4 cleanly.");
 
         // Look for the transformed launch button text updated by updateStep()
         Button launchBtn = robot.lookup("Launch App").queryAs(Button.class);
-        assertNotNull(launchBtn, "Next button failed to transform into 'Launch App'");
+        assertNotNull(launchBtn,
+                "Next button failed to transform into 'Launch App'");
 
         robot.clickOn(launchBtn);
 
         // --- Post-Conditions ---
-        assertTrue(isCallbackInvoked.get(), "Launch callback was not triggered.");
-        assertNotNull(completedProfileResult.get(), "UserProfile payload is null.");
-        assertFalse(stage.isShowing(), "Onboarding stage window did not close.");
+        assertTrue(isCallbackInvoked.get(),
+                "Launch callback was not triggered.");
+        assertNotNull(completedProfileResult.get(),
+                "UserProfile payload is null.");
+        assertFalse(stage.isShowing(),
+                "Onboarding stage window did not close.");
     }
 
     /**
      * Dynamically waits for specific label/button text to exist in the active
      * scene.
+     *
+     * @param robot the TestFX robot for interaction.
+     * @param text the text to look for.
+     * @throws java.util.concurrent.TimeoutException if timeout occurs.
      */
-    private void waitForTextToAppear(FxRobot robot, String text) throws java.util.concurrent.TimeoutException {
+    private void waitForTextToAppear(final FxRobot robot, final String text)
+            throws java.util.concurrent.TimeoutException {
         WaitForAsyncUtils.waitFor(5, TimeUnit.SECONDS, () -> {
             try {
                 return robot.lookup(text).query() != null;
@@ -255,4 +295,4 @@ class OnboardingStageTest {
             }
         });
     }
-}
+

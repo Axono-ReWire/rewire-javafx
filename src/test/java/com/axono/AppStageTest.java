@@ -35,9 +35,11 @@ class AppStageTest {
      * Prepares the main stage container. The Onboarding window will open
      * automatically,
      * but the execution flow is intercepted in testing.
+     *
+     * @param stage the primary JavaFX stage for testing.
      */
     @Start
-    void start(Stage stage) {
+    void start(final Stage stage) {
         this.mainStage = stage;
 
         // Setup a mock profile to feed into the completion callback
@@ -62,63 +64,97 @@ class AppStageTest {
     /**
      * Helper method that uses reflection to invoke the private
      * onOnboardingComplete() callback.
-     * This forces AppStage to build its main navigation layout immediately on the
-     * FX thread.
+     * This forces AppStage to build its main navigation layout immediately on
+     * the FX thread.
+     *
+     * @param robot the TestFX robot for interaction.
+     * @throws Exception if reflection invocation fails.
      */
-    private void completeOnboardingBypass(FxRobot robot) throws Exception {
+    private void completeOnboardingBypass(final FxRobot robot)
+            throws Exception {
         robot.interact(() -> {
             try {
-                Method callbackMethod = AppStage.class.getDeclaredMethod("onOnboardingComplete", UserProfile.class);
+                Method callbackMethod = AppStage.class
+                        .getDeclaredMethod("onOnboardingComplete",
+                                UserProfile.class);
                 callbackMethod.setAccessible(true);
                 callbackMethod.invoke(appStage, mockProfile);
             } catch (Exception e) {
-                throw new RuntimeException("Failed to invoke onboarding complete callback via reflection", e);
+                throw new RuntimeException(
+                        "Failed to invoke onboarding complete callback "
+                        + "via reflection", e);
             }
         });
 
-        // Block until the primary window renders and gains its structural title
-        // property
-        WaitForAsyncUtils.waitFor(5, TimeUnit.SECONDS, () -> "Axono ReWire".equals(mainStage.getTitle()));
+        // Block until the primary window renders
+        WaitForAsyncUtils.waitFor(5, TimeUnit.SECONDS,
+                () -> "Axono ReWire".equals(mainStage.getTitle()));
     }
 
+    /**
+     * Verifies main UI is correctly assembled after onboarding completion.
+     *
+     * @param robot the TestFX robot for interaction.
+     * @throws Exception if test setup fails.
+     */
     @Test
-    void testMainUiAssemblyPostOnboarding(FxRobot robot) throws Exception {
+    void testMainUiAssemblyPostOnboarding(final FxRobot robot)
+            throws Exception {
         // Complete the onboarding wall via reflection bypass
         completeOnboardingBypass(robot);
 
-        assertTrue(mainStage.isShowing(), "The main application stage should be made visible.");
-        assertEquals("Axono ReWire", mainStage.getTitle(), "Main stage window title string mismatch.");
+        assertTrue(mainStage.isShowing(),
+                "The main application stage should be made visible.");
+        assertEquals("Axono ReWire", mainStage.getTitle(),
+                "Main stage window title string mismatch.");
 
-        assertNotNull(mainStage.getScene(), "Main stage scene graph container should be populated.");
+        assertNotNull(mainStage.getScene(),
+                "Main stage scene graph container should be populated.");
         assertTrue(mainStage.getScene().getRoot() instanceof BorderPane,
                 "The root node should be an instance of BorderPane.");
     }
 
+    /**
+     * Verifies the default view initializes correctly with Home active.
+     *
+     * @param robot the TestFX robot for interaction.
+     * @throws Exception if test setup fails.
+     */
     @Test
-    void testDefaultViewInitialization(FxRobot robot) throws Exception {
+    void testDefaultViewInitialization(final FxRobot robot)
+            throws Exception {
         completeOnboardingBypass(robot);
 
         Button homeBtn = robot.lookup("Home").queryAs(Button.class);
         Button dashBtn = robot.lookup("Dashboard").queryAs(Button.class);
 
-        // Verify Home button is active (uses non-transparent background alpha)
+        // Verify Home button is active (uses non-transparent background)
         assertTrue(homeBtn.getStyle().contains("rgba(255,255,255,0.28)"),
-                "The Home button should possess the active background CSS highlight style.");
+                "The Home button should possess the active background "
+                + "CSS highlight style.");
 
-        // Verify Dashboard button remains inactive (uses completely transparent
-        // background styling)
+        // Verify Dashboard button remains inactive (transparent)
         assertTrue(dashBtn.getStyle().contains("transparent"),
-                "The Dashboard button should default to an inactive transparent style color state.");
+                "The Dashboard button should default to an inactive "
+                + "transparent style color state.");
 
-        // Confirm the current view loaded in the center of the root panel is the
-        // HomepageView
+        // Confirm the current view is HomepageView
         BorderPane rootPane = (BorderPane) mainStage.getScene().getRoot();
-        assertEquals("HomepageView", rootPane.getCenter().getClass().getSimpleName(),
-                "The initial center display node pane should be the HomepageView.");
+        assertEquals("HomepageView",
+                rootPane.getCenter().getClass().getSimpleName(),
+                "The initial center display node pane should be the "
+                + "HomepageView.");
     }
 
+    /**
+     * Verifies navigation between views transitions correctly.
+     *
+     * @param robot the TestFX robot for interaction.
+     * @throws Exception if test setup fails.
+     */
     @Test
-    void testNavigationViewTransitions(FxRobot robot) throws Exception {
+    void testNavigationViewTransitions(final FxRobot robot)
+            throws Exception {
         completeOnboardingBypass(robot);
 
         Button homeBtn = robot.lookup("Home").queryAs(Button.class);
@@ -128,22 +164,27 @@ class AppStageTest {
         // Click the Dashboard Nav Trigger Control
         robot.clickOn(dashBtn);
 
-        // Dashboard view should replace the central pane node context
-        assertEquals("DashboardView", rootPane.getCenter().getClass().getSimpleName(),
-                "The central panel view node layout failed to transition over into a DashboardView structure.");
+        // Dashboard view should replace the central pane node
+        assertEquals("DashboardView",
+                rootPane.getCenter().getClass().getSimpleName(),
+                "The central panel view node layout failed to transition "
+                + "over into a DashboardView structure.");
 
-        // Active CSS state metrics must swap instantly between components
+        // Active CSS state metrics must swap instantly
         assertTrue(dashBtn.getStyle().contains("rgba(255,255,255,0.28)"),
                 "Dashboard button failed to gain the active highlight.");
         assertTrue(homeBtn.getStyle().contains("transparent"),
-                "Home button failed to drop its active style state context.");
+                "Home button failed to drop its active style state.");
 
         // Click the Results Nav Trigger Control
-        Button resultsBtn = robot.lookup("Results (temp)").queryAs(Button.class);
+        Button resultsBtn = robot.lookup("Results (temp)")
+                .queryAs(Button.class);
         robot.clickOn(resultsBtn);
 
-        assertEquals("ResultsPage", rootPane.getCenter().getClass().getSimpleName(),
-                "The central layout workspace failed to route active view frames into a ResultsPage context container.");
+        assertEquals("ResultsPage",
+                rootPane.getCenter().getClass().getSimpleName(),
+                "The central layout workspace failed to route active "
+                + "view frames into a ResultsPage context container.");
         assertTrue(resultsBtn.getStyle().contains("rgba(255,255,255,0.28)"),
                 "Results button failed to gain active highlight states.");
     }

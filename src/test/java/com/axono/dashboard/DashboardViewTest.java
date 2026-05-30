@@ -46,8 +46,13 @@ class DashboardViewTest {
      * @param stage the automated window management Stage instance provided by
      *              TestFX.
      */
+    /**
+     * Initializes the test stage with a test profile and DashboardView.
+     *
+     * @param stage the primary JavaFX stage for testing.
+     */
     @Start
-    void start(Stage stage) {
+    void start(final Stage stage) {
         testProfile = new UserProfile();
         testProfile.setName("Joe");
         testProfile.setYearOfStudy("Year 1");
@@ -57,7 +62,10 @@ class DashboardViewTest {
 
         this.dashboardView = new DashboardView(testProfile);
 
-        Scene scene = new Scene(new StackPane(dashboardView), UIConstants.WINDOW_WIDTH, UIConstants.WINDOW_HEIGHT);
+        Scene scene = new Scene(
+                new StackPane(dashboardView),
+                UIConstants.WINDOW_WIDTH,
+                UIConstants.WINDOW_HEIGHT);
         stage.setScene(scene);
         stage.show();
     }
@@ -76,15 +84,18 @@ class DashboardViewTest {
      */
     @Test
     void testInitialization() {
-        assertNotNull(dashboardView, "DashboardView structural shell instance should be fully initialized.");
+        assertNotNull(dashboardView,
+                "DashboardView structural shell instance should be fully initialized.");
     }
 
     /**
      * Verifies that the welcome header parses the user profile name correctly
      * and renders primary window action management button handles.
+     *
+     * @param robot the TestFX robot for interaction.
      */
     @Test
-    void testWelcomeBannerAndActionButtons(FxRobot robot) {
+    void testWelcomeBannerAndActionButtons(final FxRobot robot) {
         assertNotNull(dashboardView);
 
         // Target lookups directly using the exact expected rendered text combinations
@@ -92,97 +103,133 @@ class DashboardViewTest {
         Button profileBtn = robot.lookup("Profile").queryAs(Button.class);
         Button logoutBtn = robot.lookup("Logout").queryAs(Button.class);
 
-        assertNotNull(welcomeLabel, "Personalized welcome title banner is missing from the layout graph.");
-        assertNotNull(profileBtn, "Missing the 'Profile' configuration action button item.");
-        assertNotNull(logoutBtn, "Missing the 'Logout' termination session button item.");
+        assertNotNull(welcomeLabel,
+                "Personalized welcome title banner is missing from the layout graph.");
+        assertNotNull(profileBtn,
+                "Missing the 'Profile' configuration action button item.");
+        assertNotNull(logoutBtn,
+                "Missing the 'Logout' termination session button item.");
     }
 
     /**
      * Validates that the progress row section falls back safely to its empty state
-     * notice
-     * string when the profile does not have any active module subjects tracking.
+     * notice string when the profile does not have any active module subjects
+     * tracking.
+     *
+     * @param robot the TestFX robot for interaction.
      */
     @Test
-    void testProgressSectionFallbackWithNoSubjects(FxRobot robot) {
+    void testProgressSectionFallbackWithNoSubjects(final FxRobot robot) {
         // Assert foundational labels exist
-        Label dashboardTitle = robot.lookup("Your Learning Dashboard").queryAs(Label.class);
-        Label progressSubTitle = robot.lookup("Your Progress").queryAs(Label.class);
+        Label dashboardTitle = robot.lookup("Your Learning Dashboard")
+                .queryAs(Label.class);
+        Label progressSubTitle = robot.lookup("Your Progress")
+                .queryAs(Label.class);
 
         // Assert fallback label renders explicitly when subjects array is empty
-        Label placeholderLabel = robot.lookup("No modules selected.").queryAs(Label.class);
+        Label placeholderLabel = robot.lookup("No modules selected.")
+                .queryAs(Label.class);
 
-        assertNotNull(dashboardTitle, "Missing primary 'Your Learning Dashboard' title layout label.");
-        assertNotNull(progressSubTitle, "Missing secondary section tracking title layout label.");
-        assertNotNull(placeholderLabel, "Missing default empty message fallback response text.");
+        assertNotNull(dashboardTitle,
+                "Missing primary 'Your Learning Dashboard' title layout label.");
+        assertNotNull(progressSubTitle,
+                "Missing secondary section tracking title layout label.");
+        assertNotNull(placeholderLabel,
+                "Missing default empty message fallback response text.");
     }
 
     /**
      * Validates that updating the profile data model updates the layout
-     * dynamically,
-     * generating progressive percentage card items for every injected string.
+     * dynamically, generating progressive percentage card items for every
+     * injected string.
+     *
+     * @param robot the TestFX robot for interaction.
      */
     @Test
-    void testProgressSectionPopulatesDynamicRows(FxRobot robot) {
+    void testProgressSectionPopulatesDynamicRows(final FxRobot robot) {
         // Assign subjects and force view updates inside the safe FX thread loop
         // context
         robot.interact(() -> {
-            testProfile.setSubjects(new ArrayList<>(Arrays.asList("Engineering Mathematics", "Analogue Electronics")));
-            // Re-instantiate layout parameters to process the new subject lists inside the
-            // scene graph
-            dashboardView.setContent(new HBox(new DashboardView(testProfile)));
+            testProfile.setSubjects(new ArrayList<>(Arrays.asList(
+                    "Engineering Mathematics", "Analogue Electronics")));
+            // Re-instantiate layout parameters to process the new subject lists
+            // inside the scene graph
+            dashboardView.setContent(
+                    new HBox(new DashboardView(testProfile)));
         });
 
         // Query structural components off the live rewritten canvas setup layout
         // tree
-        Label engMathLabel = robot.lookup("Engineering Mathematics").queryAs(Label.class);
-        Label analogueElecLabel = robot.lookup("Analogue Electronics").queryAs(Label.class);
+        Label engMathLabel = robot.lookup("Engineering Mathematics")
+                .queryAs(Label.class);
+        Label analogueElecLabel = robot.lookup("Analogue Electronics")
+                .queryAs(Label.class);
 
-        // Find how many percentage markers exist (Should match 2 active row
-        // metrics)
-        long completeLabelCount = robot.lookup("0% Complete").queryAll().stream()
+        // Find how many percentage markers exist (should match 2 active row metrics)
+        long completeLabelCount = robot.lookup("0% Complete").queryAll()
+                .stream()
                 .filter(Label.class::isInstance)
                 .count();
 
         assertNotNull(engMathLabel,
-                "Dynamic text generator failed to construct row entry for Engineering Mathematics.");
+                "Dynamic text generator failed to construct row entry for "
+                + "Engineering Mathematics.");
         assertNotNull(analogueElecLabel,
-                "Dynamic text generator failed to construct row entry for Analogue Electronics.");
-        assertEquals(2, completeLabelCount, "Should output exactly 2 tracking rows holding '0% Complete' fields.");
+                "Dynamic text generator failed to construct row entry for "
+                + "Analogue Electronics.");
+        assertEquals(2, completeLabelCount,
+                "Should output exactly 2 tracking rows holding '0% Complete' "
+                + "fields.");
     }
 
     /**
-     * Verifies that placeholder topic metrics and action card blocks
-     * exist within the layout graph structure.
+     * Verifies that placeholder topic metrics and action card blocks exist
+     * within the layout graph structure.
+     *
+     * @param robot the TestFX robot for interaction.
      */
     @Test
-    void testRecommendedTopicsCardsAndNavigationText(FxRobot robot) {
+    void testRecommendedTopicsCardsAndNavigationText(final FxRobot robot) {
         // Verify primary header definitions inside the layout card section block
-        Label recommendationHeading = robot.lookup("Recommended Topics").queryAs(Label.class);
+        Label recommendationHeading = robot.lookup("Recommended Topics")
+                .queryAs(Label.class);
         Label topicEmoji = robot.lookup("📘").queryAs(Label.class);
         Label topicTitle = robot.lookup("Electronics").queryAs(Label.class);
 
         // Verify nested child module card entries built by helper actions
-        Label analyticCardText = robot.lookup("Continue: Analogue Electronics").queryAs(Label.class);
+        Label analyticCardText = robot.lookup("Continue: Analogue Electronics")
+                .queryAs(Label.class);
         Button resumeBtn = robot.lookup("Resume Lesson").queryAs(Button.class);
 
-        Label exploreCardText = robot.lookup("Explore Other Topics").queryAs(Label.class);
+        Label exploreCardText = robot.lookup("Explore Other Topics")
+                .queryAs(Label.class);
         Button browseBtn = robot.lookup("Browse All").queryAs(Button.class);
 
-        assertNotNull(recommendationHeading, "Missing the parent 'Recommended Topics' layout heading.");
-        assertNotNull(topicEmoji, "Missing thematic card visual icon indicator.");
-        assertNotNull(topicTitle, "Missing subject group card label placeholder title.");
-        assertNotNull(analyticCardText, "Analogue Electronics card component went missing.");
-        assertNotNull(resumeBtn, "Missing operational 'Resume Lesson' navigation handle button.");
-        assertNotNull(exploreCardText, "Alternative discovery topic layout block card went missing.");
-        assertNotNull(browseBtn, "Missing operational 'Browse All' context navigation handle button.");
+        assertNotNull(recommendationHeading,
+                "Missing the parent 'Recommended Topics' layout heading.");
+        assertNotNull(topicEmoji,
+                "Missing thematic card visual icon indicator.");
+        assertNotNull(topicTitle,
+                "Missing subject group card label placeholder title.");
+        assertNotNull(analyticCardText,
+                "Analogue Electronics card component went missing.");
+        assertNotNull(resumeBtn,
+                "Missing operational 'Resume Lesson' navigation handle button.");
+        assertNotNull(exploreCardText,
+                "Alternative discovery topic layout block card went missing.");
+        assertNotNull(browseBtn,
+                "Missing operational 'Browse All' context navigation handle "
+                + "button.");
     }
 
     /**
      * Intercepts individual style sheets to verify mouse event handlers
      * accurately transition design characteristics during execution.
+     *
+     * @param robot the TestFX robot for interaction.
      */
     @Test
-    void testButtonHoverStyleTransitions(FxRobot robot) {
+    void testButtonHoverStyleTransitions(final FxRobot robot) {
         // Target specific functional control component
         Button testButton = robot.lookup("Resume Lesson").queryAs(Button.class);
         assertNotNull(testButton);
@@ -194,14 +241,19 @@ class DashboardViewTest {
         robot.moveTo(testButton);
         String activeHoverStyleString = testButton.getStyle();
 
-        // Pull pointer away out of the operational perimeter framework boundary bounds
+        // Pull pointer away out of the operational perimeter framework boundary
+        // bounds
         robot.moveBy(250, 250);
         String postExitRestoredStyleString = testButton.getStyle();
 
-        // Assert inline styles adjusted into hover mappings and dropped clean on exit
-        assertTrue(activeHoverStyleString.contains("white") || !activeHoverStyleString.equals(originalStyleString),
-                "Inline style properties failed to apply background alterations when entering button footprint coordinates.");
+        // Assert inline styles adjusted into hover mappings and dropped clean on
+        // exit
+        assertTrue(activeHoverStyleString.contains("white")
+                || !activeHoverStyleString.equals(originalStyleString),
+                "Inline style properties failed to apply background alterations "
+                + "when entering button footprint coordinates.");
         assertEquals(originalStyleString, postExitRestoredStyleString,
-                "Button inline rules failed to restore baseline aesthetics on cursor exit.");
+                "Button inline rules failed to restore baseline aesthetics on "
+                + "cursor exit.");
     }
-}
+
