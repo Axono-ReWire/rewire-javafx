@@ -27,6 +27,9 @@ import javafx.scene.control.Label;
 @ExtendWith(ApplicationExtension.class)
 class ResultsPageTest {
 
+    /** Expected result of basic arithmetic operation (2 + 2). */
+    private static final int ARITHMETIC_RESULT = 4;
+
     /** Mouse move offset for hover testing. */
     private static final int HOVER_OFFSET = 300;
 
@@ -58,7 +61,7 @@ class ResultsPageTest {
      */
     @Test
     void sampleTest() {
-        assertEquals(4, 2 + 2);
+        assertEquals(ARITHMETIC_RESULT, 2 + 2);
     }
 
     /**

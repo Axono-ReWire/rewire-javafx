@@ -32,11 +32,17 @@ import javafx.stage.Stage;
 @ExtendWith(ApplicationExtension.class)
 class OnboardingStageTest {
 
+    /** Expected result of basic arithmetic operation (2 + 2). */
+    private static final int ARITHMETIC_RESULT = 4;
+
     /** Wait timeout for text to appear (seconds). */
     private static final int WAIT_TIMEOUT_SECONDS = 5;
 
+    /** Timeout duration for async operations in milliseconds. */
+    private static final long LONG_TIMEOUT_MS = 2000;
+
     /** The target application stage instance hosted on the active window. */
-    private Stage stageParam;
+    private Stage testStageParam;
 
     /**
      * Tracks the captured profile entity passed back by the wizard completion
@@ -60,7 +66,7 @@ class OnboardingStageTest {
      */
     @Start
     void start(final Stage stageParam) {
-        this.stageParam = stageParam;
+        this.testStageParam = stageParam;
         new OnboardingStage(stageParam, profile -> {
             isCallbackInvoked.set(true);
             completedProfileResult.set((UserProfile) profile);
@@ -73,7 +79,7 @@ class OnboardingStageTest {
      */
     @Test
     void sampleTest() {
-        assertEquals(4, 2 + 2);
+        assertEquals(ARITHMETIC_RESULT, 2 + 2);
     }
 
     /**
@@ -83,15 +89,15 @@ class OnboardingStageTest {
     @Test
     void testStageInitialization() {
         assertNotNull(
-                stageParam,
+                testStageParam,
                 "The managed onboarding execution window stage layer should be "
                         + "fully initialized.");
         assertEquals(
                 "ReWire — Setup",
-                stageParam.getTitle(),
+                testStageParam.getTitle(),
                 "Onboarding stage header window title string mismatch.");
         assertTrue(
-                stageParam.isShowing(),
+                testStageParam.isShowing(),
                 "Onboarding container failed to reveal the active UI layer "
                         + "layout stage.");
     }
@@ -231,7 +237,7 @@ class OnboardingStageTest {
                     .map(javafx.scene.control.DatePicker.class::cast)
                     .findFirst()
                     .ifPresent(datePicker -> {
-                        datePicker.setValue(java.time.LocalDate.of(2000, 1, 1));
+                        datePicker.setValue(java.time.LocalDate.of(2000, 1, 1)); // Historical date for testing
                     });
         });
 
@@ -268,7 +274,7 @@ class OnboardingStageTest {
                 completedProfileResult.get(),
                 "UserProfile payload is null.");
         assertFalse(
-                stageParam.isShowing(),
+                testStageParam.isShowing(),
                 "Onboarding stage window did not close.");
     }
 

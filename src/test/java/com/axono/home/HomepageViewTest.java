@@ -26,6 +26,9 @@ import javafx.stage.Stage;
 @ExtendWith(ApplicationExtension.class)
 class HomepageViewTest {
 
+    /** Expected result of basic arithmetic operation (2 + 2). */
+    private static final int ARITHMETIC_RESULT = 4;
+
     /** Mouse move offset for hover testing. */
     private static final int HOVER_OFFSET = 200;
 
@@ -57,7 +60,7 @@ class HomepageViewTest {
      */
     @Test
     void sampleTest() {
-        assertEquals(4, 2 + 2);
+        assertEquals(ARITHMETIC_RESULT, 2 + 2);
     }
 
     /**

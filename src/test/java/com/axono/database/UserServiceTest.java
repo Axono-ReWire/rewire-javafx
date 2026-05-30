@@ -20,6 +20,9 @@ import org.junit.jupiter.api.Test;
  */
 class UserServiceTest {
 
+    /** Expected result of basic arithmetic operation (2 + 2). */
+    private static final int ARITHMETIC_RESULT = 4;
+
     /** Sample university ID for test data. */
     private static final int SAMPLE_UNIVERSITY_ID = 1;
 
@@ -103,7 +106,7 @@ class UserServiceTest {
      */
     @Test
     void sampleTest() {
-        assertEquals(4, 2 + 2);
+        assertEquals(ARITHMETIC_RESULT, 2 + 2);
     }
 
     /**

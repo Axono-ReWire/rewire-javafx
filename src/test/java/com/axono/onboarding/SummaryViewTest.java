@@ -28,6 +28,12 @@ import javafx.stage.Stage;
 @ExtendWith(ApplicationExtension.class)
 class SummaryViewTest {
 
+    /** Expected result of basic arithmetic operation (2 + 2). */
+    private static final int ARITHMETIC_RESULT = 4;
+
+    /** Expected count of module items in profile summary. */
+    private static final int EXPECTED_ITEM_COUNT = 3;
+
     /** The UI view component under test. */
     private SummaryView summaryView;
 
@@ -60,7 +66,7 @@ class SummaryViewTest {
      */
     @Test
     void sampleTest() {
-        assertEquals(4, 2 + 2);
+        assertEquals(ARITHMETIC_RESULT, 2 + 2);
     }
 
     /**
@@ -130,7 +136,7 @@ class SummaryViewTest {
         int dashOccurrences = robot.lookup("—").queryAll().size();
 
         org.junit.jupiter.api.Assertions.assertTrue(
-                dashOccurrences >= 3,
+                dashOccurrences >= EXPECTED_ITEM_COUNT,
                 "Expected default em-dash placeholders to occupy unpopulated "
                         + "details spaces.");
     }

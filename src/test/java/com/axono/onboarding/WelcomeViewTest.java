@@ -25,6 +25,9 @@ import javafx.stage.Stage;
 @ExtendWith(ApplicationExtension.class)
 class WelcomeViewTest {
 
+    /** Expected result of basic arithmetic operation (2 + 2). */
+    private static final int ARITHMETIC_RESULT = 4;
+
     /** The welcome layout step component instance under test. */
     private WelcomeView welcomeView;
 
@@ -53,7 +56,7 @@ class WelcomeViewTest {
      */
     @Test
     void sampleTest() {
-        assertEquals(4, 2 + 2);
+        assertEquals(ARITHMETIC_RESULT, 2 + 2);
     }
 
     /**

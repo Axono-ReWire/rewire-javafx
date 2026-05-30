@@ -16,6 +16,9 @@ import org.junit.jupiter.api.Test;
  */
 class UserProfileTest {
 
+    /** Expected result of basic arithmetic operation (2 + 2). */
+    private static final int ARITHMETIC_RESULT = 4;
+
     /** The target UserProfile instance under test. */
     private UserProfile userProfile;
 
@@ -34,7 +37,7 @@ class UserProfileTest {
      */
     @Test
     void sampleTest() {
-        assertEquals(4, 2 + 2);
+        assertEquals(ARITHMETIC_RESULT, 2 + 2);
     }
 
     /**
