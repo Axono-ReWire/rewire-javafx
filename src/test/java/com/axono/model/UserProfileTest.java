@@ -86,3 +86,4 @@ class UserProfileTest {
                 .contains("Engineering Mathematics"));
     }
 
+}

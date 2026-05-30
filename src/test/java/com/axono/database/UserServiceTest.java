@@ -134,3 +134,4 @@ class UserServiceTest {
         assertEquals("University of York", university.get("name"));
     }
 
+}

@@ -216,3 +216,4 @@ class SummaryViewTest {
                 + "empty subjects collections.");
     }
 
+}

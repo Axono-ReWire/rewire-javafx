@@ -104,3 +104,5 @@ class WelcomeViewTest {
                 "Missing the structural layout workflow guidance hint text "
                 + "label.");
     }
+
+}

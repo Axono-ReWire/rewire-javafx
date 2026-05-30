@@ -201,3 +201,5 @@ class HomepageViewTest {
                 "Button inline styles failed to restore baseline aesthetics on "
                 + "cursor exit.");
     }
+
+}
