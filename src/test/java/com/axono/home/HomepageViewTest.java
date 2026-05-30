@@ -26,12 +26,16 @@ import javafx.stage.Stage;
 @ExtendWith(ApplicationExtension.class)
 class HomepageViewTest {
 
+    /** Mouse move offset for hover testing. */
+    private static final int HOVER_OFFSET = 200;
+
     /** The homepage view instance under test. */
     private HomepageView homepageView;
 
     /**
      * Initializes the JavaFX Stage window context and mounts the
-     * {@link HomepageView} inside a testing scene wrapper before executing tests.
+     * {@link HomepageView} inside a testing scene wrapper before executing
+     * tests.
      *
      * @param stage the automated Stage provided by TestFX.
      */
@@ -61,8 +65,10 @@ class HomepageViewTest {
      */
     @Test
     void testInitialization() {
-        assertNotNull(homepageView,
-                "HomepageView structural instance should be fully initialized.");
+        assertNotNull(
+                homepageView,
+                "HomepageView structural instance should be fully "
+                        + "initialized.");
     }
 
     /**
@@ -75,7 +81,6 @@ class HomepageViewTest {
     void testBannerLabelsRender(final FxRobot robot) {
         assertNotNull(homepageView);
 
-        // Query labeled string elements right off the visible scene graph
         Label mainHeader = robot.lookup("Welcome to Axono ReWire!")
                 .queryAs(Label.class);
         Label subHeader = robot.lookup("Start your engineering journey today!")
@@ -83,12 +88,15 @@ class HomepageViewTest {
         Label loginText = robot.lookup("Already have an account? Log in")
                 .queryAs(Label.class);
 
-        assertNotNull(mainHeader,
+        assertNotNull(
+                mainHeader,
                 "Missing the main banner 'Welcome to Axono ReWire!' header "
-                + "title.");
-        assertNotNull(subHeader,
+                        + "title.");
+        assertNotNull(
+                subHeader,
                 "Missing the introductory sub-heading description message.");
-        assertNotNull(loginText,
+        assertNotNull(
+                loginText,
                 "Missing the account fallback login navigation prompt string.");
     }
 
@@ -107,15 +115,17 @@ class HomepageViewTest {
         Button educatorBtn = robot.lookup("I'm an Educator")
                 .queryAs(Button.class);
 
-        assertNotNull(studentBtn,
+        assertNotNull(
+                studentBtn,
                 "Missing the 'I'm a Student' action navigation item button.");
-        assertNotNull(educatorBtn,
+        assertNotNull(
+                educatorBtn,
                 "Missing the 'I'm an Educator' action navigation item button.");
     }
 
     /**
-     * Verifies that the target subject module name heading displays prominently
-     * above the scrollable interactive options area.
+     * Verifies that the target subject module name heading displays
+     * prominently above the scrollable interactive options area.
      *
      * @param robot the TestFX robot for interaction.
      */
@@ -125,9 +135,10 @@ class HomepageViewTest {
 
         Label moduleHeader = robot.lookup("Analogue Electronics")
                 .queryAs(Label.class);
-        assertNotNull(moduleHeader,
+        assertNotNull(
+                moduleHeader,
                 "Missing the 'Analogue Electronics' main list section category "
-                + "label.");
+                        + "label.");
     }
 
     /**
@@ -141,8 +152,6 @@ class HomepageViewTest {
     void testDynamicTopicButtonsPopulate(final FxRobot robot) {
         assertNotNull(homepageView);
 
-        // Explicit list of all required topics defined inside the application
-        // view logic component context
         String[] expectedTopics = {
                 "Layouts", "Decibels", "Op-Amps", "Electromagnetism",
                 "Phasors", "Complex Impedances", "Kirchhoff's Laws",
@@ -151,13 +160,12 @@ class HomepageViewTest {
                 "Frequency Response", "Step Response"
         };
 
-        // Assert that every single individual button item is fully rendered and
-        // selectable on the active tree
         for (String topicText : expectedTopics) {
             Button topicButton = robot.lookup(topicText).queryAs(Button.class);
-            assertNotNull(topicButton,
+            assertNotNull(
+                    topicButton,
                     "Dynamic button went missing for expected topic entry: "
-                    + topicText);
+                            + topicText);
         }
     }
 
@@ -172,34 +180,31 @@ class HomepageViewTest {
     void testButtonHoverStyleTransitions(final FxRobot robot) {
         assertNotNull(homepageView);
 
-        // Fetch a control handle directly off the active canvas node tree
         Button actionButton = robot.lookup("I'm a Student")
                 .queryAs(Button.class);
-        assertNotNull(actionButton,
-                "Target button must exist to verify interactive cursor styling.");
+        assertNotNull(
+                actionButton,
+                "Target button must exist to verify interactive cursor "
+                        + "styling.");
 
-        // Capture initial baseline design rules tracking characteristics
         String baselineStyle = actionButton.getStyle();
 
-        // Simulate a physical user dragging the pointer onto the target footprint
-        // area coordinates
         robot.moveTo(actionButton);
         String activeHoverStyle = actionButton.getStyle();
 
-        // Pull the cursor clear of the element dimensions completely to fire
-        // standard exit hooks
-        robot.moveBy(200, 200);
+        robot.moveBy(HOVER_OFFSET, HOVER_OFFSET);
         String restoredStyle = actionButton.getStyle();
 
-        // Assert inline styles adjusted into functional highlight states and
-        // dropped cleanly on exit
-        assertTrue(activeHoverStyle.contains("white")
-                || !activeHoverStyle.equals(baselineStyle),
-                "Inline styles failed to activate background modifications when "
-                + "cursor entered button bounds.");
-        assertEquals(baselineStyle, restoredStyle,
-                "Button inline styles failed to restore baseline aesthetics on "
-                + "cursor exit.");
+        assertTrue(
+                activeHoverStyle.contains("white")
+                        || !activeHoverStyle.equals(baselineStyle),
+                "Inline styles failed to activate background modifications "
+                        + "when cursor entered button bounds.");
+        assertEquals(
+                baselineStyle,
+                restoredStyle,
+                "Button inline styles failed to restore baseline aesthetics "
+                        + "on cursor exit.");
     }
 
 }

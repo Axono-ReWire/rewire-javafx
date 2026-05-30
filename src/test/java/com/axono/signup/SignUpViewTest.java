@@ -38,6 +38,9 @@ import javafx.stage.Stage;
 @ExtendWith(ApplicationExtension.class)
 class SignUpViewTest {
 
+    /** Minimum age for account creation in years. */
+    private static final long MINIMUM_AGE_YEARS = 20;
+
     /** The signup view component instance under test. */
     private SignUpView signUpView;
 
@@ -86,13 +89,16 @@ class SignUpViewTest {
      */
     @Test
     void testInitialization(final FxRobot robot) throws Exception {
-        assertNotNull(signUpView,
+        assertNotNull(
+                signUpView,
                 "SignUpView instance should be fully initialized.");
 
         VBox inputCard = WaitForAsyncUtils
                 .asyncFx(() -> signUpView.signupinput()).get();
 
-        assertNotNull(inputCard, "The input form card block should not be null.");
+        assertNotNull(
+                inputCard,
+                "The input form card block should not be null.");
     }
 
     /**
@@ -103,11 +109,10 @@ class SignUpViewTest {
      */
     @Test
     void testFormLabelsRender(final FxRobot robot) {
-        // Ensure the underlying view container is not null
-        assertNotNull(signUpView,
+        assertNotNull(
+                signUpView,
                 "SignUpView instance should be fully initialized.");
 
-        // Use robot.lookup() to query the live JavaFX thread.
         Label signUpTitle = robot.lookup("Sign up").queryAs(Label.class);
         Label firstNameLabel = robot.lookup("First Name")
                 .queryAs(Label.class);
@@ -121,22 +126,29 @@ class SignUpViewTest {
         Label confirmPasswordLabel = robot.lookup("Confirm Password")
                 .queryAs(Label.class);
 
-        // Assert that TestFX successfully located every single visible element
-        assertNotNull(signUpTitle,
+        assertNotNull(
+                signUpTitle,
                 "Missing the main 'Sign up' page header label.");
-        assertNotNull(firstNameLabel,
+        assertNotNull(
+                firstNameLabel,
                 "Missing the form helper 'First Name' label.");
-        assertNotNull(lastNameLabel,
+        assertNotNull(
+                lastNameLabel,
                 "Missing the form helper 'Last Name' label.");
-        assertNotNull(dobLabel,
+        assertNotNull(
+                dobLabel,
                 "Missing the form helper 'Date of Birth (dd/mm/yyyy)' label.");
-        assertNotNull(usernameLabel,
+        assertNotNull(
+                usernameLabel,
                 "Missing the form helper 'Username' label.");
-        assertNotNull(yearOfStudyLabel,
+        assertNotNull(
+                yearOfStudyLabel,
                 "Missing the form helper 'Year of Study' label.");
-        assertNotNull(passwordLabel,
+        assertNotNull(
+                passwordLabel,
                 "Missing the form helper 'Password' label.");
-        assertNotNull(confirmPasswordLabel,
+        assertNotNull(
+                confirmPasswordLabel,
                 "Missing the form helper 'Confirm Password' label.");
     }
 
@@ -148,17 +160,14 @@ class SignUpViewTest {
      */
     @Test
     void testValidateInputSuccess(final FxRobot robot) {
-        // Fill all text and password fields with valid inputs
         populateValidFormFields(robot);
 
-        // Execute validation method (Since data is valid, no blocking Alert
-        // dialog is triggered)
         boolean validationResult = signUpView.validateInput();
 
-        // Assert validation rules evaluate to true
-        assertTrue(validationResult,
-                "Validation should pass completely when all data parameters are "
-                + "valid.");
+        assertTrue(
+                validationResult,
+                "Validation should pass completely when all data parameters "
+                        + "are valid.");
     }
 
     /**
@@ -172,16 +181,19 @@ class SignUpViewTest {
     void testSaveDataPersistsToProfile(final FxRobot robot) {
         populateValidFormFields(robot);
 
-        // Run persistence logic
         signUpView.saveData();
 
-        // Assert data mirrors field strings exactly (First name -> Name, Last
-        // name -> Institution)
-        assertEquals("Joe", testProfile.getName(),
+        assertEquals(
+                "Joe",
+                testProfile.getName(),
                 "Profile name should track the First Name field.");
-        assertEquals("Year 1", testProfile.getYearOfStudy(),
+        assertEquals(
+                "Year 1",
+                testProfile.getYearOfStudy(),
                 "Profile year of study should match selection choice.");
-        assertEquals("Bloggs", testProfile.getInstitution(),
+        assertEquals(
+                "Bloggs",
+                testProfile.getInstitution(),
                 "Profile institution should track the Last Name field.");
     }
 
@@ -195,27 +207,18 @@ class SignUpViewTest {
      */
     @Test
     void testValidateInputFailureHandlesAlertDismissal(final FxRobot robot) {
-        // Leave fields blank intentionally to force validation checkpoint
-        // failure
         AtomicBoolean validationOutcome = new AtomicBoolean(true);
 
-        // Submit validation task asynchronously to the JavaFX Application
-        // Thread
         Platform.runLater(() -> {
             validationOutcome.set(signUpView.validateInput());
         });
 
-        // Allow JavaFX event dispatch thread context time to process and paint
-        // the Alert container modal
         WaitForAsyncUtils.waitForFxEvents();
 
-        // Find the modal button and simulate a mouse click to dismiss the modal
-        // target natively
         robot.clickOn("OK");
 
-        // Verify validation safely caught the empty text field exception
-        // constraints
-        assertFalse(validationOutcome.get(),
+        assertFalse(
+                validationOutcome.get(),
                 "Validation must fail when required fields remain empty.");
     }
 
@@ -227,8 +230,6 @@ class SignUpViewTest {
      */
     @SuppressWarnings("unchecked")
     private void populateValidFormFields(final FxRobot robot) {
-        // Lookup UI components directly from the active window using clear
-        // TestFX target selectors
         TextField fNameField = robot.lookup(".text-field")
                 .match(node -> node instanceof TextField
                         && "First name".equals(
@@ -237,12 +238,14 @@ class SignUpViewTest {
 
         TextField lNameField = robot.lookup(".text-field")
                 .match(node -> node instanceof TextField
-                        && "Last name".equals(((TextField) node).getPromptText()))
+                        && "Last name".equals(
+                                ((TextField) node).getPromptText()))
                 .queryAs(TextField.class);
 
         TextField userField = robot.lookup(".text-field")
                 .match(node -> node instanceof TextField
-                        && "Username".equals(((TextField) node).getPromptText()))
+                        && "Username".equals(
+                                ((TextField) node).getPromptText()))
                 .queryAs(TextField.class);
 
         DatePicker dobPicker = robot.lookup(".date-picker")
@@ -250,34 +253,34 @@ class SignUpViewTest {
         ComboBox<String> studyCombo = robot.lookup(".combo-box")
                 .queryAs(ComboBox.class);
 
-        // Find password elements by selecting all password fields present
-        // inside the layout
         Object[] passFields = robot.lookup(".password-field").queryAll()
                 .toArray();
 
-        // Verify all targets were located safely prior to mutation interactions
-        assertNotNull(fNameField,
+        assertNotNull(
+                fNameField,
                 "First Name field missing from visible scene graph.");
-        assertNotNull(lNameField,
+        assertNotNull(
+                lNameField,
                 "Last Name field missing from visible scene graph.");
-        assertNotNull(userField,
+        assertNotNull(
+                userField,
                 "Username field missing from visible scene graph.");
-        assertNotNull(dobPicker, "DatePicker missing from visible scene graph.");
-        assertNotNull(studyCombo,
+        assertNotNull(
+                dobPicker,
+                "DatePicker missing from visible scene graph.");
+        assertNotNull(
+                studyCombo,
                 "Year of Study ComboBox missing from visible scene graph.");
-        assertTrue(passFields.length >= 2,
+        assertTrue(
+                passFields.length >= 2,
                 "Missing mandatory Password and Confirm Password fields.");
 
-        // Inject matching registration metrics safely via the JavaFX thread
-        // context
         robot.interact(() -> {
             fNameField.setText("Joe");
             lNameField.setText("Bloggs");
             userField.setText("joebloggs99");
 
-            // Ensure user satisfies the MINIMUM_AGE constraint limit (over 13
-            // years old)
-            dobPicker.setValue(LocalDate.now().minusYears(20));
+            dobPicker.setValue(LocalDate.now().minusYears(MINIMUM_AGE_YEARS));
 
             studyCombo.getSelectionModel().select("Year 1");
 
@@ -287,3 +290,4 @@ class SignUpViewTest {
     }
 
 }
+

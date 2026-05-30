@@ -77,32 +77,33 @@ class WelcomeViewTest {
     void testWelcomeCardElementsRender(final FxRobot robot) {
         assertNotNull(welcomeView);
 
-        // Directly query string instances right off the active window scene
-        // graph
         Label logoPlaceholder = robot.lookup("Axono Logo Placeholder")
                 .queryAs(Label.class);
         Label mainTitle = robot.lookup("Welcome to ReWire!")
                 .queryAs(Label.class);
         Label bodyMessage = robot.lookup(
-                "The all-in-one platform for mastering all things Engineering.")
+                "The all-in-one platform for mastering all things "
+                        + "Engineering.")
                 .queryAs(Label.class);
         Label instructionHint = robot.lookup(
                 "Click Next to set up your profile and get started.")
                 .queryAs(Label.class);
 
-        // Assert that TestFX successfully captured every single child control
-        // element node
-        assertNotNull(logoPlaceholder,
+        assertNotNull(
+                logoPlaceholder,
                 "Missing the 'Axono Logo Placeholder' graphical text label "
-                + "layout component.");
-        assertNotNull(mainTitle,
+                        + "layout component.");
+        assertNotNull(
+                mainTitle,
                 "Missing the primary 'Welcome to ReWire!' header title label.");
-        assertNotNull(bodyMessage,
+        assertNotNull(
+                bodyMessage,
                 "Missing the central onboarding platform descriptive body "
-                + "message text.");
-        assertNotNull(instructionHint,
+                        + "message text.");
+        assertNotNull(
+                instructionHint,
                 "Missing the structural layout workflow guidance hint text "
-                + "label.");
+                        + "label.");
     }
 
 }

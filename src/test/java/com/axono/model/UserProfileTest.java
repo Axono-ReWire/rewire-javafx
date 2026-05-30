@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
  * Verifies that user details and selected study modules are properly
  * initialized, stored, and modified.
  */
-
 class UserProfileTest {
 
     /** The target UserProfile instance under test. */
@@ -64,26 +63,24 @@ class UserProfileTest {
      */
     @Test
     void testGettersAndSetters() {
-        // Inject sample onboarding details into the profile
         userProfile.setName("Joe");
         userProfile.setYearOfStudy("Year 1");
         userProfile.setInstitution("University of York");
 
-        // Inject a mocked list of chosen module names
         List<String> modules = List.of("Analogue Electronics",
                 "Engineering Mathematics");
         userProfile.setSubjects(modules);
 
-        // Assert that getter outputs perfectly match the values configured above
         assertEquals("Joe", userProfile.getName());
         assertEquals("Year 1", userProfile.getYearOfStudy());
         assertEquals("University of York", userProfile.getInstitution());
 
-        // Validate collection sizing and structural presence of specific elements
         assertEquals(2, userProfile.getSubjects().size());
         assertTrue(userProfile.getSubjects().contains("Analogue Electronics"));
-        assertTrue(userProfile.getSubjects()
-                .contains("Engineering Mathematics"));
+        assertTrue(
+                userProfile.getSubjects()
+                        .contains("Engineering Mathematics"));
     }
 
 }
+

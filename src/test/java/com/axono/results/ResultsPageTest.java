@@ -27,12 +27,16 @@ import javafx.scene.control.Label;
 @ExtendWith(ApplicationExtension.class)
 class ResultsPageTest {
 
+    /** Mouse move offset for hover testing. */
+    private static final int HOVER_OFFSET = 300;
+
     /** The main results view component instance under test. */
     private ResultsPage resultsPage;
 
     /**
      * Initializes the JavaFX Stage window context and mounts the
-     * {@link ResultsPage} inside a testing scene wrapper before executing tests.
+     * {@link ResultsPage} inside a testing scene wrapper before executing
+     * tests.
      *
      * @param stage the automated Stage provided by TestFX.
      */
@@ -63,13 +67,15 @@ class ResultsPageTest {
      */
     @Test
     void testInitialisation() {
-        assertNotNull(resultsPage,
+        assertNotNull(
+                resultsPage,
                 "ResultsPage view instance should be fully initialized.");
     }
 
     /**
      * Asserts that critical structural labels and headings inside the banner
-     * render natively with their expected text content using clean text lookups.
+     * render natively with their expected text content using clean text
+     * lookups.
      *
      * @param robot the TestFX robot for interaction.
      */
@@ -77,28 +83,32 @@ class ResultsPageTest {
     void testCoreLabelsRender(final FxRobot robot) {
         assertNotNull(resultsPage, "ResultsPage instance was null.");
 
-        // Query labeled string elements directly from the live visible Scene
-        // graph
         Label mainHeader = robot.lookup("Results").queryAs(Label.class);
-        Label congratsMsg = robot.lookup("Congratulations on completing the "
-                + "quiz!").queryAs(Label.class);
+        Label congratsMsg = robot.lookup(
+                "Congratulations on completing the quiz!")
+                .queryAs(Label.class);
         Label breakdownHeader = robot.lookup("Results Breakdown")
                 .queryAs(Label.class);
         Label summaryHeader = robot.lookup("Summary").queryAs(Label.class);
 
-        assertNotNull(mainHeader,
+        assertNotNull(
+                mainHeader,
                 "Missing the main 'Results' banner page title.");
-        assertNotNull(congratsMsg,
+        assertNotNull(
+                congratsMsg,
                 "Missing the celebratory user sub-header text.");
-        assertNotNull(breakdownHeader,
+        assertNotNull(
+                breakdownHeader,
                 "Missing the 'Results Breakdown' section title header.");
-        assertNotNull(summaryHeader,
+        assertNotNull(
+                summaryHeader,
                 "Missing the 'Summary' section title header.");
     }
 
     /**
      * Verifies that the specific score parameters accompanied by their
-     * respective icon identifiers populate properly inside the score card block.
+     * respective icon identifiers populate properly inside the score card
+     * block.
      *
      * @param robot the TestFX robot for interaction.
      */
@@ -131,13 +141,16 @@ class ResultsPageTest {
         Label questionReviewRow = robot.lookup("Question review:")
                 .queryAs(Label.class);
 
-        assertNotNull(timeRow,
+        assertNotNull(
+                timeRow,
                 "The summary block is missing the 'Time taken:' row category.");
-        assertNotNull(feedbackRow,
+        assertNotNull(
+                feedbackRow,
                 "The summary block is missing the 'Feedback:' row category.");
-        assertNotNull(questionReviewRow,
+        assertNotNull(
+                questionReviewRow,
                 "The summary block is missing the 'Question review:' row "
-                + "category.");
+                        + "category.");
     }
 
     /**
@@ -174,32 +187,31 @@ class ResultsPageTest {
     void testButtonHoverStyleStateChanges(final FxRobot robot) {
         assertNotNull(resultsPage, "ResultsPage instance was null.");
 
-        // Locate the operational button container strictly out of the live stage
-        // tree
         Button actionButton = robot.lookup("Save Results")
                 .queryAs(Button.class);
-        assertNotNull(actionButton,
+        assertNotNull(
+                actionButton,
                 "Target action button must exist to verify hover styles.");
 
-        // Capture baseline styles
         String initialStyle = actionButton.getStyle();
 
-        // Simulate user moving mouse over the target control
         robot.moveTo(actionButton);
         String hoverStyle = actionButton.getStyle();
 
-        // Move mouse clear of button bounds to fire exit handler operations
-        robot.moveBy(300, 300);
+        robot.moveBy(HOVER_OFFSET, HOVER_OFFSET);
         String restoredStyle = actionButton.getStyle();
 
-        // Assert style properties transformed and reverted accurately
-        assertTrue(hoverStyle.contains("white")
-                || !hoverStyle.equals(initialStyle),
+        assertTrue(
+                hoverStyle.contains("white")
+                        || !hoverStyle.equals(initialStyle),
                 "Button inline styles failed to transition when mouse entered "
-                + "its layout bounds.");
-        assertEquals(initialStyle, restoredStyle,
+                        + "its layout bounds.");
+        assertEquals(
+                initialStyle,
+                restoredStyle,
                 "Button inline styles failed to reset back to original "
-                + "parameters upon mouse exit.");
+                        + "parameters upon mouse exit.");
     }
 
 }
+

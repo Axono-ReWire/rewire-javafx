@@ -72,9 +72,10 @@ class SubjectViewTest {
      */
     @Test
     void testInitialization() {
-        assertNotNull(subjectView,
+        assertNotNull(
+                subjectView,
                 "SubjectView structural shell instance should be fully "
-                + "initialized.");
+                        + "initialized.");
     }
 
     /**
@@ -89,13 +90,16 @@ class SubjectViewTest {
 
         Label primaryTitle = robot.lookup("Select Your Modules")
                 .queryAs(Label.class);
-        Label descriptionLabel = robot.lookup("Choose the modules you're "
-                + "studying:").queryAs(Label.class);
+        Label descriptionLabel = robot.lookup(
+                "Choose the modules you're studying:").queryAs(Label.class);
 
-        assertNotNull(primaryTitle,
+        assertNotNull(
+                primaryTitle,
                 "Missing primary 'Select Your Modules' title layout label.");
-        assertNotNull(descriptionLabel,
-                "Missing the onboarding section user instructional guide string.");
+        assertNotNull(
+                descriptionLabel,
+                "Missing the onboarding section user instructional guide "
+                        + "string.");
     }
 
     /**
@@ -108,33 +112,31 @@ class SubjectViewTest {
     @Test
     void testSelectAllButtonBehavior(final FxRobot robot) {
         Button selectAllBtn = robot.lookup("Select All").queryAs(Button.class);
-        assertNotNull(selectAllBtn,
+        assertNotNull(
+                selectAllBtn,
                 "Missing 'Select All' operational macro action handle button.");
 
-        // Gather list array matches of every checkbox element node attached to
-        // the container canvas
         List<CheckBox> boxes = robot.lookup(".check-box").queryAll().stream()
                 .filter(CheckBox.class::isInstance)
                 .map(CheckBox.class::cast)
                 .collect(Collectors.toList());
 
-        // Guard assertion ensuring testcurriculum.xml loaded row values
-        // successfully
-        assertFalse(boxes.isEmpty(),
+        assertFalse(
+                boxes.isEmpty(),
                 "The rendered curriculum UI layout contains zero checkboxes. "
-                + "Verify testcurriculum.xml exists.");
+                        + "Verify testcurriculum.xml exists.");
 
-        // First click: select all elements globally across columns
         robot.clickOn(selectAllBtn);
         for (CheckBox box : boxes) {
-            assertTrue(box.isSelected(),
+            assertTrue(
+                    box.isSelected(),
                     "Checkbox element failed to check: " + box.getText());
         }
 
-        // Second click: clear all checked elements back to default state values
         robot.clickOn(selectAllBtn);
         for (CheckBox box : boxes) {
-            assertFalse(box.isSelected(),
+            assertFalse(
+                    box.isSelected(),
                     "Checkbox element failed to clear: " + box.getText());
         }
     }
@@ -147,7 +149,6 @@ class SubjectViewTest {
      */
     @Test
     void testInputValidationFailsWhenEmpty(final FxRobot robot) {
-        // Enforce a completely clean unselected state arrangement matrix
         robot.interact(() -> {
             robot.lookup(".check-box").queryAll().stream()
                     .filter(CheckBox.class::isInstance)
@@ -155,17 +156,14 @@ class SubjectViewTest {
                     .forEach(cb -> cb.setSelected(false));
         });
 
-        // Trigger the check validation routine asynchronously on the application
-        // FX loop thread context
         robot.interact(() -> {
             boolean isValid = subjectView.validateInput();
-            assertFalse(isValid,
+            assertFalse(
+                    isValid,
                     "Input validation should return false when zero module "
-                    + "categories are selected.");
+                            + "categories are selected.");
         });
 
-        // Dismiss the warning dialogue alert prompt instantly using standard FX
-        // Button Type identifiers
         robot.clickOn(".button");
     }
 
@@ -177,39 +175,38 @@ class SubjectViewTest {
      */
     @Test
     void testSaveDataPersistsToProfile(final FxRobot robot) {
-        // Fetch up to two arbitrary target curriculum checkboxes from the layout
-        // context
         List<CheckBox> boxes = robot.lookup(".check-box").queryAll().stream()
                 .filter(CheckBox.class::isInstance)
                 .map(CheckBox.class::cast)
                 .collect(Collectors.toList());
 
-        assertFalse(boxes.isEmpty(),
-                "No module checkbox controls discovered in active scene graph.");
+        assertFalse(
+                boxes.isEmpty(),
+                "No module checkbox controls discovered in active scene "
+                        + "graph.");
 
         CheckBox firstTarget = boxes.get(0);
         String firstTargetName = firstTarget.getText();
 
-        // Manually select a curriculum target on the safe Application Thread
-        // context
         robot.interact(() -> firstTarget.setSelected(true));
 
-        // Run data transformation routines directly inside the layout wrapper
-        // logic
         robot.interact(() -> subjectView.saveData());
 
-        // Confirm that the target list array mirrors the text configuration
-        // exactly
         List<String> storedSubjects = testProfile.getSubjects();
-        assertNotNull(storedSubjects,
+        assertNotNull(
+                storedSubjects,
                 "UserProfile subjects collection initialized to null value map "
-                + "parameters.");
-        assertEquals(1, storedSubjects.size(),
+                        + "parameters.");
+        assertEquals(
+                1,
+                storedSubjects.size(),
                 "UserProfile should register exactly 1 active selected course "
-                + "module entry.");
-        assertTrue(storedSubjects.contains(firstTargetName),
+                        + "module entry.");
+        assertTrue(
+                storedSubjects.contains(firstTargetName),
                 "UserProfile subject array collection is missing item label: "
-                + firstTargetName);
+                        + firstTargetName);
     }
 
 }
+

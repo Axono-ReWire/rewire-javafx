@@ -68,7 +68,8 @@ class SummaryViewTest {
      */
     @Test
     void testInitialization() {
-        assertNotNull(summaryView,
+        assertNotNull(
+                summaryView,
                 "SummaryView instance should be fully initialized.");
     }
 
@@ -102,13 +103,17 @@ class SummaryViewTest {
     void testRowKeysRender(final FxRobot robot) {
         assertNotNull(summaryView);
 
-        assertNotNull(robot.lookup("Name:").queryAs(Label.class),
+        assertNotNull(
+                robot.lookup("Name:").queryAs(Label.class),
                 "Missing 'Name:' row metadata indicator.");
-        assertNotNull(robot.lookup("Year of Study:").queryAs(Label.class),
+        assertNotNull(
+                robot.lookup("Year of Study:").queryAs(Label.class),
                 "Missing 'Year of Study:' row metadata indicator.");
-        assertNotNull(robot.lookup("Institution:").queryAs(Label.class),
+        assertNotNull(
+                robot.lookup("Institution:").queryAs(Label.class),
                 "Missing 'Institution:' row metadata indicator.");
-        assertNotNull(robot.lookup("Modules:").queryAs(Label.class),
+        assertNotNull(
+                robot.lookup("Modules:").queryAs(Label.class),
                 "Missing 'Modules:' row metadata indicator.");
     }
 
@@ -122,14 +127,12 @@ class SummaryViewTest {
     void testDefaultValueStateLookups(final FxRobot robot) {
         assertNotNull(summaryView);
 
-        // Multiple fields initialize to an em-dash string literal value ("—")
         int dashOccurrences = robot.lookup("—").queryAll().size();
 
-        // At minimum, Name, Year of Study, and Modules fields should show the
-        // dash placeholder
-        org.junit.jupiter.api.Assertions.assertTrue(dashOccurrences >= 3,
+        org.junit.jupiter.api.Assertions.assertTrue(
+                dashOccurrences >= 3,
                 "Expected default em-dash placeholders to occupy unpopulated "
-                + "details spaces.");
+                        + "details spaces.");
     }
 
     /**
@@ -143,7 +146,6 @@ class SummaryViewTest {
     void testRefreshReflectsPopulatedProfile(final FxRobot robot) {
         assertNotNull(summaryView);
 
-        // Mutate field settings inside the standalone structural context model
         testProfile.setName("Joe Bloggs");
         testProfile.setYearOfStudy("Year 1");
         testProfile.setInstitution("University of York");
@@ -151,33 +153,33 @@ class SummaryViewTest {
                 Arrays.asList("Engineering Mathematics",
                         "Introduction to Engineering", "Analogue Electronics"));
 
-        // Perform the view level update execution cleanly within safe FX thread
-        // lines
         robot.interact(() -> summaryView.refresh());
 
-        // Locate elements directly off the live canvas by their fresh data
-        // contents
         Label updatedName = robot.lookup("Joe Bloggs").queryAs(Label.class);
         Label updatedYear = robot.lookup("Year 1").queryAs(Label.class);
         Label updatedInst = robot.lookup("University of York")
                 .queryAs(Label.class);
         Label updatedMods = robot.lookup(
                 "Engineering Mathematics, Introduction to Engineering, "
-                + "Analogue Electronics")
+                        + "Analogue Electronics")
                 .queryAs(Label.class);
 
-        assertNotNull(updatedName,
+        assertNotNull(
+                updatedName,
                 "UI labels failed to display the updated profile name string "
-                + "field value.");
-        assertNotNull(updatedYear,
+                        + "field value.");
+        assertNotNull(
+                updatedYear,
                 "UI labels failed to display the updated profile year of study "
-                + "value.");
-        assertNotNull(updatedInst,
+                        + "value.");
+        assertNotNull(
+                updatedInst,
                 "UI labels failed to display the updated profile academic "
-                + "institution name.");
-        assertNotNull(updatedMods,
+                        + "institution name.");
+        assertNotNull(
+                updatedMods,
                 "UI labels failed to map list values into a single "
-                + "comma-separated text string summary block.");
+                        + "comma-separated text string summary block.");
     }
 
     /**
@@ -191,29 +193,26 @@ class SummaryViewTest {
     void testRefreshHandlesBlankOptionalFields(final FxRobot robot) {
         assertNotNull(summaryView);
 
-        // Leave properties entirely blank or empty inside the collection matrix
         testProfile.setName("");
         testProfile.setYearOfStudy("Foundation Year");
-        // Triggers "Not specified" business logic branch rules
         testProfile.setInstitution("");
         testProfile.setSubjects(Collections.emptyList());
 
         robot.interact(() -> summaryView.refresh());
 
-        // Assert that specific fallback labels are safely discoverable on the
-        // layout context tree
         Label missingInstFallback = robot.lookup("Not specified")
                 .queryAs(Label.class);
-        assertNotNull(missingInstFallback,
+        assertNotNull(
+                missingInstFallback,
                 "SummaryView missing the standard 'Not specified' safety label "
-                + "fallback text message.");
+                        + "fallback text message.");
 
-        // Assert blank name values recover cleanly back to baseline placeholder
-        // elements
         int dashOccurrences = robot.lookup("—").queryAll().size();
-        org.junit.jupiter.api.Assertions.assertTrue(dashOccurrences >= 2,
+        org.junit.jupiter.api.Assertions.assertTrue(
+                dashOccurrences >= 2,
                 "Missing dashboard fallbacks for unpopulated profile names or "
-                + "empty subjects collections.");
+                        + "empty subjects collections.");
     }
 
 }
+

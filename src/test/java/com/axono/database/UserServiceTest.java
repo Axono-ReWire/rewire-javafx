@@ -20,6 +20,15 @@ import org.junit.jupiter.api.Test;
  */
 class UserServiceTest {
 
+    /** Sample university ID for test data. */
+    private static final int SAMPLE_UNIVERSITY_ID = 1;
+
+    /** Sample user ID for test data. */
+    private static final int SAMPLE_USER_ID = 1;
+
+    /** Non-existent user ID for test data. */
+    private static final int NONEXISTENT_USER_ID = 10;
+
     /** The database abstraction layer used to run queries. */
     private DatabaseHelper databaseHelper;
 
@@ -36,11 +45,9 @@ class UserServiceTest {
      */
     @BeforeEach
     void setup() throws Exception {
-        // Establish an isolated SQLite in-memory instance
         String testDbUrl = "jdbc:sqlite::memory:";
         testConnection = DriverManager.getConnection(testDbUrl);
 
-        // Generate schemas and seed required test profiles
         try (Statement statement = testConnection.createStatement()) {
             statement.execute(
                     "CREATE TABLE user (id INTERGER PRIMARY KEY, first_name "
@@ -50,30 +57,26 @@ class UserServiceTest {
                     + "TEXT)");
 
             statement.execute(
-                    "INSERT INTO user (id, first_name, last_name, university_id) "
+                    "INSERT INTO user (id, first_name, last_name, "
+                    + "university_id) "
                     + "VALUES (1, 'Joe', 'Bloggs', 1)");
             statement.execute(
-                    "INSERT INTO university (id, name) VALUES (1, 'University of "
-                    + "York')");
+                    "INSERT INTO university (id, name) VALUES (1, "
+                    + "'University of York')");
         }
 
         databaseHelper = new DatabaseHelper();
 
-        // Force entry via Reflection to bypass encapsulation and override the
-        // instance connection
         Field connectionField = DatabaseHelper.class
                 .getDeclaredField("connection");
         connectionField.setAccessible(true);
 
-        // Safely clean up any default connection pool setups
         Connection autoConnection = (Connection) connectionField
                 .get(databaseHelper);
         if (autoConnection != null) {
             autoConnection.close();
         }
 
-        // Swap production connection pointers with our in-memory testing driver
-        // stub
         connectionField.set(databaseHelper, testConnection);
 
         userService = new UserService(databaseHelper);
@@ -81,7 +84,8 @@ class UserServiceTest {
 
     /**
      * Ensures proper teardown of system contexts, freeing up file descriptors
-     * and closing active relational connections immediately following execution.
+     * and closing active relational connections immediately following
+     * execution.
      */
     @AfterEach
     void tearDown() throws Exception {
@@ -108,7 +112,7 @@ class UserServiceTest {
      */
     @Test
     void testGetUserFullNameFound() throws Exception {
-        String fullName = userService.getUserFullName(1);
+        String fullName = userService.getUserFullName(SAMPLE_USER_ID);
         assertEquals("Joe Bloggs", fullName);
     }
 
@@ -118,7 +122,7 @@ class UserServiceTest {
      */
     @Test
     void testGetUserFullNameNotFound() throws Exception {
-        String fullName = userService.getUserFullName(10);
+        String fullName = userService.getUserFullName(NONEXISTENT_USER_ID);
         assertEquals("null null", fullName);
     }
 
@@ -128,10 +132,12 @@ class UserServiceTest {
      */
     @Test
     void testGetUserUniversitySuccess() throws Exception {
-        Map<String, Object> university = userService.getUserUniversity(1);
+        Map<String, Object> university = userService.getUserUniversity(
+                SAMPLE_USER_ID);
 
         assertNotNull(university);
         assertEquals("University of York", university.get("name"));
     }
 
 }
+
