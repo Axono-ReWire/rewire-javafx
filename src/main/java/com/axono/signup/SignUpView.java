@@ -1,12 +1,10 @@
 package com.axono.signup;
 
-import com.axono.AppStage;
-
 import java.time.LocalDate;
 
 import com.axono.model.UserProfile;
-import javafx.stage.*;
-import javafx.application.*;
+import javafx.stage.Stage;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -35,6 +33,12 @@ public final class SignUpView extends ScrollPane {
 
     /** Minimum age requirement for users to sign up. */
     private static final long MINIMUM_AGE = 13;
+
+    /** Bottom margin applied to the sign-up title, in pixels. */
+    private static final int TITLE_BOTTOM_MARGIN = 16;
+
+    /** Spacing used in the banner VBox, in pixels. */
+    private static final int BANNER_SPACING = 16;
 
     /** The user profile to populate when {@link #saveData()} is called. */
     private final UserProfile profile;
@@ -111,8 +115,8 @@ public final class SignUpView extends ScrollPane {
         Label titleSU = new Label("Sign up");
         titleSU.getStyleClass().add("header2");
         VBox.setMargin(titleSU, new Insets(0, 0,
-                16, 0));
-        VBox banner = new VBox(16, titleSU);
+                TITLE_BOTTOM_MARGIN, 0));
+        VBox banner = new VBox(BANNER_SPACING, titleSU);
         banner.setAlignment(Pos.CENTER);
         return banner;
     }
@@ -136,6 +140,7 @@ public final class SignUpView extends ScrollPane {
                 new Label("Confirm Password"), passcheck);
         sd.getStyleClass().add("sd");
         EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
+            @Override
             public void handle(final ActionEvent e) {
                 LocalDate i = dateOfBirth.getValue();
                 dateOfBirthLabel.setText("" + i);

@@ -1,9 +1,5 @@
 package com.axono.onboarding;
 
-//import com.axono.ui.UITheme;
-import com.axono.ui.UIConstants;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -38,8 +34,7 @@ public final class WelcomeView extends StackPane {
                 Label hint = new Label("Click Next to set up your profile"
                                 + " and get started.");
 
-                VBox card = new VBox(
-                                icon, title, body, hint);
+                VBox card = new VBox(icon, title, body, hint);
                 card.getStyleClass().add("card");
 
                 getChildren().add(card);

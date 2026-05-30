@@ -1,12 +1,8 @@
 package com.axono.onboarding;
 
 import com.axono.model.UserProfile;
-//import com.axono.ui.UITheme;
-//import com.axono.ui.UIConstants;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -16,6 +12,9 @@ import javafx.scene.layout.VBox;
  * user's entered profile details before they launch the application.
  */
 public final class SummaryView extends StackPane {
+
+        /** Spacing between items in the summary card VBox, in pixels. */
+        private static final int CARD_SPACING = 12;
 
         /** The user profile whose data is displayed in the summary. */
         private final UserProfile profile;
@@ -53,7 +52,7 @@ public final class SummaryView extends StackPane {
          * with placeholder dashes.
          */
         private void buildUI() {
-                Label icon = new Label("✅");
+                Label icon = new Label("\u2705");
                 icon.getStyleClass().add("subheader");
 
                 Label heading = new Label("You're all set!");
@@ -65,7 +64,7 @@ public final class SummaryView extends StackPane {
                 modules = valueLabel();
                 modules.setWrapText(true);
 
-                VBox card = new VBox(12,
+                VBox card = new VBox(CARD_SPACING,
                                 icon, heading,
                                 row("Name", name),
                                 row("Year of Study", yearOfStudy),
@@ -100,7 +99,7 @@ public final class SummaryView extends StackPane {
          * @return a styled {@link Label} used as a summary value field.
          */
         private Label valueLabel() {
-                Label l = new Label("—");
+                Label l = new Label("\u2014");
 
                 return l;
         }
@@ -112,7 +111,7 @@ public final class SummaryView extends StackPane {
          */
         public void refresh() {
                 name.setText(profile.getName()
-                                .isEmpty() ? "—" : profile.getName());
+                                .isEmpty() ? "\u2014" : profile.getName());
                 yearOfStudy.setText(profile.getYearOfStudy());
                 institution.setText(
                                 profile.getInstitution().isEmpty()
@@ -120,7 +119,7 @@ public final class SummaryView extends StackPane {
                                                 : profile.getInstitution());
                 var subjects = profile.getSubjects();
                 modules.setText(subjects
-                                .isEmpty() ? "—"
+                                .isEmpty() ? "\u2014"
                                                 : String.join(", ", subjects));
         }
 }

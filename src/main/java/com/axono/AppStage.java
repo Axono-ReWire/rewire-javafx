@@ -5,15 +5,10 @@ import com.axono.home.HomepageView;
 import com.axono.model.UserProfile;
 import com.axono.onboarding.OnboardingStage;
 import com.axono.results.ResultsPage;
-//import com.axono.ui.UITheme;
-import com.axono.ui.UIConstants;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
@@ -38,6 +33,9 @@ public final class AppStage {
      * Background colour hex code for the navigation bar.
      * private static final String NAV_BG = "#FFFFFF";
      */
+
+    /** Spacing between nav bar items, in pixels. */
+    private static final int NAV_SPACING = 8;
 
     /** The primary JavaFX {@link Stage} owned by this class. */
     private final Stage mainStage;
@@ -78,7 +76,8 @@ public final class AppStage {
      */
     private void openOnboarding() {
         Stage onboardingStage = new Stage();
-        new OnboardingStage(onboardingStage, this::onOnboardingComplete);
+        // Use a lambda to adapt the callback parameter type expected by OnboardingStage
+        new OnboardingStage(onboardingStage, obj -> onOnboardingComplete((UserProfile) obj));
     }
 
     /**
@@ -88,7 +87,8 @@ public final class AppStage {
      * @param completedProfile the {@link UserProfile}
      *                         collected during onboarding.
      */
-    private void onOnboardingComplete(final UserProfile completedProfile) {
+    private void onOnboardingComplete(
+            final UserProfile completedProfile) {
         this.profile = completedProfile;
         buildUI();
         mainStage.show();
@@ -103,12 +103,9 @@ public final class AppStage {
         root.setTop(buildNavBar());
         showHome();
         mainStage.setScene(new Scene(root));
-        root.getStylesheets().add(getClass().getResource("/UIStyle.css").toExternalForm());
+        root.getStylesheets().add(
+                getClass().getResource("/UIStyle.css").toExternalForm());
         mainStage.setMaximized(true);
-        // mainStage.isFullScreen();
-        // mainStage.setMinWidth(720);
-        // mainStage.setScene(new Scene(root,
-        // UIConstants.WINDOW_WIDTH, UIConstants.WINDOW_HEIGHT));
         mainStage.setTitle("Axono ReWire");
         mainStage.setResizable(true);
     }
@@ -121,15 +118,9 @@ public final class AppStage {
      */
     private HBox buildNavBar() {
         Label logo = new Label("Axono ReWire");
-        /**
-         * logo.setStyle(// "-fx-text-fill: "
-         * // + UITheme.PRIMARY +
-         * " -fx-font-size: 18px; -fx-font-weight: bold;");
-         */
         HBox.setHgrow(logo, Priority.ALWAYS);
 
         homeBtn = navButton("Home");
-
         dashBtn = navButton("Dashboard");
         resultsBtn = navButton("Results (temp)");
 
@@ -137,14 +128,9 @@ public final class AppStage {
         dashBtn.setOnAction(e -> showDashboard());
         resultsBtn.setOnAction(e -> showResults());
 
-        HBox nav = new HBox(8,
+        HBox nav = new HBox(NAV_SPACING,
                 logo, homeBtn, dashBtn, resultsBtn);
         nav.setAlignment(Pos.CENTER_LEFT);
-        // ** nav.setPadding(new Insets(UIConstants.PADDING_SM,
-        // UIConstants.PADDING_LG,
-        // UIConstants.PADDING_SM,
-        // UIConstants.PADDING_LG)); */
-        // nav.setStyle("-fx-background-color: " + NAV_BG + ";");
         return nav;
     }
 
@@ -168,7 +154,6 @@ public final class AppStage {
      *
      * @param btn the {@link Button} to mark as active.
      */
-
     private void setActive(final Button btn) {
         if (activeNavBtn != null) {
             activeNavBtn.setStyle(inactiveStyle());
@@ -185,12 +170,9 @@ public final class AppStage {
      */
     private String inactiveStyle() {
         return "-fx-background-color: transparent; "
-                // -fx-text-fill: "
-                // + UITheme.TEXT_MUTED + ";"
                 + "-fx-font-size: 14px; -fx-font-weight: bold;"
                 + "-fx-padding: 6px 16px; -fx-background-radius: 4px;"
                 + "-fx-cursor: hand;";
-        // + NAV_BTN_BORDER;
     }
 
     /**
@@ -201,12 +183,9 @@ public final class AppStage {
      */
     private String hoverStyle() {
         return "-fx-background-color: rgba(255,255,255,0.15); "
-                // -fx-text-fill: "
-                // + UITheme.TEXT_DARK + ";"
                 + "-fx-font-size: 14px; -fx-font-weight: bold;"
                 + "-fx-padding: 6px 16px; -fx-background-radius: 4px;"
                 + "-fx-cursor: hand;";
-        // + NAV_BTN_BORDER;
     }
 
     /**
@@ -217,12 +196,9 @@ public final class AppStage {
      */
     private String activeStyle() {
         return "-fx-background-color: rgba(255,255,255,0.28); "
-                // -fx-text-fill: "
-                // + UITheme.TEXT_DARK + ";"
                 + "-fx-font-size: 14px; -fx-font-weight: bold;"
                 + "-fx-padding: 6px 16px; -fx-background-radius: 4px;"
                 + "-fx-cursor: hand;";
-        // + NAV_BTN_BORDER;
     }
 
     /**
@@ -251,5 +227,4 @@ public final class AppStage {
         root.setCenter(new ResultsPage());
         setActive(resultsBtn);
     }
-
 }

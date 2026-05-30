@@ -39,6 +39,12 @@ public final class SubjectView extends StackPane {
         /** The user profile to populate when {@link #saveData()} is called. */
         private final UserProfile profile;
 
+        /** Percentage width assigned to each of the two grid columns. */
+        private static final double COL_PERCENT = 48;
+
+        /** Gap between grid cells, in pixels. */
+        private static final int CELL_SPACING = 8;
+
         /**
          * Flat list of all {@link CheckBox} controls
          * rendered in the curriculum grid.
@@ -308,8 +314,7 @@ public final class SubjectView extends StackPane {
                         checkboxes.forEach(c -> c.setSelected(anyUnchecked));
                 });
 
-                HBox topRow = new HBox(
-                                heading, selectAll);
+                HBox topRow = new HBox(heading, selectAll);
                 topRow.getStyleClass().add("toprow");
 
                 Label sub = new Label("Choose the modules you're studying:");
@@ -327,8 +332,7 @@ public final class SubjectView extends StackPane {
                 scroll.setBorder(Border.EMPTY);
                 VBox.setVgrow(scroll, Priority.ALWAYS);
 
-                VBox card = new VBox(
-                                topRow, sub, scroll);
+                VBox card = new VBox(topRow, sub, scroll);
                 card.getStyleClass().add("card2");
 
                 setAlignment(Pos.CENTER);
@@ -348,8 +352,7 @@ public final class SubjectView extends StackPane {
                 yearLabel.getStyleClass().add("subheading");
 
                 Separator sep = new Separator();
-                VBox.setMargin(sep, new Insets(2, 0,
-                                8, 0));
+                VBox.setMargin(sep, new Insets(2, 0, CELL_SPACING, 0));
 
                 VBox block = new VBox(yearLabel, sep);
 
@@ -361,12 +364,10 @@ public final class SubjectView extends StackPane {
                                 sectionLabel.getStyleClass().add("subheading");
 
                                 VBox.setMargin(sectionLabel, new Insets(
-                                                8,
-                                                0, 2, 0));
+                                                CELL_SPACING, 0, 2, 0));
                                 block.getChildren().add(sectionLabel);
                         }
-                        block.getChildren().add(buildGrid(section
-                                        .getModules()));
+                        block.getChildren().add(buildGrid(section.getModules()));
                 }
                 return block;
         }
@@ -382,11 +383,9 @@ public final class SubjectView extends StackPane {
          * @return a {@link GridPane} containing one cell per module.
          */
         private GridPane buildGrid(final Module[] modules) {
-                String normalStyle =
-
-                                "-fx-border-radius: 4px;"
-                                                + "-fx-background-radius: 4px;"
-                                                + "-fx-padding: 8px 10px;";
+                String normalStyle = "-fx-border-radius: 4px;"
+                                + "-fx-background-radius: 4px;"
+                                + "-fx-padding: 8px 10px;";
                 String selectedStyle = "-fx-background-color: #E8F7FB;"
                                 + "-fx-border-color: "
                                 + "; -fx-border-width: 2px;"
@@ -395,13 +394,13 @@ public final class SubjectView extends StackPane {
                                 + "-fx-padding: 8px 10px;";
 
                 GridPane grid = new GridPane();
-                grid.setHgap(8);
-                grid.setVgap(8);
+                grid.setHgap(CELL_SPACING);
+                grid.setVgap(CELL_SPACING);
 
                 ColumnConstraints c1 = new ColumnConstraints();
-                c1.setPercentWidth(48);
+                c1.setPercentWidth(COL_PERCENT);
                 ColumnConstraints c2 = new ColumnConstraints();
-                c2.setPercentWidth(48);
+                c2.setPercentWidth(COL_PERCENT);
                 grid.getColumnConstraints().addAll(c1, c2);
 
                 for (int i = 0; i < modules.length; i++) {

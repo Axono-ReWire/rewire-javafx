@@ -6,7 +6,6 @@ import com.axono.ui.UIConstants;
 
 import javafx.stage.Stage;
 import java.util.function.Consumer;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -37,7 +36,7 @@ public final class OnboardingStage {
      * Callback invoked with the completed {@link UserProfile} when
      * the user finishes onboarding.
      */
-    private final Consumer<UserProfile> onComplete;
+    private final Consumer onComplete;
 
     /** The user profile being built across all onboarding steps. */
     private final UserProfile profile = new UserProfile();
@@ -83,7 +82,7 @@ public final class OnboardingStage {
      */
     public OnboardingStage(
             final Stage onboardingStage,
-            final Consumer<UserProfile> completionHandler) {
+            final Consumer completionHandler) {
         this.stage = onboardingStage;
         this.onComplete = completionHandler;
         signupView = new SignUpView(profile);
@@ -106,7 +105,8 @@ public final class OnboardingStage {
         root.setCenter(steps[0]);
         root.setBottom(buildFooter());
         stage.setScene(new Scene(root));
-        root.getStylesheets().add(getClass().getResource("/UIStyle.css").toExternalForm());
+        root.getStylesheets().add(
+                getClass().getResource("/UIStyle.css").toExternalForm());
         stage.setMaximized(true);
         root.getStyleClass().add("grad-back");
 
@@ -156,13 +156,8 @@ public final class OnboardingStage {
     private StackPane buildFooter() {
         stepLabel = new Label();
 
-        backButton = navButton(
-                "Back"
-
-        );
-        nextButton = navButton("Next →"
-
-        );
+        backButton = navButton("Back");
+        nextButton = navButton("Next →");
         backButton.setOnAction(e -> goBack());
         nextButton.setOnAction(e -> goNext());
 
@@ -180,16 +175,12 @@ public final class OnboardingStage {
     }
 
     /**
-     * Creates a styled navigation {@link Button} with the given label,
-     * background colour, and foreground (text) colour.
+     * Creates a styled navigation {@link Button} with the given label.
      *
      * @param text the button label.
-     * @param bg   the hex background colour string.
-     * @param fg   the hex text colour string.
      * @return a configured navigation {@link Button}.
      */
-    private Button navButton(
-            final String text) {
+    private Button navButton(final String text) {
         Button b = new Button(text);
         b.getStyleClass().add("button-n");
         return b;
