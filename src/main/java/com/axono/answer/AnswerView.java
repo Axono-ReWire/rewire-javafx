@@ -64,6 +64,14 @@ public final class AnswerView extends ScrollPane {
         /** Reusable CSS prefix for text-fill declarations. */
         private static final String TEXT_FILL = "-fx-text-fill: ";
 
+        /** Reusable card container style for pane and answer rows. */
+        private static final String CARD_STYLE = "-fx-background-color: "
+                        + UITheme.WHITE + ";"
+                        + "-fx-border-color: " + UITheme.TERTIARY + ";"
+                        + "-fx-border-width: 1px;"
+                        + "-fx-border-radius: 8px;"
+                        + "-fx-background-radius: 8px;";
+
         /** Fixed width applied to the per-answer status icon, in px. */
         private static final int ANSWER_LOGO_WIDTH = 30;
 
@@ -316,7 +324,7 @@ public final class AnswerView extends ScrollPane {
                 TitledPane pane = new TitledPane(null, content);
                 pane.setGraphic(header);
                 pane.setExpanded(false);
-                pane.setStyle(UITheme.CARD_STYLE);
+                pane.setStyle(CARD_STYLE);
                 pane.setAnimated(true);
 
                 pane.setTooltip(createTooltip("click to expand or collapse"));
@@ -448,7 +456,7 @@ public final class AnswerView extends ScrollPane {
         private HBox createCard(final HBox content) {
                 content.setPadding(new Insets(UIConstants.PADDING_SM));
                 content.setMaxWidth(UIConstants.CONTENT_MAX_WIDTH);
-                content.setStyle(UITheme.CARD_STYLE
+                content.setStyle(CARD_STYLE
                                 + "-fx-padding: 10px 10px;");
                 return content;
         }

@@ -1,7 +1,7 @@
 package com.axono.dashboard;
 
 import com.axono.model.UserProfile;
-import com.axono.ui.UITheme;
+//import com.axono.ui.UITheme;
 import com.axono.ui.UIConstants;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -50,7 +50,7 @@ public final class DashboardView extends ScrollPane {
                                 UIConstants.CONTENT_PADDING_V,
                                 UIConstants.PADDING_MD));
                 content.setMaxWidth(UIConstants.CONTENT_MAX_WIDTH);
-                content.setStyle(BG_COLOR_STYLE + UITheme.BG + ";");
+                content.getStyleClass().add("grad-back");
                 content.getChildren().addAll(
                                 buildBanner(),
                                 buildProgressSection(),
@@ -58,13 +58,15 @@ public final class DashboardView extends ScrollPane {
 
                 HBox wrapper = new HBox(content);
                 wrapper.setAlignment(Pos.TOP_CENTER);
-                wrapper.setStyle(BG_COLOR_STYLE + UITheme.BG + ";");
+                wrapper.getStyleClass().add("grad-back");
                 HBox.setHgrow(content, Priority.ALWAYS);
 
                 setContent(wrapper);
                 setFitToWidth(true);
                 setBorder(Border.EMPTY);
-                setStyle(BG_COLOR_STYLE + UITheme.BG + ";");
+                // setStyle(BG_COLOR_STYLE
+                // + UITheme.BG
+                // + ";");
         }
 
         /**
@@ -77,9 +79,7 @@ public final class DashboardView extends ScrollPane {
         private VBox buildBanner() {
                 Label welcome = new Label("Welcome, "
                                 + profile.getName() + "!");
-                welcome.setStyle("-fx-font-size: 32px;"
-                                + "-fx-font-weight: bold; -fx-text-fill: "
-                                + UITheme.TEXT_DARK + ";");
+                welcome.getStyleClass().add("header2");
 
                 HBox buttons = new HBox(UIConstants.SPACING_MD,
                                 outlineButton("Profile"),
@@ -120,7 +120,7 @@ public final class DashboardView extends ScrollPane {
 
                                 Label pct = new Label("0% Complete");
                                 pct.setStyle("-fx-text-fill: "
-                                                + UITheme.SECONDARY
+                                                // + UITheme.SECONDARY
                                                 + "; -fx-font-size: 13px;");
 
                                 HBox row = new HBox(UIConstants.SPACING_LG,
@@ -149,11 +149,12 @@ public final class DashboardView extends ScrollPane {
                                 UIConstants.FONT_SUBSECTION);
 
                 Label icon = new Label("📘");
-                icon.setStyle("-fx-font-size: 26px;");
+                icon.getStyleClass().add("subheading");
                 Label topic = new Label("Electronics");
                 topic.setStyle("-fx-font-size: 20px;"
                                 + " -fx-font-weight: bold; -fx-text-fill: "
-                                + UITheme.SECONDARY + ";");
+                                // + UITheme.SECONDARY
+                                + ";");
 
                 HBox header = new HBox(UIConstants.SPACING_XS, icon, topic);
                 header.setAlignment(Pos.CENTER_LEFT);
@@ -187,7 +188,8 @@ public final class DashboardView extends ScrollPane {
                 Label label = bodyLabel(title);
                 label.setStyle("-fx-font-size: 15px;"
                                 + " -fx-font-weight: bold; -fx-text-fill: "
-                                + UITheme.TEXT_DARK + ";");
+                                // + UITheme.TEXT_DARK
+                                + ";");
                 return cardWrap(new VBox(UIConstants.SPACING_MD, label,
                                 outlineButton(btnText)));
         }
@@ -203,8 +205,12 @@ public final class DashboardView extends ScrollPane {
         private VBox cardWrap(final VBox content) {
                 content.setPadding(new Insets(UIConstants.PADDING_MD));
                 content.setMaxWidth(UIConstants.CONTENT_MAX_WIDTH);
-                content.setStyle(BG_COLOR_STYLE + UITheme.WHITE + ";"
-                                + "-fx-border-color: " + UITheme.BORDER + ";"
+                content.setStyle(BG_COLOR_STYLE
+                                // + UITheme.WHITE
+                                + ";"
+                                + "-fx-border-color: "
+                                // + UITheme.BORDER
+                                + ";"
                                 + "-fx-border-radius: 6px;"
                                 + "-fx-background-radius: 6px;");
                 return content;
@@ -232,7 +238,7 @@ public final class DashboardView extends ScrollPane {
                 StackPane fill = new StackPane();
                 fill.setPrefSize(w, UIConstants.SPACING_SM);
                 fill.setStyle(BG_COLOR_STYLE
-                                + UITheme.PRIMARY
+                                // + UITheme.PRIMARY
                                 + "; -fx-background-radius: 4px;");
                 fill.setTranslateX(-(UIConstants.PROGRESS_BAR_WIDTH - w) / 2);
 
@@ -254,7 +260,9 @@ public final class DashboardView extends ScrollPane {
                                 "-fx-font-size: %dpx;"
                                                 + "-fx-font-weight: bold;"
                                                 + "-fx-text-fill: %s;",
-                                size, UITheme.TEXT_DARK));
+                                size
+                // ,UITheme.TEXT_DARK
+                ));
                 return l;
         }
 
@@ -267,7 +275,8 @@ public final class DashboardView extends ScrollPane {
         private Label bodyLabel(final String text) {
                 Label l = new Label(text);
                 l.setStyle("-fx-font-size: 14px; -fx-text-fill: "
-                                + UITheme.TEXT_DARK + ";");
+                                // + UITheme.TEXT_DARK
+                                + ";");
                 return l;
         }
 
@@ -279,15 +288,21 @@ public final class DashboardView extends ScrollPane {
          */
         private Button outlineButton(final String text) {
                 String base = "-fx-background-color: transparent;"
-                                + "-fx-border-color: " + UITheme.PRIMARY
+                                + "-fx-border-color: "
+                                // + UITheme.PRIMARY
                                 + "; -fx-border-width: 2px;"
                                 + "-fx-border-radius: 4px;"
                                 + "-fx-background-radius: 4px;"
-                                + "-fx-text-fill: " + UITheme.PRIMARY + ";"
+                                + "-fx-text-fill: "
+                                // + UITheme.PRIMARY
+                                + ";"
                                 + "-fx-font-weight: bold;"
                                 + "-fx-font-size: 14px; -fx-cursor: hand;";
-                String hover = BG_COLOR_STYLE + UITheme.PRIMARY + ";"
-                                + "-fx-border-color: " + UITheme.PRIMARY
+                String hover = BG_COLOR_STYLE
+                                // + UITheme.PRIMARY
+                                + ";"
+                                + "-fx-border-color: "
+                                // + UITheme.PRIMARY
                                 + "; -fx-border-width: 2px;"
                                 + "-fx-border-radius: 4px;"
                                 + "-fx-background-radius: 4px;"

@@ -30,7 +30,7 @@ public final class UIConstants {
     // ── Window dimensions ────────────────────────────────────────────────────
 
     /** Width of the application windows in pixels. */
-    public static final int WINDOW_WIDTH = 960;
+    public static final int WINDOW_WIDTH = 900;
 
     /** Height of the application windows in pixels. */
     public static final int WINDOW_HEIGHT = 800;
