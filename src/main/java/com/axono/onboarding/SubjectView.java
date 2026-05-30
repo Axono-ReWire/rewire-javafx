@@ -367,7 +367,8 @@ public final class SubjectView extends StackPane {
                                                 CELL_SPACING, 0, 2, 0));
                                 block.getChildren().add(sectionLabel);
                         }
-                        block.getChildren().add(buildGrid(section.getModules()));
+                        block.getChildren()
+                                        .add(buildGrid(section.getModules()));
                 }
                 return block;
         }

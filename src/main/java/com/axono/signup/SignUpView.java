@@ -3,8 +3,6 @@ package com.axono.signup;
 import java.time.LocalDate;
 
 import com.axono.model.UserProfile;
-import javafx.stage.Stage;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;

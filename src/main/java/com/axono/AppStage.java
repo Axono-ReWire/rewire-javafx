@@ -22,18 +22,6 @@ import javafx.stage.Stage;
  */
 public final class AppStage {
 
-    /**
-     * Inline CSS for the default (inactive) state of nav buttons.
-     * private static final String NAV_BTN_BORDER = "; -fx-border-color: "
-     * // + UITheme.BORDER
-     * + "; -fx-border-width: 2px; -fx-border-radius: 4px;";
-     */
-
-    /**
-     * Background colour hex code for the navigation bar.
-     * private static final String NAV_BG = "#FFFFFF";
-     */
-
     /** Spacing between nav bar items, in pixels. */
     private static final int NAV_SPACING = 8;
 
@@ -76,8 +64,10 @@ public final class AppStage {
      */
     private void openOnboarding() {
         Stage onboardingStage = new Stage();
-        // Use a lambda to adapt the callback parameter type expected by OnboardingStage
-        new OnboardingStage(onboardingStage, obj -> onOnboardingComplete((UserProfile) obj));
+        // Use a lambda to adapt the callback parameter
+        // type expected by OnboardingStage
+        new OnboardingStage(onboardingStage,
+                obj -> onOnboardingComplete((UserProfile) obj));
     }
 
     /**
