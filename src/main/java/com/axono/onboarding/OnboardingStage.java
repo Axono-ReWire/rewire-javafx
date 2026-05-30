@@ -2,11 +2,10 @@ package com.axono.onboarding;
 
 import com.axono.model.UserProfile;
 import com.axono.signup.SignUpView;
-import com.axono.ui.UITheme;
 import com.axono.ui.UIConstants;
+
 import javafx.stage.Stage;
 import java.util.function.Consumer;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -37,7 +36,7 @@ public final class OnboardingStage {
      * Callback invoked with the completed {@link UserProfile} when
      * the user finishes onboarding.
      */
-    private final Consumer<UserProfile> onComplete;
+    private final Consumer onComplete;
 
     /** The user profile being built across all onboarding steps. */
     private final UserProfile profile = new UserProfile();
@@ -83,7 +82,7 @@ public final class OnboardingStage {
      */
     public OnboardingStage(
             final Stage onboardingStage,
-            final Consumer<UserProfile> completionHandler) {
+            final Consumer completionHandler) {
         this.stage = onboardingStage;
         this.onComplete = completionHandler;
         signupView = new SignUpView(profile);
@@ -101,13 +100,16 @@ public final class OnboardingStage {
      */
     private void buildUI() {
         root = new BorderPane();
-        root.setStyle("-fx-background-color: " + UITheme.BG + ";");
+
         root.setTop(buildHeader());
         root.setCenter(steps[0]);
         root.setBottom(buildFooter());
+        stage.setScene(new Scene(root));
+        root.getStylesheets().add(
+                getClass().getResource("/UIStyle.css").toExternalForm());
+        stage.setMaximized(true);
+        root.getStyleClass().add("grad-back");
 
-        stage.setScene(new Scene(root,
-                UIConstants.WINDOW_WIDTH, UIConstants.WINDOW_HEIGHT));
         stage.setTitle("ReWire — Setup");
         stage.show();
         updateStep();
@@ -121,8 +123,7 @@ public final class OnboardingStage {
      */
     private HBox buildHeader() {
         Label logo = new Label("Axono - ReWire");
-        logo.setStyle("-fx-text-fill: white;"
-                + "-fx-font-size: 22px; -fx-font-weight: bold;");
+
         HBox.setHgrow(logo, Priority.ALWAYS);
 
         Region spacer = new Region();
@@ -134,19 +135,14 @@ public final class OnboardingStage {
         HBox.setHgrow(dotsRow, Priority.NEVER);
         for (int i = 0; i < steps.length; i++) {
             Circle dot = new Circle(UIConstants.SPACING_XS,
-                    Color.web(UITheme.TERTIARY));
+                    Color.web("#399386"));
             dots.add(dot);
             dotsRow.getChildren().add(dot);
         }
 
         HBox header = new HBox(logo, spacer, dotsRow);
-        header.setAlignment(Pos.CENTER_LEFT);
-        header.setStyle("-fx-background-color: " + UITheme.PRIMARY + ";");
-        header.setPadding(new Insets(
-                UIConstants.PADDING_SM,
-                UIConstants.PADDING_LG,
-                UIConstants.PADDING_SM,
-                UIConstants.PADDING_LG));
+
+        header.getStyleClass().add("navbar");
         return header;
     }
 
@@ -159,12 +155,9 @@ public final class OnboardingStage {
      */
     private StackPane buildFooter() {
         stepLabel = new Label();
-        stepLabel.setStyle("-fx-text-fill: "
-                + UITheme.TEXT_MUTED + "; -fx-font-size: 12px;");
 
-        backButton = navButton(
-                "← Back", UITheme.SECONDARY_OPTION, UITheme.TEXT_DARK);
-        nextButton = navButton("Next →", UITheme.SECONDARY, UITheme.WHITE);
+        backButton = navButton("Back");
+        nextButton = navButton("Next →");
         backButton.setOnAction(e -> goBack());
         nextButton.setOnAction(e -> goNext());
 
@@ -177,43 +170,19 @@ public final class OnboardingStage {
         StackPane footer = new StackPane(stepLabel, centerButtons);
 
         StackPane.setAlignment(stepLabel, Pos.CENTER_LEFT);
-
-        footer.setPadding(new Insets(
-                UIConstants.PADDING_SM,
-                UIConstants.PADDING_LG,
-                UIConstants.PADDING_SM,
-                UIConstants.PADDING_LG));
-        footer.setStyle(
-                "-fx-background-color: white;"
-                        + "-fx-border-color: " + UITheme.BORDER + ";"
-                        + "-fx-border-width: 1 0 0 0;");
+        footer.getStyleClass().add("footer");
         return footer;
     }
 
     /**
-     * Creates a styled navigation {@link Button} with the given label,
-     * background colour, and foreground (text) colour.
+     * Creates a styled navigation {@link Button} with the given label.
      *
      * @param text the button label.
-     * @param bg   the hex background colour string.
-     * @param fg   the hex text colour string.
      * @return a configured navigation {@link Button}.
      */
-    private Button navButton(
-            final String text,
-            final String bg,
-            final String fg) {
+    private Button navButton(final String text) {
         Button b = new Button(text);
-        b.setPrefSize(UIConstants.WIZARD_BTN_WIDTH,
-                UIConstants.WIZARD_BTN_HEIGHT);
-        String base = String.format(
-                "-fx-background-color: %s; -fx-text-fill: %s;"
-                        + "-fx-font-weight: bold; -fx-font-size: 13px;"
-                        + "-fx-background-radius: 6px; -fx-cursor: hand;",
-                bg, fg);
-        b.setStyle(base);
-        b.setOnMouseEntered(e -> b.setStyle(base + "-fx-opacity: 0.88;"));
-        b.setOnMouseExited(e -> b.setStyle(base));
+        b.getStyleClass().add("button-n");
         return b;
     }
 
@@ -264,20 +233,17 @@ public final class OnboardingStage {
     private void updateStep() {
         for (int i = 0; i < dots.size(); i++) {
             dots.get(i).setFill(Color.web(
-                    i <= currentStep ? UITheme.TERTIARY : UITheme.BORDER));
+                    i <= currentStep ? "#399386" : "#DEE2E6"));
         }
         stepLabel.setText("Step " + (currentStep + 1)
                 + " of " + steps.length);
+        stepLabel.getStyleClass().add("label");
         backButton.setVisible(currentStep > 0);
 
         boolean lastStep = (currentStep == steps.length - 1);
-        String color = lastStep ? UITheme.PRIMARY : UITheme.TERTIARY;
+        String color = lastStep ? "#59BE8B" : "#399386";
         nextButton.setText(lastStep ? "Launch App" : "Next");
-        nextButton.setStyle(String.format(
-                "-fx-background-color: %s; -fx-text-fill: white;"
-                        + "-fx-font-weight: bold; -fx-font-size: 13px;"
-                        + "-fx-background-radius: 6px; -fx-cursor: hand;",
-                color));
+        nextButton.getStyleClass().add("button-s");
     }
 
     /**
