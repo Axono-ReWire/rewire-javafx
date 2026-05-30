@@ -69,7 +69,7 @@ class DashboardViewTest {
      */
     @Test
     void sampleTest() {
-        assertEquals(4, 2 + 2);
+        assertEquals(ARITHMETIC_RESULT, 2 + 2);
     }
 
     /**

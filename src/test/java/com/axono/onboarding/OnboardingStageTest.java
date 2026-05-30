@@ -41,6 +41,9 @@ class OnboardingStageTest {
     /** Timeout duration for async operations in milliseconds. */
     private static final long LONG_TIMEOUT_MS = 2000;
 
+    /** Historical year for testing date picker (Y2K). */
+    private static final int TEST_YEAR = 2000;
+
     /** The target application stage instance hosted on the active window. */
     private Stage testStageParam;
 
@@ -237,7 +240,8 @@ class OnboardingStageTest {
                     .map(javafx.scene.control.DatePicker.class::cast)
                     .findFirst()
                     .ifPresent(datePicker -> {
-                        datePicker.setValue(java.time.LocalDate.of(2000, 1, 1)); // Historical date for testing
+                        datePicker.setValue(
+                                java.time.LocalDate.of(TEST_YEAR, 1, 1));
                     });
         });
 
