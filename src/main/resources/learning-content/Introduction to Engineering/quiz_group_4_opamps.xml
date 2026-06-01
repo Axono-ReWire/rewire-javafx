@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<learningContent>
+  <metadata>
+    <title>Quiz Group 4: Op-Amps and Amplifier Circuits</title>
+    <author>Engineering Lecture Notes</author>
+    <version>1.0</version>
+    <created>2026-05-23T21:00:00Z</created>
+    <description>Covers Op-Amps, Linear Op-Amp Circuits, Non-Linear Op-Amp Circuits, Non-Ideal Op-Amp Behaviour, and Op-Amp Bandwidths (Lectures 13, 14, 23, 28, 29).</description>
+  </metadata>
+  <slides>
+    <slide id="1">
+      <content>
+        <text>Topic: Ideal Op-Amp</text>
+        <question>
+          <text>Which of the following is NOT a property of an ideal op-amp?</text>
+          <answers>
+            <answer index="1">Infinite open-loop gain</answer>
+            <answer index="2">Infinite input impedance</answer>
+            <answer index="3">Zero output impedance</answer>
+            <answer index="4">Finite gain-bandwidth product</answer>
+          </answers>
+          <correctAnswer>4</correctAnswer>
+          <explanation>An ideal op-amp has infinite gain, infinite input impedance, zero output impedance. Finite GBW is non-ideal.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="2">
+      <content>
+        <text>Topic: Golden Rules</text>
+        <question>
+          <text>Using the op-amp golden rules in linear operation, what current is drawn into the inputs?</text>
+          <answers>
+            <answer index="1">Infinite</answer>
+            <answer index="2">Equal to V/R_in</answer>
+            <answer index="3">Zero</answer>
+            <answer index="4">Depends on supply voltage</answer>
+          </answers>
+          <correctAnswer>3</correctAnswer>
+          <explanation>Golden rule 2: no current flows into the inputs (infinite input impedance).</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="3">
+      <content>
+        <text>Topic: Inverting Amplifier</text>
+        <question>
+          <text>An inverting amplifier has R_in = 10 kOhm and R_f = 100 kOhm. What is the closed-loop gain?</text>
+          <answers>
+            <answer index="1">+10</answer>
+            <answer index="2">-10</answer>
+            <answer index="3">+11</answer>
+            <answer index="4">-11</answer>
+          </answers>
+          <correctAnswer>2</correctAnswer>
+          <explanation>A_v = -R_f / R_in = -100k / 10k = -10.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="4">
+      <content>
+        <text>Topic: Non-Inverting Amplifier</text>
+        <question>
+          <text>A non-inverting amplifier has R_f = 47 kOhm and R_in = 10 kOhm. What is the gain?</text>
+          <answers>
+            <answer index="1">4.7</answer>
+            <answer index="2">-4.7</answer>
+            <answer index="3">5.7</answer>
+            <answer index="4">-5.7</answer>
+          </answers>
+          <correctAnswer>3</correctAnswer>
+          <explanation>A_v = 1 + R_f/R_in = 1 + 47/10 = 5.7.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="5">
+      <content>
+        <text>Topic: Summing Amplifier</text>
+        <question>
+          <text>Summing amplifier: R_f = 10 kOhm, two equal R = 10 kOhm inputs, V1 = 2 V, V2 = 3 V. What is V_out?</text>
+          <answers>
+            <answer index="1">5 V</answer>
+            <answer index="2">-5 V</answer>
+            <answer index="3">1 V</answer>
+            <answer index="4">-1 V</answer>
+          </answers>
+          <correctAnswer>2</correctAnswer>
+          <explanation>V_out = -R_f x (V1/R + V2/R) = -(2+3) = -5 V.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="6">
+      <content>
+        <text>Topic: Gain-Bandwidth Product</text>
+        <question>
+          <text>An op-amp has GBW = 10 MHz and closed-loop gain = 100. What is the -3 dB bandwidth?</text>
+          <answers>
+            <answer index="1">1 GHz</answer>
+            <answer index="2">100 kHz</answer>
+            <answer index="3">10 kHz</answer>
+            <answer index="4">1 MHz</answer>
+          </answers>
+          <correctAnswer>2</correctAnswer>
+          <explanation>Bandwidth = GBW / gain = 10 MHz / 100 = 100 kHz.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="7">
+      <content>
+        <text>Topic: Comparator</text>
+        <question>
+          <text>An op-amp comparator with no feedback and V+ greater than V- will output:</text>
+          <answers>
+            <answer index="1">A value equal to V+ minus V-</answer>
+            <answer index="2">Zero volts</answer>
+            <answer index="3">The positive supply rail (saturated high)</answer>
+            <answer index="4">The negative supply rail</answer>
+          </answers>
+          <correctAnswer>3</correctAnswer>
+          <explanation>With infinite open-loop gain and V+ greater than V-, output saturates at the positive supply.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="8">
+      <content>
+        <text>Topic: Schmitt Trigger</text>
+        <question>
+          <text>A Schmitt trigger uses positive feedback to create:</text>
+          <answers>
+            <answer index="1">Higher gain</answer>
+            <answer index="2">Hysteresis with two different switching thresholds</answer>
+            <answer index="3">Lower output noise</answer>
+            <answer index="4">A linear transfer function</answer>
+          </answers>
+          <correctAnswer>2</correctAnswer>
+          <explanation>Positive feedback creates hysteresis: separate upper and lower switching thresholds preventing noise-induced multiple triggering.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="9">
+      <content>
+        <text>Topic: Non-Ideal Behaviour</text>
+        <question>
+          <text>Op-amp slew rate limits which characteristic of the output?</text>
+          <answers>
+            <answer index="1">The maximum DC offset</answer>
+            <answer index="2">The common-mode rejection ratio</answer>
+            <answer index="3">The maximum rate of change of output voltage</answer>
+            <answer index="4">The open-loop gain at DC</answer>
+          </answers>
+          <correctAnswer>3</correctAnswer>
+          <explanation>Slew rate SR = dV_out/dt (V/us). It limits how fast the output can change.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="10">
+      <content>
+        <text>Topic: Non-Ideal Behaviour</text>
+        <question>
+          <text>Input offset voltage V_os in a real op-amp causes:</text>
+          <answers>
+            <answer index="1">A DC error at the output even with zero differential input</answer>
+            <answer index="2">A reduction in bandwidth</answer>
+            <answer index="3">Increased slew rate</answer>
+            <answer index="4">Oscillation at high frequencies</answer>
+          </answers>
+          <correctAnswer>1</correctAnswer>
+          <explanation>V_os is an internal mismatch appearing as a small DC voltage at the input, amplified to a DC output error.</explanation>
+        </question>
+      </content>
+    </slide>
+  </slides>
+</learningContent>

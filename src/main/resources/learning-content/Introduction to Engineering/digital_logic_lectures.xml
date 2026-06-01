@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<learningContent>
+  <metadata>
+    <title>Digital Logic Lectures (D1-D4)</title>
+    <author>Engineering Lecture Notes</author>
+    <version>1.0</version>
+    <created>2026-05-23</created>
+    <description>A series of four short introductions covering digital logic fundamentals: Boolean algebra, logic gates, Karnaugh maps, latches, registers, and finite state machines.</description>
+  </metadata>
+  <slides>
+    <slide id="1">
+      <content>
+        <text>Title slide for Lecture D1: Boolean Algebra and Boolean Logic</text>
+        <text>A Short Introduction to Boolean Algebra and Boolean Logic</text>
+        <text>Prerequisites: None</text>
+      </content>
+    </slide>
+    <slide id="2">
+      <content>
+        <text>The three fundamental Boolean operators: AND, OR, NOT — definitions and examples</text>
+        <text>The Three Boolean Operators</text>
+        <text>Boolean algebra has only two values: 1 (true) and 0 (false). All logic is built from three fundamental operations:</text>
+        <text>AND (. or no symbol): output is 1 only if both inputs are 1. Example: 1.1 = 1, 1.0 = 0</text>
+        <text>OR (+): output is 1 if at least one input is 1. Example: 0+1 = 1, 1+1 = 1</text>
+        <text>NOT (! or overbar): inverts the input. Example: !1 = 0, !0 = 1</text>
+        <image src="assets/D1_operators_table.png"><alt>Table comparing AND, OR, NOT Boolean operators with conventional arithmetic equivalents</alt></image>
+      </content>
+    </slide>
+    <slide id="3">
+      <content>
+        <text>NAND, NOR, and XOR derived gates — definitions and truth table summaries</text>
+        <text>NAND, NOR, and XOR</text>
+        <text>NAND: output is 1 if at least one input is 0 (AND followed by NOT).</text>
+        <text>NOR: output is 1 only if all inputs are 0 (OR followed by NOT).</text>
+        <text>XOR (⊕): output is 1 if an odd number of inputs are 1. Two-input: output is 1 when inputs differ.</text>
+        <text>XNOR: XOR followed by NOT — output is 1 when inputs are equal.</text>
+        <image src="assets/D1_nand_nor_xor_truth.png"><alt>Truth tables for NAND, NOR, XOR and XNOR two-input gates</alt></image>
+      </content>
+    </slide>
+    <slide id="4">
+      <content>
+        <text>Order of precedence BNAO: Brackets, NOT, AND, OR — analogous to BODMAS for conventional arithmetic</text>
+        <text>Precedence and Identities</text>
+        <text>Evaluation order (BNAO): Brackets first, then NOT, then AND, then OR.</text>
+        <text>Example: X+Y.!Z evaluates as X + (Y . (!Z))</text>
+        <text>Key single-variable identities: X.0=0, X.1=X, X+0=X, X+1=1, X.X=X, X.!X=0, X+X=X, X+!X=1, !!X=X</text>
+      </content>
+    </slide>
+    <slide id="5">
+      <content>
+        <text>Truth tables as a systematic way to evaluate Boolean expressions; ordering inputs as binary numbers</text>
+        <text>Truth Tables</text>
+        <text>A truth table lists all possible input combinations in ascending binary order with the corresponding output.</text>
+        <text>For n inputs there are 2ⁿ rows. Truth tables are the most reliable way to evaluate or verify a Boolean expression.</text>
+        <image src="assets/D1_truth_table_nand.png"><alt>Truth table for a 2-input NAND gate with inputs as binary 00 01 10 11</alt></image>
+      </content>
+    </slide>
+    <slide id="6">
+      <content>
+        <text>De Morgan's theorem: invert inputs and output of OR to get AND, and vice versa</text>
+        <text>De Morgan's Theorem</text>
+        <text>Theorem: !(X+Y) = !X . !Y and !(X.Y) = !X + !Y</text>
+        <text>Practical use: any OR gate can be replaced by a NAND gate with inverted inputs; any AND gate can be replaced by a NOR gate with inverted inputs. Enables implementing all logic with only NAND (or only NOR) gates.</text>
+        <image src="assets/D1_demorgan.png"><alt>De Morgan equivalence showing OR gate with inverted inputs equals NAND gate</alt></image>
+      </content>
+    </slide>
+    <slide id="7">
+      <content>
+        <text>Summary of Boolean algebra key results</text>
+        <text>Summary — Boolean Algebra</text>
+        <text>• Three fundamental operations: AND, OR, NOT</text>
+        <text>• NAND, NOR, XOR are derived and widely used in hardware</text>
+        <text>• Evaluation order: Brackets → NOT → AND → OR (BNAO)</text>
+        <text>• De Morgan's theorem: !(A+B) = !A.!B and !(A.B) = !A+!B</text>
+        <text>• Truth tables are the most reliable tool for evaluating expressions</text>
+      </content>
+    </slide>
+    <slide id="8">
+      <content>
+        <text>Title slide for Lecture D2: Digital Logic and Karnaugh Maps</text>
+        <text>A Short Introduction to Digital Logic and Karnaugh Maps</text>
+        <text>Prerequisites: Boolean Algebra</text>
+      </content>
+    </slide>
+    <slide id="9">
+      <content>
+        <text>Standard logic gate circuit symbols: AND, OR, NOT, NAND, NOR, XOR — inputs on left, outputs on right</text>
+        <text>Logic Gate Symbols</text>
+        <text>Each Boolean function has a standard circuit symbol used in schematic diagrams. Inputs enter from the left; output leaves to the right.</text>
+        <text>Small circle (bubble) on a gate output means NOT. NAND = AND + bubble. NOR = OR + bubble.</text>
+        <text>Memory aid: the AND gate body looks like a capital D (there is a D in AND). The OR gate body is curved like an arrowhead.</text>
+        <image src="assets/D2_gate_symbols.png"><alt>Standard logic gate symbols: NOT, AND, OR, XOR, NAND, NOR</alt></image>
+      </content>
+    </slide>
+    <slide id="10">
+      <content>
+        <text>Sum-of-products (SOP) implementation: one AND gate per truth table row that is 1, combined with OR gate</text>
+        <text>Sum-of-Products Implementation</text>
+        <text>Any truth table can be implemented by: (1) creating one AND gate per row where the output is 1, each ANDing all inputs (or their inverses), then (2) ORing all the AND gate outputs together.</text>
+        <text>This is always correct but rarely optimal — it can require many gates. Karnaugh maps find the minimal equivalent.</text>
+        <image src="assets/D2_sop_circuit.png"><alt>Circuit implementing a three-input function via sum-of-products using four AND gates and one OR gate</alt></image>
+      </content>
+    </slide>
+    <slide id="11">
+      <content>
+        <text>Two-variable Karnaugh map layout; prime implicants as rectangular loops; deriving minimal Boolean expression</text>
+        <text>Karnaugh Maps — Two Variables</text>
+        <text>A Karnaugh map arranges truth table outputs in a 2D grid so that AND-gate terms appear as rectangles. Draw the smallest number of largest loops enclosing all 1s and no 0s.</text>
+        <text>Each loop corresponds to one AND term (prime implicant). OR the prime implicants together for the final expression.</text>
+        <image src="assets/D2_kmap_2var.png"><alt>Two-variable Karnaugh map with loops drawn showing corresponding Boolean expression</alt></image>
+      </content>
+    </slide>
+    <slide id="12">
+      <content>
+        <text>Three-variable Karnaugh map; Gray code column ordering 00,01,11,10; wrapping loops at edges</text>
+        <text>Karnaugh Maps — Three Variables</text>
+        <text>Columns must be ordered in Gray code: 00, 01, 11, 10 (NOT 00, 01, 10, 11). This ensures every rectangle maps to a valid AND term.</text>
+        <text>Loops may wrap around the edges of the map (top↔bottom, left↔right) — think of the map as a torus.</text>
+        <text>Valid loop sizes: 1, 2, 4, or 8 cells. Always use the largest possible loops.</text>
+        <image src="assets/D2_kmap_3var.png"><alt>Three-variable Karnaugh map with Gray-code column ordering and example wrapping loop</alt></image>
+      </content>
+    </slide>
+    <slide id="13">
+      <content>
+        <text>Four-variable Karnaugh map; wrapping in both dimensions including corner loops; example derivation</text>
+        <text>Karnaugh Maps — Four Variables</text>
+        <text>Four-variable K-maps are 4×4 grids with both axes in Gray code order (00,01,11,10). Loops can wrap horizontally, vertically, and around corners simultaneously.</text>
+        <text>Valid loop sizes: 1, 2, 4, 8, or 16 cells. Corner-wrapping loops (4 corners = one valid loop) are easy to miss — watch carefully.</text>
+        <image src="assets/D2_kmap_4var.png"><alt>Four-variable Karnaugh map with example loops including a corner-wrapping loop</alt></image>
+      </content>
+    </slide>
+    <slide id="14">
+      <content>
+        <text>Don't-care states (X) in truth tables; include X cells in loops only if they help enlarge a loop</text>
+        <text>Don't-Care States</text>
+        <text>An X in a truth table means the output can be 0 or 1 — those input combinations never occur in practice.</text>
+        <text>On a K-map: treat X cells as 1s when including them allows a larger loop. Ignore them otherwise. This often leads to significantly simpler logic.</text>
+        <image src="assets/D2_dont_care.png"><alt>Karnaugh map with X (don't-care) cells showing how including them enlarges a loop</alt></image>
+      </content>
+    </slide>
+    <slide id="15">
+      <content>
+        <text>Multiplexers as an alternative to K-maps: read truth table column directly onto data inputs D0...Dn</text>
+        <text>Multiplexers as Logic Circuits</text>
+        <text>A multiplexer (MUX) with n select inputs routes one of 2ⁿ data inputs to the output, chosen by the binary value on the select lines.</text>
+        <text>Any truth table can be implemented directly: connect input variables to the select lines and wire each data input Dₖ to the truth table output for row k. No K-map needed.</text>
+        <image src="assets/D2_mux_logic.png"><alt>4-input multiplexer implementing a truth table directly with select inputs A and B</alt></image>
+      </content>
+    </slide>
+    <slide id="16">
+      <content>
+        <text>Two most common K-map errors: wrong column order and missing wrapping loops</text>
+        <text>Common K-Map Errors</text>
+        <text>Error 1 — Wrong column order: columns must be 00, 01, 11, 10. Using 00, 01, 10, 11 produces invalid loops.</text>
+        <text>Error 2 — Missing wrapping loops: always check whether the leftmost and rightmost columns (or top and bottom rows) can form a loop. Corner loops spanning all four corners are also valid and easy to overlook.</text>
+      </content>
+    </slide>
+    <slide id="17">
+      <content>
+        <text>Summary of digital logic and Karnaugh map key points</text>
+        <text>Summary — Digital Logic and Karnaugh Maps</text>
+        <text>• Logic gates implement Boolean functions in hardware</text>
+        <text>• Sum-of-products always works but is rarely minimal</text>
+        <text>• K-maps find the minimal sum-of-products by drawing the fewest, largest loops over 1s</text>
+        <text>• Column ordering must be Gray code: 00, 01, 11, 10</text>
+        <text>• Loops wrap at all edges; valid sizes are powers of 2</text>
+        <text>• Don't-care cells can be used to enlarge loops</text>
+        <text>• Multiplexers implement any truth table directly without K-maps</text>
+      </content>
+    </slide>
+    <slide id="18">
+      <content>
+        <text>Title slide for Lecture D3: Latches and Registers</text>
+        <text>A Short Introduction to Latches and Registers</text>
+        <text>Prerequisites: Digital Logic</text>
+      </content>
+    </slide>
+    <slide id="19">
+      <content>
+        <text>Cross-coupled NOR gate pair: two stable states when both inputs are 0 — the basis of memory in digital circuits</text>
+        <text>The Bistable Circuit</text>
+        <text>When the outputs of two NOR gates feed back into each other's inputs, the circuit has two stable states when both inputs are 0. It remembers which input was last set to 1.</text>
+        <text>This feedback is the fundamental mechanism behind all digital memory — the circuit stores one bit of information.</text>
+        <image src="assets/D3_cross_coupled_nor.png"><alt>Cross-coupled NOR gate pair showing two stable output states when both inputs are 0</alt></image>
+      </content>
+    </slide>
+    <slide id="20">
+      <content>
+        <text>Unstable state: if both inputs of cross-coupled NOR gates go to 0 simultaneously, the output oscillates — must be avoided</text>
+        <text>Unstable States and Oscillation</text>
+        <text>If both inputs of the cross-coupled NOR pair are simultaneously driven to 0 from 1, neither gate can settle — the output oscillates between 0 and 1 indefinitely.</text>
+        <text>Latches and flip-flops are specifically designed to prevent this. Key constraints: set-up time and hold time must be respected.</text>
+        <image src="assets/D3_oscillation.png"><alt>Cross-coupled NOR pair showing oscillating output when both inputs simultaneously go low</alt></image>
+      </content>
+    </slide>
+    <slide id="21">
+      <content>
+        <text>D-type latch: output follows input D when Enable=1; output holds (latches) its value when Enable=0</text>
+        <text>The D-Type Latch</text>
+        <text>A D-type latch uses a NOT gate on the input to ensure the two NOR gate inputs can never both be 1 simultaneously.</text>
+        <text>Behaviour: when Enable (B) = 1, output Q follows data input D. When Enable = 0, Q holds its last value regardless of D.</text>
+        <image src="assets/D3_d_latch.png"><alt>D-type latch circuit and symbol with data input D, enable B, and output Q and !Q</alt></image>
+      </content>
+    </slide>
+    <slide id="22">
+      <content>
+        <text>D-type flip-flop: output changes only on rising clock edge, made from two cascaded D-type latches</text>
+        <text>The D-Type Flip-Flop</text>
+        <text>A D-type flip-flop is built from two D-type latches in series with the clock inverted between them. The output Q only captures the value of D at the rising edge of the clock.</text>
+        <text>This edge-triggered behaviour is essential for synchronous digital design — all outputs change at the same predictable moment.</text>
+        <image src="assets/D3_d_flipflop.png"><alt>D-type flip-flop circuit symbol showing data input D, clock CLK, and outputs Q and !Q</alt></image>
+      </content>
+    </slide>
+    <slide id="23">
+      <content>
+        <text>T-type flip-flop (toggles on rising edge if T=1); JK-type flip-flop (universal: set, reset, hold, toggle)</text>
+        <text>T-Type and JK-Type Flip-Flops</text>
+        <text>T-type flip-flop: if T=1 on the rising clock edge, the output toggles (!Q → Q). If T=0, Q is unchanged. Useful for counters.</text>
+        <text>JK flip-flop: J=1,K=0 sets Q=1; J=0,K=1 resets Q=0; J=0,K=0 holds; J=1,K=1 toggles. Called a universal flip-flop — D and T types can both be derived from it.</text>
+        <image src="assets/D3_jk_flipflop.png"><alt>JK flip-flop symbol and behaviour table showing set reset hold and toggle modes</alt></image>
+      </content>
+    </slide>
+    <slide id="24">
+      <content>
+        <text>Registers: N flip-flops in parallel store an N-bit value; used as state storage in synchronous systems</text>
+        <text>Registers</text>
+        <text>A register is a group of D-type flip-flops sharing a common clock, together storing an N-bit binary value.</text>
+        <text>Registers form the state memory in synchronous digital systems — all bits update simultaneously on each rising clock edge.</text>
+        <image src="assets/D3_register.png"><alt>4-bit register made of four D-type flip-flops with shared clock and individual data inputs</alt></image>
+      </content>
+    </slide>
+    <slide id="25">
+      <content>
+        <text>Setup and hold time constraints: data must be stable before (setup) and after (hold) the clock edge</text>
+        <text>Setup and Hold Times</text>
+        <text>Setup time: data input D must be stable for a minimum time before the rising clock edge arrives.</text>
+        <text>Hold time: data input D must remain stable for a minimum time after the rising clock edge. Violating either causes metastability — the output enters an unpredictable intermediate state.</text>
+      </content>
+    </slide>
+    <slide id="26">
+      <content>
+        <text>Summary of latches, flip-flops, and registers</text>
+        <text>Summary — Latches and Registers</text>
+        <text>• Bistable circuits store 1 bit using feedback — the basis of all digital memory</text>
+        <text>• D-latch: transparent when Enable=1, holds value when Enable=0</text>
+        <text>• D-type flip-flop: samples D only on the rising clock edge — made from two cascaded latches</text>
+        <text>• T-type: toggles on clock edge if T=1; JK-type: universal — set, reset, hold, toggle</text>
+        <text>• Registers: N flip-flops sharing a clock, storing N bits simultaneously</text>
+        <text>• Setup and hold time violations cause metastability — must always be avoided</text>
+      </content>
+    </slide>
+    <slide id="27">
+      <content>
+        <text>Title slide for Lecture D4: State Machines</text>
+        <text>A Short Introduction to State Machines</text>
+        <text>Prerequisites: Digital Logic, Registers</text>
+      </content>
+    </slide>
+    <slide id="28">
+      <content>
+        <text>State machines store state in flip-flops; change state on clock edges based on inputs and current state</text>
+        <text>What is a State Machine?</text>
+        <text>A state machine is a digital circuit that can exist in a number of distinct states and transitions between them based on inputs. State is stored in registers (flip-flops).</text>
+        <text>Synchronous state machines change state only on the rising edge of a clock — the most common and easiest to design. N flip-flops provide 2ᴺ possible states.</text>
+        <text>Number of flip-flops required: N = ⌈log₂(number of states)⌉</text>
+        <image src="assets/D4_state_machine_block.png"><alt>Block diagram of a synchronous state machine: Next State Logic, Registers, Output Logic, clock, and inputs/outputs</alt></image>
+      </content>
+    </slide>
+    <slide id="29">
+      <content>
+        <text>State transition diagrams: circles=states, arrows=transitions with conditions, double circle=default state</text>
+        <text>State Transition Diagrams</text>
+        <text>States are drawn as circles labelled with a name and binary representation. Arrows between states show transitions; the expression on each arrow is the condition that triggers it.</text>
+        <text>The default (reset) state is shown with a double circle. Condition '1' means the transition always occurs on the next clock edge.</text>
+        <image src="assets/D4_state_diagram.png"><alt>State transition diagram with three states S0 (double circle), S1, S2 and labelled transition conditions</alt></image>
+      </content>
+    </slide>
+    <slide id="30">
+      <content>
+        <text>State machine design procedure: state diagram → bit assignments → next-state truth table → K-maps → logic gates</text>
+        <text>Design Procedure</text>
+        <text>1. Draw the state transition diagram from the specification.</text>
+        <text>2. Assign unique binary bit patterns to each state (e.g. S0=00, S1=01, S2=10, S3=11).</text>
+        <text>3. Write the next-state truth table: inputs are current state bits + external inputs; outputs are next state bits (Q*).</text>
+        <text>4. Write the output truth table: inputs are current state bits; outputs are the required signals.</text>
+        <text>5. Minimise both truth tables using Karnaugh maps or multiplexers, then implement with gates.</text>
+        <image src="assets/D4_design_flow.png"><alt>Flowchart showing the state machine design procedure from specification to final circuit</alt></image>
+      </content>
+    </slide>
+    <slide id="31">
+      <content>
+        <text>Traffic light example: four-state Moore machine with state assignments 00,01,10,11 and next-state truth table</text>
+        <text>Example — Traffic Light Controller</text>
+        <text>Four states: S0 green (00) → S1 amber (01) → S2 red (10) → S3 red+amber (11) → S0. Controlled by a pedestrian button input A.</text>
+        <text>Two flip-flops Q1 Q0 store the state. Next-state logic and output logic are derived from truth tables and minimised with K-maps.</text>
+        <text>Red output = Q1, Amber = Q0 — taken directly from state registers with no extra gates needed for these outputs.</text>
+        <image src="assets/D4_traffic_light_fsm.png"><alt>State transition diagram for the traffic light controller with four states and button input A</alt></image>
+      </content>
+    </slide>
+    <slide id="32">
+      <content>
+        <text>Moore vs Mealy state machines: Moore outputs depend only on state; Mealy outputs also depend on current inputs</text>
+        <text>Moore and Mealy State Machines</text>
+        <text>Moore machine: outputs are a function of current state only. Outputs change only on clock edges. Easier to design and analyse.</text>
+        <text>Mealy machine: outputs are a function of both current state and current inputs. Outputs can change between clock edges if inputs change. Requires fewer states for the same function but is harder to design.</text>
+        <image src="assets/D4_moore_mealy.png"><alt>Comparison block diagrams of Moore and Mealy state machine architectures</alt></image>
+      </content>
+    </slide>
+    <slide id="33">
+      <content>
+        <text>Sequence detector example: detecting bit pattern 1101 in a serial input stream; handling overlapping sequences</text>
+        <text>Example — Sequence Detector</text>
+        <text>A sequence detector outputs 1 when a specific bit pattern (e.g. 1101) has been received on a serial input.</text>
+        <text>Key design challenge: when the wrong symbol arrives, determine how many previously-received symbols still match the beginning of the target sequence — do not restart from S0 if a partial prefix is still valid.</text>
+        <text>Overlapping sequences: after reaching the final state, transition to the appropriate intermediate state rather than back to S0 so that overlapping occurrences of the pattern are also detected.</text>
+        <image src="assets/D4_sequence_detector.png"><alt>State transition diagram for a 1101 sequence detector with five states and correct partial-match transitions</alt></image>
+      </content>
+    </slide>
+    <slide id="34">
+      <content>
+        <text>Summary of state machines</text>
+        <text>Summary — State Machines</text>
+        <text>• State machines store state in flip-flop registers; N flip-flops give 2ᴺ states</text>
+        <text>• Synchronous design: state changes only on rising clock edge</text>
+        <text>• Design flow: state diagram → bit assignments → next-state and output truth tables → K-maps → gates</text>
+        <text>• Moore: outputs depend only on state. Mealy: outputs depend on state and inputs</text>
+        <text>• Sequence detectors require careful handling of partial prefix matches and overlapping sequences</text>
+        <text>• Next-state logic and output logic are both implemented as standard combinatorial logic circuits</text>
+      </content>
+    </slide>
+  </slides>
+</learningContent>

@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<learningContent>
+  <metadata>
+    <title>Integration by Substitution</title>
+    <author />
+    <version />
+    <created />
+    <description />
+  </metadata>
+  <slides>
+    <slide id="1">
+      <content>
+        <text>Method 3.1 Integration by Substitution involves three basic steps:</text>
+        <text>1. Choose a substitution, u(x) that transforms a &#x2018;difficult&#x2019; looking integral</text>
+        <math>\int f(x)\,dx</math>
+        <text>to an equivalent but simpler integral</text>
+        <math>\int g(u)\,du</math>
+        <text>I.e, write</text>
+        <math>\int f(x)\,dx</math>
+        <text>in terms of u(x) and</text>
+        <math>du = \frac{du}{dx}\,dx</math>
+        <text>2. Evaluate the resulting expression for the integral in terms of u.</text>
+        <text>3. Re-substitute for u(x) in terms of x.</text>
+        <text>This approach is formalised using the chain rule for differentiation; however, in practice we learn what types of substitution are effective by experience.</text>
+      </content>
+      <duration />
+      <transition type="" duration="" />
+      <extensions />
+    </slide>
+  </slides>
+</learningContent>

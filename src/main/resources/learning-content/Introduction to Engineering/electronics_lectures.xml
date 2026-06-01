@@ -1,0 +1,719 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<learningContent>
+  <metadata>
+    <title>Short Introductions to Electronics</title>
+    <author>Engineering Lecture Notes</author>
+    <version>1.0</version>
+    <created>2026-05-23</created>
+    <description>All 31 short introductions to electronics covering fundamental electronic concepts, circuit analysis, and semiconductor devices.</description>
+  </metadata>
+  <slides>
+    <slide id="1">
+      <content>
+        <text>Title slide for Lecture 02: Electrical Parameters</text>
+        <text>A Short Introduction to Electrical Parameters</text>
+        <text>Prerequisites: Newtonian Physics</text>
+      </content>
+    </slide>
+    <slide id="2">
+      <content>
+        <text>Core definitions of charge and current using the hydraulic analogy</text>
+        <text>Charge and Current</text>
+        <text>Charge (Q) is analogous to water in pipes — measured in coulombs (C). One coulomb is the charge on 1.6×10⁻¹⁹ electrons.</text>
+        <text>Current is the rate of flow of charge: Q = I × t</text>
+        <image src="assets/02_hydraulic_circuit.png"><alt>Hydraulic analogy of a closed-loop circuit</alt></image>
+      </content>
+    </slide>
+    <slide id="3">
+      <content>
+        <text>Voltage as pressure, resistance as pipe narrowness; Ohm's Law introduced</text>
+        <text>Voltage and Resistance</text>
+        <text>Voltage (V) acts like pressure — charge moves from high to low voltage. Energy equation: W = V × Q</text>
+        <text>Resistance limits current flow: V = I × R (Ohm's Law)</text>
+        <image src="assets/02_pump_and_pipe.png"><alt>Pump and narrow pipe showing resistance</alt></image>
+      </content>
+    </slide>
+    <slide id="4">
+      <content>
+        <text>Capacitance as elastic membrane barrel; inductance as propeller analogy</text>
+        <text>Capacitance and Inductance</text>
+        <text>Capacitance: Q = C × V — stores voltage/energy, not net charge.</text>
+        <text>Inductance: e = L × dI/dt — opposes changes in current. Analogy: a heavy propeller with inertia.</text>
+        <image src="assets/02_capacitor_analogy.png"><alt>Barrel with elastic membrane representing a capacitor</alt></image>
+      </content>
+    </slide>
+    <slide id="5">
+      <content>
+        <text>Summary of key electrical parameters</text>
+        <text>Summary — Electrical Parameters</text>
+        <text>• Charge (Q): measured in coulombs; Q = It</text>
+        <text>• Voltage (V): measured in volts; W = VQ</text>
+        <text>• Current (I): measured in amps; one amp = one coulomb per second</text>
+        <text>• Resistance (R): V = IR; measured in ohms</text>
+        <text>• Capacitance (C): Q = CV; measured in farads</text>
+        <text>• Inductance (L): e = L dI/dt; measured in henries</text>
+      </content>
+    </slide>
+    <slide id="6">
+      <content>
+        <text>Title slide for Lecture 03: Ohm and Kirchhoff's Laws</text>
+        <text>A Short Introduction to Ohm's and Kirchhoff's Laws</text>
+        <text>Prerequisites: Electrical Parameters</text>
+      </content>
+    </slide>
+    <slide id="7">
+      <content>
+        <text>Ohm's Law with node-based formulation; V = IR and current direction conventions</text>
+        <text>Ohm's Law</text>
+        <text>V = IR — current through a resistor is proportional to voltage across it.</text>
+        <text>Node form: V_A − V_B = I_AB × R. Positive current flows from higher to lower potential.</text>
+        <image src="assets/03_ohm_node.png"><alt>Two-node resistor diagram showing current and voltage directions</alt></image>
+      </content>
+    </slide>
+    <slide id="8">
+      <content>
+        <text>Kirchhoff's Current Law: sum of currents at a node equals zero</text>
+        <text>Kirchhoff's Current Law (KCL)</text>
+        <text>The total current flowing into any node equals the total current flowing out. Charge cannot be created or destroyed.</text>
+        <image src="assets/03_kcl.png"><alt>Node with four current branches illustrating KCL</alt></image>
+      </content>
+    </slide>
+    <slide id="9">
+      <content>
+        <text>Kirchhoff's Voltage Law: sum of voltage drops around any closed loop is zero</text>
+        <text>Kirchhoff's Voltage Law (KVL)</text>
+        <text>The sum of all voltage differences around any closed loop is zero.</text>
+        <text>Limitation: breaks down with changing magnetic fields through a circuit loop (Faraday's law).</text>
+        <image src="assets/03_kvl.png"><alt>Simple circuit loop illustrating KVL</alt></image>
+      </content>
+    </slide>
+    <slide id="10">
+      <content>
+        <text>Summary of the three fundamental DC circuit laws</text>
+        <text>Summary — Ohm and Kirchhoff's Laws</text>
+        <text>• Ohm's Law: V = IR (valid for linear resistors)</text>
+        <text>• KCL: Σ currents into node = 0</text>
+        <text>• KVL: Σ voltages around loop = 0</text>
+        <text>• All three laws are approximate — work best for small, low-frequency DC circuits.</text>
+      </content>
+    </slide>
+    <slide id="11">
+      <content>
+        <text>Title slide for Lecture 04: Resistor Networks</text>
+        <text>A Short Introduction to Resistor Networks</text>
+        <text>Prerequisites: Ohm and Kirchhoff's Laws</text>
+      </content>
+    </slide>
+    <slide id="12">
+      <content>
+        <text>Series and parallel resistor combinations and the potential divider</text>
+        <text>Series and Parallel Resistors</text>
+        <text>Series: R_total = R1 + R2 + ... (same current, voltages add)</text>
+        <text>Parallel: 1/R_total = 1/R1 + 1/R2 + ... (same voltage, currents add)</text>
+        <image src="assets/04_series_parallel.png"><alt>Series and parallel resistor network diagrams</alt></image>
+      </content>
+    </slide>
+    <slide id="13">
+      <content>
+        <text>Potential divider formula and current divider</text>
+        <text>Potential and Current Dividers</text>
+        <text>Potential divider: V_out = V_in × R2 / (R1 + R2)</text>
+        <text>Current divider: I1 = I_T × R2 / (R1 + R2)</text>
+        <image src="assets/04_potential_divider.png"><alt>Potential divider circuit with two resistors</alt></image>
+      </content>
+    </slide>
+    <slide id="14">
+      <content>
+        <text>Title slide for Lecture 05: Linearity and Superposition</text>
+        <text>A Short Introduction to Linearity and Superposition</text>
+        <text>Prerequisites: Ohm and Kirchhoff's Laws, Resistor Networks</text>
+      </content>
+    </slide>
+    <slide id="15">
+      <content>
+        <text>Definition of a linear circuit and why superposition applies</text>
+        <text>Linearity</text>
+        <text>A circuit is linear if scaling all inputs by k scales all outputs by the same k. Resistors, capacitors, and inductors are linear components.</text>
+        <text>Diodes are non-linear — the superposition principle does not apply directly.</text>
+      </content>
+    </slide>
+    <slide id="16">
+      <content>
+        <text>Superposition theorem: analyse each source independently then sum results</text>
+        <text>Superposition Theorem</text>
+        <text>The response due to multiple independent sources is the sum of responses due to each source acting alone.</text>
+        <text>Procedure: set all other voltage sources to 0 V (short circuit) and current sources to 0 A (open circuit), solve, then sum.</text>
+        <image src="assets/05_superposition.png"><alt>Circuit split into two source-only sub-circuits for superposition analysis</alt></image>
+      </content>
+    </slide>
+    <slide id="17">
+      <content>
+        <text>Title slide for Lecture 06: Thévenin and Norton Theorems</text>
+        <text>A Short Introduction to Thévenin and Norton's Theorems</text>
+        <text>Prerequisites: Ohm's Law, Kirchhoff's Laws, Resistor Networks</text>
+      </content>
+    </slide>
+    <slide id="18">
+      <content>
+        <text>Thévenin equivalent: any linear two-terminal network → voltage source + series resistor</text>
+        <text>Thévenin's Theorem</text>
+        <text>Any linear two-terminal network can be replaced by a single voltage source V_TH in series with a resistor R_TH.</text>
+        <text>V_TH = open-circuit voltage; R_TH = V_OC / I_SC (or found by zeroing all sources).</text>
+        <image src="assets/06_thevenin.png"><alt>Real network and its Thévenin equivalent circuit</alt></image>
+      </content>
+    </slide>
+    <slide id="19">
+      <content>
+        <text>Norton equivalent: current source + parallel resistor; relationship to Thévenin</text>
+        <text>Norton's Theorem</text>
+        <text>Any linear two-terminal network can also be replaced by a current source I_N in parallel with R_N.</text>
+        <text>I_N = I_SC; R_N = R_TH = V_OC / I_SC.</text>
+        <image src="assets/06_norton.png"><alt>Norton equivalent circuit with current source and parallel resistor</alt></image>
+      </content>
+    </slide>
+    <slide id="20">
+      <content>
+        <text>Determining Thévenin equivalent in the lab using V vs I plot</text>
+        <text>Measuring Equivalent Networks in the Lab</text>
+        <text>Plot load voltage V against load current I — the gradient is −R_TH and the V-axis intercept is V_TH.</text>
+        <text>Avoids short-circuiting outputs, which may damage amplifiers.</text>
+      </content>
+    </slide>
+    <slide id="21">
+      <content>
+        <text>Title slide for Lecture 07: Circuit Loading</text>
+        <text>A Short Introduction to Circuit Loading</text>
+        <text>Prerequisites: Thévenin and Norton Theorems</text>
+      </content>
+    </slide>
+    <slide id="22">
+      <content>
+        <text>Effect of connecting a load to a circuit — voltage divider between source and load resistance</text>
+        <text>Circuit Loading Effects</text>
+        <text>When a load R_L is connected, the output voltage drops from V_OC to V_TH × R_L / (R_TH + R_L).</text>
+        <text>Low-output-impedance sources and high-input-impedance loads minimise loading.</text>
+        <image src="assets/07_loading.png"><alt>Source with Thévenin resistance driving a load resistor</alt></image>
+      </content>
+    </slide>
+    <slide id="23">
+      <content>
+        <text>Title slide for Lecture 08: DC Circuit Analysis</text>
+        <text>A Short Introduction to DC Circuit Analysis</text>
+        <text>Prerequisites: Ohm's Law, Kirchhoff's Laws, Resistor Networks, Linearity and Superposition</text>
+      </content>
+    </slide>
+    <slide id="24">
+      <content>
+        <text>Nodal analysis algorithm: identify nodes, assign variables, apply KCL and Ohm's law, solve</text>
+        <text>Nodal Analysis</text>
+        <text>1. Identify all nodes. 2. Assign voltage variables. 3. Apply KCL at each non-fixed node. 4. Apply Ohm's/component law to each element. 5. Solve simultaneous equations.</text>
+        <image src="assets/08_nodal.png"><alt>Potential divider circuit with labelled nodes and currents for nodal analysis</alt></image>
+      </content>
+    </slide>
+    <slide id="25">
+      <content>
+        <text>Source transformation and use of Thévenin/Norton equivalents to simplify analysis</text>
+        <text>Source Transformation Shortcuts</text>
+        <text>Ladder circuits can be analysed by repeatedly absorbing one component at a time via Thévenin↔Norton transformations.</text>
+        <text>Dependent sources: use nodal analysis — do NOT zero dependent sources during source transformation.</text>
+      </content>
+    </slide>
+    <slide id="26">
+      <content>
+        <text>Title slide for Lecture 09: Electric and Magnetic Fields</text>
+        <text>A Short Introduction to Electric and Magnetic Fields</text>
+        <text>Prerequisites: Newtonian Physics</text>
+      </content>
+    </slide>
+    <slide id="27">
+      <content>
+        <text>Coulomb's law, electric potential, and field vs potential distinction</text>
+        <text>Electric Fields and Potential</text>
+        <text>Coulomb's law: F = q1 q2 / (4πε₀ r²). Like charges repel; unlike attract.</text>
+        <text>Electric potential at distance r from charge q1: V = q1 / (4πε₀ r). Voltage difference = work per unit charge.</text>
+        <image src="assets/09_coulomb_flux.png"><alt>Electric field flux lines radiating from an isolated positive charge</alt></image>
+      </content>
+    </slide>
+    <slide id="28">
+      <content>
+        <text>Parallel plate capacitor derivation from Gauss's law: C = ε₀ εᵣ A/d</text>
+        <text>Capacitors and Gauss's Law</text>
+        <text>Uniform field between infinite parallel plates: E = σ/ε₀. For a parallel-plate capacitor: C = ε₀ εᵣ A / d</text>
+        <text>Energy stored per unit volume in electric field: u = ε₀ E² / 2</text>
+        <image src="assets/09_parallel_plates.png"><alt>Two parallel plates with flux lines between them</alt></image>
+      </content>
+    </slide>
+    <slide id="29">
+      <content>
+        <text>Magnetic fields: Gilbert model, flux lines, permeability</text>
+        <text>Magnetic Fields</text>
+        <text>Isolated magnetic monopoles do not exist — magnets always appear as dipoles (North and South).</text>
+        <text>Magnetic force law: F = μ₀ s1 s2 / (4π r²). Energy density: u = B² / (2μ₀).</text>
+        <image src="assets/09_dipole_flux.png"><alt>Flux lines around a magnetic dipole</alt></image>
+      </content>
+    </slide>
+    <slide id="30">
+      <content>
+        <text>Title slide for Lecture 10: Electrons in Solids</text>
+        <text>A Short Introduction to Electrons in Solids</text>
+        <text>Prerequisites: Newtonian Physics, Electric and Magnetic Fields</text>
+      </content>
+    </slide>
+    <slide id="31">
+      <content>
+        <text>Energy bands in solids — conductor, semiconductor, insulator from Fermi-Dirac distribution</text>
+        <text>Energy Bands and Fermi-Dirac Distribution</text>
+        <text>Electrons fill energy states from the bottom up. The Fermi-Dirac distribution: p(E) = 1 / (e^((E−μ)/kT) + 1).</text>
+        <text>Conductors: continuous states at Fermi level. Insulators: large band gap. Semiconductors: small gap.</text>
+        <image src="assets/10_energy_bands.png"><alt>Energy band diagrams for conductor, semiconductor, and insulator</alt></image>
+      </content>
+    </slide>
+    <slide id="32">
+      <content>
+        <text>n-type and p-type doping of semiconductors; p-n junction and depletion region</text>
+        <text>Doping and p-n Junctions</text>
+        <text>n-type: extra electrons (Group V dopant, e.g. phosphorus). p-type: fewer electrons / holes (Group III, e.g. boron).</text>
+        <text>At p-n junction: built-in potential from charge diffusion creates a depletion region. Forward bias → conducts; reverse bias → blocks.</text>
+        <image src="assets/10_pn_junction.png"><alt>Energy band diagram of a forward-biased p-n junction</alt></image>
+      </content>
+    </slide>
+    <slide id="33">
+      <content>
+        <text>Drude model explains finite resistance: electron collisions with nuclei produce R ∝ L/A</text>
+        <text>Drude Model of Resistance</text>
+        <text>Electrons accelerate in electric field then scatter off nuclei. Average drift gives R = 2mₑ L / (n A q² τ).</text>
+        <text>Resistance increases with length and decreases with cross-sectional area — consistent with Ohm's Law.</text>
+      </content>
+    </slide>
+    <slide id="34">
+      <content>
+        <text>Title slide for Lecture 11: Electromagnetism</text>
+        <text>A Short Introduction to Electromagnetism</text>
+        <text>Prerequisites: Newtonian Physics, Electric and Magnetic Fields</text>
+      </content>
+    </slide>
+    <slide id="35">
+      <content>
+        <text>Biot-Savart law: current produces circular magnetic field; right-hand screw rule</text>
+        <text>Biot-Savart Law</text>
+        <text>A current element I·ΔL produces a magnetic field H = (μ₀/4π) × I sin θ / r². Right-hand screw rule gives direction.</text>
+        <image src="assets/11_biot_savart.png"><alt>Diagram showing current element and resulting circular magnetic field</alt></image>
+      </content>
+    </slide>
+    <slide id="36">
+      <content>
+        <text>Faraday's law of electromagnetic induction: EMF = −dΦ_B/dt; Lenz's law</text>
+        <text>Faraday's Law and Inductors</text>
+        <text>A changing magnetic flux through a circuit induces an EMF: ε = −N A × dB/dt.</text>
+        <text>Inductor equation: V_A − V_B = L × dI_AB/dt. Energy stored: E = ½LI².</text>
+        <image src="assets/11_inductor_loop.png"><alt>Coil of wire with changing magnetic flux and induced EMF</alt></image>
+      </content>
+    </slide>
+    <slide id="37">
+      <content>
+        <text>Transformers: two coupled coils; voltage ratio = turns ratio; Maxwell's equations predicting EM waves</text>
+        <text>Transformers and EM Waves</text>
+        <text>Two coupled coils share magnetic flux. Voltage ratio = N1/N2. Power is transferred without direct electrical connection.</text>
+        <text>Maxwell (1864) predicted electromagnetic waves at 3×10⁸ m/s — consistent with the measured speed of light.</text>
+      </content>
+    </slide>
+    <slide id="38">
+      <content>
+        <text>Title slide for Lecture 12: Diodes</text>
+        <text>A Short Introduction to Diodes</text>
+        <text>Prerequisites: Ohm and Kirchhoff's Laws, Resistor Networks</text>
+      </content>
+    </slide>
+    <slide id="39">
+      <content>
+        <text>Shockley diode equation; I-V characteristic; forward voltage ~0.65 V for silicon</text>
+        <text>The Shockley Equation</text>
+        <text>I = I₀ (e^(V/nkT) − 1). For silicon diodes: forward voltage drop ≈ 0.6–0.7 V at typical currents.</text>
+        <text>Reverse saturation current I₀ is strongly temperature-dependent. Ideality factor n ≈ 1–2.</text>
+        <image src="assets/12_iv_curve.png"><alt>I-V characteristic of a typical silicon diode showing forward and reverse regions</alt></image>
+      </content>
+    </slide>
+    <slide id="40">
+      <content>
+        <text>Static vs dynamic resistance; non-linear behaviour; iteration technique for circuit solving</text>
+        <text>Resistance and Non-Linearity</text>
+        <text>Static resistance: Rs = V/I. Dynamic resistance: Rd = dV/dI — more relevant for small-signal analysis.</text>
+        <text>Circuits with diodes cannot be solved analytically — use numerical iteration.</text>
+      </content>
+    </slide>
+    <slide id="41">
+      <content>
+        <text>Zener diodes: defined reverse breakdown voltage; used as voltage references</text>
+        <text>Zener Diodes</text>
+        <text>Engineered to break down at a defined reverse voltage (e.g. 3.3 V). Used as voltage references.</text>
+        <text>Piecewise-linear approximation: I = (V + V_Z) / R_D in breakdown region.</text>
+        <image src="assets/12_zener_circuit.png"><alt>Zener voltage reference circuit with series resistor</alt></image>
+      </content>
+    </slide>
+    <slide id="42">
+      <content>
+        <text>Title slide for Lecture 13: Op-Amps</text>
+        <text>A Short Introduction to Op-Amps</text>
+        <text>Prerequisites: Ohm and Kirchhoff's Laws, Resistor Networks</text>
+      </content>
+    </slide>
+    <slide id="43">
+      <content>
+        <text>Ideal op-amp properties: infinite gain, infinite input impedance, zero output impedance</text>
+        <text>The Ideal Op-Amp</text>
+        <text>Key properties: infinite open-loop gain (A → ∞), infinite input impedance, zero output impedance.</text>
+        <text>Golden rules for linear operation: (1) V+ = V− (virtual short); (2) I_in = 0.</text>
+        <image src="assets/13_opamp_symbol.png"><alt>Op-amp circuit symbol with inverting and non-inverting inputs</alt></image>
+      </content>
+    </slide>
+    <slide id="44">
+      <content>
+        <text>Inverting and non-inverting amplifier configurations; gain formulae</text>
+        <text>Inverting and Non-Inverting Amplifiers</text>
+        <text>Inverting amplifier gain: A_v = −R_f / R_in</text>
+        <text>Non-inverting amplifier gain: A_v = 1 + R_f / R_in</text>
+        <image src="assets/13_inverting.png"><alt>Inverting op-amp amplifier circuit with feedback and input resistors</alt></image>
+      </content>
+    </slide>
+    <slide id="45">
+      <content>
+        <text>Title slide for Lecture 14: Linear Op-Amp Circuits</text>
+        <text>A Short Introduction to Linear Op-Amp Circuits</text>
+        <text>Prerequisites: Op-Amps</text>
+      </content>
+    </slide>
+    <slide id="46">
+      <content>
+        <text>Summing amplifier, difference amplifier, and voltage follower (buffer)</text>
+        <text>Summing, Difference and Buffer Circuits</text>
+        <text>Summing amplifier: V_out = −R_f × (V1/R1 + V2/R2 + ...). Difference amplifier: V_out = (V2 − V1) × R_f/R_in.</text>
+        <text>Voltage follower: A_v = 1, extremely high input impedance — used to buffer signals without loading.</text>
+        <image src="assets/14_summing.png"><alt>Summing amplifier with multiple input resistors and feedback</alt></image>
+      </content>
+    </slide>
+    <slide id="47">
+      <content>
+        <text>Title slide for Lecture 16: Real Components</text>
+        <text>A Short Introduction to Real Components</text>
+        <text>Prerequisites: Complex Impedance (for parasitics)</text>
+      </content>
+    </slide>
+    <slide id="48">
+      <content>
+        <text>Resistor colour code; component tolerances; value markings on capacitors and inductors</text>
+        <text>Colour Codes and Tolerances</text>
+        <text>Resistor colour code: last digit is the multiplier (power of 10). Tolerance band: brown=1%, red=2%, gold=5%.</text>
+        <text>Capacitor markings use pF as default unit. Third digit is multiplier. Letter suffix gives tolerance (K=10%, M=20%).</text>
+        <image src="assets/16_colour_code.png"><alt>Resistor colour code chart showing digit, multiplier and tolerance colours</alt></image>
+      </content>
+    </slide>
+    <slide id="49">
+      <content>
+        <text>Equivalent networks for real resistors, capacitors, inductors showing parasitic L, C, R</text>
+        <text>Parasitics and Equivalent Networks</text>
+        <text>Real resistors: parasitic series inductance (~10 nH) and parallel capacitance (~0.05 pF). Limits usable range.</text>
+        <text>Real capacitors: ESR (series resistance) and series inductance. Self-resonant frequency: f₀ = 1/(2π√(LC)).</text>
+        <text>Real inductors: series resistance Rs; Q = ωL/Rs. Significant for filter design.</text>
+        <image src="assets/16_parasitic_networks.png"><alt>Equivalent circuit models for real resistor, capacitor, and inductor</alt></image>
+      </content>
+    </slide>
+    <slide id="50">
+      <content>
+        <text>Title slide for Lecture 17: Time Variance and Time Constants</text>
+        <text>A Short Introduction to Time Variance and Time Constants</text>
+        <text>Prerequisites: Electrical Parameters, DC Circuit Analysis</text>
+      </content>
+    </slide>
+    <slide id="51">
+      <content>
+        <text>RC discharge: exponential decay v(t) = V₀ e^(−t/RC); time constant τ = RC</text>
+        <text>RC Circuits — Charging and Discharging</text>
+        <text>Discharging: v(t) = V₀ e^(−t/τ), where τ = RC. After one time constant, voltage drops to 36.8% of initial value.</text>
+        <text>Charging: v(t) = Vs(1 − e^(−t/τ)). After one time constant, reaches 63.2% of final voltage.</text>
+        <image src="assets/17_rc_discharge.png"><alt>Exponential decay curve for RC capacitor discharge</alt></image>
+      </content>
+    </slide>
+    <slide id="52">
+      <content>
+        <text>RL circuits: time constant τ = L/R; integrator and differentiator op-amp circuits</text>
+        <text>RL Circuits and Op-Amp Integrators</text>
+        <text>Inductor time constant: τ = L/R. Cannot instantly change current through an inductor.</text>
+        <text>Op-amp integrator: V_out = −(1/RC) ∫ V_in dt. Differentiator: V_out = −RC × dV_in/dt.</text>
+        <image src="assets/17_integrator.png"><alt>Op-amp integrator circuit with input resistor and feedback capacitor</alt></image>
+      </content>
+    </slide>
+    <slide id="53">
+      <content>
+        <text>Break frequency ω = 1/τ where amplitude is reduced by √2 and phase shift is 45°</text>
+        <text>Break Frequency</text>
+        <text>At ω = 1/RC: amplitude reduced by factor √2, phase shift = 45°. This is the break (corner) frequency.</text>
+        <text>For frequencies ≪ 1/τ: capacitor follows input. For frequencies ≫ 1/τ: capacitor voltage → 0, 90° phase shift.</text>
+      </content>
+    </slide>
+    <slide id="54">
+      <content>
+        <text>Title slide for Lecture 18: Phasors</text>
+        <text>A Short Introduction to Phasors</text>
+        <text>Prerequisites: Time Constants, Electrical Parameters</text>
+      </content>
+    </slide>
+    <slide id="55">
+      <content>
+        <text>Phasor representation: sinusoidal signals as rotating vectors in complex plane</text>
+        <text>Phasors</text>
+        <text>A sinusoidal signal V₀ cos(ωt + φ) is represented as a phasor: V = V₀ e^(jφ). Amplitude = magnitude, phase = argument.</text>
+        <text>Phasors simplify AC analysis by replacing differential equations with algebraic complex-number equations.</text>
+        <image src="assets/18_phasor_diagram.png"><alt>Phasor diagram showing voltage and current vectors in the complex plane</alt></image>
+      </content>
+    </slide>
+    <slide id="56">
+      <content>
+        <text>Title slide for Lecture 19: Complex Impedance</text>
+        <text>A Short Introduction to Complex Impedance</text>
+        <text>Prerequisites: Phasors, Electrical Parameters</text>
+      </content>
+    </slide>
+    <slide id="57">
+      <content>
+        <text>Impedance of R, C, L as complex numbers; Ohm's law generalised to V = IZ</text>
+        <text>Complex Impedance</text>
+        <text>Resistor: Z = R. Capacitor: Z = 1/(jωC). Inductor: Z = jωL.</text>
+        <text>Generalised Ohm's law: V = I × Z. Impedances combine as resistors (series: sum; parallel: product/sum).</text>
+        <image src="assets/19_impedance_diagram.png"><alt>Impedance triangle showing R, X, and Z for a series RL circuit</alt></image>
+      </content>
+    </slide>
+    <slide id="58">
+      <content>
+        <text>Title slide for Lecture 20: AC Circuit Analysis</text>
+        <text>A Short Introduction to AC Circuit Analysis</text>
+        <text>Prerequisites: Phasors, Complex Impedance, DC Circuit Analysis</text>
+      </content>
+    </slide>
+    <slide id="59">
+      <content>
+        <text>Applying nodal analysis and Thévenin/Norton theorems to AC circuits using complex impedances</text>
+        <text>AC Nodal Analysis</text>
+        <text>Replace all components with complex impedances and apply the same nodal analysis algorithm as DC.</text>
+        <text>Thévenin and Norton equivalents still apply — V_TH and Z_TH are now complex numbers.</text>
+        <image src="assets/20_ac_nodal.png"><alt>AC circuit with complex impedances and labelled nodes</alt></image>
+      </content>
+    </slide>
+    <slide id="60">
+      <content>
+        <text>Title slide for Lecture 21: Frequency Responses</text>
+        <text>A Short Introduction to Frequency Responses</text>
+        <text>Prerequisites: Complex Impedance, AC Circuit Analysis</text>
+      </content>
+    </slide>
+    <slide id="61">
+      <content>
+        <text>Transfer function H(jω) = V_out/V_in; magnitude and phase as functions of frequency</text>
+        <text>Transfer Functions</text>
+        <text>Transfer function H(jω) = V_out/V_in. Magnitude |H(jω)| gives gain; arg(H(jω)) gives phase shift.</text>
+        <text>Low-pass, high-pass, band-pass, and band-stop responses arise from different RC/RL/LC topologies.</text>
+        <image src="assets/21_freq_response.png"><alt>Bode magnitude and phase plots for a first-order low-pass filter</alt></image>
+      </content>
+    </slide>
+    <slide id="62">
+      <content>
+        <text>Title slide for Lecture 22: Bode Plots</text>
+        <text>A Short Introduction to Bode Plots</text>
+        <text>Prerequisites: Frequency Responses, Complex Impedance</text>
+      </content>
+    </slide>
+    <slide id="63">
+      <content>
+        <text>Bode plot construction: asymptotic approximations, −20 dB/decade slope per pole/zero</text>
+        <text>Bode Plot Construction</text>
+        <text>Plot 20 log|H(jω)| (dB) vs log(ω). Each pole contributes −20 dB/decade above its break frequency.</text>
+        <text>Each zero contributes +20 dB/decade. Phase: each pole adds −90° phase shift asymptotically.</text>
+        <image src="assets/22_bode.png"><alt>Asymptotic Bode magnitude plot for a two-pole low-pass transfer function</alt></image>
+      </content>
+    </slide>
+    <slide id="64">
+      <content>
+        <text>Title slide for Lecture 23: Op-Amp Amplifier Bandwidths</text>
+        <text>A Short Introduction to Op-Amp Amplifier Bandwidths</text>
+        <text>Prerequisites: Bode Plots, Op-Amps</text>
+      </content>
+    </slide>
+    <slide id="65">
+      <content>
+        <text>Gain-bandwidth product (GBW); closed-loop bandwidth = GBW / closed-loop gain</text>
+        <text>Gain-Bandwidth Product</text>
+        <text>Real op-amps have a finite open-loop bandwidth. Gain-bandwidth product (GBW) = gain × bandwidth = constant.</text>
+        <text>For closed-loop gain A_cl, bandwidth ≈ GBW / A_cl. Higher gain → smaller bandwidth.</text>
+        <image src="assets/23_gbw.png"><alt>Open-loop and closed-loop Bode plots showing gain-bandwidth product</alt></image>
+      </content>
+    </slide>
+    <slide id="66">
+      <content>
+        <text>Title slide for Lecture 24: First-Order Responses</text>
+        <text>A Short Introduction to First-Order Responses</text>
+        <text>Prerequisites: Frequency Responses, Time Constants</text>
+      </content>
+    </slide>
+    <slide id="67">
+      <content>
+        <text>Step response of first-order RC system; exponential approach to final value with time constant τ</text>
+        <text>First-Order Step Response</text>
+        <text>For a step input, output: y(t) = y_final × (1 − e^(−t/τ)). Time constant τ = RC or L/R.</text>
+        <text>Rise time (10%→90%): t_r ≈ 2.2τ. Settling time to within 5%: t_s ≈ 3τ.</text>
+        <image src="assets/24_step_response.png"><alt>First-order step response curve showing exponential rise to final value</alt></image>
+      </content>
+    </slide>
+    <slide id="68">
+      <content>
+        <text>Title slide for Lecture 25: Second-Order Frequency Response</text>
+        <text>A Short Introduction to Second-Order Frequency Response</text>
+        <text>Prerequisites: First-Order Responses, Frequency Responses</text>
+      </content>
+    </slide>
+    <slide id="69">
+      <content>
+        <text>Second-order transfer function; natural frequency ω₀ and damping factor ζ; resonance peak</text>
+        <text>Second-Order Resonance</text>
+        <text>Standard form: H(s) = ω₀² / (s² + 2ζω₀s + ω₀²). Natural frequency ω₀ = 1/√(LC). Damping factor ζ.</text>
+        <text>For ζ &amp;lt; 1 (underdamped): resonance peak at ω₀. For ζ = 1/√2: maximally flat (Butterworth). For ζ &amp;gt; 1: overdamped.</text>
+        <image src="assets/25_2nd_order_freq.png"><alt>Second-order frequency response for various damping factors</alt></image>
+      </content>
+    </slide>
+    <slide id="70">
+      <content>
+        <text>Title slide for Lecture 26: Second-Order Step Response</text>
+        <text>A Short Introduction to Second-Order Step Response</text>
+        <text>Prerequisites: Second-Order Frequency Response</text>
+      </content>
+    </slide>
+    <slide id="71">
+      <content>
+        <text>Underdamped, critically damped, overdamped step responses; overshoot and ringing for ζ &amp;lt; 1</text>
+        <text>Second-Order Step Response</text>
+        <text>Underdamped (ζ &amp;lt; 1): oscillatory response with overshoot. Critically damped (ζ = 1): fastest non-overshoot. Overdamped (ζ &amp;gt; 1): sluggish.</text>
+        <text>Overshoot (%) = 100 × e^(−πζ/√(1−ζ²)).</text>
+        <image src="assets/26_step_response.png"><alt>Second-order step response for underdamped, critically damped, and overdamped cases</alt></image>
+      </content>
+    </slide>
+    <slide id="72">
+      <content>
+        <text>Title slide for Lecture 27: Active Filters</text>
+        <text>A Short Introduction to Active Filters</text>
+        <text>Prerequisites: Op-Amps, Second-Order Frequency Response, Bode Plots</text>
+      </content>
+    </slide>
+    <slide id="73">
+      <content>
+        <text>Sallen-Key and multiple-feedback topologies; Butterworth and Chebyshev designs</text>
+        <text>Active Filter Topologies</text>
+        <text>Active filters use op-amps to achieve second (or higher) order filtering without inductors.</text>
+        <text>Sallen-Key topology implements low-pass, high-pass, or band-pass. Butterworth: maximally flat. Chebyshev: steeper roll-off with ripple.</text>
+        <image src="assets/27_sallen_key.png"><alt>Sallen-Key low-pass active filter circuit with op-amp</alt></image>
+      </content>
+    </slide>
+    <slide id="74">
+      <content>
+        <text>Title slide for Lecture 28: Non-Linear Op-Amp Circuits</text>
+        <text>A Short Introduction to Non-Linear Op-Amp Circuits</text>
+        <text>Prerequisites: Op-Amps, Diodes</text>
+      </content>
+    </slide>
+    <slide id="75">
+      <content>
+        <text>Comparator, Schmitt trigger (positive feedback adds hysteresis), precision rectifier</text>
+        <text>Comparators and Schmitt Triggers</text>
+        <text>Comparator: op-amp without feedback — output saturates high or low based on input polarity.</text>
+        <text>Schmitt trigger: positive feedback adds hysteresis — prevents noise-induced multiple switching.</text>
+        <image src="assets/28_schmitt.png"><alt>Schmitt trigger circuit and its hysteresis transfer characteristic</alt></image>
+      </content>
+    </slide>
+    <slide id="76">
+      <content>
+        <text>Precision half-wave rectifier using op-amp eliminates diode forward-voltage drop</text>
+        <text>Precision Rectifier</text>
+        <text>An op-amp in the feedback loop of a rectifier eliminates the 0.6 V diode drop, enabling rectification of small signals.</text>
+        <image src="assets/28_precision_rect.png"><alt>Precision half-wave rectifier circuit with op-amp and diode in feedback</alt></image>
+      </content>
+    </slide>
+    <slide id="77">
+      <content>
+        <text>Title slide for Lecture 29: Non-Ideal Op-Amp Behaviour</text>
+        <text>A Short Introduction to Non-Ideal Op-Amp Behaviour</text>
+        <text>Prerequisites: Op-Amps, Linear Op-Amp Circuits</text>
+      </content>
+    </slide>
+    <slide id="78">
+      <content>
+        <text>Input offset voltage, bias currents, slew rate, finite CMRR, finite open-loop gain</text>
+        <text>Non-Ideal Op-Amp Parameters</text>
+        <text>Key non-idealities: input offset voltage V_os, input bias current I_B, common-mode rejection ratio CMRR, slew rate SR.</text>
+        <text>Slew rate limits the maximum rate of output change: SR = ΔV_out/Δt (V/μs). Limits usable bandwidth at large amplitudes.</text>
+        <image src="assets/29_opamp_model.png"><alt>Non-ideal op-amp model including offset voltage source and bias current sources</alt></image>
+      </content>
+    </slide>
+    <slide id="79">
+      <content>
+        <text>Title slide for Lecture 30: Power in AC Circuits</text>
+        <text>A Short Introduction to Power in AC Circuits</text>
+        <text>Prerequisites: AC Circuit Analysis, Complex Impedance</text>
+      </content>
+    </slide>
+    <slide id="80">
+      <content>
+        <text>Real, reactive, and apparent power; power factor; RMS values</text>
+        <text>Real, Reactive, and Apparent Power</text>
+        <text>RMS voltage: V_rms = V_peak / √2. Real power P = V_rms × I_rms × cos φ (watts). Reactive power Q = V_rms × I_rms × sin φ (VAR).</text>
+        <text>Apparent power S = V_rms × I_rms (VA). Power factor = P/S = cos φ. Unity power factor for purely resistive loads.</text>
+        <image src="assets/30_power_triangle.png"><alt>Power triangle showing P, Q, S and phase angle φ</alt></image>
+      </content>
+    </slide>
+    <slide id="81">
+      <content>
+        <text>Title slide for Lecture 31: Noise</text>
+        <text>A Short Introduction to Noise</text>
+        <text>Prerequisites: AC Circuit Analysis, Op-Amps</text>
+      </content>
+    </slide>
+    <slide id="82">
+      <content>
+        <text>Thermal (Johnson) noise, shot noise, flicker (1/f) noise — sources and power spectral density</text>
+        <text>Types of Noise</text>
+        <text>Thermal (Johnson) noise: V_n² = 4kTRΔf. Present in all resistors at temperature T. White noise (flat spectrum).</text>
+        <text>Shot noise: I_n² = 2qIΔf. Caused by discrete nature of charge carriers. Flicker (1/f) noise dominates at low frequencies.</text>
+        <image src="assets/31_noise_spectrum.png"><alt>Noise power spectral density showing thermal, shot, and 1/f contributions</alt></image>
+      </content>
+    </slide>
+    <slide id="83">
+      <content>
+        <text>Signal-to-noise ratio (SNR), noise figure, noise temperature; cascaded stages (Friis formula)</text>
+        <text>SNR, Noise Figure, and Friis Formula</text>
+        <text>SNR = P_signal / P_noise (or expressed in dB). Noise figure NF = 10 log(SNR_in / SNR_out).</text>
+        <text>Cascaded stages (Friis): NF_total = NF1 + (NF2−1)/G1 + .... First stage dominates — use a low-noise amplifier first.</text>
+      </content>
+    </slide>
+    <slide id="84">
+      <content>
+        <text>Title slide for Lecture AA: Frequency, Phase, and Amplitude</text>
+        <text>A Short Introduction to Frequency, Phase, and Amplitude</text>
+        <text>Prerequisites: Electrical Parameters</text>
+      </content>
+    </slide>
+    <slide id="85">
+      <content>
+        <text>Sinusoidal signals: amplitude, frequency, period, phase; angular frequency ω = 2πf</text>
+        <text>Sinusoidal Signal Parameters</text>
+        <text>A sinusoid: v(t) = V₀ cos(ωt + φ). Amplitude = V₀; angular frequency ω = 2πf; period T = 1/f; phase = φ.</text>
+        <text>Peak-to-peak = 2V₀. RMS = V₀/√2 for a sinusoid.</text>
+        <image src="assets/AA_sinusoid.png"><alt>Sinusoidal waveform labelled with amplitude, period, and phase shift</alt></image>
+      </content>
+    </slide>
+    <slide id="86">
+      <content>
+        <text>Phase difference between two signals; leading vs lagging; measurement in degrees or radians</text>
+        <text>Phase Relationships</text>
+        <text>Two signals at the same frequency: v1(t) = V₁ cos(ωt), v2(t) = V₂ cos(ωt + φ). If φ &amp;gt; 0, v2 leads v1.</text>
+        <text>Phase is only meaningful for signals at the same frequency. Represented in phasor diagrams as an angle.</text>
+        <image src="assets/AA_phase.png"><alt>Two sinusoidal waveforms showing a phase difference of 90 degrees</alt></image>
+      </content>
+    </slide>
+  </slides>
+</learningContent>

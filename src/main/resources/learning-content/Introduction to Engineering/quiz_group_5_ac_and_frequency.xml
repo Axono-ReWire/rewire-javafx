@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<learningContent>
+  <metadata>
+    <title>Quiz Group 5: AC Analysis, Frequency Response and Filters</title>
+    <author>Engineering Lecture Notes</author>
+    <version>1.0</version>
+    <created>2026-05-23T21:00:00Z</created>
+    <description>Covers Phasors, Complex Impedance, AC Circuit Analysis, Frequency Responses, Bode Plots, First and Second-Order Responses, and Active Filters (Lectures AA, 17-22, 24-27).</description>
+  </metadata>
+  <slides>
+    <slide id="1">
+      <content>
+        <text>Topic: Sinusoids</text>
+        <question>
+          <text>Signal v(t) = 10 cos(2000*pi*t + pi/4). What is its frequency f?</text>
+          <answers>
+            <answer index="1">2000 Hz</answer>
+            <answer index="2">1000 Hz</answer>
+            <answer index="3">500 Hz</answer>
+            <answer index="4">4000 Hz</answer>
+          </answers>
+          <correctAnswer>2</correctAnswer>
+          <explanation>omega = 2*pi*f = 2000*pi, so f = 1000 Hz.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="2">
+      <content>
+        <text>Topic: RMS Values</text>
+        <question>
+          <text>A sinusoidal voltage has a peak amplitude of 14.14 V. Its RMS value is approximately:</text>
+          <answers>
+            <answer index="1">14.14 V</answer>
+            <answer index="2">20 V</answer>
+            <answer index="3">10 V</answer>
+            <answer index="4">7.07 V</answer>
+          </answers>
+          <correctAnswer>3</correctAnswer>
+          <explanation>V_rms = V_peak / sqrt(2) = 14.14 / 1.414 = 10 V.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="3">
+      <content>
+        <text>Topic: RC Time Constants</text>
+        <question>
+          <text>RC circuit: R = 10 kOhm, C = 100 nF. What is time constant tau?</text>
+          <answers>
+            <answer index="1">1 ms</answer>
+            <answer index="2">1 us</answer>
+            <answer index="3">10 us</answer>
+            <answer index="4">100 us</answer>
+          </answers>
+          <correctAnswer>1</correctAnswer>
+          <explanation>tau = RC = 10e3 x 100e-9 = 1e-3 s = 1 ms.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="4">
+      <content>
+        <text>Topic: Complex Impedance</text>
+        <question>
+          <text>What is the impedance of a 10 nF capacitor at 1 MHz (omega = 2*pi*1e6)?</text>
+          <answers>
+            <answer index="1">~16 Ohm</answer>
+            <answer index="2">~1.6 kOhm</answer>
+            <answer index="3">~16 kOhm</answer>
+            <answer index="4">~160 Ohm</answer>
+          </answers>
+          <correctAnswer>1</correctAnswer>
+          <explanation>|Z| = 1/(omega*C) = 1/(2*pi*1e6 * 10e-9) = 1/0.0628 = 15.9 Ohm.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="5">
+      <content>
+        <text>Topic: Complex Impedance</text>
+        <question>
+          <text>The impedance of an inductor is j*omega*L. The voltage across an inductor therefore:</text>
+          <answers>
+            <answer index="1">Lags the current by 90 degrees</answer>
+            <answer index="2">Is in phase with the current</answer>
+            <answer index="3">Leads the current by 90 degrees</answer>
+            <answer index="4">Lags the current by 45 degrees</answer>
+          </answers>
+          <correctAnswer>3</correctAnswer>
+          <explanation>Z_L = j*omega*L. Multiplying by j rotates by +90 degrees, so voltage leads current by 90 degrees.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="6">
+      <content>
+        <text>Topic: Bode Plots</text>
+        <question>
+          <text>Each pole in a transfer function contributes what asymptotic slope above its break frequency?</text>
+          <answers>
+            <answer index="1">-10 dB/decade</answer>
+            <answer index="2">-20 dB/decade</answer>
+            <answer index="3">-40 dB/decade</answer>
+            <answer index="4">+20 dB/decade</answer>
+          </answers>
+          <correctAnswer>2</correctAnswer>
+          <explanation>Each pole contributes -20 dB/decade (-6 dB/octave) above its break frequency.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="7">
+      <content>
+        <text>Topic: First-Order Step Response</text>
+        <question>
+          <text>After 3 time constants, a charging RC capacitor reaches approximately what percentage of final voltage?</text>
+          <answers>
+            <answer index="1">63.2%</answer>
+            <answer index="2">86.5%</answer>
+            <answer index="3">95%</answer>
+            <answer index="4">99%</answer>
+          </answers>
+          <correctAnswer>3</correctAnswer>
+          <explanation>v(t) = 1 - e^(-t/tau). At t = 3*tau: 1 - e^(-3) = 1 - 0.050 = 95%.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="8">
+      <content>
+        <text>Topic: Second-Order Systems</text>
+        <question>
+          <text>A second-order system with damping factor zeta = 0.5 will exhibit:</text>
+          <answers>
+            <answer index="1">No overshoot (overdamped)</answer>
+            <answer index="2">Overshoot and ringing (underdamped)</answer>
+            <answer index="3">Critically damped response</answer>
+            <answer index="4">A flat Butterworth frequency response</answer>
+          </answers>
+          <correctAnswer>2</correctAnswer>
+          <explanation>zeta = 0.5 &lt; 1 means underdamped: step response overshoots and rings before settling.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="9">
+      <content>
+        <text>Topic: Butterworth Filter</text>
+        <question>
+          <text>A Butterworth second-order low-pass filter has damping factor zeta equal to:</text>
+          <answers>
+            <answer index="1">0</answer>
+            <answer index="2">0.5</answer>
+            <answer index="3">0.707 (1/sqrt(2))</answer>
+            <answer index="4">1</answer>
+          </answers>
+          <correctAnswer>3</correctAnswer>
+          <explanation>zeta = 1/sqrt(2) = 0.707 produces the Butterworth response: maximally flat magnitude with no peak.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="10">
+      <content>
+        <text>Topic: Active Filters</text>
+        <question>
+          <text>Active op-amp filters have a key advantage over passive LC filters at audio frequencies. What is it?</text>
+          <answers>
+            <answer index="1">Active filters require no power supply</answer>
+            <answer index="2">Active filters avoid the need for large, lossy inductors</answer>
+            <answer index="3">Active filters can operate at higher voltages</answer>
+            <answer index="4">Active filters always have lower noise</answer>
+          </answers>
+          <correctAnswer>2</correctAnswer>
+          <explanation>At audio frequencies, inductors are large and lossy. Op-amp active filters achieve second-order responses with only R and C.</explanation>
+        </question>
+      </content>
+    </slide>
+  </slides>
+</learningContent>

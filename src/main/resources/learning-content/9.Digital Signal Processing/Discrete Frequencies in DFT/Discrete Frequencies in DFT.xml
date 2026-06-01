@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<learningContent>
+  <metadata>
+    <title>Discrete Frequencies in DFT</title>
+    <author>Axono</author>
+    <version>1.0</version>
+    <created>2026-05-05</created>
+    <description>Article explaining discrete frequencies in DFT</description>
+  </metadata>
+
+  <slides>
+
+    <!-- Slide 1 -->
+    <slide id="1">
+      <content>
+        <text>DFTs are defined on a discrete set of frequency bins, where k is the bin number.</text>
+        <math>f_k</math>
+        <text>For a period of length N, the discrete frequencies are defined by the frequencies with an integer number of complete cycles within the period.</text>
+        <text>The fundamental frequency completes 1 cycle within the period:</text>
+        <math>f_1 = \frac{1}{N\Delta t} = \frac{f_s}{N}</math>
+        <text>The following discrete frequencies are therefore integer multiples of the fundamental frequency:</text>
+        <math>f_k = k f_1 = \frac{k}{N\Delta t} = \frac{k f_s}{N}</math>
+      </content>
+      <duration></duration>
+      <transition type="" duration=""></transition>
+      <extensions></extensions>
+    </slide>
+
+  </slides>
+</learningContent>

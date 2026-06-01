@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<learningContent>
+  <metadata>
+    <title>Communications Systems and Signals</title>
+    <author />
+    <version />
+    <created />
+    <description />
+  </metadata>
+  <slides>
+    <slide id="">
+      <content>
+        <text>Non-Return to Zero Inverted (NRZI)</text>
+        <text>&#x2022; There are two versions:</text>
+        <text>&#x2022; One encodes &#x2018;1&#x2019;s by a change in the output signal (version &#x2018;a&#x2019; below), and &#x2018;0&#x2019;s by no change; the other does the reverse (version &#x2018;b&#x2019; below).</text>
+        <text>&#x2022; However, like NRZ, it retains the same value for the entire symbol period.</text>
+        <text>&#x2022; Version (a) is used where there can be long runs of &#x2018;1&#x2019;s &#x2013; as a result of block coding.</text>
+        <text>&#x2022; Version (b) is used useful where there are a large number of consecutive &#x2018;0&#x2019;s &#x2013; often as a result of bit-stuffing.</text>
+      </content>
+      <duration />
+      <transition type="" duration="" />
+      <extensions />
+    </slide>
+  </slides>
+</learningContent>

@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<learningContent>
+  <metadata>
+    <title>Integration by Substitution Quiz</title>
+    <author>Axono</author>
+    <version>1.0</version>
+    <created>2026-05-05</created>
+    <description>A quiz on integration by substitution.</description>
+  </metadata>
+
+  <slides>
+
+    <!-- Slide 1 -->
+    <slide id="1">
+      <content>
+        <text>Topic: Integration by Substitution</text>
+        <text>Evaluate the indefinite integral:</text>
+        <math>\int 7(x+1)^6\,dx</math>
+        <question>
+          <text>Which of the following is the correct result?</text>
+          <answers>
+            <answer index="1">I = (x+1)^7</answer>
+            <answer index="2">I = (x+1)^5 + c</answer>
+            <answer index="3">I = (x+1)^5</answer>
+            <answer index="4">I = (x+1)^7 + c</answer>
+          </answers>
+          <correctAnswer>4</correctAnswer>
+          <explanation>Let u = x+1, du = dx. Then the integral becomes 7*u^6 du = u^7 + c = (x+1)^7 + c.</explanation>
+        </question>
+      </content>
+    </slide>
+
+    <!-- Slide 2 -->
+    <slide id="2">
+      <content>
+        <text>Topic: Integration by Substitution</text>
+        <text>Evaluate the indefinite integral:</text>
+        <math>\int \cos(3x)\,dx</math>
+        <question>
+          <text>Which of the following is the correct result?</text>
+          <answers>
+            <answer index="1">sin(3x) + c</answer>
+            <answer index="2">(1/3)sin(3x) + c</answer>
+            <answer index="3">-sin(3x) + c</answer>
+            <answer index="4">3sin(3x) + c</answer>
+          </answers>
+          <correctAnswer>2</correctAnswer>
+          <explanation>Let u = 3x, du = 3dx, so dx = du/3. The integral becomes (1/3)*cos(u) du = (1/3)sin(u) + c = (1/3)sin(3x) + c.</explanation>
+        </question>
+      </content>
+    </slide>
+
+  </slides>
+</learningContent>

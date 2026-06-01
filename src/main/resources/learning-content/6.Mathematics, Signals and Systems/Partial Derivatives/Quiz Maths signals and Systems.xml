@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<learningContent>
+  <metadata>
+    <title>Quiz: Maths, Signals and Systems</title>
+    <author />
+    <version>1.0</version>
+    <created />
+    <description>A quiz on partial derivatives.</description>
+  </metadata>
+
+  <slides>
+
+    <slide id="1">
+      <content>
+        <text>Topic: Partial Derivatives</text>
+        <text>Given the function:</text>
+        <math>f(x, y) = x^2 + 2y^2 + 2</math>
+        <question>
+          <text>What is the partial derivative of f with respect to y?</text>
+          <answers>
+            <answer index="1">4y</answer>
+            <answer index="2">2x</answer>
+            <answer index="3">2y</answer>
+            <answer index="4">4x</answer>
+          </answers>
+          <correctAnswer>1</correctAnswer>
+          <explanation>Treating x as constant: d/dy (2y^2) = 4y. The x^2 and +2 terms vanish. So df/dy = 4y.</explanation>
+        </question>
+      </content>
+    </slide>
+
+    <slide id="2">
+      <content>
+        <text>Topic: Partial Derivatives</text>
+        <text>Given the function:</text>
+        <math>f(x, y) = x^2 + 2y^2 + 2</math>
+        <question>
+          <text>What is the partial derivative of f with respect to x?</text>
+          <answers>
+            <answer index="1">4y</answer>
+            <answer index="2">2x</answer>
+            <answer index="3">2y</answer>
+            <answer index="4">4x</answer>
+          </answers>
+          <correctAnswer>2</correctAnswer>
+          <explanation>Treating y as constant: d/dx (x^2) = 2x. The 2y^2 and +2 terms vanish. So df/dx = 2x.</explanation>
+        </question>
+      </content>
+    </slide>
+
+  </slides>
+</learningContent>

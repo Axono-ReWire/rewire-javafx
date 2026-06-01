@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<learningContent>
+  <metadata>
+    <title>A Short Introduction to Newtonian Physics</title>
+    <author>Engineering Lecture Notes</author>
+    <version>1.0</version>
+    <created>2026-05-23</created>
+    <description>An introductory presentation covering Newtonian physics: Newton's laws, force, energy, work, power, pressure, flow, and the hydraulic analogy applied to electronics.</description>
+  </metadata>
+  <slides>
+    <slide id="1">
+      <content>
+        <text>Title slide introducing the presentation topic and scope</text>
+        <text>A Short Introduction to Newtonian Physics</text>
+        <text>Energy, Work, Power, Force, Pressure and Flow</text>
+        <text>v1.10 — June 2022 | Prerequisite Knowledge: None</text>
+      </content>
+    </slide>
+    <slide id="2">
+      <content>
+        <text>Introduction slide explaining the motivation and scope of the chapter</text>
+        <text>1.1 Introduction</text>
+        <text>Electronics — and all engineering — is fundamentally applied physics. This chapter introduces the most important principles in Newtonian physics essential to understanding electronic circuits.</text>
+        <text>Topics covered: energy, work, power, force, pressure, and flow — explored through the hydraulic analogy (water in pipes), then mapped to electronics.</text>
+        <text>Note: Gravity is neglected throughout. Assume all pipes lie on a flat horizontal surface.</text>
+      </content>
+    </slide>
+    <slide id="3">
+      <content>
+        <text>Newton's three laws of motion, leading to F = ma</text>
+        <text>1.2 Newton's Laws of Motion</text>
+        <text>1. A body remains at rest or in uniform motion unless acted on by an external force.</text>
+        <text>2. The rate of change of momentum is equal to the net force applied.</text>
+        <text>3. For every action there is an equal and opposite reaction.</text>
+        <text>From Law 2, since mass is usually constant: F = ma</text>
+      </content>
+    </slide>
+    <slide id="4">
+      <content>
+        <text>Force, energy, and work definitions with examples</text>
+        <text>1.3 Force, Energy and Work</text>
+        <text>Force (F) — measured in newtons (N). 1 N accelerates 1 kg at 1 m/s².</text>
+        <text>Energy (E) — the ability to do work, measured in joules (J). 1 J = 1 N·m</text>
+        <text>Work (W) — applying force over a distance: W = F·d</text>
+        <text>Power (P) — work per unit time: P = W/t (measured in watts, W)</text>
+      </content>
+    </slide>
+    <slide id="5">
+      <content>
+        <text>Pressure and flow rate with hydraulic analogy</text>
+        <text>1.4 Pressure and Flow</text>
+        <text>Pressure (P) — force per unit area. In hydraulic systems, pressure drives flow through resistance.</text>
+        <text>Flow rate (Q) — volume per unit time (cubic metres per second or litres per minute).</text>
+        <text>Hydraulic Analogy: Pressure ~ Voltage, Flow ~ Current, Resistance ~ Component Resistance</text>
+      </content>
+    </slide>
+    <slide id="6">
+      <content>
+        <text>Energy conservation principle and power dissipation in resistors</text>
+        <text>1.5 Conservation of Energy</text>
+        <text>Energy is neither created nor destroyed — it is converted from one form to another.</text>
+        <text>In a circuit, energy supplied by the battery is dissipated as heat in resistors: P = V·I = I²·R = V²/R</text>
+        <text>Heat generated in a resistor over time t: Q = I²·R·t (energy dissipated in joules)</text>
+      </content>
+    </slide>
+    <slide id="7">
+      <content>
+        <text>Complete mapping of hydraulic analogy to electrical circuits</text>
+        <text>1.6 The Hydraulic Analogy</text>
+        <text>Water in pipes → Electrons in wires</text>
+        <text>Pump pressure (Pa) → Battery voltage (V)</text>
+        <text>Water flow rate (m³/s) → Current (A)</text>
+        <text>Pipe narrowness → Resistance (Ω)</text>
+        <text>Power dissipated in pump: P = Pressure × Flow = V × I</text>
+      </content>
+    </slide>
+    <slide id="8">
+      <content>
+        <text>Summary of Newtonian physics key concepts</text>
+        <text>Summary — Newtonian Physics</text>
+        <text>• Force (F) and acceleration: F = ma</text>
+        <text>• Work and power: W = F·d, P = W/t</text>
+        <text>• Energy conservation: total energy is constant in a closed system</text>
+        <text>• Pressure and flow: analogous to voltage and current in circuits</text>
+        <text>• Power dissipation: P = V·I = I²·R = V²/R</text>
+      </content>
+    </slide>
+  </slides>
+</learningContent>

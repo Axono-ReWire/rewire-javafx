@@ -98,7 +98,6 @@
             <module name="Immersive and Interactive Audio" desc="Binaural audio, ambisonics, and interactive sound systems"/>
             <module name="Statistical Techniques for Data Analysis and Machine Learning" desc="Bayesian inference, hypothesis testing, and ML statistics"/>
             <module name="Critical Evaluation of Intelligent Robots" desc="Robot ethics, performance benchmarking, and autonomy"/>
-            <module name="Fuel Cell and Battery Technologies" desc="Electrochemistry, cell types, and energy storage"/>
         </section>
     </yearGroup>
 </curriculum>
