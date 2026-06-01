@@ -76,7 +76,7 @@ mvn verify
 
 ## Project structure
 
-```
+```text
 src/
 ├── main/
 │   ├── java/com/axono/
