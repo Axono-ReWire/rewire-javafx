@@ -18,342 +18,347 @@ import javafx.scene.layout.VBox;
  *
  * Users can browse module descriptions and open corresponding notes
  * via the "open notes" button.
- 
+ */
+public final class ResourceView extends ScrollPane {
 
+    private static final String BG_COLOR_STYLE = "-fx-background-color: ";
 
+    /**
+     * Constructor for ResourceView.
+     */
+    public ResourceView() {
+        buildUI();
+    }
 
-         * Constructor for ResourceView.
+    /**
+     * Builds main layout of the page.
+     * Creates the scrollable layout and page structure.
+     *
+     * Applies theme to match the styling of the application
+     * and previous pages.
+     */
+    private void buildUI() {
+        VBox content = new VBox(UIConstants.SPACING_3XL);
+        content.setAlignment(Pos.TOP_CENTER);
+        content.setPadding(new Insets(
+                UIConstants.CONTENT_PADDING_V,
+                UIConstants.PADDING_MD,
+                UIConstants.CONTENT_PADDING_V,
+                UIConstants.PADDING_MD));
+        content.setMaxWidth(UIConstants.CONTENT_MAX_WIDTH);
+        content.setStyle(BG_COLOR_STYLE + UITheme.BG + ";");
 
-        public ResourceView() {
-                buildUI();
-        }
+        content.getChildren().addAll(
+                buildHeader(),
+                buildResourcesSection()
+        );
 
-           
-            * Builds main layout of the pa
-            * Creates the scrollable layout and page structu
-           
-            * Applies theme to match the styling of the applicat
-            * and previous pag
-           
+        HBox wrapper = new HBox(content);
+        wrapper.setAlignment(Pos.TOP_CENTER);
+        wrapper.setStyle(BG_COLOR_STYLE + UITheme.BG + ";");
+        HBox.setHgrow(content, Priority.ALWAYS);
 
-            VBox content = new V
-                content.setAlignment(Pos.TOP_CENTER);
-                content.setPadding(new Insets(
-                        UIConstants.CONTENT_PA
-                                UIConstants.PADDING_MD,
-                                UIConstants.CONTENT_PAD
-                                UIConstants.PADDING_MD));
-                                setMaxWidth(UIConstants.C
-                content.setStyle(BG_COLOR_STYLE + UITheme.BG + ";")
-                
+        setContent(wrapper);
+        setFitToWidth(true);
+        setBorder(Border.EMPTY);
+        setStyle(BG_COLOR_STYLE + UITheme.BG + ";");
+    }
 
-                        buildHeader(),
-                                buildResources
-                                
+    /**
+     * Builds page header containing main title and navigation buttons.
+     *
+     * Main title "Learning Resources" with buttons for back and dashboard.
+     *
+     * @return VBox containing the header layout.
+     */
+    private VBox buildHeader() {
+        Label title = new Label("Learning Resources");
+        title.setStyle("-fx-font-size: 32px;"
+                + "-fx-font-weight: bold;"
+                + "-fx-text-fill: " + UITheme.TEXT_DARK + ";");
 
-                wrapper.setAlignment(Pos.TOP_CENT
-                wrapper.setStyle(BG_COLOR_STYLE + UIT
-                HBox.setHgrow(content, Priority.ALWAYS);
-                
+        HBox buttons = new HBox(UIConstants.SPACING_MD,
+                outlineButton("Back"),
+                outlineButton("Dashboard"));
+        buttons.setAlignment(Pos.CENTER);
 
-                setFitToWidth(true);
-                setBorder(Border.EMP
-                setStyle(BG_COLOR_STYLE 
-                
-        
+        VBox header = new VBox(UIConstants.PADDING_MD, title, buttons);
+        header.setAlignment(Pos.CENTER);
 
-           
-             *
-           
-             *
-             * @return VBox containing the
-           
-          
-           
+        return header;
+    }
 
-                    + "-fx-font-weig
-                        + "-fx-text-fill: " + UITheme.TEXT_DAR
-                
-                                tons = new HBox(UIConstant
-                                outlineButton("Back"),
+    /**
+     * Builds the main resource content boxes for all available modules.
+     *
+     * These are structured to display:
+     * - Modules title
+     * - Generic description
+     * - Expandable summary
+     * - Button to link to the notes
+     *
+     * @return VBox containing all resource boxes.
+     */
+    private VBox buildResourcesSection() {
+        Label sectionTitle = sectionLabel("Content",
+                UIConstants.FONT_SECTION);
 
-                buttons.setAlignment(Pos.CENTER);
-                                
-                                der = new VBox(UIConstants.P
-                header.setAlignment(Pos.CENTER);
+        VBox resources = new VBox(UIConstants.SPACING_LG,
+                buildResourceBox("Introduction to Engineering",
+                        "Access structured notes and relevant content",
+                        "This module introduces students to the physical "
+                                + "principles that underpin engineering. Starting "
+                                + "from Newtonian mechanics, it includes the basic "
+                                + "properties of materials, the fundamental laws of "
+                                + "circuit analysis, and an introduction to digital "
+                                + "logic.",
+                        "Open Notes"),
+                buildResourceBox("Mathematics",
+                        "Access structured notes and relevant content",
+                        "Mathematics is the most important tool an engineer "
+                                + "has for articulating engineering problems, and "
+                                + "for formulating solutions to those problems. "
+                                + "Mathematics lies at the heart of modelling, and "
+                                + "offers unparalleled insights into the beauty of "
+                                + "the natural world. This module develops fluency "
+                                + "and confidence in a range of mathematical methods "
+                                + "necessary for the analysis, design, and exploration "
+                                + "of engineering systems.",
+                        "Open Notes"),
+                buildResourceBox("Programming and Digital Interfacing",
+                        "Access structured notes and relevant content",
+                        "This module will introduce you to the power of "
+                                + "programming, and how it can be used as a tool to "
+                                + "help create interactive engineered systems. We will "
+                                + "start from the very beginning, looking at the basics "
+                                + "of programming, before moving on to look at more "
+                                + "advanced concepts and techniques, using a restricted "
+                                + "subset of the C++11 programming language.",
+                        "Open Notes"),
+                buildResourceBox("Digital Electronics",
+                        "Access structured notes and relevant content",
+                        "The module will introduce tools and methodologies for "
+                                + "the design and implementation of advanced digital "
+                                + "circuits, covering technology and design flows "
+                                + "targeting application-specific integrated circuits "
+                                + "(ASICs) and field-programmable gate arrays (FPGAs). "
+                                + "Techniques to improve performance will be considered "
+                                + "at different levels. Technology scaling, performance "
+                                + "(timing)/power/area (PPA), standard cell libraries, "
+                                + "full-/semi-custom ASIC design. Timing, pipelining, "
+                                + "clock domain crossing, place and route on FPGA. "
+                                + "Approaches for designing testable circuits will be "
+                                + "developed, including verification, fault models, "
+                                + "design for testability",
+                        "Open Notes"),
+                buildResourceBox("Controls, Sensors and Instrumentation",
+                        "Access structured notes and relevant content",
+                        "This module provides an introduction to feedback "
+                                + "control of linear systems, and how it can be used "
+                                + "to provide stability or to obtain a particular "
+                                + "response characteristic from a system. The techniques "
+                                + "covered have a wide range of applications, including "
+                                + "to mechanical systems such as robots, and to "
+                                + "electronic systems such as audio amplifiers. Feedback "
+                                + "control requires that the system under control be "
+                                + "instrumented so that the controller knows what it is "
+                                + "doing. We will look at a variety of different sensor "
+                                + "types in this module, including optical, magnetic and "
+                                + "micromechanical, and their relative characteristics "
+                                + "and performance.",
+                        "Open Notes"),
+                buildResourceBox("Mathematics, Signals and Systems",
+                        "Access structured notes and relevant content",
+                        "This module introduces more advanced mathematical "
+                                + "tools that are useful for modelling real-world "
+                                + "engineering systems and for the analysis and "
+                                + "processing of signals.",
+                        "Open Notes"),
+                buildResourceBox("Circuit Design",
+                        "Access structured notes and relevant content",
+                        "This module introduces students to analogue and digital "
+                                + "design concepts, along with the appropriate role of "
+                                + "Hardware Description Languages (HDLs) and simulation "
+                                + "in the modern design flow. Particular emphasis will "
+                                + "be placed on using HDLs for the synthesis of digital "
+                                + "circuits on one side and on the development of "
+                                + "appropriate testing through the use of HDL test "
+                                + "benches and simulation. The properties and behaviour "
+                                + "of semiconductor devices, small signal models and "
+                                + "device design will be covered.",
+                        "Open Notes"),
+                buildResourceBox("Communication systems and Digital "
+                        + "Communications",
+                        "Access structured notes and relevant content",
+                        "The Communication Systems module provides you with a "
+                                + "detailed understanding of how wired and wireless "
+                                + "communication systems work, from theoretical concepts "
+                                + "through to the design of practical radio systems and "
+                                + "networks. Topics include: information theory; wireless "
+                                + "link design; signals, baseband and passband radio "
+                                + "modulation and demodulation; transmitter and receiver "
+                                + "architectures, networks and protocols.",
+                        "Open Notes"),
+                buildResourceBox("Digital Signal Processing",
+                        "Access structured notes and relevant content",
+                        "We will introduce discrete time techniques routinely "
+                                + "used in Digital Signal Processing (DSP) systems, "
+                                + "including the discrete time Fourier transform (DTFT), "
+                                + "discrete Fourier transform (DFT) and discrete time "
+                                + "convolution and correlation. The importance of data "
+                                + "windows in DSP will be highlighted and a range of "
+                                + "data windows will be introduced, including the raised "
+                                + "cosine family (Hanning, Hamming, Blackmann) and "
+                                + "orthogonal multi-taper (DPSS) windows. Frequency "
+                                + "analysis of signals will be described including "
+                                + "practical aspects of spectral leakage, analysis of "
+                                + "stochastic signals and time-frequency analysis using "
+                                + "spectrograms. Practical applications of these "
+                                + "techniques will be considered using a range of "
+                                + "different data modalities including biomedical, "
+                                + "environmental and speech data. The difference equation "
+                                + "as a key design tool in DSP will be introduced and "
+                                + "its use in describing digital filters will be "
+                                + "presented. The window method for Finite Impulse "
+                                + "Response (FIR) filter design will be described, "
+                                + "covering both theoretical and practical aspects. "
+                                + "Machine learning in DSP systems will be introduced "
+                                + "and the theory and application of deep Convolutional "
+                                + "Neural Networks (CNN) presented, with a focus on "
+                                + "image recognition including standard benchmark "
+                                + "applications (MNIST, ImageNet).",
+                        "Open Notes"),
+                buildResourceBox("Digital Engineering",
+                        "Access structured notes and relevant content",
+                        "The module will introduce tools and methodologies for "
+                                + "the design and implementation of advanced digital "
+                                + "circuits, covering technology and design flows "
+                                + "targeting application-specific integrated circuits "
+                                + "(ASICs) and field-programmable gate arrays (FPGAs). "
+                                + "Techniques to improve performance will be considered "
+                                + "at different levels. Technology scaling, performance "
+                                + "(timing)/power/area (PPA), standard cell libraries, "
+                                + "full-/semi-custom ASIC design. Timing, pipelining, "
+                                + "clock domain crossing, place and route on FPGA. "
+                                + "Approaches for designing testable circuits will be "
+                                + "developed, including verification, fault models, "
+                                + "design for testability",
+                        "Open Notes")
+        );
 
-                return header;
-                
+        VBox section = new VBox(UIConstants.SPACING_XL,
+                sectionTitle,
+                cardWrap(resources));
+        section.setAlignment(Pos.CENTER_LEFT);
+        section.setMaxWidth(UIConstants.SECTION_MAX_WIDTH);
 
-                
-         
+        return section;
+    }
 
-           
-             * - Generic description
-           
-             * - Button to link to the notes
-             *
-             * @return VBox co
-             */
-            private VBox buildResource
-           
-                  
-         
+    /**
+     * Builds resource boxes with the specified parameters.
+     *
+     * Takes the design and formatting to match application style.
+     *
+     * @param title the title of the resource
+     * @param subheading the subheading of the resource
+     * @param description the full description of the resource
+     * @param buttonText the text displayed on the button
+     * @return VBox containing the formatted resource box
+     */
+    private VBox buildResourceBox(final String title,
+                                   final String subheading,
+                                   final String description,
+                                   final String buttonText) {
 
-                    buildResourceBox("Introduc
-                                "Access structured notes and
-                                        "This module intro
+        Label titleLabel = new Label(title);
+        titleLabel.setStyle("-fx-font-size: 18px;"
+                + "-fx-font-weight: bold;"
+                + "-fx-text-fill: " + UITheme.TEXT_DARK + ";");
 
-                                        + "from Newtonian mechani
-                                                      + "properties of material
-                                                        + "circuit analysis, and an introductio
-                                                        + "logic.",
-                                                                "Open Notes"),
-                                                                ourceBox("Mathematics",
-                                                                "Access structured notes and relevant content",
-                                                                "Mathematics is the most important tool an engineer "
-                                                        + "has
-                                                      + "for fo
-                                                             + "Mathematics lies at the heart o
-                                                             + "offers unparalleled insights into the
-                                                                             + "the natural world. This module develops
-                                                                             + "and confidence in a range of mathematica
-                                                                             + "necessary for the analysis, design, and explo
-                                                                             + "of engineering systems.",
-                                                                     "Open Notes"),
-                                                                ldResourceBox("Programming and Digital Interfacing",
-                                                                     "Access structured note
-                                                This module wi
-                                                      + "programming, and how it can be
-                                                             + "help create interactive enginee
-                                                             + "start from the very beginning, looking at the
-                                                                             + "of programming, before moving on to look at more 
-                                                                             + "advanced concepts and techniques, using a restr
-                                                                             + "subset of the C++11 programming language.",
-                                                                     "Open Notes"),
-                                                                ldResourceBox("Digital Electronics",
-                                                Access structu
-                                              "The module will introduc
-                                                             + "the design and implementation o
-                                                             + "circuits, covering technology and design flows "
-                                                                             + "targeting application-specific integrated circu
-                                                                             + "(ASICs) and field-programmable gate arrays (FPG
-                                                                             + "Techniques to improve performance will be considered "
-                                                                             + "at different levels. Technology scaling, performance "
-                                                                             + "(timing)/power/area (PPA), standard cell librar
-                                                                             + "full-/semi-custom ASIC design. Timing, pipeli
-                                                                             + "clock domain crossing, place and route on FPGA. "
-                                                                             + "Approaches for designing testable circuits will be
-                                                                             + "developed, including verification, fault models, "
-                                                       + "desi
-                                              "Open Notes"),
-                                                ldResourceBox("Controls, Sensors and Instrument
+        Label subLabel = new Label(subheading);
+        subLabel.setStyle("-fx-font-size: 14px;"
+                + "-fx-text-fill: " + UITheme.SECONDARY + ";");
 
-                                                     "This module provides an introduction to feedback "
-                                                                             + "control of linear systems, and how it can be used "
-                                                                             + "to provide stability or to obtain a particular "
-                                                                             + "response characteristic from a system. The techniques "
-                                                                             + "covered have a wide range of applic
-                                                                             + "to mechanical systems such as robots, and to "
-                                                                             + "electronic systems such as audio amplifiers. Feedback "
-                                                                             + "control requires that the system under control be "
-                                                                             + "instrumented so that the controller knows what it is "
-                                                       + "doin
-                                                      + "types in this module, inclu
-                                                             + "micromechanical, and their rela
-                                                             + "and performance.",
-                                                                     "Open Notes"),
-                                                                ldResourceBox("Ma
-                                                Access structu
-                                              "This module introdu
-                                                             + "tools that are useful for model
-                                                             + "engineering systems and for the analysis and "
-                                                                             + "processing of signals.",
-                                                                     "Open Notes"),
-                                                                ldResourceBox("Circuit Design",
-                                                                     "Access structured notes and relevant content",
-                                                                     "This module introduces students to analogue and digital "
-                                                                             + "design concepts, along with the appropriate role of "
-                                                                             + "Hardware Description Languages (HDLs) and simulation "
-                                                                             + "in the mo
-                                                            + 
+        Label descLabel = new Label(description);
+        descLabel.setStyle("-fx-font-size: 11px;"
+                + "-fx-text-fill: " + UITheme.SECONDARY + ";");
+        descLabel.setWrapText(false);
+        final int descLabelWidth = 650;
+        descLabel.setMaxWidth(descLabelWidth);
+        descLabel.setStyle("-fx-font-size: 12px;"
+                + "-fx-text-fill: " + UITheme.SECONDARY + ";"
+                + "-fx-cursor: hand;");
 
-                                                      + "appropriate testing through the use of HDL 
-                                                             + "benches and simulation. The pro
-                                                             + "of semiconductor devices, small signal models and "
-                                                                             + "device design will be covered.",
-                                                                     "Open Notes"),
-                                                                ldResourceBox("Communication systems and Digital "
-                                                                     + "Communications",
-                                                                     "Access structured notes and relevant 
-                                                The Communicat
-                                                      + "detailed understandi
-                                                             + "communication systems work, fro
-                                                             + "through to the design of practical radio systems and "
-                                                                             + "networks. Topics include: information theory; wireless "
-                                                                             + "link design; signals, baseband and passband radio "
-                                                                             + "modulation and demodulation; transmitter and receiver "
-                                                                             + "architectures, networks and protocols.",
-                                                                     "Open Notes"),
-                                                                ldResourceBox("Digital Signal Processing",
-                                                                     "Access structured notes and relevant content",
-                                                                     "We will introduce discrete time techniques routinely "
-                                                                             + "used in Digital Signal Processing (DSP) systems, "
-                                                                             + "including the discrete time Fourier transform (DTFT), "
-                                                                             + "discrete Fourier transform (DFT) and discrete time "
-                                                                             + "convolution and correlation. The importance of data "
-                                                                             + "windows in DSP will be highlighted and a range of "
-                                                                             + "data windows will be introduced, includ
-                                                       + "cosi
-                                                      + "orthogonal mul
-                                                             + "analysis of signals will be des
-                                                             + "practical aspects of spectral leakage, analysis of "
-                                                                             + "stochastic signals and time-frequency analysis using "
-                                                                             + "spectrograms. Practical applications of these "
-                                                                             + "techniques will be considered using a range of "
-                                                                             + "different data modalities including biomedical, "
-                                                                             + "environmental and speech data. The difference equation "
-                                                                             + "as a key design tool in DSP will be int
-                                                       + "its
+        final boolean[] expanded = {false};
 
-                  
+        descLabel.setOnMouseClicked(e -> {
+            expanded[0] = !expanded[0];
 
-                                        + "Machine learning in 
-                                             
-                                                + "Ne
-                                        + "image recog
-                                        + "applications (MNIST, Ima
+            if (expanded[0]) {
+                descLabel.setWrapText(true);
+            } else {
+                descLabel.setWrapText(false);
+            }
+        });
 
-                        buildRe
-         
+        VBox card = new VBox(UIConstants.SPACING_MD,
+                titleLabel,
+                subLabel,
+                descLabel
+        );
 
-           
-                                    + "circuits, covering techn
-                                    + "targeting application-sp
-           
-         *             
-                            
-                             
-                            
-                  
-           
+        card.setFillWidth(true);
+        return cardWrap(card);
+    }
 
-                            "Open Notes")
-                        
-                        
-                        Constants.SPACING_XL
+    /**
+     * Wraps content in a styled card container.
+     *
+     * Takes the design and applies theme to make styling consistent.
+     * Adds padding, a border and rounded corners with background colour
+     * to match application.
+     *
+     * @param content the VBox content to wrap
+     * @return VBox with card styling applied
+     */
+    private VBox cardWrap(final VBox content) {
+        content.setPadding(new Insets(UIConstants.PADDING_MD));
+        content.setMaxWidth(UIConstants.CONTENT_MAX_WIDTH);
+        content.setStyle(BG_COLOR_STYLE + UITheme.WHITE + ";"
+                + "-fx-border-color: " + UITheme.BORDER + ";"
+                + "-fx-border-radius: 6px;"
+                + "-fx-background-radius: 6px;");
+        return content;
+    }
 
-                        cardWrap(resources));
-                section.setAlignment(Pos.CENTER_LEFT);
-                                setMaxWidth(UIConstants.SE
-                                
+    /**
+     * Creates a styled section heading label.
+     *
+     * @param text the text content for the heading
+     * @param size the font size in pixels
+     * @return Label with section heading styling applied
+     */
+    private Label sectionLabel(final String text, final int size) {
+        Label l = new Label(text);
+        l.setStyle(String.format(
+                "-fx-font-size: %dpx;"
+                        + "-fx-font-weight: bold;"
+                        + "-fx-text-fill: %s;",
+                size, UITheme.TEXT_DARK));
+        return l;
+    }
 
-                
-                
-                                
-
-                
-                akes the design and formatting to match a
-                                
-                param title the title of the 
-                param subheading the subhea
-                param description the full description of
-                                ttonText the text displayed on the button
-                                Box containing the formatted resource box
-
-                ate VBox buildResourceBox(fi nal S tr
-
-                   
-                                                final String b
-                 
-                     Label titleLabel = new Label(title);
-                   
-
-                        + "-fx-text-fill: " + UITh
-                        
-
-                        abel.setStyle("-fx
-                                + "-fx-text-fill: " + UIThem SE CONDAR
-                        
-                                scLabel = new Label(descripti ); 
-                        L
-                   
-
-                descLabel.setMaxWidth(descLabelWidth);
-                                l.setStyle(
-                                + "-fx-te
-                                + "-fx-cu
-
-                
-                descLabel.setOnMouseCl
-         
-
-           
-                       descLabel.setWrapText(true);
-           
-                       descLabel.setWrapText(false);
-                   }
-           
-         
-               VBo
-           
-                    subLabel,
-                        descLabel
-                );
-                
-                                FillWidth(true);
-                                ardWrap(card);
-                                
-                
-        /
-
-           
-            *
-           
-         *  * Takes th
-            * Adds pad
-            * to m
-           
-
-         * @return VBox with card styling applied
-                
-                ate VBox cardWrap(final V
-                                setPadding(new Insets(
-                                                dth(UIConstants.CONTENT_MA
-                                                (BG_COLOR_STYLE + UIThe
-                                + "-fx-border-color: " + U
-                        +
-         
-
-           
-         
-           
-            * Creates a styled section heading label.
-            *
-           
-            * @param s
-            * @ret
-           
-
-            Label l = new Label(text);
-                l.setStyle(String.format(
-                                "-fx-font-size: %dpx;"
-                                        + "-fx-font-weight
-                                        + "-fx-text-fill: %
-                                size, UITheme.TEXT_DARK));
-                                ;
-                                
-                                
-
-                reates a themed outline button.
-                                
-
-                nteraction and feedback.
-                
-                param text the text displayed on the button
-                return Button with outline styling applied
-                
-        private Button outlineButton(final String text) {
+    /**
+     * Creates a themed outline button.
+     *
+     * Uses application primary colour and hover effects to improve user
+     * interaction and feedback.
+     *
+     * @param text the text displayed on the button
+     * @return Button with outline styling applied
+     */
+    private Button outlineButton(final String text) {
         String base = "-fx-background-color: transparent;"
                 + "-fx-border-color: " + UITheme.PRIMARY + ";"
                 + "-fx-border-width: 2px;"
