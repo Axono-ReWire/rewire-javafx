@@ -1,7 +1,7 @@
 package com.axono.onboarding;
 
-import com.axono.model.UserProfile;
-
+import com.axono.auth.UserProfile;
+import com.axono.ui.UIConstants;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
@@ -39,17 +39,14 @@ public final class SubjectView extends StackPane {
         /** The user profile to populate when {@link #saveData()} is called. */
         private final UserProfile profile;
 
-        /** Percentage width assigned to each of the two grid columns. */
-        private static final double COL_PERCENT = 48;
-
-        /** Gap between grid cells, in pixels. */
-        private static final int CELL_SPACING = 8;
-
         /**
          * Flat list of all {@link CheckBox} controls
          * rendered in the curriculum grid.
          */
         private final List<CheckBox> checkboxes = new ArrayList<>();
+
+        /** Column width percentage for the two-column module grid. */
+        private static final int COLUMN_PCT = 50;
 
         /**
          * Immutable static data model representing
@@ -300,27 +297,31 @@ public final class SubjectView extends StackPane {
          * Select All button, and scrollable curriculum list.
          */
         private void buildUI() {
+                getStyleClass().add("bg-transparent");
+                setPadding(new Insets(UIConstants.PADDING_CONTENT_H));
 
                 Label heading = new Label("Select Your Modules");
-                heading.getStyleClass().add("header2");
-
+                heading.getStyleClass().add("text-primary");
+                heading.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
                 HBox.setHgrow(heading, Priority.ALWAYS);
 
                 Button selectAll = new Button("Select All");
-                selectAll.getStyleClass().add("button-s");
+                selectAll.setStyle("-fx-font-size: 12px; -fx-cursor: hand;");
                 selectAll.setOnAction(e -> {
                         boolean anyUnchecked = checkboxes.stream().anyMatch(
                                         c -> !c.isSelected());
                         checkboxes.forEach(c -> c.setSelected(anyUnchecked));
                 });
 
-                HBox topRow = new HBox(heading, selectAll);
-                topRow.getStyleClass().add("toprow");
+                HBox topRow = new HBox(UIConstants.SPACING_LG,
+                                heading, selectAll);
+                topRow.setAlignment(Pos.CENTER_LEFT);
 
                 Label sub = new Label("Choose the modules you're studying:");
-                sub.getStyleClass().add("subheading");
+                sub.getStyleClass().add("text-muted");
+                sub.setStyle("-fx-font-size: 14px;");
 
-                VBox content = new VBox();
+                VBox content = new VBox(UIConstants.SPACING_3XL);
                 for (YearGroup year : CURRICULUM) {
                         content.getChildren().add(buildYearBlock(year));
                 }
@@ -332,8 +333,11 @@ public final class SubjectView extends StackPane {
                 scroll.setBorder(Border.EMPTY);
                 VBox.setVgrow(scroll, Priority.ALWAYS);
 
-                VBox card = new VBox(topRow, sub, scroll);
-                card.getStyleClass().add("card2");
+                VBox card = new VBox(UIConstants.SPACING_LG,
+                                topRow, sub, scroll);
+                card.setMaxWidth(UIConstants.SUBJECT_CARD_WIDTH);
+                card.getStyleClass().add("card");
+                card.setStyle("-fx-padding: 24px 36px;");
 
                 setAlignment(Pos.CENTER);
                 getChildren().add(card);
@@ -347,28 +351,32 @@ public final class SubjectView extends StackPane {
          * @return a {@link VBox} containing the year's UI elements.
          */
         private VBox buildYearBlock(final YearGroup year) {
-
                 Label yearLabel = new Label(year.getLabel());
-                yearLabel.getStyleClass().add("subheading");
+                yearLabel.getStyleClass().add("text-primary");
+                yearLabel.setStyle("-fx-font-size: 15px;"
+                        + " -fx-font-weight: bold;");
 
                 Separator sep = new Separator();
-                VBox.setMargin(sep, new Insets(2, 0, CELL_SPACING, 0));
+                VBox.setMargin(sep, new Insets(2, 0,
+                                UIConstants.SPACING_SM, 0));
 
-                VBox block = new VBox(yearLabel, sep);
+                VBox block = new VBox(UIConstants.SPACING_MD, yearLabel, sep);
 
                 for (Section section : year.getSections()) {
                         if (section.getTitle() != null) {
                                 Label sectionLabel = new Label(section
                                                 .getTitle()
                                                 .toUpperCase());
-                                sectionLabel.getStyleClass().add("subheading");
-
+                                sectionLabel.getStyleClass().add("text-muted");
+                                sectionLabel.setStyle("-fx-font-size: 10px;"
+                                                + " -fx-font-weight: bold;");
                                 VBox.setMargin(sectionLabel, new Insets(
-                                                CELL_SPACING, 0, 2, 0));
+                                                UIConstants.SPACING_SM,
+                                                0, 2, 0));
                                 block.getChildren().add(sectionLabel);
                         }
-                        block.getChildren()
-                                        .add(buildGrid(section.getModules()));
+                        block.getChildren().add(buildGrid(section
+                                        .getModules()));
                 }
                 return block;
         }
@@ -384,44 +392,40 @@ public final class SubjectView extends StackPane {
          * @return a {@link GridPane} containing one cell per module.
          */
         private GridPane buildGrid(final Module[] modules) {
-                String normalStyle = "-fx-border-radius: 4px;"
-                                + "-fx-background-radius: 4px;"
-                                + "-fx-padding: 8px 10px;";
-                String selectedStyle = "-fx-background-color: #E8F7FB;"
-                                + "-fx-border-color: "
-                                + "; -fx-border-width: 2px;"
-                                + "-fx-border-radius: 4px;"
-                                + "-fx-background-radius: 4px;"
-                                + "-fx-padding: 8px 10px;";
-
                 GridPane grid = new GridPane();
-                grid.setHgap(CELL_SPACING);
-                grid.setVgap(CELL_SPACING);
+                grid.setHgap(UIConstants.SPACING_MD);
+                grid.setVgap(UIConstants.SPACING_SM);
 
                 ColumnConstraints c1 = new ColumnConstraints();
-                c1.setPercentWidth(COL_PERCENT);
+                c1.setPercentWidth(COLUMN_PCT);
                 ColumnConstraints c2 = new ColumnConstraints();
-                c2.setPercentWidth(COL_PERCENT);
+                c2.setPercentWidth(COLUMN_PCT);
                 grid.getColumnConstraints().addAll(c1, c2);
 
                 for (int i = 0; i < modules.length; i++) {
                         Module m = modules[i];
 
                         CheckBox cb = new CheckBox(m.getName());
-                        cb.getStyleClass().add("bold");
+                        cb.getStyleClass().add("text-dark");
+                        cb.setStyle("-fx-font-size: 13px;");
                         cb.setWrapText(true);
 
                         Label desc = new Label(m.getDesc());
-                        desc.getStyleClass().add("label");
+                        desc.getStyleClass().add("text-muted");
+                        desc.setStyle("-fx-font-size: 11px;");
                         desc.setWrapText(true);
 
                         VBox cell = new VBox(2, cb, desc);
-                        cell.setStyle(normalStyle);
-                        cb.selectedProperty().addListener((obs,
-                                        old,
-                                        sel) -> cell.setStyle(sel
-                                                        ? selectedStyle
-                                                        : normalStyle));
+                        cell.getStyleClass().add("module-cell");
+                        cb.selectedProperty().addListener((obs, old, sel) -> {
+                                if (sel) {
+                                        cell.getStyleClass().add(
+                                                        "module-cell-active");
+                                } else {
+                                        cell.getStyleClass().remove(
+                                                        "module-cell-active");
+                                }
+                        });
 
                         checkboxes.add(cb);
                         grid.add(cell, i % 2, i / 2);

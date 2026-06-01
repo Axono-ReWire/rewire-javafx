@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<learningContent>
+  <metadata>
+    <title>Quiz Group 3: Fields, Devices, and Semiconductors</title>
+    <author>Engineering Lecture Notes</author>
+    <version>1.0</version>
+    <created>2026-05-23T21:00:00Z</created>
+    <description>Covers Electric and Magnetic Fields, Electrons in Solids, Electromagnetism, and Diodes (Lectures 09-12).</description>
+  </metadata>
+  <slides>
+    <slide id="1">
+      <content>
+        <text>Topic: Electric Fields</text>
+        <question>
+          <text>Two point charges attract each other. If the distance is doubled, the force becomes:</text>
+          <answers>
+            <answer index="1">Half</answer>
+            <answer index="2">Double</answer>
+            <answer index="3">Quarter</answer>
+            <answer index="4">Unchanged</answer>
+          </answers>
+          <correctAnswer>3</correctAnswer>
+          <explanation>Coulomb's law: F proportional to 1/r2. Doubling r reduces force by a factor of 4.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="2">
+      <content>
+        <text>Topic: Capacitors</text>
+        <question>
+          <text>Which change would INCREASE the capacitance of a parallel-plate capacitor?</text>
+          <answers>
+            <answer index="1">Increasing the gap between plates</answer>
+            <answer index="2">Decreasing the plate area</answer>
+            <answer index="3">Using a dielectric with higher relative permittivity</answer>
+            <answer index="4">Decreasing supply voltage</answer>
+          </answers>
+          <correctAnswer>3</correctAnswer>
+          <explanation>C = epsilon0 x epsilonR x A / d. Higher relative permittivity directly increases C.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="3">
+      <content>
+        <text>Topic: Energy in Fields</text>
+        <question>
+          <text>The energy stored per unit volume in an electric field E is:</text>
+          <answers>
+            <answer index="1">epsilon0 E</answer>
+            <answer index="2">epsilon0 E2</answer>
+            <answer index="3">epsilon0 E2 / 2</answer>
+            <answer index="4">epsilon02 E / 2</answer>
+          </answers>
+          <correctAnswer>3</correctAnswer>
+          <explanation>Energy density u = epsilon0 E2 / 2. Magnetic equivalent is B2 / (2 mu0).</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="4">
+      <content>
+        <text>Topic: Fermi-Dirac</text>
+        <question>
+          <text>At exactly the Fermi level (T &gt; 0K), the Fermi-Dirac probability of occupation is:</text>
+          <answers>
+            <answer index="1">0</answer>
+            <answer index="2">0.25</answer>
+            <answer index="3">0.5</answer>
+            <answer index="4">1</answer>
+          </answers>
+          <correctAnswer>3</correctAnswer>
+          <explanation>p(E_F) = 1/(e^0 + 1) = 1/2 = 0.5, by definition of the Fermi energy.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="5">
+      <content>
+        <text>Topic: Semiconductors</text>
+        <question>
+          <text>Which type of dopant creates n-type silicon?</text>
+          <answers>
+            <answer index="1">Group III elements such as boron</answer>
+            <answer index="2">Group IV elements such as carbon</answer>
+            <answer index="3">Group V elements such as phosphorus</answer>
+            <answer index="4">Group II elements such as magnesium</answer>
+          </answers>
+          <correctAnswer>3</correctAnswer>
+          <explanation>Group V elements have one extra valence electron, donating free electrons to create n-type silicon.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="6">
+      <content>
+        <text>Topic: Drude Model</text>
+        <question>
+          <text>If resistor length doubles and cross-sectional area halves, resistance changes by a factor of:</text>
+          <answers>
+            <answer index="1">2x</answer>
+            <answer index="2">4x</answer>
+            <answer index="3">0.5x</answer>
+            <answer index="4">1x (unchanged)</answer>
+          </answers>
+          <correctAnswer>2</correctAnswer>
+          <explanation>R proportional to L/A. Double L gives 2x; halve A gives another 2x; combined = 4x.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="7">
+      <content>
+        <text>Topic: Electromagnetism</text>
+        <question>
+          <text>Faraday's law states that an EMF is induced in a loop when:</text>
+          <answers>
+            <answer index="1">A constant current flows in a nearby wire</answer>
+            <answer index="2">The magnetic flux through the loop is changing</answer>
+            <answer index="3">The loop is made of copper</answer>
+            <answer index="4">The loop has high resistance</answer>
+          </answers>
+          <correctAnswer>2</correctAnswer>
+          <explanation>EMF = -N x A x dB/dt. A changing flux (dB/dt not zero) induces an EMF.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="8">
+      <content>
+        <text>Topic: Inductors</text>
+        <question>
+          <text>The energy stored in an inductor with inductance L carrying current I is:</text>
+          <answers>
+            <answer index="1">LI</answer>
+            <answer index="2">LI2</answer>
+            <answer index="3">0.5LI2</answer>
+            <answer index="4">0.5L2I</answer>
+          </answers>
+          <correctAnswer>3</correctAnswer>
+          <explanation>E = 0.5LI2. Analogous to 0.5mv2 in mechanics: inductance is electrical inertia.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="9">
+      <content>
+        <text>Topic: Diodes</text>
+        <question>
+          <text>A silicon diode is forward biased. The typical forward voltage drop is approximately:</text>
+          <answers>
+            <answer index="1">0.1 V</answer>
+            <answer index="2">0.3 V</answer>
+            <answer index="3">0.65 V</answer>
+            <answer index="4">1.5 V</answer>
+          </answers>
+          <correctAnswer>3</correctAnswer>
+          <explanation>Silicon diodes typically have 0.6-0.7 V forward voltage at normal operating currents.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="10">
+      <content>
+        <text>Topic: Zener Diodes</text>
+        <question>
+          <text>A Zener diode is primarily used as:</text>
+          <answers>
+            <answer index="1">A rectifier for AC signals</answer>
+            <answer index="2">A voltage reference in reverse breakdown</answer>
+            <answer index="3">A switch above a forward current threshold</answer>
+            <answer index="4">An amplifier</answer>
+          </answers>
+          <correctAnswer>2</correctAnswer>
+          <explanation>Zener diodes are engineered to break down at a defined reverse voltage, making them useful voltage references.</explanation>
+        </question>
+      </content>
+    </slide>
+  </slides>
+</learningContent>

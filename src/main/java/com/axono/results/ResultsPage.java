@@ -1,296 +1,192 @@
 package com.axono.results;
 
 import com.axono.ui.UIConstants;
-//import com.axono.ui.UITheme;
-import com.axono.ui.UITheme;
-
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Border;
+import com.axono.content.LearningContent;
+import com.axono.content.QuestionData;
+import com.axono.content.Slide;
+import com.axono.player.QuizResult;
+import java.util.ArrayList;
+import java.util.List;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.geometry.Pos;
-import javafx.geometry.Insets;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 /**
- * The quiz results page view, presenting the user's score, percentage,
- * and a summary of their quiz performance including time taken and feedback.
+ * Post-quiz results page. Shows the score summary (score, percentage, title)
+ * at the top, then an embedded {@link AnswerView} for a per-question breakdown.
+ * Action buttons allow the user to retake the quiz or return to the browser.
  */
-public final class ResultsPage extends ScrollPane {
+public final class ResultsPage extends BorderPane {
 
-        /** Reusable JavaFX CSS prefix for setting background colour. */
-        private static final String BG_COLOUR = " -fx-background-color: ";
+    /** The quiz attempt whose results are displayed. */
+    private final QuizResult result;
 
-        /**
-         * Constructs the {@code ResultsPage}
-         * and builds the scrollable layout.
-         */
-        public ResultsPage() {
-                buildUI();
+    /** The learning content used to reconstruct per-question review data. */
+    private final LearningContent content;
+
+    /** Callback invoked when the user clicks "Back". */
+    private final Runnable onBack;
+
+    /** Callback invoked when the user clicks "Retake Quiz"; may be null. */
+    private final Runnable onRetake;
+
+    /**
+     * Constructs a {@code ResultsPage} for the given quiz attempt.
+     *
+     * @param quizResult   the saved quiz attempt to display.
+     * @param quizContent  the corresponding learning content (used to rebuild
+     *                     questions for answer review); may be {@code null}
+     *                     for legacy results where the file is no longer
+     *                     available.
+     * @param backCallback called when the user clicks the back button;
+     *                     typically navigates to the browser or history.
+     * @param retakeCallback called when the user clicks "Retake Quiz";
+     *                       may be {@code null} to hide the button.
+     */
+    public ResultsPage(final QuizResult quizResult,
+            final LearningContent quizContent,
+            final Runnable backCallback,
+            final Runnable retakeCallback) {
+        this.result = quizResult;
+        this.content = quizContent;
+        this.onBack = backCallback;
+        this.onRetake = retakeCallback;
+        buildUI();
+    }
+
+    /** Builds the BorderPane layout: score banner top, answer review centre. */
+    private void buildUI() {
+        getStyleClass().add("bg-app");
+        setTop(buildScoreBanner());
+        setCenter(new AnswerView(buildQuestions()));
+    }
+
+    /**
+     * Builds the horizontal score banner showing title, score chip,
+     * percentage and action buttons.
+     *
+     * @return the banner {@link HBox}.
+     */
+    private HBox buildScoreBanner() {
+        String quizTitle = content != null ? content.getTitle() : "Quiz";
+        Label titleLabel = new Label(quizTitle);
+        titleLabel.getStyleClass().add("text-dark");
+        titleLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+
+        int score = result.getScore();
+        int max = result.getMaxScore();
+        Label scoreLabel = new Label(score + " / " + max);
+        scoreLabel.getStyleClass().add("text-primary");
+        scoreLabel.setStyle("-fx-font-size: 32px; -fx-font-weight: bold;");
+
+        int pct = max > 0
+                ? (int) (score * UIConstants.PERCENT_MAX / max) : 0;
+        Label pctLabel = new Label(pct + "%");
+        pctLabel.getStyleClass().add("text-secondary");
+        pctLabel.setStyle("-fx-font-size: 18px;");
+
+        Button backBtn = outlineButton("← Back");
+        backBtn.setOnAction(e -> {
+            if (onBack != null) {
+                onBack.run();
+            }
+        });
+
+        HBox buttons = new HBox(UIConstants.SPACING_3XL, backBtn);
+        if (onRetake != null) {
+            Button retakeBtn = outlineButton("Retake Quiz");
+            retakeBtn.setOnAction(e -> onRetake.run());
+            buttons.getChildren().add(retakeBtn);
         }
+        buttons.setAlignment(Pos.CENTER);
 
-        /**
-         * Builds the full scrollable results layout including the banner,
-         * score section, and summary section.
-         */
-        private void buildUI() {
+        VBox scoreVBox = new VBox(UIConstants.SPACING_MD,
+                titleLabel, scoreLabel, pctLabel, buttons);
+        scoreVBox.setAlignment(Pos.CENTER);
 
-                VBox content = new VBox(UIConstants.SPACING_3XL);
-                content.setAlignment(Pos.TOP_CENTER);
-                content.setPadding(new Insets(UIConstants.CONTENT_PADDING_V,
-                                UIConstants.PADDING_MD,
-                                UIConstants.CONTENT_PADDING_V,
-                                UIConstants.PADDING_MD));
-                content.setMaxWidth(UIConstants.CONTENT_MAX_WIDTH);
-                content.setStyle(BG_COLOUR
-                                // + UITheme.BG
-                                + ";");
-                content.getChildren().addAll(buildBanner(),
-                                buildScoreSection(), buildSummarySection());
+        HBox banner = new HBox(scoreVBox);
+        banner.setAlignment(Pos.CENTER);
+        banner.setPadding(new Insets(UIConstants.SPACING_4XL));
+        banner.getStyleClass().add("panel-header");
+        return banner;
+    }
 
-                HBox wrapper = new HBox(content);
-                wrapper.setAlignment(Pos.TOP_CENTER);
-                wrapper.setStyle(BG_COLOUR
-                                // + UITheme.BG
-                                + ";");
-                HBox.setHgrow(content, Priority.ALWAYS);
-
-                setContent(wrapper);
-                setFitToWidth(true);
-                setBorder(Border.EMPTY);
-                // setStyle(BG_COLOUR
-                // + UITheme.BG
-                // + ";");
+    /**
+     * Reconstructs the list of {@link Question} objects from the quiz
+     * content slides and the stored answer indices in the result.
+     *
+     * <p>The XML uses 1-based answer indices; {@link Question} uses 0-based.
+     * The conversion is done here. Unanswered questions (index 0 in the JSON)
+     * are represented with a selected index of {@code -1} so the
+     * {@link AnswerView} highlights the correct answer as "unchosen".</p>
+     *
+     * @return the reconstructed question list; empty if content is null.
+     */
+    private List<Question> buildQuestions() {
+        if (content == null) {
+            return new ArrayList<>();
         }
-
-        /**
-         * Builds and returns the results banner containing the page title,
-         * congratulatory message, action buttons, and quiz name label.
-         *
-         * @return a {@link VBox} containing the banner elements.
-         */
-        private VBox buildBanner() {
-
-                Label bannerHeader = createLabel(
-                                "Results", UIConstants.FONT_BANNER,
-                                true, "#F4F6F9"
-                // UITheme.TEXT_DARK
-                );
-                Label bannerLabel1 = createLabel(
-                                "Congratulations on completing the quiz!",
-                                UIConstants.FONT_NAV, false, "#F4F6F9"
-                // UITheme.TEXT_DARK
-                );
-                Label bannerLabel2 = createLabel(
-                                "Your results for ..... are shown below:",
-                                UIConstants.FONT_BODY, true, "#F4F6F9"
-                // UITheme.TERTIARY
-                );
-
-                HBox buttons = new HBox(UIConstants.PADDING_MD,
-                                outlineButton("Save Results"),
-                                outlineButton("Retake quiz"),
-                                outlineButton("Select another quiz"));
-                buttons.setAlignment(Pos.CENTER);
-
-                VBox banner = new VBox(UIConstants.PADDING_SM,
-                                bannerHeader, bannerLabel1,
-                                buttons, bannerLabel2);
-                banner.setAlignment(Pos.CENTER);
-                return banner;
+        int[] userAnswers = parseAnswersJson(result.getAnswersJson());
+        List<Slide> slides = content.getSlides();
+        List<Question> questions = new ArrayList<>();
+        for (int i = 0; i < slides.size(); i++) {
+            QuestionData qd = slides.get(i).getQuestionData();
+            if (qd == null) {
+                continue;
+            }
+            // XML correctAnswer is 1-based; Question expects 0-based
+            int correctIdx = qd.correctAnswerIndex() - 1;
+            int userAnswer1Based = i < userAnswers.length ? userAnswers[i] : 0;
+            // 0 means unanswered; use -1 so no option appears as selected
+            int selectedIdx = userAnswer1Based > 0
+                    ? userAnswer1Based - 1 : -1;
+            questions.add(new Question(
+                    qd.questionText(),
+                    qd.answerOptions(),
+                    correctIdx,
+                    selectedIdx));
         }
+        return questions;
+    }
 
-        /**
-         * Builds and returns the score breakdown section containing
-         * the score header, a score card with percentage and results rows.
-         *
-         * @return a {@link VBox} containing the score section elements.
-         */
-        private VBox buildScoreSection() {
-
-                Label bannerHeader = createLabel("Results Breakdown",
-                                UIConstants.FONT_PAGE_TITLE,
-                                true, "#F4F6F9"
-                // UITheme.TEXT_DARK
-                );
-                Label scoreHeader = createLabel("Score",
-                                UIConstants.PADDING_LG,
-                                true, UITheme.TEXT_DARK);
-                Label scoreLabel = createLabel("Your Score",
-                                UIConstants.PADDING_MD,
-                                true, "#F4F6F9"
-                // ,UITheme.SECONDARY
-                );
-
-                Label scoreLogo = createIcon("🏆");
-                HBox scoreRow = createLogoRow(scoreLogo, scoreLabel);
-
-                VBox scoreBox = createCard(new VBox(
-                                UIConstants.SPACING_SM, scoreRow,
-                                createSection("%",
-                                                "Percentage:"),
-                                createSection("📝", "Results:")));
-
-                VBox scoreSection = new VBox(UIConstants.SPACING_2XL,
-                                bannerHeader, scoreHeader, scoreBox);
-                scoreSection.setAlignment(Pos.CENTER_LEFT);
-                scoreSection.setMaxWidth(UIConstants.SECTION_MAX_WIDTH);
-                return scoreSection;
+    /**
+     * Parses a compact JSON integer array (e.g. {@code "[2,1,3,4]"}) into an
+     * {@code int[]} without any JSON library dependency.
+     *
+     * @param json the JSON string; may be {@code null} or {@code "[]"}.
+     * @return the parsed array; empty array when the input has no entries.
+     */
+    private static int[] parseAnswersJson(final String json) {
+        String trimmed = json == null ? "[]" : json.trim();
+        if ("[]".equals(trimmed) || trimmed.isEmpty()) {
+            return new int[0];
         }
-
-        /**
-         * Builds and returns the summary section containing time taken,
-         * feedback, and a question review row.
-         *
-         * @return a {@link VBox} containing the summary section elements.
-         */
-        private VBox buildSummarySection() {
-
-                Label summaryHeader = createLabel("Summary",
-                                UIConstants.PADDING_LG, true, "#F4F6F9"
-                // , UITheme.TEXT_DARK
-                );
-                Label summaryLabel = createLabel("Your Summary",
-                                UIConstants.PADDING_MD, true, "#F4F6F9"
-                // , UITheme.SECONDARY
-                );
-
-                Label summaryLogo = createIcon("📈");
-                HBox summaryRow = createLogoRow(summaryLogo, summaryLabel);
-
-                VBox summaryBox = createCard(new VBox(UIConstants.SPACING_LG,
-                                summaryRow,
-                                createSection("⏰", "Time taken:"),
-                                createSection("💬", "Feedback:"),
-                                createSection("❓", "Question review:")));
-
-                VBox summarySection = new VBox(UIConstants.SPACING_2XL,
-                                summaryHeader, summaryBox);
-                summarySection.setAlignment(Pos.CENTER_LEFT);
-                summarySection.setMaxWidth(UIConstants.SECTION_MAX_WIDTH);
-                return summarySection;
+        String inner = trimmed.substring(1, trimmed.length() - 1);
+        String[] parts = inner.split(",");
+        int[] answers = new int[parts.length];
+        for (int i = 0; i < parts.length; i++) {
+            try {
+                answers[i] = Integer.parseInt(parts[i].trim());
+            } catch (NumberFormatException ex) {
+                answers[i] = 0;
+            }
         }
+        return answers;
+    }
 
-        /**
-         * Creates a styled outline {@link Button} with hover fill effects.
-         *
-         * @param text the button label.
-         * @return a configured outline {@link Button}.
-         */
-        private Button outlineButton(final String text) {
-                String base = "-fx-background-color: transparent;"
-                                + "-fx-border-color: "
-                                // + UITheme.PRIMARY
-                                + "; -fx-border-width: 2px;"
-                                + "-fx-border-radius: 4px;"
-                                + "-fx-background-radius: 4px;"
-                                + "-fx-text-fill: "
-                                // + UITheme.PRIMARY
-                                + ";"
-                                + "-fx-font-weight: bold; -fx-font-size: 14px;"
-                                + "-fx-cursor: hand;";
-                String hover = BG_COLOUR
-                                // + UITheme.PRIMARY
-                                + ";"
-                                + "-fx-border-color: "
-                                // + UITheme.PRIMARY
-                                + "; -fx-border-width: 2px;"
-                                + "-fx-border-radius: 4px;"
-                                + "-fx-background-radius: 4px;"
-                                + "-fx-text-fill: white;"
-                                + "-fx-font-weight: bold; -fx-font-size: 14px;"
-                                + "-fx-cursor: hand;";
-                Button b = new Button(text);
-                b.setStyle(base);
-                b.setOnMouseEntered(e -> b.setStyle(hover));
-                b.setOnMouseExited(e -> b.setStyle(base));
-                return b;
-        }
-
-        /**
-         * Creates a {@link Label} with configurable
-         * font size, weight, and colour.
-         *
-         * @param text  the label text.
-         * @param size  the font size in pixels.
-         * @param bold  {@code true} to apply bold font weight.
-         * @param color the hex colour string for the text.
-         * @return a configured {@link Label}.
-         */
-        private Label createLabel(
-                        final String text,
-                        final int size,
-                        final boolean bold,
-                        final String color) {
-                Label header = new Label(text);
-                String weight = bold ? "bold" : "normal";
-                header.setStyle(
-                                String.format("-fx-font-size: %dpx;"
-                                                + "-fx-font-weight: %s;"
-                                                + "-fx-text-fill: %s",
-                                                size, weight, color));
-                return header;
-        }
-
-        /**
-         * Creates a large emoji / icon {@link Label} at a fixed font size.
-         *
-         * @param text the emoji or icon character(s) to display.
-         * @return a styled icon {@link Label}.
-         */
-        private Label createIcon(final String text) {
-                Label logo = new Label(text);
-                logo.setStyle("-fx-font-size: 24px;");
-                return logo;
-        }
-
-        /**
-         * Creates a horizontal {@link HBox} row containing an icon label
-         * followed by a text label.
-         *
-         * @param logo the icon {@link Label} to place on the left.
-         * @param text the text {@link Label} to place on the right.
-         * @return an {@link HBox} row with the icon and text aligned left.
-         */
-        private HBox createLogoRow(final Label logo, final Label text) {
-                HBox row = new HBox(UIConstants.SPACING_MD, logo, text);
-                row.setAlignment(Pos.CENTER_LEFT);
-                return row;
-        }
-
-        /**
-         * Creates a card row consisting of an icon and a bold label,
-         * wrapped in a styled card container.
-         *
-         * @param icon the emoji or icon string for the row.
-         * @param text the row's descriptive label text.
-         * @return a {@link VBox} card containing the icon-label row.
-         */
-        private VBox createSection(final String icon, final String text) {
-                Label logo = createIcon(icon);
-                Label label = new Label(text);
-                label.setStyle("-fx-font-size: 15px; -fx-font-weight: bold;"
-                                + "-fx-text-fill:"
-                                // + UITheme.TEXT_DARK
-                                + ";");
-                HBox row = createLogoRow(logo, label);
-                return createCard(new VBox(UIConstants.SPACING_MD, row));
-        }
-
-        /**
-         * Wraps the given {@link VBox} in a styled card with
-         * standard padding, max width, and the application card style.
-         *
-         * @param content the {@link VBox} to wrap as a card.
-         * @return the same {@link VBox} with card styling applied.
-         */
-        private VBox createCard(final VBox content) {
-                content.setPadding(new Insets(UIConstants.PADDING_MD));
-                content.setMaxWidth(UIConstants.CONTENT_MAX_WIDTH);
-                // content.setStyle(UITheme.CARD_STYLE);
-                return content;
-        }
-
+    /**
+     * Creates a styled outline {@link Button} with hover fill effects.
+     *
+     * @param text the button label.
+     * @return a configured outline {@link Button}.
+     */
+    private static Button outlineButton(final String text) {
+        Button b = new Button(text);
+        b.getStyleClass().add("btn-outline");
+        return b;
+    }
 }

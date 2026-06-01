@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<learningContent>
+  <metadata>
+    <title>For Loop Quiz</title>
+    <author />
+    <version>1.0</version>
+    <created />
+    <description>A quiz on Python for loops.</description>
+  </metadata>
+  <slides>
+    <slide id="1">
+      <content>
+        <text>Topic: Python For Loops</text>
+        <question>
+          <text>Which Python code correctly displays all integers from -10 to -1 (inclusive)?</text>
+          <answers>
+            <answer index="1">for i in range(-10, 0): print(i)</answer>
+            <answer index="2">for i in range(-10, -1): print(i)</answer>
+            <answer index="3">for i in range(0, -10): print(i)</answer>
+            <answer index="4">for i in range(-10, 1): print(i)</answer>
+          </answers>
+          <correctAnswer>1</correctAnswer>
+          <explanation>range(-10, 0) generates -10, -9, ..., -1. range(-10, -1) stops at -2. range(0, -10) is empty. range(-10, 1) includes 0.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="2">
+      <content>
+        <text>Topic: For Loop Syntax</text>
+        <question>
+          <text>In a standard C-style for loop, what is the correct order of the three parts in the loop header?</text>
+          <answers>
+            <answer index="1">update; condition; initialisation</answer>
+            <answer index="2">condition; initialisation; update</answer>
+            <answer index="3">initialisation; condition; update</answer>
+            <answer index="4">initialisation; update; condition</answer>
+          </answers>
+          <correctAnswer>3</correctAnswer>
+          <explanation>A C-style for loop is: for (initialisation; condition; update) { body }. Initialisation runs once; condition is tested before each iteration; update runs after each iteration.</explanation>
+        </question>
+      </content>
+    </slide>
+  </slides>
+</learningContent>

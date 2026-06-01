@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<learningContent>
+  <metadata>
+    <title>Mathematics, Signals and Systems</title>
+    <author />
+    <version />
+    <created />
+    <description />
+  </metadata>
+  <slides>
+    <slide id="">
+      <content>
+        <text>The partial derivatives of a function f(x, y) are defined by:</text>
+        <math>\frac{\partial f}{\partial x} = f_x = \lim_{\Delta x \to 0}\left[\frac{f(x+\Delta x,\,y)-f(x,\,y)}{\Delta x}\right]</math>
+        <text>which is the gradient of a curve within the surface where only x is allowed to change, y is effectively a constant and has no effect on the differentiation, and</text>
+        <math>\frac{\partial f}{\partial y} = f_y = \lim_{\Delta y \to 0}\left[\frac{f(x,\,y+\Delta y)-f(x,\,y)}{\Delta y}\right]</math>
+        <text>which is the gradient of a curve within the surface where only y is allowed to change - x is effectively a constant and has no effect on the differentiation.</text>
+        <text>The expression</text>
+        <math>\frac{df}{dx}</math>
+        <text>indicates that ordinary differentiation has been used to obtain the derivative with respect to x of a single-variable function, f(x). The expression</text>
+        <math>\frac{\partial f}{\partial x}</math>
+        <text>indicates the partial derivative with respect to x of a multivariable function, f(x, y, ...). These two expressions have different meanings and should not be confused.</text>
+      </content>
+      <duration />
+      <transition type="" duration="" />
+      <extensions />
+    </slide>
+  </slides>
+</learningContent>

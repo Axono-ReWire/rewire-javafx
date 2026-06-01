@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<learningContent>
+  <metadata>
+    <title>Quiz Group 1: DC Fundamentals</title>
+    <author>Engineering Lecture Notes</author>
+    <version>1.0</version>
+    <created>2026-05-23T21:00:00Z</created>
+    <description>Covers Newtonian Physics, Electrical Parameters, Ohm's and Kirchhoff's Laws, and Resistor Networks (Lectures 01-04).</description>
+  </metadata>
+  <slides>
+    <slide id="1">
+      <content>
+        <text>Topic: Newtonian Physics</text>
+        <question>
+          <text>A force of 10 N is applied to move an object 5 m. How much work is done?</text>
+          <answers>
+            <answer index="1">2 J</answer>
+            <answer index="2">15 J</answer>
+            <answer index="3">50 J</answer>
+            <answer index="4">0.5 J</answer>
+          </answers>
+          <correctAnswer>3</correctAnswer>
+          <explanation>W = F x d = 10 x 5 = 50 J.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="2">
+      <content>
+        <text>Topic: Electrical Parameters</text>
+        <question>
+          <text>Which equation correctly relates charge, current, and time?</text>
+          <answers>
+            <answer index="1">Q = I / t</answer>
+            <answer index="2">Q = I x t</answer>
+            <answer index="3">I = Q x t</answer>
+            <answer index="4">t = Q x I</answer>
+          </answers>
+          <correctAnswer>2</correctAnswer>
+          <explanation>Q = I x t. Charge equals current multiplied by time.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="3">
+      <content>
+        <text>Topic: Electrical Parameters</text>
+        <question>
+          <text>What is the energy stored in a capacitor with capacitance C charged to voltage V?</text>
+          <answers>
+            <answer index="1">E = CV</answer>
+            <answer index="2">E = C2V</answer>
+            <answer index="3">E = 0.5CV2</answer>
+            <answer index="4">E = CV2</answer>
+          </answers>
+          <correctAnswer>3</correctAnswer>
+          <explanation>E = 0.5CV2. This comes from integrating V = Q/C over increasing charge.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="4">
+      <content>
+        <text>Topic: Ohm's Law</text>
+        <question>
+          <text>A 10 kOhm resistor has 5 V across it. What current flows through it?</text>
+          <answers>
+            <answer index="1">0.5 mA</answer>
+            <answer index="2">5 mA</answer>
+            <answer index="3">50 mA</answer>
+            <answer index="4">50 uA</answer>
+          </answers>
+          <correctAnswer>1</correctAnswer>
+          <explanation>I = V/R = 5 / 10000 = 0.5 mA.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="5">
+      <content>
+        <text>Topic: Ohm's Law</text>
+        <question>
+          <text>In the node form of Ohm's law, if V_A = 3 V, V_B = 1 V, and R = 2 kOhm, what is I_AB?</text>
+          <answers>
+            <answer index="1">0.5 mA</answer>
+            <answer index="2">1 mA</answer>
+            <answer index="3">2 mA</answer>
+            <answer index="4">4 mA</answer>
+          </answers>
+          <correctAnswer>2</correctAnswer>
+          <explanation>I_AB = (V_A - V_B) / R = (3-1) / 2000 = 1 mA.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="6">
+      <content>
+        <text>Topic: Kirchhoff's Current Law</text>
+        <question>
+          <text>Three wires meet at a node. 3 mA flows in on wire 1, 2 mA flows in on wire 2. What flows out on wire 3?</text>
+          <answers>
+            <answer index="1">1 mA</answer>
+            <answer index="2">3 mA</answer>
+            <answer index="3">5 mA</answer>
+            <answer index="4">6 mA</answer>
+          </answers>
+          <correctAnswer>3</correctAnswer>
+          <explanation>KCL: sum in = sum out. 3+2 = 5 mA must flow out on wire 3.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="7">
+      <content>
+        <text>Topic: Kirchhoff's Voltage Law</text>
+        <question>
+          <text>A circuit loop has a 9 V battery and two resistors V1 and V2. If V1 = 3 V, what is V2?</text>
+          <answers>
+            <answer index="1">3 V</answer>
+            <answer index="2">6 V</answer>
+            <answer index="3">9 V</answer>
+            <answer index="4">12 V</answer>
+          </answers>
+          <correctAnswer>2</correctAnswer>
+          <explanation>KVL: 9 - V1 - V2 = 0, so V2 = 9 - 3 = 6 V.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="8">
+      <content>
+        <text>Topic: KVL Limitations</text>
+        <question>
+          <text>Kirchhoff's Voltage Law breaks down when:</text>
+          <answers>
+            <answer index="1">The circuit contains only resistors</answer>
+            <answer index="2">There is a changing magnetic field through the circuit loop</answer>
+            <answer index="3">Multiple voltage sources are present</answer>
+            <answer index="4">The circuit is very small</answer>
+          </answers>
+          <correctAnswer>2</correctAnswer>
+          <explanation>KVL fails when changing magnetic flux passes through a circuit loop (Faraday's law).</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="9">
+      <content>
+        <text>Topic: Resistor Networks</text>
+        <question>
+          <text>Two 100 Ohm resistors are connected in parallel. What is the combined resistance?</text>
+          <answers>
+            <answer index="1">200 Ohm</answer>
+            <answer index="2">100 Ohm</answer>
+            <answer index="3">50 Ohm</answer>
+            <answer index="4">25 Ohm</answer>
+          </answers>
+          <correctAnswer>3</correctAnswer>
+          <explanation>Parallel: R_total = (R1xR2)/(R1+R2) = 10000/200 = 50 Ohm.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="10">
+      <content>
+        <text>Topic: Potential Divider</text>
+        <question>
+          <text>V_in = 12 V, R1 = 300 Ohm, R2 = 100 Ohm. What is V_out across R2?</text>
+          <answers>
+            <answer index="1">3 V</answer>
+            <answer index="2">4 V</answer>
+            <answer index="3">6 V</answer>
+            <answer index="4">9 V</answer>
+          </answers>
+          <correctAnswer>1</correctAnswer>
+          <explanation>V_out = V_in x R2/(R1+R2) = 12 x 100/400 = 3 V.</explanation>
+        </question>
+      </content>
+    </slide>
+  </slides>
+</learningContent>

@@ -1,11 +1,17 @@
 package com.axono.onboarding;
 
-import com.axono.model.UserProfile;
-import com.axono.signup.SignUpView;
+import com.axono.auth.AuthException;
+import com.axono.auth.AuthService;
 import com.axono.ui.UIConstants;
-
+import com.axono.auth.Session;
+import com.axono.auth.User;
+import com.axono.auth.UserProfile;
+import com.axono.player.UserModuleRepository;
+import java.sql.SQLException;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
-import java.util.function.Consumer;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -33,10 +39,18 @@ public final class OnboardingStage {
     private final Stage stage;
 
     /**
-     * Callback invoked with the completed {@link UserProfile} when
-     * the user finishes onboarding.
+     * Callback invoked after signup has been persisted to the database
+     * and {@link Session} has been populated with the new user.
      */
-    private final Consumer onComplete;
+    private final Runnable onComplete;
+
+    /**
+     * Callback invoked when the user clicks "Sign In" on the welcome view.
+     */
+    private final Runnable onSignIn;
+
+    /** Auth service used to persist the new user on wizard completion. */
+    private final AuthService authService = new AuthService();
 
     /** The user profile being built across all onboarding steps. */
     private final UserProfile profile = new UserProfile();
@@ -71,6 +85,12 @@ public final class OnboardingStage {
     /** Progress indicator dots displayed in the header, one per step. */
     private List<Circle> dots;
 
+    /** HBox containing Back and Next buttons for steps 1-3. */
+    private HBox centerButtonsBox;
+
+    /** HBox containing Sign In and Sign Up buttons for welcome step. */
+    private HBox welcomeButtonsBox;
+
     /**
      * Constructs the onboarding wizard, initialises all step views,
      * builds the UI, and shows the stage.
@@ -82,10 +102,30 @@ public final class OnboardingStage {
      */
     public OnboardingStage(
             final Stage onboardingStage,
-            final Consumer completionHandler) {
+            final Runnable completionHandler) {
+        this(onboardingStage, completionHandler, () -> {
+        });
+    }
+
+    /**
+     * Constructs the onboarding wizard, initialises all step views,
+     * builds the UI, and shows the stage.
+     *
+     * @param onboardingStage   the {@link Stage}
+     *                          to use for the onboarding window.
+     * @param completionHandler callback to invoke with the completed profile
+     *                          when onboarding finishes.
+     * @param signInHandler     callback to invoke when user clicks Sign In
+     *                          on the welcome view.
+     */
+    public OnboardingStage(
+            final Stage onboardingStage,
+            final Runnable completionHandler,
+            final Runnable signInHandler) {
         this.stage = onboardingStage;
         this.onComplete = completionHandler;
-        signupView = new SignUpView(profile);
+        this.onSignIn = signInHandler;
+        signupView = new SignUpView(profile, this::closeStage);
         subjectView = new SubjectView(profile);
         summaryView = new SummaryView(profile);
         steps = new Node[] {
@@ -100,16 +140,17 @@ public final class OnboardingStage {
      */
     private void buildUI() {
         root = new BorderPane();
-
+        root.getStyleClass().add("grad-back");
         root.setTop(buildHeader());
         root.setCenter(steps[0]);
         root.setBottom(buildFooter());
-        stage.setScene(new Scene(root));
-        root.getStylesheets().add(
-                getClass().getResource("/UIStyle.css").toExternalForm());
-        stage.setMaximized(true);
-        root.getStyleClass().add("grad-back");
 
+        Scene scene = new Scene(root,
+                UIConstants.WINDOW_WIDTH, UIConstants.WINDOW_HEIGHT);
+        String css = getClass()
+                .getResource("/styles.css").toExternalForm();
+        scene.getStylesheets().add(css);
+        stage.setScene(scene);
         stage.setTitle("ReWire — Setup");
         stage.show();
         updateStep();
@@ -123,67 +164,98 @@ public final class OnboardingStage {
      */
     private HBox buildHeader() {
         Label logo = new Label("Axono - ReWire");
-
+        logo.setStyle("-fx-text-fill: white;"
+                + "-fx-font-size: 22px; -fx-font-weight: bold;");
         HBox.setHgrow(logo, Priority.ALWAYS);
 
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
         dots = new ArrayList<>();
-        HBox dotsRow = new HBox(UIConstants.SPACING_SM);
+        HBox dotsRow = new HBox(UIConstants.SPACING_MD);
         dotsRow.setAlignment(Pos.CENTER_RIGHT);
         HBox.setHgrow(dotsRow, Priority.NEVER);
         for (int i = 0; i < steps.length; i++) {
-            Circle dot = new Circle(UIConstants.SPACING_XS,
+            Circle dot = new Circle(UIConstants.SPACING_SM,
                     Color.web("#399386"));
             dots.add(dot);
             dotsRow.getChildren().add(dot);
         }
 
         HBox header = new HBox(logo, spacer, dotsRow);
-
+        header.setAlignment(Pos.CENTER_LEFT);
         header.getStyleClass().add("navbar");
+        header.setPadding(new Insets(
+                UIConstants.PADDING_NAV_V,
+                UIConstants.PADDING_NAV_H,
+                UIConstants.PADDING_NAV_V,
+                UIConstants.PADDING_NAV_H));
         return header;
     }
 
     /**
      * Builds and returns the onboarding window footer containing the Back
      * and Next navigation buttons and the step counter label.
+     * For the welcome view (step 0), shows "Sign In" and "Sign Up" buttons
+     * instead.
      *
      * @return a styled {@link StackPane} to be placed
      *         at the bottom of the window.
      */
     private StackPane buildFooter() {
         stepLabel = new Label();
+        stepLabel.getStyleClass().add("text-muted");
+        stepLabel.setStyle("-fx-font-size: " + UIConstants.FONT_SMALL + "px;");
 
-        backButton = navButton("Back");
-        nextButton = navButton("Next →");
+        backButton = new Button("← Back");
+        backButton.getStyleClass().add("btn-outline");
+        backButton.setPrefSize(UIConstants.NAV_BTN_WIDTH,
+                UIConstants.NAV_BTN_HEIGHT);
+        nextButton = new Button("Next →");
+        nextButton.getStyleClass().add("btn-primary");
+        nextButton.setPrefSize(UIConstants.NAV_BTN_WIDTH,
+                UIConstants.NAV_BTN_HEIGHT);
         backButton.setOnAction(e -> goBack());
         nextButton.setOnAction(e -> goNext());
 
-        HBox centerButtons = new HBox(UIConstants.SPACING_MD,
+        Button signInButton = new Button("Sign In");
+        signInButton.getStyleClass().add("btn-outline");
+        signInButton.setPrefSize(UIConstants.NAV_BTN_WIDTH,
+                UIConstants.NAV_BTN_HEIGHT);
+        signInButton.setOnAction(e -> handleSignIn());
+
+        Button signUpButton = new Button("Sign Up");
+        signUpButton.getStyleClass().add("btn-primary");
+        signUpButton.setPrefSize(UIConstants.NAV_BTN_WIDTH,
+                UIConstants.NAV_BTN_HEIGHT);
+        signUpButton.setOnAction(e -> goNext());
+
+        centerButtonsBox = new HBox(UIConstants.SPACING_LG,
                 backButton, nextButton);
-        centerButtons.setAlignment(Pos.CENTER);
+        centerButtonsBox.setAlignment(Pos.CENTER);
+        centerButtonsBox.setMaxWidth(Region.USE_PREF_SIZE);
 
-        centerButtons.setMaxWidth(Region.USE_PREF_SIZE);
+        welcomeButtonsBox = new HBox(UIConstants.SPACING_LG,
+                signInButton, signUpButton);
+        welcomeButtonsBox.setAlignment(Pos.CENTER);
+        welcomeButtonsBox.setMaxWidth(Region.USE_PREF_SIZE);
 
-        StackPane footer = new StackPane(stepLabel, centerButtons);
+        StackPane footer = new StackPane(stepLabel, centerButtonsBox,
+                welcomeButtonsBox);
 
         StackPane.setAlignment(stepLabel, Pos.CENTER_LEFT);
-        footer.getStyleClass().add("footer");
-        return footer;
-    }
+        StackPane.setAlignment(centerButtonsBox, Pos.CENTER);
+        StackPane.setAlignment(welcomeButtonsBox, Pos.CENTER);
 
-    /**
-     * Creates a styled navigation {@link Button} with the given label.
-     *
-     * @param text the button label.
-     * @return a configured navigation {@link Button}.
-     */
-    private Button navButton(final String text) {
-        Button b = new Button(text);
-        b.getStyleClass().add("button-n");
-        return b;
+        footer.setPadding(new Insets(
+                UIConstants.PADDING_NAV_V,
+                UIConstants.PADDING_NAV_H,
+                UIConstants.PADDING_NAV_V,
+                UIConstants.PADDING_NAV_H));
+        footer.getStyleClass().add("panel-footer");
+
+        updateFooterVisibility();
+        return footer;
     }
 
     /**
@@ -226,6 +298,14 @@ public final class OnboardingStage {
     }
 
     /**
+     * Returns control to the login view.
+     * Called when the user clicks the back button on the signup step.
+     */
+    private void closeStage() {
+        onSignIn.run();
+    }
+
+    /**
      * Updates all step-dependent UI elements: progress dot colours,
      * the step counter label, Back button visibility, and the Next
      * button label and colour.
@@ -237,21 +317,62 @@ public final class OnboardingStage {
         }
         stepLabel.setText("Step " + (currentStep + 1)
                 + " of " + steps.length);
-        stepLabel.getStyleClass().add("label");
         backButton.setVisible(currentStep > 0);
 
         boolean lastStep = (currentStep == steps.length - 1);
-        String color = lastStep ? "#59BE8B" : "#399386";
-        nextButton.setText(lastStep ? "Launch App" : "Next");
-        nextButton.getStyleClass().add("button-s");
+        nextButton.setText(lastStep ? "Launch App" : "Next →");
+        updateFooterVisibility();
     }
 
     /**
-     * Closes the onboarding stage and fires the {@link #onComplete}
-     * callback with the collected {@link UserProfile}.
+     * Updates footer button visibility based on current step.
+     * Shows Sign In/Sign Up buttons for welcome view, Back/Next for others.
+     */
+    private void updateFooterVisibility() {
+        boolean isWelcome = (currentStep == 0);
+        if (centerButtonsBox != null && welcomeButtonsBox != null) {
+            centerButtonsBox.setVisible(!isWelcome);
+            centerButtonsBox.setManaged(!isWelcome);
+            welcomeButtonsBox.setVisible(isWelcome);
+            welcomeButtonsBox.setManaged(isWelcome);
+        }
+    }
+
+    /**
+     * Handles the Sign In button action. Invokes the sign-in callback.
+     */
+    private void handleSignIn() {
+        onSignIn.run();
+    }
+
+    /**
+     * Persists the new user via {@link AuthService}, populates the
+     * {@link Session}, saves selected modules, closes the wizard,
+     * and fires {@link #onComplete}. If signup fails (e.g. duplicate
+     * username), routes back to step 1 and surfaces the error inline.
      */
     private void launchApp() {
-        stage.close();
-        onComplete.accept(profile);
+        try {
+            User user = authService.signup(
+                    profile.getUsername(),
+                    profile.getPassword(),
+                    profile.getFirstName(),
+                    profile.getLastName(),
+                    profile.getYearOfStudy());
+            Session.set(user);
+            UserModuleRepository.saveUserModules(user.getId(),
+                    profile.getSubjects());
+            onComplete.run();
+        } catch (AuthException ex) {
+            currentStep = 1;
+            root.setCenter(steps[1]);
+            updateStep();
+            signupView.showSignupError(ex.getMessage());
+        } catch (SQLException ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR,
+                    "Database error: " + ex.getMessage(), ButtonType.OK);
+            alert.setHeaderText("Could not create account");
+            alert.showAndWait();
+        }
     }
 }

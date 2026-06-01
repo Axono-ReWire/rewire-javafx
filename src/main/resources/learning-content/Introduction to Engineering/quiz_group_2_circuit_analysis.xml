@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<learningContent>
+  <metadata>
+    <title>Quiz Group 2: Circuit Analysis Techniques</title>
+    <author>Engineering Lecture Notes</author>
+    <version>1.0</version>
+    <created>2026-05-23T21:00:00Z</created>
+    <description>Covers Linearity and Superposition, Thevenin and Norton Theorems, Circuit Loading, and DC Circuit Analysis (Lectures 05-08).</description>
+  </metadata>
+  <slides>
+    <slide id="1">
+      <content>
+        <text>Topic: Linearity</text>
+        <question>
+          <text>Which component is NOT linear?</text>
+          <answers>
+            <answer index="1">Resistor</answer>
+            <answer index="2">Capacitor</answer>
+            <answer index="3">Inductor</answer>
+            <answer index="4">Diode</answer>
+          </answers>
+          <correctAnswer>4</correctAnswer>
+          <explanation>Diodes have an exponential I-V relationship and do not obey superposition directly.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="2">
+      <content>
+        <text>Topic: Superposition</text>
+        <question>
+          <text>When applying superposition, how is an independent voltage source treated when analysing a different source?</text>
+          <answers>
+            <answer index="1">Replaced with an open circuit</answer>
+            <answer index="2">Replaced with a short circuit (0 V wire)</answer>
+            <answer index="3">Left unchanged</answer>
+            <answer index="4">Doubled</answer>
+          </answers>
+          <correctAnswer>2</correctAnswer>
+          <explanation>Voltage sources are set to zero (short circuit = wire) when considering only one source at a time.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="3">
+      <content>
+        <text>Topic: Superposition</text>
+        <question>
+          <text>When applying superposition, how is an independent current source treated when NOT being analysed?</text>
+          <answers>
+            <answer index="1">Replaced with a short circuit</answer>
+            <answer index="2">Replaced with an open circuit</answer>
+            <answer index="3">Left in place</answer>
+            <answer index="4">Replaced with a 1 Ohm resistor</answer>
+          </answers>
+          <correctAnswer>2</correctAnswer>
+          <explanation>Current sources are set to zero by replacing them with an open circuit (disconnecting them).</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="4">
+      <content>
+        <text>Topic: Thevenin's Theorem</text>
+        <question>
+          <text>A network has open-circuit voltage 6 V and short-circuit current 2 mA. What is R_TH?</text>
+          <answers>
+            <answer index="1">12 Ohm</answer>
+            <answer index="2">3 kOhm</answer>
+            <answer index="3">0.33 kOhm</answer>
+            <answer index="4">12 kOhm</answer>
+          </answers>
+          <correctAnswer>2</correctAnswer>
+          <explanation>R_TH = V_OC / I_SC = 6 / 0.002 = 3000 Ohm = 3 kOhm.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="5">
+      <content>
+        <text>Topic: Thevenin's Theorem</text>
+        <question>
+          <text>To find R_TH by zeroing sources, independent voltage sources are replaced with:</text>
+          <answers>
+            <answer index="1">An open circuit</answer>
+            <answer index="2">A wire (short circuit)</answer>
+            <answer index="3">Double their value</answer>
+            <answer index="4">A 50 Ohm resistor</answer>
+          </answers>
+          <correctAnswer>2</correctAnswer>
+          <explanation>Setting a voltage source to zero volts is equivalent to a short circuit (wire).</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="6">
+      <content>
+        <text>Topic: Norton's Theorem</text>
+        <question>
+          <text>If V_TH = 10 V and R_TH = 2 kOhm, what is the Norton equivalent current?</text>
+          <answers>
+            <answer index="1">20 mA</answer>
+            <answer index="2">5 mA</answer>
+            <answer index="3">0.2 mA</answer>
+            <answer index="4">2 mA</answer>
+          </answers>
+          <correctAnswer>2</correctAnswer>
+          <explanation>I_N = V_TH / R_TH = 10 / 2000 = 5 mA. R_N = R_TH = 2 kOhm.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="7">
+      <content>
+        <text>Topic: Circuit Loading</text>
+        <question>
+          <text>Source with V_TH = 10 V, R_TH = 1 kOhm drives a 1 kOhm load. What is the output voltage?</text>
+          <answers>
+            <answer index="1">10 V</answer>
+            <answer index="2">7.5 V</answer>
+            <answer index="3">5 V</answer>
+            <answer index="4">2.5 V</answer>
+          </answers>
+          <correctAnswer>3</correctAnswer>
+          <explanation>V_out = V_TH x R_L/(R_TH+R_L) = 10 x 1/(1+1) = 5 V.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="8">
+      <content>
+        <text>Topic: Circuit Loading</text>
+        <question>
+          <text>For minimum loading effect, the source output impedance should be:</text>
+          <answers>
+            <answer index="1">Much higher than load impedance</answer>
+            <answer index="2">Equal to load impedance</answer>
+            <answer index="3">Much lower than load impedance</answer>
+            <answer index="4">Exactly zero</answer>
+          </answers>
+          <correctAnswer>3</correctAnswer>
+          <explanation>Low source impedance relative to load impedance ensures most voltage appears across the load.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="9">
+      <content>
+        <text>Topic: Nodal Analysis</text>
+        <question>
+          <text>In nodal analysis, which law is applied at each non-fixed node?</text>
+          <answers>
+            <answer index="1">Kirchhoff's Voltage Law</answer>
+            <answer index="2">Kirchhoff's Current Law</answer>
+            <answer index="3">Faraday's Law</answer>
+            <answer index="4">Ohm's Law alone</answer>
+          </answers>
+          <correctAnswer>2</correctAnswer>
+          <explanation>KCL is applied at each non-reference node: sum of currents in equals sum of currents out.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="10">
+      <content>
+        <text>Topic: Dependent Sources</text>
+        <question>
+          <text>When using superposition, dependent sources should be:</text>
+          <answers>
+            <answer index="1">Set to zero like independent sources</answer>
+            <answer index="2">Left active at all times</answer>
+            <answer index="3">Replaced with their Thevenin equivalent</answer>
+            <answer index="4">Doubled when considering each source</answer>
+          </answers>
+          <correctAnswer>2</correctAnswer>
+          <explanation>Only independent sources are zeroed in superposition. Dependent sources remain active throughout.</explanation>
+        </question>
+      </content>
+    </slide>
+  </slides>
+</learningContent>

@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<learningContent>
+  <metadata>
+    <title>Discrete Frequencies in DFT Quiz</title>
+    <author>Axono</author>
+    <version>1.0</version>
+    <created>2026-05-05</created>
+    <description>A quiz about discrete frequencies in DFT.</description>
+  </metadata>
+
+  <slides>
+
+    <!-- Slide 1 -->
+    <slide id="1">
+      <content>
+        <text>Topic: DFT Frequency Bins</text>
+        <question>
+          <text>What are the discrete frequency bins for a sequence with length N=250 and sample interval &#x394;t=0.02s?</text>
+          <answers>
+            <answer index="1">fk = 0.2k Hz, for k = 0, 1, ..., 249</answer>
+            <answer index="2">fk = 5k Hz, for k = 0, 1, ..., 249</answer>
+            <answer index="3">fk = 0.04k Hz, for k = 0, 1, ..., 249</answer>
+            <answer index="4">fk = 50k Hz, for k = 0, 1, ..., 249</answer>
+          </answers>
+          <correctAnswer>1</correctAnswer>
+          <explanation>fk = k / (N * delta_t) = k / (250 * 0.02) = k / 5 = 0.2k Hz. The sampling frequency fs = 1/delta_t = 50 Hz, and fk = k * fs / N = k * 50 / 250 = 0.2k Hz.</explanation>
+        </question>
+      </content>
+    </slide>
+
+    <!-- Slide 2 -->
+    <slide id="2">
+      <content>
+        <text>Topic: DFT Fundamentals</text>
+        <question>
+          <text>For a DFT of length N, what is the relationship between the fundamental frequency f1 and the sample rate fs?</text>
+          <answers>
+            <answer index="1">f1 = N / fs</answer>
+            <answer index="2">f1 = fs / N</answer>
+            <answer index="3">f1 = fs * N</answer>
+            <answer index="4">f1 = 1 / fs</answer>
+          </answers>
+          <correctAnswer>2</correctAnswer>
+          <explanation>The fundamental frequency f1 = 1 / (N * delta_t) = fs / N. This is the frequency whose period equals exactly the full DFT window length.</explanation>
+        </question>
+      </content>
+    </slide>
+
+  </slides>
+</learningContent>

@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<learningContent>
+  <metadata>
+    <title>For Loops</title>
+    <author />
+    <version />
+    <created />
+    <description />
+  </metadata>
+  <slides>
+    <slide id="">
+      <content>
+        <text>The &#x2018;for&#x2019; loop</text>
+        <text>The &#x2018;for&#x2019; loop is probably the most commonly used of the three loop constructs. It is also the most syntactically complex. It is the most commonly used in situations where something must be done a certain number of times - for example, if an LED should flash 3 times, a sensor should be read 100 times, or a display should show a countdown from 10 to 0.</text>
+        <text>New Keyword: for</text>
+        <text>For (&lt;initialisation statement&gt;; &lt;update statement&gt;) {</text>
+        <text>&lt;loop body&gt;</text>
+        <text>}</text>
+        <text>When a for loop is encountered, the initialisation statement is executed. Then the loop condition is evaluated; if it is true then the loop body is executed, followed by the update statement. These last three steps are repeated until the loop condition is false, when the loop ends.</text>
+        <text>The loop body is almost invariably a compound statement as shown above, though technically it could be a single statement.</text>
+        <text>Almost always, for loops are used with counter variables to create a count-controlled loop. For example:</text>
+        <text>For (int loopCounter = 0; loopCounter &lt; 10; ++loopCounter) {</text>
+        <text>//anything in this loop body will be executed 10 times</text>
+        <text>}</text>
+      </content>
+      <duration />
+      <transition type="" duration="" />
+      <extensions />
+    </slide>
+  </slides>
+</learningContent>

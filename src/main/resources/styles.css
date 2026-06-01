@@ -1,0 +1,578 @@
+/*
+ * Axono ReWire — shared application stylesheet.
+ *
+ * CSS is the single source of truth for all theming.
+ * Color tokens are defined as JavaFX looked-up colors in .root and
+ * referenced by name throughout all rules below.
+ *
+ * Color tokens:
+ *   primary    #399386  (teal — buttons, active states, accents)
+ *   secondary  #207282  (dark teal — nav bar, badge backgrounds)
+ *   bg         #F4F6F9  (light gray — app background)
+ *   surface    white    (card / panel surface)
+ *   text-dark  #212529  (charcoal — primary text)
+ *   text-muted #6C757D  (medium gray — secondary/hint text)
+ *   text-accent #495057 (medium-dark — back-button text)
+ *   border-col #DEE2E6  (light gray — borders, dividers)
+ */
+
+/* ───────── Root & color tokens ──────────────────────────────────── */
+
+.root {
+    -fx-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    -fx-background-color: bg;
+    primary:      #399386;
+    secondary:    #207282;
+    bg:           #F4F6F9;
+    surface:      white;
+    text-dark:    #212529;
+    text-muted:   #6C757D;
+    text-accent:  #495057;
+    border-col:   #DEE2E6;
+}
+
+/* ───────── Gradient background ──────────────────────────────────── */
+
+.grad-back {
+    -fx-background-color: linear-gradient(to top left, #399386, #C8E8E5);
+}
+
+/* ───────── Cards ────────────────────────────────────────────────── */
+
+.card {
+    -fx-background-color: surface;
+    -fx-border-color: border-col;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 20px;
+}
+
+.card2 {
+    -fx-alignment: center;
+    -fx-padding: 28 120 28 120;
+    -fx-spacing: 32;
+}
+
+.card3 {
+    -fx-alignment: center;
+    -fx-padding: 28 120 28 120;
+    -fx-spacing: 32;
+    -fx-background-color: surface;
+    -fx-max-width: 520;
+    -fx-max-height: 600;
+    -fx-background-radius: 12;
+}
+
+.welcome-card {
+    -fx-alignment: center;
+    -fx-padding: 28;
+    -fx-spacing: 14;
+    -fx-max-width: 460;
+}
+
+/* ───────── Buttons ──────────────────────────────────────────────── */
+
+.btn-primary {
+    -fx-background-color: primary;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-background-radius: 4px;
+    -fx-padding: 8px 16px;
+    -fx-cursor: hand;
+}
+.btn-primary:hover   { -fx-background-color: #2D7A6E; }
+.btn-primary:armed   { -fx-background-color: #236057; }
+.btn-primary:focused {
+    -fx-effect: dropshadow(gaussian, rgba(57,147,134,0.45), 6, 0.4, 0, 0);
+}
+
+.btn-outline {
+    -fx-background-color: transparent;
+    -fx-border-color: primary;
+    -fx-border-width: 2px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-text-fill: primary;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 6px 14px;
+    -fx-cursor: hand;
+}
+.btn-outline:hover {
+    -fx-background-color: primary;
+    -fx-text-fill: white;
+}
+
+/* Downloads-compatible button variants */
+.button-s {
+    -fx-background-color: primary;
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+    -fx-padding: 12px;
+    -fx-background-radius: 16px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+.button-s:hover { -fx-background-color: #2D7A6E; }
+
+.button-n {
+    -fx-background-color: primary;
+    -fx-font-size: 16px;
+    -fx-text-fill: black;
+    -fx-padding: 12 24 12 24;
+    -fx-background-radius: 16px;
+    -fx-font-weight: bold;
+    -fx-pref-height: 38px;
+    -fx-pref-width: 120px;
+    -fx-cursor: hand;
+}
+.button-n:hover { -fx-background-color: white; }
+
+/* Navigation buttons in the top nav bar */
+.nav-btn {
+    -fx-background-color: rgba(255, 255, 255, 0.15);
+    -fx-border-color: transparent;
+    -fx-border-width: 0px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 6px 16px;
+    -fx-cursor: hand;
+}
+.nav-btn:hover    { -fx-background-color: rgba(255, 255, 255, 0.25); }
+.nav-btn-active   { -fx-background-color: rgba(255, 255, 255, 0.35); -fx-text-fill: white; }
+
+/* ───────── Typography ───────────────────────────────────────────── */
+
+.header       { -fx-font-size: 40px; -fx-font-weight: bold; -fx-text-fill: text-dark; }
+.header2      { -fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: text-dark; }
+.page-title   { -fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: text-dark; }
+.subheader    { -fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: text-dark; }
+.section-title { -fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: text-dark; }
+.card-title   { -fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: text-dark; }
+.nav-label    { -fx-font-size: 18px; -fx-text-fill: text-dark; }
+.body-text    { -fx-font-size: 14px; -fx-text-fill: text-dark; }
+.hint-text    { -fx-font-size: 12px; -fx-text-fill: text-muted; }
+.bold         { -fx-font-weight: bold; }
+.text-muted   { -fx-text-fill: text-muted; }
+.text-primary { -fx-text-fill: primary; }
+
+/* ───────── Badges ───────────────────────────────────────────────── */
+
+.badge {
+    -fx-text-fill: white;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-padding: 3px 8px;
+    -fx-background-radius: 10px;
+}
+.badge-quiz     { -fx-background-color: secondary; }
+.badge-resource { -fx-background-color: primary; }
+
+/* ───────── Layout utilities ─────────────────────────────────────── */
+
+.navbar {
+    -fx-background-color: secondary;
+    -fx-padding: 12 20 12 20;
+    -fx-alignment: center-left;
+}
+
+.footer {
+    -fx-padding: 24;
+    -fx-border-width: 1 0 0 0;
+    -fx-border-color: border-col;
+    -fx-background-color: surface;
+}
+
+.toprow    { -fx-alignment: center-left; -fx-spacing: 12; }
+.sd        { -fx-spacing: 8; -fx-max-width: 500; }
+.signupcon { -fx-padding: 60 24 60 24; -fx-spacing: 60; -fx-alignment: top-center; -fx-max-width: 800; }
+
+.content-area { -fx-max-width: 800; -fx-padding: 30; }
+.section-area { -fx-max-width: 700; -fx-spacing: 20; }
+.form-area    { -fx-max-width: 500; -fx-spacing: 8; }
+
+/* ───────── Scrollbars ───────────────────────────────────────────── */
+
+.scroll-pane {
+    -fx-background: bg;
+    -fx-background-color: transparent;
+}
+.scroll-bar:vertical .thumb,
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: #C9CED3;
+    -fx-background-radius: 4px;
+}
+.scroll-bar:vertical .thumb:hover,
+.scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: #A0A8B0;
+}
+
+/* ───────── Date picker ──────────────────────────────────────────── */
+
+.date-picker-popup .spinner .label {
+    -fx-text-fill: text-dark;
+}
+
+/* ───────── Form fields ──────────────────────────────────────────── */
+
+.text-field, .password-field, .textbox-s {
+    -fx-font-size: 14px;
+    -fx-border-color: border-col;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-padding: 6px 10px;
+}
+.text-field:focused, .password-field:focused {
+    -fx-border-color: primary;
+    -fx-effect: dropshadow(gaussian, rgba(57,147,134,0.35), 4, 0.3, 0, 0);
+}
+
+/* ───────── Progress bars ────────────────────────────────────────── */
+
+.progress-track {
+    -fx-background-color: #E5E7EB;
+    -fx-background-radius: 4px;
+    -fx-pref-height: 8px;
+    -fx-pref-width: 160px;
+}
+.progress-fill {
+    -fx-background-color: primary;
+    -fx-background-radius: 4px;
+}
+
+/* ───────── Icons ────────────────────────────────────────────────── */
+
+.icon-primary   { -ikonli-icon-color: #399386; }
+.icon-secondary { -ikonli-icon-color: #207282; }
+.icon-muted     { -ikonli-icon-color: #6C757D; }
+.icon-text-dark { -ikonli-icon-color: #212529; }
+
+/* ───────── TabPane ──────────────────────────────────────────────── */
+
+.tab-pane {
+    -fx-background-color: bg;
+}
+
+.tab-pane .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+.tab {
+    -fx-background-color: surface;
+    -fx-border-color: border-col;
+    -fx-border-width: 1px;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-padding: 6px 16px;
+    -fx-text-fill: text-dark;
+    -fx-font-size: 13px;
+    -fx-font-weight: normal;
+    -fx-cursor: hand;
+    -fx-margin: 0 4px 0 0;
+}
+
+.tab:selected {
+    -fx-background-color: primary;
+    -fx-border-color: primary;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.tab:hover:not(:selected) {
+    -fx-opacity: 0.85;
+}
+
+/* ───────── Background utilities ─────────────────────────────────── */
+
+.bg-app  { -fx-background-color: bg; }
+.surface { -fx-background-color: surface; }
+.bg-transparent { -fx-background-color: transparent; -fx-background: transparent; }
+.bg-transparent > .viewport { -fx-background-color: transparent; }
+
+/* ───────── Text utilities ───────────────────────────────────────── */
+
+.text-dark      { -fx-text-fill: text-dark; }
+.text-accent    { -fx-text-fill: text-accent; }
+.text-secondary { -fx-text-fill: secondary; }
+.text-error     { -fx-text-fill: #C0392B; -fx-font-size: 13px; }
+
+/* ───────── Nav logo ─────────────────────────────────────────────── */
+
+.nav-logo {
+    -fx-text-fill:   white;
+    -fx-font-size:   18px;
+    -fx-font-weight: bold;
+}
+
+/* ───────── Panel chrome (content player header / footer) ────────── */
+
+.panel-header {
+    -fx-background-color: surface;
+    -fx-border-color:     border-col;
+    -fx-border-width:     0 0 1 0;
+}
+.panel-footer {
+    -fx-background-color: surface;
+    -fx-border-color:     border-col;
+    -fx-border-width:     1 0 0 0;
+}
+
+/* ───────── Extra button variants ────────────────────────────────── */
+
+/* Prev / Next navigation buttons inside the content player */
+.btn-nav {
+    -fx-background-color:  primary;
+    -fx-text-fill:         white;
+    -fx-font-weight:       bold;
+    -fx-font-size:         13px;
+    -fx-padding:           6px 18px;
+    -fx-background-radius: 4px;
+    -fx-cursor:            hand;
+}
+.btn-nav:hover { -fx-background-color: #2D7A6E; }
+.btn-nav:armed { -fx-background-color: #236057; }
+
+/* Close button in the player header */
+.btn-close {
+    -fx-background-color:  transparent;
+    -fx-border-color:      border-col;
+    -fx-border-width:      1px;
+    -fx-border-radius:     4px;
+    -fx-background-radius: 4px;
+    -fx-text-fill:         text-dark;
+    -fx-font-size:         13px;
+    -fx-padding:           4px 12px;
+    -fx-cursor:            hand;
+}
+.btn-close:hover { -fx-background-color: bg; }
+
+/* Danger / destructive outline button */
+.btn-danger {
+    -fx-background-color: transparent;
+    -fx-border-color:     #dc3545;
+    -fx-border-width:     1px;
+    -fx-border-radius:    4px;
+    -fx-background-radius: 4px;
+    -fx-text-fill:        #dc3545;
+    -fx-font-size:        12px;
+    -fx-cursor:           hand;
+    -fx-padding:          4px 10px;
+}
+.btn-danger:hover {
+    -fx-background-color: #dc3545;
+    -fx-text-fill:        white;
+}
+
+/* Danger icon-only button (✕) */
+.btn-danger-icon {
+    -fx-background-color: transparent;
+    -fx-text-fill:        #dc3545;
+    -fx-font-size:        14px;
+    -fx-cursor:           hand;
+    -fx-padding:          2px 6px;
+}
+
+/* Back / secondary text button */
+.btn-back {
+    -fx-background-color: transparent;
+    -fx-text-fill:        text-accent;
+    -fx-font-size:        13px;
+    -fx-cursor:           hand;
+    -fx-padding:          4px 0;
+}
+
+/* Floating action button */
+.btn-fab {
+    -fx-background-color:  primary;
+    -fx-text-fill:         white;
+    -fx-font-size:         14px;
+    -fx-font-weight:       bold;
+    -fx-background-radius: 28px;
+    -fx-padding:           12px 22px;
+    -fx-cursor:            hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 8, 0, 0, 3);
+}
+.btn-fab:hover { -fx-background-color: #2D7A6E; }
+
+/* Media play/pause button */
+.btn-play {
+    -fx-background-color:  primary;
+    -fx-background-radius: 4px;
+    -fx-cursor:            hand;
+    -fx-padding:           6px 10px;
+}
+.btn-play:hover { -fx-background-color: #2D7A6E; }
+
+/* Small outline button (Details, View all) */
+.btn-outline-sm {
+    -fx-background-color:  transparent;
+    -fx-border-color:      primary;
+    -fx-border-width:      1px;
+    -fx-border-radius:     4px;
+    -fx-background-radius: 4px;
+    -fx-text-fill:         primary;
+    -fx-font-size:         12px;
+    -fx-cursor:            hand;
+    -fx-padding:           4px 12px;
+}
+.btn-outline-sm:hover {
+    -fx-background-color: primary;
+    -fx-text-fill:        white;
+}
+
+/* ───────── Module / content list ────────────────────────────────── */
+
+/* Clickable module heading (underlined primary link) */
+.module-link {
+    -fx-background-color: transparent;
+    -fx-text-fill:        primary;
+    -fx-font-weight:      bold;
+    -fx-cursor:           hand;
+    -fx-padding:          0;
+    -fx-underline:        true;
+}
+
+/* Background row in browser / module detail lists */
+.content-row {
+    -fx-background-color:  bg;
+    -fx-background-radius: 4px;
+}
+
+/* Small indicator chip (img, audio, video count) */
+.media-chip {
+    -fx-background-color:  bg;
+    -fx-border-color:      border-col;
+    -fx-border-radius:     10px;
+    -fx-background-radius: 10px;
+    -fx-padding:           1px 6px;
+}
+
+/* ───────── Filter / track toggle buttons ────────────────────────── */
+
+.filter-btn {
+    -fx-background-color:  surface;
+    -fx-text-fill:         text-dark;
+    -fx-border-color:      border-col;
+    -fx-border-radius:     20px;
+    -fx-background-radius: 20px;
+    -fx-font-size:         13px;
+    -fx-cursor:            hand;
+    -fx-padding:           6px 16px;
+}
+.filter-btn:hover { -fx-opacity: 0.85; }
+.filter-btn-active {
+    -fx-background-color:  primary;
+    -fx-text-fill:         white;
+    -fx-border-color:      primary;
+    -fx-font-weight:       bold;
+}
+
+.track-btn {
+    -fx-background-color:  surface;
+    -fx-border-color:      border-col;
+    -fx-border-radius:     4px;
+    -fx-background-radius: 4px;
+    -fx-font-size:         13px;
+    -fx-cursor:            hand;
+    -fx-padding:           4px 10px;
+}
+.track-btn:hover { -fx-opacity: 0.85; }
+.track-btn-active {
+    -fx-background-color:  primary;
+    -fx-border-color:      primary;
+    -fx-text-fill:         white;
+    -fx-font-size:         13px;
+    -fx-border-radius:     4px;
+    -fx-background-radius: 4px;
+    -fx-cursor:            hand;
+    -fx-padding:           4px 10px;
+}
+
+/* ───────── Answer review ────────────────────────────────────────── */
+
+.answer-pane {
+    -fx-background-color:  surface;
+    -fx-border-color:      border-col;
+    -fx-border-radius:     6px;
+    -fx-background-radius: 6px;
+    -fx-padding:           28px 40px;
+}
+.answer-pane > .title {
+    -fx-background-color:  surface;
+    -fx-border-color:      border-col;
+    -fx-border-radius:     4px;
+    -fx-background-radius: 4px;
+}
+.answer-pane > .title > .arrow-button > .arrow {
+    -fx-background-color: text-dark;
+}
+.answer-pane > .content {
+    -fx-background-color: surface;
+    -fx-border-color:     transparent;
+}
+
+.answer-correct {
+    -fx-background-color:  #b7f1aa;
+    -fx-border-color:      #f4f8f4;
+    -fx-border-width:      4px;
+    -fx-border-radius:     10px;
+    -fx-background-radius: 10px;
+    -fx-padding:           10px;
+}
+.answer-incorrect {
+    -fx-background-color:  #eecfcf;
+    -fx-border-color:      #f4f8f4;
+    -fx-border-width:      4px;
+    -fx-border-radius:     10px;
+    -fx-background-radius: 10px;
+    -fx-padding:           10px;
+}
+.answer-show-correct {
+    -fx-background-color:  #b7f1aa;
+    -fx-border-color:      #f4f8f4;
+    -fx-border-width:      4px;
+    -fx-border-radius:     10px;
+    -fx-background-radius: 10px;
+    -fx-padding:           10px;
+}
+.answer-neutral {
+    -fx-background-color:  #fcf9f9;
+    -fx-border-color:      #e7e6e6;
+    -fx-border-width:      4px;
+    -fx-border-radius:     10px;
+    -fx-background-radius: 10px;
+    -fx-padding:           10px;
+}
+
+/* ───────── Score chip ───────────────────────────────────────────── */
+
+.score-chip {
+    -fx-background-color:  primary;
+    -fx-text-fill:         white;
+    -fx-font-weight:       bold;
+    -fx-padding:           4px 12px;
+    -fx-background-radius: 12px;
+}
+
+/* ───────── Module selection cells (SubjectView) ─────────────────── */
+
+.module-cell {
+    -fx-background-color:  bg;
+    -fx-border-color:      border-col;
+    -fx-border-radius:     4px;
+    -fx-background-radius: 4px;
+    -fx-padding:           8px 10px;
+}
+.module-cell-active {
+    -fx-background-color:  rgba(32,114,130,0.12);
+    -fx-border-color:      secondary;
+    -fx-border-width:      2px;
+    -fx-border-radius:     4px;
+    -fx-background-radius: 4px;
+    -fx-padding:           8px 10px;
+}

@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<learningContent>
+  <metadata>
+    <title>Quiz: Communications Systems and Signals</title>
+    <author />
+    <version>1.0</version>
+    <created />
+    <description>A quiz on NRZI encoding and communications fundamentals.</description>
+  </metadata>
+  <slides>
+    <slide id="1">
+      <content>
+        <text>Topic: NRZI Encoding</text>
+        <question>
+          <text>In NRZI encoding where a transition represents a &#x2018;1&#x2019;: if there is a transition at a given symbol period, what bit does that represent?</text>
+          <answers>
+            <answer index="1">0</answer>
+            <answer index="2">1</answer>
+            <answer index="3">It depends on the previous bit</answer>
+            <answer index="4">It depends on the clock frequency</answer>
+          </answers>
+          <correctAnswer>2</correctAnswer>
+          <explanation>In NRZI (Non-Return to Zero Inverted), a transition in the signal level encodes a &#x2018;1&#x2019;, while no transition encodes a &#x2018;0&#x2019;.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="2">
+      <content>
+        <text>Topic: NRZ vs NRZI</text>
+        <question>
+          <text>What is the key advantage of NRZI over standard NRZ encoding for long bit sequences?</text>
+          <answers>
+            <answer index="1">NRZI uses less bandwidth</answer>
+            <answer index="2">NRZI handles long runs of 0s better by using bit-stuffing</answer>
+            <answer index="3">NRZI can encode transitions to help with clock recovery</answer>
+            <answer index="4">NRZI always requires fewer signal levels</answer>
+          </answers>
+          <correctAnswer>3</correctAnswer>
+          <explanation>NRZI encodes data as transitions rather than absolute levels. Version (a) is used for long runs of 1s; version (b) for long runs of 0s (often via bit-stuffing). The transitions aid clock recovery.</explanation>
+        </question>
+      </content>
+    </slide>
+  </slides>
+</learningContent>

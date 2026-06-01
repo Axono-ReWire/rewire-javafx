@@ -1,1 +1,18 @@
+# Build output
 /target/
+
+# IDE
+/.idea/
+/.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Claude Code session metadata
+/.claude/
+
+# Runtime SQLite database — runtime state, not source
+/database/
+CLAUDE.md

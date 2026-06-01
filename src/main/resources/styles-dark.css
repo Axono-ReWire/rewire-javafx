@@ -1,0 +1,85 @@
+/*
+ * Axono ReWire — dark mode overrides.
+ *
+ * Applied as a second stylesheet on top of styles.css.
+ * Redefines color tokens so every rule that references them
+ * automatically picks up the dark palette.
+ */
+
+/* ───────── Color token overrides ────────────────────────────────── */
+
+.root {
+    primary:      #4DB3A5;
+    secondary:    #207282;
+    bg:           #1A1D23;
+    surface:      #252830;
+    text-dark:    #E9ECEF;
+    text-muted:   #9CA3AF;
+    text-accent:  #ADB5BD;
+    border-col:   #374151;
+}
+
+/* ───────── Hard-coded colors that tokens cannot reach ───────────── */
+
+/* Gradient login background */
+.grad-back {
+    -fx-background-color: linear-gradient(to top left, #4DB3A5, #252830);
+}
+
+/* Scrollbar thumbs */
+.scroll-bar:vertical .thumb,
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: #4B5563;
+}
+.scroll-bar:vertical .thumb:hover,
+.scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: #6B7280;
+}
+
+/* Progress bar track (hard-coded grey in styles.css) */
+.progress-track {
+    -fx-background-color: #374151;
+}
+
+/* ───────── Answer review — dark variants ────────────────────────── */
+
+.answer-correct {
+    -fx-background-color: #1A3D2B;
+    -fx-border-color:     #1E4D35;
+}
+.answer-incorrect {
+    -fx-background-color: #3D1A1A;
+    -fx-border-color:     #4D2020;
+}
+.answer-show-correct {
+    -fx-background-color: #1A3D2B;
+    -fx-border-color:     #1E4D35;
+}
+.answer-neutral {
+    -fx-background-color: #2A2730;
+    -fx-border-color:     #374151;
+}
+
+/* ───────── Icon colors — dark variants ──────────────────────────── */
+
+.icon-primary   { -ikonli-icon-color: #4DB3A5; }
+.icon-secondary { -ikonli-icon-color: #5AB0C5; }
+.icon-muted     { -ikonli-icon-color: #9CA3AF; }
+.icon-text-dark { -ikonli-icon-color: #E9ECEF; }
+
+/* ───────── Error text — softer in dark ──────────────────────────── */
+
+.text-error { -fx-text-fill: #E57373; }
+
+/* ───────── Danger buttons — softer red in dark ──────────────────── */
+
+.btn-danger      { -fx-border-color: #E57373; -fx-text-fill: #E57373; }
+.btn-danger:hover { -fx-background-color: #E57373; -fx-text-fill: white; }
+.btn-danger-icon { -fx-text-fill: #E57373; }
+
+/* ───────── Module cell — dark selected state ────────────────────── */
+
+.module-cell-active {
+    -fx-background-color: rgba(77,179,165,0.15);
+    -fx-border-color:     #4DB3A5;
+}

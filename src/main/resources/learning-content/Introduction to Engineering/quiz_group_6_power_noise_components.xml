@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<learningContent>
+  <metadata>
+    <title>Quiz Group 6: Power, Noise, and Real Components</title>
+    <author>Engineering Lecture Notes</author>
+    <version>1.0</version>
+    <created>2026-05-23T21:00:00Z</created>
+    <description>Covers Real Components, Power in AC Circuits, and Noise (Lectures 16, 30, 31).</description>
+  </metadata>
+  <slides>
+    <slide id="1">
+      <content>
+        <text>Topic: Colour Code</text>
+        <question>
+          <text>A resistor is colour coded: yellow, violet, red, gold. What is its value and tolerance?</text>
+          <answers>
+            <answer index="1">472 Ohm +/-5%</answer>
+            <answer index="2">4.7 kOhm +/-5%</answer>
+            <answer index="3">470 Ohm +/-5%</answer>
+            <answer index="4">47 kOhm +/-5%</answer>
+          </answers>
+          <correctAnswer>2</correctAnswer>
+          <explanation>Yellow=4, Violet=7, Red=x100, Gold=+/-5%. Value = 47 x 100 = 4700 Ohm = 4.7 kOhm.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="2">
+      <content>
+        <text>Topic: Capacitor Markings</text>
+        <question>
+          <text>A capacitor is marked 104K. What is its capacitance and tolerance?</text>
+          <answers>
+            <answer index="1">104 pF +/-10%</answer>
+            <answer index="2">100 nF +/-10%</answer>
+            <answer index="3">10 nF +/-10%</answer>
+            <answer index="4">1 uF +/-10%</answer>
+          </answers>
+          <correctAnswer>2</correctAnswer>
+          <explanation>10 x 10^4 pF = 100,000 pF = 100 nF. K = +/-10% tolerance.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="3">
+      <content>
+        <text>Topic: Parasitics</text>
+        <question>
+          <text>Why does a real capacitor have a self-resonant frequency?</text>
+          <answers>
+            <answer index="1">Due to its resistance in parallel</answer>
+            <answer index="2">Due to series parasitic inductance resonating with capacitance</answer>
+            <answer index="3">Due to dielectric resonance</answer>
+            <answer index="4">Due to temperature effects</answer>
+          </answers>
+          <correctAnswer>2</correctAnswer>
+          <explanation>Real capacitors have parasitic series inductance forming a series LC circuit resonating at f0 = 1/(2*pi*sqrt(LC)).</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="4">
+      <content>
+        <text>Topic: Inductor Q Factor</text>
+        <question>
+          <text>Q factor of an inductor: Q = omega*L/Rs. A higher Q means:</text>
+          <answers>
+            <answer index="1">More energy is lost per cycle</answer>
+            <answer index="2">Less energy is lost per cycle (more ideal inductor)</answer>
+            <answer index="3">Lower inductance</answer>
+            <answer index="4">Lower resonant frequency</answer>
+          </answers>
+          <correctAnswer>2</correctAnswer>
+          <explanation>Higher Q = lower series resistance relative to inductance = less energy dissipated per cycle.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="5">
+      <content>
+        <text>Topic: AC Power</text>
+        <question>
+          <text>A 230 V RMS supply drives a purely resistive 1 kOhm load. What real power is dissipated?</text>
+          <answers>
+            <answer index="1">23 W</answer>
+            <answer index="2">52.9 W</answer>
+            <answer index="3">230 W</answer>
+            <answer index="4">529 mW</answer>
+          </answers>
+          <correctAnswer>2</correctAnswer>
+          <explanation>P = V_rms^2 / R = 230^2 / 1000 = 52900 / 1000 = 52.9 W.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="6">
+      <content>
+        <text>Topic: Power Factor</text>
+        <question>
+          <text>A load has a power factor of 0.8 lagging. This means the current:</text>
+          <answers>
+            <answer index="1">Leads the voltage by cos-1(0.8)</answer>
+            <answer index="2">Lags the voltage by approximately 36.9 degrees</answer>
+            <answer index="3">Is in phase with the voltage</answer>
+            <answer index="4">Is 180 degrees out of phase with the voltage</answer>
+          </answers>
+          <correctAnswer>2</correctAnswer>
+          <explanation>Lagging power factor means current lags voltage (inductive load). phi = cos-1(0.8) = 36.9 degrees.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="7">
+      <content>
+        <text>Topic: Thermal Noise</text>
+        <question>
+          <text>Thermal (Johnson) noise voltage spectral density for resistor R at temperature T is:</text>
+          <answers>
+            <answer index="1">Vn^2 = 4kTR</answer>
+            <answer index="2">Vn^2 = 2qIR^2</answer>
+            <answer index="3">Vn^2 = kT/C</answer>
+            <answer index="4">Vn^2 = kTR/B</answer>
+          </answers>
+          <correctAnswer>1</correctAnswer>
+          <explanation>Vn^2 = 4kTR per unit bandwidth (V^2/Hz). This is Johnson-Nyquist thermal noise.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="8">
+      <content>
+        <text>Topic: Thermal Noise Scaling</text>
+        <question>
+          <text>If resistor value is doubled, the thermal noise voltage V_rms (fixed bandwidth) changes by a factor of:</text>
+          <answers>
+            <answer index="1">x2</answer>
+            <answer index="2">x sqrt(2)</answer>
+            <answer index="3">x4</answer>
+            <answer index="4">x1 (unchanged)</answer>
+          </answers>
+          <correctAnswer>2</correctAnswer>
+          <explanation>V_n_rms = sqrt(4kTR*df). Doubling R increases V_n_rms by sqrt(2).</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="9">
+      <content>
+        <text>Topic: Noise Figure</text>
+        <question>
+          <text>An amplifier has noise figure NF = 3 dB. The output SNR is:</text>
+          <answers>
+            <answer index="1">20 dB better than input SNR</answer>
+            <answer index="2">The same as input SNR</answer>
+            <answer index="3">3 dB worse than input SNR</answer>
+            <answer index="4">17 dB worse than input SNR</answer>
+          </answers>
+          <correctAnswer>3</correctAnswer>
+          <explanation>NF = SNR_in (dB) - SNR_out (dB). NF = 3 dB means the amplifier degrades SNR by 3 dB.</explanation>
+        </question>
+      </content>
+    </slide>
+    <slide id="10">
+      <content>
+        <text>Topic: Friis Formula</text>
+        <question>
+          <text>According to the Friis formula for cascaded noise, which stage dominates the total noise figure?</text>
+          <answers>
+            <answer index="1">The last stage</answer>
+            <answer index="2">The middle stage</answer>
+            <answer index="3">The first stage, because later stages are divided by preceding gain</answer>
+            <answer index="4">All stages contribute equally</answer>
+          </answers>
+          <correctAnswer>3</correctAnswer>
+          <explanation>Friis: NF_total = NF1 + (NF2-1)/G1 + ... The first stage dominates; a low-noise first amplifier is critical.</explanation>
+        </question>
+      </content>
+    </slide>
+  </slides>
+</learningContent>
