@@ -192,14 +192,14 @@ public final class ResourceView extends ScrollPane {
                         + "circuits, covering technology and design flows "
                         + "targeting application-specific integrated circuits "
                         + "(ASICs) and field-programmable gate arrays (FPGAs). "
-                        + "Techniques to improve performance will be considered "
-                        + "at different levels. Technology scaling, performance "
-                        + "(timing)/power/area (PPA), standard cell libraries, "
-                        + "full-/semi-custom ASIC design. Timing, pipelining, "
-                        + "clock domain crossing, place and route on FPGA. "
-                        + "Approaches for designing testable circuits will be "
-                        + "developed, including verification, fault models, "
-                        + "design for testability",
+                        + "Techniques to improve performance will be "
+                        + "considered at different levels. Technology scaling, "
+                        + "performance (timing)/power/area (PPA), standard "
+                        + "cell libraries, full-/semi-custom ASIC design. "
+                        + "Timing, pipelining, clock domain crossing, place "
+                        + "and route on FPGA. Approaches for designing "
+                        + "testable circuits will be developed, including "
+                        + "verification, fault models, design for testability",
                 "Open Notes");
     }
 
@@ -211,19 +211,19 @@ public final class ResourceView extends ScrollPane {
     private VBox buildResourceBoxControls() {
         return buildResourceBox("Controls, Sensors and Instrumentation",
                 "Access structured notes and relevant content",
-                "This module provides an introduction to feedback "
-                        + "control of linear systems, and how it can be used "
-                        + "to provide stability or to obtain a particular "
-                        + "response characteristic from a system. The techniques "
-                        + "covered have a wide range of applications, including "
-                        + "to mechanical systems such as robots, and to "
-                        + "electronic systems such as audio amplifiers. Feedback "
-                        + "control requires that the system under control be "
-                        + "instrumented so that the controller knows what it is "
-                        + "doing. We will look at a variety of different sensor "
-                        + "types in this module, including optical, magnetic and "
-                        + "micromechanical, and their relative characteristics "
-                        + "and performance.",
+                "This module provides an introduction to feedback control "
+                        + "of linear systems, and how it can be used to "
+                        + "provide stability or to obtain a particular "
+                        + "response characteristic from a system. The "
+                        + "techniques covered have a wide range of "
+                        + "applications, including to mechanical systems such "
+                        + "as robots, and to electronic systems such as audio "
+                        + "amplifiers. Feedback control requires that the "
+                        + "system under control be instrumented so that the "
+                        + "controller knows what it is doing. We will look at "
+                        + "a variety of different sensor types in this module, "
+                        + "including optical, magnetic and micromechanical, "
+                        + "and their relative characteristics and performance.",
                 "Open Notes");
     }
 
@@ -251,15 +251,16 @@ public final class ResourceView extends ScrollPane {
         return buildResourceBox("Circuit Design",
                 "Access structured notes and relevant content",
                 "This module introduces students to analogue and digital "
-                        + "design concepts, along with the appropriate role of "
-                        + "Hardware Description Languages (HDLs) and simulation "
-                        + "in the modern design flow. Particular emphasis will "
-                        + "be placed on using HDLs for the synthesis of digital "
-                        + "circuits on one side and on the development of "
-                        + "appropriate testing through the use of HDL test "
-                        + "benches and simulation. The properties and behaviour "
-                        + "of semiconductor devices, small signal models and "
-                        + "device design will be covered.",
+                        + "design concepts, along with the appropriate role "
+                        + "of Hardware Description Languages (HDLs) and "
+                        + "simulation in the modern design flow. Particular "
+                        + "emphasis will be placed on using HDLs for the "
+                        + "synthesis of digital circuits on one side and on "
+                        + "the development of appropriate testing through the "
+                        + "use of HDL test benches and simulation. The "
+                        + "properties and behaviour of semiconductor devices, "
+                        + "small signal models and device design will be "
+                        + "covered.",
                 "Open Notes");
     }
 
@@ -275,12 +276,13 @@ public final class ResourceView extends ScrollPane {
                 "Access structured notes and relevant content",
                 "The Communication Systems module provides you with a "
                         + "detailed understanding of how wired and wireless "
-                        + "communication systems work, from theoretical concepts "
-                        + "through to the design of practical radio systems and "
-                        + "networks. Topics include: information theory; wireless "
-                        + "link design; signals, baseband and passband radio "
-                        + "modulation and demodulation; transmitter and receiver "
-                        + "architectures, networks and protocols.",
+                        + "communication systems work, from theoretical "
+                        + "concepts through to the design of practical radio "
+                        + "systems and networks. Topics include: information "
+                        + "theory; wireless link design; signals, baseband and "
+                        + "passband radio modulation and demodulation; "
+                        + "transmitter and receiver architectures, networks "
+                        + "and protocols.",
                 "Open Notes");
     }
 
@@ -297,27 +299,29 @@ public final class ResourceView extends ScrollPane {
                         + "including the discrete time Fourier transform "
                         + "(DTFT), discrete Fourier transform (DFT) and "
                         + "discrete time convolution and correlation. The "
-                        + "importance of data windows in DSP will be highlighted "
-                        + "and a range of data windows will be introduced, "
-                        + "including the raised cosine family (Hanning, Hamming, "
-                        + "Blackmann) and orthogonal multi-taper (DPSS) windows. "
-                        + "Frequency analysis of signals will be described "
-                        + "including practical aspects of spectral leakage, "
-                        + "analysis of stochastic signals and time-frequency "
-                        + "analysis using spectrograms. Practical applications of "
-                        + "these techniques will be considered using a range of "
+                        + "importance of data windows in DSP will be "
+                        + "highlighted and a range of data windows will be "
+                        + "introduced, including the raised cosine family "
+                        + "(Hanning, Hamming, Blackmann) and orthogonal "
+                        + "multi-taper (DPSS) windows. Frequency analysis of "
+                        + "signals will be described including practical "
+                        + "aspects of spectral leakage, analysis of stochastic "
+                        + "signals and time-frequency analysis using "
+                        + "spectrograms. Practical applications of these "
+                        + "techniques will be considered using a range of "
                         + "different data modalities including biomedical, "
-                        + "environmental and speech data. The difference equation "
-                        + "as a key design tool in DSP will be introduced and "
-                        + "its use in describing digital filters will be "
-                        + "presented. The window method for Finite Impulse "
-                        + "Response (FIR) filter design will be described, "
-                        + "covering both theoretical and practical aspects. "
-                        + "Machine learning in DSP systems will be introduced "
-                        + "and the theory and application of deep Convolutional "
-                        + "Neural Networks (CNN) presented, with a focus on "
-                        + "image recognition including standard benchmark "
-                        + "applications (MNIST, ImageNet).",
+                        + "environmental and speech data. The difference "
+                        + "equation as a key design tool in DSP will be "
+                        + "introduced and its use in describing digital "
+                        + "filters will be presented. The window method for "
+                        + "Finite Impulse Response (FIR) filter design will "
+                        + "be described, covering both theoretical and "
+                        + "practical aspects. Machine learning in DSP systems "
+                        + "will be introduced and the theory and application "
+                        + "of deep Convolutional Neural Networks (CNN) "
+                        + "presented, with a focus on image recognition "
+                        + "including standard benchmark applications (MNIST, "
+                        + "ImageNet).",
                 "Open Notes");
     }
 
@@ -334,14 +338,14 @@ public final class ResourceView extends ScrollPane {
                         + "circuits, covering technology and design flows "
                         + "targeting application-specific integrated circuits "
                         + "(ASICs) and field-programmable gate arrays (FPGAs). "
-                        + "Techniques to improve performance will be considered "
-                        + "at different levels. Technology scaling, performance "
-                        + "(timing)/power/area (PPA), standard cell libraries, "
-                        + "full-/semi-custom ASIC design. Timing, pipelining, "
-                        + "clock domain crossing, place and route on FPGA. "
-                        + "Approaches for designing testable circuits will be "
-                        + "developed, including verification, fault models, "
-                        + "design for testability",
+                        + "Techniques to improve performance will be "
+                        + "considered at different levels. Technology scaling, "
+                        + "performance (timing)/power/area (PPA), standard "
+                        + "cell libraries, full-/semi-custom ASIC design. "
+                        + "Timing, pipelining, clock domain crossing, place "
+                        + "and route on FPGA. Approaches for designing "
+                        + "testable circuits will be developed, including "
+                        + "verification, fault models, design for testability",
                 "Open Notes");
     }
 
