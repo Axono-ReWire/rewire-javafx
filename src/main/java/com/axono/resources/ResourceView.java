@@ -21,6 +21,9 @@ import javafx.scene.layout.VBox;
  */
 public final class ResourceView extends ScrollPane {
 
+    /**
+     * CSS style prefix for background color styling.
+     */
     private static final String BG_COLOR_STYLE = "-fx-background-color: ";
 
     /**
@@ -91,159 +94,24 @@ public final class ResourceView extends ScrollPane {
     /**
      * Builds the main resource content boxes for all available modules.
      *
-     * These are structured to display:
-     * - Modules title
-     * - Generic description
-     * - Expandable summary
-     * - Button to link to the notes
-     *
      * @return VBox containing all resource boxes.
      */
     private VBox buildResourcesSection() {
         Label sectionTitle = sectionLabel("Content",
                 UIConstants.FONT_SECTION);
 
-        VBox resources = new VBox(UIConstants.SPACING_LG,
-                buildResourceBox("Introduction to Engineering",
-                        "Access structured notes and relevant content",
-                        "This module introduces students to the physical "
-                                + "principles that underpin engineering. Starting "
-                                + "from Newtonian mechanics, it includes the basic "
-                                + "properties of materials, the fundamental laws of "
-                                + "circuit analysis, and an introduction to digital "
-                                + "logic.",
-                        "Open Notes"),
-                buildResourceBox("Mathematics",
-                        "Access structured notes and relevant content",
-                        "Mathematics is the most important tool an engineer "
-                                + "has for articulating engineering problems, and "
-                                + "for formulating solutions to those problems. "
-                                + "Mathematics lies at the heart of modelling, and "
-                                + "offers unparalleled insights into the beauty of "
-                                + "the natural world. This module develops fluency "
-                                + "and confidence in a range of mathematical methods "
-                                + "necessary for the analysis, design, and exploration "
-                                + "of engineering systems.",
-                        "Open Notes"),
-                buildResourceBox("Programming and Digital Interfacing",
-                        "Access structured notes and relevant content",
-                        "This module will introduce you to the power of "
-                                + "programming, and how it can be used as a tool to "
-                                + "help create interactive engineered systems. We will "
-                                + "start from the very beginning, looking at the basics "
-                                + "of programming, before moving on to look at more "
-                                + "advanced concepts and techniques, using a restricted "
-                                + "subset of the C++11 programming language.",
-                        "Open Notes"),
-                buildResourceBox("Digital Electronics",
-                        "Access structured notes and relevant content",
-                        "The module will introduce tools and methodologies for "
-                                + "the design and implementation of advanced digital "
-                                + "circuits, covering technology and design flows "
-                                + "targeting application-specific integrated circuits "
-                                + "(ASICs) and field-programmable gate arrays (FPGAs). "
-                                + "Techniques to improve performance will be considered "
-                                + "at different levels. Technology scaling, performance "
-                                + "(timing)/power/area (PPA), standard cell libraries, "
-                                + "full-/semi-custom ASIC design. Timing, pipelining, "
-                                + "clock domain crossing, place and route on FPGA. "
-                                + "Approaches for designing testable circuits will be "
-                                + "developed, including verification, fault models, "
-                                + "design for testability",
-                        "Open Notes"),
-                buildResourceBox("Controls, Sensors and Instrumentation",
-                        "Access structured notes and relevant content",
-                        "This module provides an introduction to feedback "
-                                + "control of linear systems, and how it can be used "
-                                + "to provide stability or to obtain a particular "
-                                + "response characteristic from a system. The techniques "
-                                + "covered have a wide range of applications, including "
-                                + "to mechanical systems such as robots, and to "
-                                + "electronic systems such as audio amplifiers. Feedback "
-                                + "control requires that the system under control be "
-                                + "instrumented so that the controller knows what it is "
-                                + "doing. We will look at a variety of different sensor "
-                                + "types in this module, including optical, magnetic and "
-                                + "micromechanical, and their relative characteristics "
-                                + "and performance.",
-                        "Open Notes"),
-                buildResourceBox("Mathematics, Signals and Systems",
-                        "Access structured notes and relevant content",
-                        "This module introduces more advanced mathematical "
-                                + "tools that are useful for modelling real-world "
-                                + "engineering systems and for the analysis and "
-                                + "processing of signals.",
-                        "Open Notes"),
-                buildResourceBox("Circuit Design",
-                        "Access structured notes and relevant content",
-                        "This module introduces students to analogue and digital "
-                                + "design concepts, along with the appropriate role of "
-                                + "Hardware Description Languages (HDLs) and simulation "
-                                + "in the modern design flow. Particular emphasis will "
-                                + "be placed on using HDLs for the synthesis of digital "
-                                + "circuits on one side and on the development of "
-                                + "appropriate testing through the use of HDL test "
-                                + "benches and simulation. The properties and behaviour "
-                                + "of semiconductor devices, small signal models and "
-                                + "device design will be covered.",
-                        "Open Notes"),
-                buildResourceBox("Communication systems and Digital "
-                        + "Communications",
-                        "Access structured notes and relevant content",
-                        "The Communication Systems module provides you with a "
-                                + "detailed understanding of how wired and wireless "
-                                + "communication systems work, from theoretical concepts "
-                                + "through to the design of practical radio systems and "
-                                + "networks. Topics include: information theory; wireless "
-                                + "link design; signals, baseband and passband radio "
-                                + "modulation and demodulation; transmitter and receiver "
-                                + "architectures, networks and protocols.",
-                        "Open Notes"),
-                buildResourceBox("Digital Signal Processing",
-                        "Access structured notes and relevant content",
-                        "We will introduce discrete time techniques routinely "
-                                + "used in Digital Signal Processing (DSP) systems, "
-                                + "including the discrete time Fourier transform (DTFT), "
-                                + "discrete Fourier transform (DFT) and discrete time "
-                                + "convolution and correlation. The importance of data "
-                                + "windows in DSP will be highlighted and a range of "
-                                + "data windows will be introduced, including the raised "
-                                + "cosine family (Hanning, Hamming, Blackmann) and "
-                                + "orthogonal multi-taper (DPSS) windows. Frequency "
-                                + "analysis of signals will be described including "
-                                + "practical aspects of spectral leakage, analysis of "
-                                + "stochastic signals and time-frequency analysis using "
-                                + "spectrograms. Practical applications of these "
-                                + "techniques will be considered using a range of "
-                                + "different data modalities including biomedical, "
-                                + "environmental and speech data. The difference equation "
-                                + "as a key design tool in DSP will be introduced and "
-                                + "its use in describing digital filters will be "
-                                + "presented. The window method for Finite Impulse "
-                                + "Response (FIR) filter design will be described, "
-                                + "covering both theoretical and practical aspects. "
-                                + "Machine learning in DSP systems will be introduced "
-                                + "and the theory and application of deep Convolutional "
-                                + "Neural Networks (CNN) presented, with a focus on "
-                                + "image recognition including standard benchmark "
-                                + "applications (MNIST, ImageNet).",
-                        "Open Notes"),
-                buildResourceBox("Digital Engineering",
-                        "Access structured notes and relevant content",
-                        "The module will introduce tools and methodologies for "
-                                + "the design and implementation of advanced digital "
-                                + "circuits, covering technology and design flows "
-                                + "targeting application-specific integrated circuits "
-                                + "(ASICs) and field-programmable gate arrays (FPGAs). "
-                                + "Techniques to improve performance will be considered "
-                                + "at different levels. Technology scaling, performance "
-                                + "(timing)/power/area (PPA), standard cell libraries, "
-                                + "full-/semi-custom ASIC design. Timing, pipelining, "
-                                + "clock domain crossing, place and route on FPGA. "
-                                + "Approaches for designing testable circuits will be "
-                                + "developed, including verification, fault models, "
-                                + "design for testability",
-                        "Open Notes")
+        VBox resources = new VBox(UIConstants.SPACING_LG);
+        resources.getChildren().addAll(
+                buildResourceBoxEngineering(),
+                buildResourceBoxMathematics(),
+                buildResourceBoxProgramming(),
+                buildResourceBoxDigitalElectronics(),
+                buildResourceBoxControls(),
+                buildResourceBoxSignalsSystems(),
+                buildResourceBoxCircuitDesign(),
+                buildResourceBoxCommunication(),
+                buildResourceBoxSignalProcessing(),
+                buildResourceBoxDigitalEngineering()
         );
 
         VBox section = new VBox(UIConstants.SPACING_XL,
@@ -256,7 +124,229 @@ public final class ResourceView extends ScrollPane {
     }
 
     /**
-     * Builds resource boxes with the specified parameters.
+     * Builds the Introduction to Engineering resource box.
+     *
+     * @return VBox containing the Engineering resource box
+     */
+    private VBox buildResourceBoxEngineering() {
+        return buildResourceBox("Introduction to Engineering",
+                "Access structured notes and relevant content",
+                "This module introduces students to the physical "
+                        + "principles that underpin engineering. Starting "
+                        + "from Newtonian mechanics, it includes the basic "
+                        + "properties of materials, the fundamental laws of "
+                        + "circuit analysis, and an introduction to digital "
+                        + "logic.",
+                "Open Notes");
+    }
+
+    /**
+     * Builds the Mathematics resource box.
+     *
+     * @return VBox containing the Mathematics resource box
+     */
+    private VBox buildResourceBoxMathematics() {
+        return buildResourceBox("Mathematics",
+                "Access structured notes and relevant content",
+                "Mathematics is the most important tool an engineer "
+                        + "has for articulating engineering problems, and "
+                        + "for formulating solutions to those problems. "
+                        + "Mathematics lies at the heart of modelling, and "
+                        + "offers unparalleled insights into the beauty of "
+                        + "the natural world. This module develops fluency "
+                        + "and confidence in a range of mathematical methods "
+                        + "necessary for the analysis, design, and exploration "
+                        + "of engineering systems.",
+                "Open Notes");
+    }
+
+    /**
+     * Builds the Programming and Digital Interfacing resource box.
+     *
+     * @return VBox containing the Programming resource box
+     */
+    private VBox buildResourceBoxProgramming() {
+        return buildResourceBox("Programming and Digital Interfacing",
+                "Access structured notes and relevant content",
+                "This module will introduce you to the power of "
+                        + "programming, and how it can be used as a tool to "
+                        + "help create interactive engineered systems. We "
+                        + "will start from the very beginning, looking at the "
+                        + "basics of programming, before moving on to look at "
+                        + "more advanced concepts and techniques, using a "
+                        + "restricted subset of the C++11 programming "
+                        + "language.",
+                "Open Notes");
+    }
+
+    /**
+     * Builds the Digital Electronics resource box.
+     *
+     * @return VBox containing the Digital Electronics resource box
+     */
+    private VBox buildResourceBoxDigitalElectronics() {
+        return buildResourceBox("Digital Electronics",
+                "Access structured notes and relevant content",
+                "The module will introduce tools and methodologies for "
+                        + "the design and implementation of advanced digital "
+                        + "circuits, covering technology and design flows "
+                        + "targeting application-specific integrated circuits "
+                        + "(ASICs) and field-programmable gate arrays (FPGAs). "
+                        + "Techniques to improve performance will be considered "
+                        + "at different levels. Technology scaling, performance "
+                        + "(timing)/power/area (PPA), standard cell libraries, "
+                        + "full-/semi-custom ASIC design. Timing, pipelining, "
+                        + "clock domain crossing, place and route on FPGA. "
+                        + "Approaches for designing testable circuits will be "
+                        + "developed, including verification, fault models, "
+                        + "design for testability",
+                "Open Notes");
+    }
+
+    /**
+     * Builds the Controls, Sensors and Instrumentation resource box.
+     *
+     * @return VBox containing the Controls resource box
+     */
+    private VBox buildResourceBoxControls() {
+        return buildResourceBox("Controls, Sensors and Instrumentation",
+                "Access structured notes and relevant content",
+                "This module provides an introduction to feedback "
+                        + "control of linear systems, and how it can be used "
+                        + "to provide stability or to obtain a particular "
+                        + "response characteristic from a system. The techniques "
+                        + "covered have a wide range of applications, including "
+                        + "to mechanical systems such as robots, and to "
+                        + "electronic systems such as audio amplifiers. Feedback "
+                        + "control requires that the system under control be "
+                        + "instrumented so that the controller knows what it is "
+                        + "doing. We will look at a variety of different sensor "
+                        + "types in this module, including optical, magnetic and "
+                        + "micromechanical, and their relative characteristics "
+                        + "and performance.",
+                "Open Notes");
+    }
+
+    /**
+     * Builds the Mathematics, Signals and Systems resource box.
+     *
+     * @return VBox containing the Signals and Systems resource box
+     */
+    private VBox buildResourceBoxSignalsSystems() {
+        return buildResourceBox("Mathematics, Signals and Systems",
+                "Access structured notes and relevant content",
+                "This module introduces more advanced mathematical "
+                        + "tools that are useful for modelling real-world "
+                        + "engineering systems and for the analysis and "
+                        + "processing of signals.",
+                "Open Notes");
+    }
+
+    /**
+     * Builds the Circuit Design resource box.
+     *
+     * @return VBox containing the Circuit Design resource box
+     */
+    private VBox buildResourceBoxCircuitDesign() {
+        return buildResourceBox("Circuit Design",
+                "Access structured notes and relevant content",
+                "This module introduces students to analogue and digital "
+                        + "design concepts, along with the appropriate role of "
+                        + "Hardware Description Languages (HDLs) and simulation "
+                        + "in the modern design flow. Particular emphasis will "
+                        + "be placed on using HDLs for the synthesis of digital "
+                        + "circuits on one side and on the development of "
+                        + "appropriate testing through the use of HDL test "
+                        + "benches and simulation. The properties and behaviour "
+                        + "of semiconductor devices, small signal models and "
+                        + "device design will be covered.",
+                "Open Notes");
+    }
+
+    /**
+     * Builds the Communication Systems and Digital Communications
+     * resource box.
+     *
+     * @return VBox containing the Communication Systems resource box
+     */
+    private VBox buildResourceBoxCommunication() {
+        return buildResourceBox("Communication systems and "
+                        + "Digital Communications",
+                "Access structured notes and relevant content",
+                "The Communication Systems module provides you with a "
+                        + "detailed understanding of how wired and wireless "
+                        + "communication systems work, from theoretical concepts "
+                        + "through to the design of practical radio systems and "
+                        + "networks. Topics include: information theory; wireless "
+                        + "link design; signals, baseband and passband radio "
+                        + "modulation and demodulation; transmitter and receiver "
+                        + "architectures, networks and protocols.",
+                "Open Notes");
+    }
+
+    /**
+     * Builds the Digital Signal Processing resource box.
+     *
+     * @return VBox containing the Digital Signal Processing resource box
+     */
+    private VBox buildResourceBoxSignalProcessing() {
+        return buildResourceBox("Digital Signal Processing",
+                "Access structured notes and relevant content",
+                "We will introduce discrete time techniques routinely "
+                        + "used in Digital Signal Processing (DSP) systems, "
+                        + "including the discrete time Fourier transform "
+                        + "(DTFT), discrete Fourier transform (DFT) and "
+                        + "discrete time convolution and correlation. The "
+                        + "importance of data windows in DSP will be highlighted "
+                        + "and a range of data windows will be introduced, "
+                        + "including the raised cosine family (Hanning, Hamming, "
+                        + "Blackmann) and orthogonal multi-taper (DPSS) windows. "
+                        + "Frequency analysis of signals will be described "
+                        + "including practical aspects of spectral leakage, "
+                        + "analysis of stochastic signals and time-frequency "
+                        + "analysis using spectrograms. Practical applications of "
+                        + "these techniques will be considered using a range of "
+                        + "different data modalities including biomedical, "
+                        + "environmental and speech data. The difference equation "
+                        + "as a key design tool in DSP will be introduced and "
+                        + "its use in describing digital filters will be "
+                        + "presented. The window method for Finite Impulse "
+                        + "Response (FIR) filter design will be described, "
+                        + "covering both theoretical and practical aspects. "
+                        + "Machine learning in DSP systems will be introduced "
+                        + "and the theory and application of deep Convolutional "
+                        + "Neural Networks (CNN) presented, with a focus on "
+                        + "image recognition including standard benchmark "
+                        + "applications (MNIST, ImageNet).",
+                "Open Notes");
+    }
+
+    /**
+     * Builds the Digital Engineering resource box.
+     *
+     * @return VBox containing the Digital Engineering resource box
+     */
+    private VBox buildResourceBoxDigitalEngineering() {
+        return buildResourceBox("Digital Engineering",
+                "Access structured notes and relevant content",
+                "The module will introduce tools and methodologies for "
+                        + "the design and implementation of advanced digital "
+                        + "circuits, covering technology and design flows "
+                        + "targeting application-specific integrated circuits "
+                        + "(ASICs) and field-programmable gate arrays (FPGAs). "
+                        + "Techniques to improve performance will be considered "
+                        + "at different levels. Technology scaling, performance "
+                        + "(timing)/power/area (PPA), standard cell libraries, "
+                        + "full-/semi-custom ASIC design. Timing, pipelining, "
+                        + "clock domain crossing, place and route on FPGA. "
+                        + "Approaches for designing testable circuits will be "
+                        + "developed, including verification, fault models, "
+                        + "design for testability",
+                "Open Notes");
+    }
+
+    /**
+     * Builds a resource box with the specified parameters.
      *
      * Takes the design and formatting to match application style.
      *
