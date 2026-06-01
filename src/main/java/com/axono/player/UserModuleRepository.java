@@ -23,8 +23,8 @@ public final class UserModuleRepository {
      * Saves the given list of module names for a user, replacing any existing
      * selections. Uses a transaction to ensure atomicity.
      *
-     * @param final userId the user ID.
-     * @param final modules the module names to save.
+     * @param userId  the user ID.
+     * @param modules the module names to save.
      * @throws SQLException if the database operation fails.
      */
     public static void saveUserModules(final int userId,
@@ -45,7 +45,7 @@ public final class UserModuleRepository {
     /**
      * Loads all module names for a user from the database.
      *
-     * @param final userId the user ID.
+     * @param userId the user ID.
      * @return a list of module names, or an empty list if no modules exist.
      * @throws SQLException if the database operation fails.
      */
@@ -68,8 +68,8 @@ public final class UserModuleRepository {
     /**
      * Deletes all module selections for a user.
      *
-     * @param final conn the database connection.
-     * @param final userId the user ID.
+     * @param conn   the database connection.
+     * @param userId the user ID.
      * @throws SQLException if the operation fails.
      */
     private static void deleteUserModules(final Connection conn,
@@ -84,9 +84,9 @@ public final class UserModuleRepository {
     /**
      * Inserts module selections for a user.
      *
-     * @param final conn the database connection.
-     * @param final userId the user ID.
-     * @param final modules the module names.
+     * @param conn    the database connection.
+     * @param userId  the user ID.
+     * @param modules the module names.
      * @throws SQLException if the operation fails.
      */
     private static void insertUserModules(final Connection conn,

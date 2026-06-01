@@ -15,6 +15,9 @@ import java.util.List;
  */
 public final class ResourceAccessRepository {
 
+    /** Index of the module_name parameter in the trackAccess SQL statement. */
+    private static final int PARAM_MODULE_NAME = 3;
+
     /** Utility class — not instantiable. */
     private ResourceAccessRepository() {
     }
@@ -41,7 +44,7 @@ public final class ResourceAccessRepository {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, userId);
             stmt.setString(2, presentationId);
-            stmt.setString(3, moduleName);
+            stmt.setString(PARAM_MODULE_NAME, moduleName);
             stmt.executeUpdate();
         }
     }
@@ -96,16 +99,16 @@ public final class ResourceAccessRepository {
         /**
          * Constructs a RecentResource DTO.
          *
-         * @param moduleName     the module name.
-         * @param presentationId the presentation ID.
-         * @param accessedAt     the access timestamp.
+         * @param module       the module name.
+         * @param presentation the presentation ID.
+         * @param timestamp    the access timestamp.
          */
-        public RecentResource(final String moduleName,
-                final String presentationId,
-                final String accessedAt) {
-            this.moduleName = moduleName;
-            this.presentationId = presentationId;
-            this.accessedAt = accessedAt;
+        public RecentResource(final String module,
+                final String presentation,
+                final String timestamp) {
+            this.moduleName = module;
+            this.presentationId = presentation;
+            this.accessedAt = timestamp;
         }
 
         /**
